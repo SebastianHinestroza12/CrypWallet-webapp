@@ -8,7 +8,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/getting-started',
-    element: <CallToActionWithIllustration/>,
+    element: <CallToActionWithIllustration />,
   },
   {
     path: '*',

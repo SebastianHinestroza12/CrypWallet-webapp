@@ -24,7 +24,11 @@ export function CallToActionWithIllustration() {
           Never miss a meeting. Never be late for one too. Keep track of your meetings and receive
           smart reminders in appropriate times. Read your smart “Daily Agenda” every morning.
         </Text>
-        <Stack spacing={{ base: 4, sm: 6 }} direction={{ base: 'column', sm: 'row' }} w={{base: '100%', sm: '60%'}}>
+        <Stack
+          spacing={{ base: 4, sm: 6 }}
+          direction={{ base: 'column', sm: 'row' }}
+          w={{ base: '100%', sm: '60%' }}
+        >
           <Button
             rounded={'full'}
             size={'lg'}
