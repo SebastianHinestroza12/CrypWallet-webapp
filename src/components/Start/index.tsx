@@ -1,8 +1,23 @@
-/* eslint-disable max-len */
-import { Flex, Container, Heading, Stack, Text, Button, Image } from '@chakra-ui/react';
+import {
+  Flex,
+  Container,
+  Heading,
+  Stack,
+  Text,
+  Button,
+  Image,
+  useColorMode,
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { Logo } from '../Logo';
 
 export function CallToActionWithIllustration() {
+  const modeLogo: string[] = [
+    'https://res.cloudinary.com/dafsjo7al/image/upload/v1717709429/Captura_de_pantalla_2024-06-06_161425-Photoroom_v11dni.png',
+    'https://res.cloudinary.com/dafsjo7al/image/upload/v1717709428/Captura_de_pantalla_2024-06-06_161442-Photoroom_vfafpj.png',
+  ];
+  const { colorMode } = useColorMode();
+  const colorLogoMode = colorMode === 'dark' ? modeLogo[0] : modeLogo[1];
   return (
     <Container maxW={'7xl'}>
       <Stack
@@ -11,17 +26,14 @@ export function CallToActionWithIllustration() {
         spacing={{ base: 8, md: 10 }}
         py={{ base: 5, md: 20 }}
       >
-        <Logo
-          url="https://res.cloudinary.com/dafsjo7al/image/upload/v1717709429/Captura_de_pantalla_2024-06-06_161425-Photoroom_v11dni.png"
-          size="60%"
-        />
+        <Logo url={colorLogoMode} size="60%" />
         <Heading
           fontWeight={600}
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
           lineHeight={'110%'}
         >
           Tu billetera de criptomonedas{' '}
-          <Text as={'span'} color={'#daa520'}>
+          <Text as={'span'} color={'#006400'}>
             fácil y segura
           </Text>
         </Heading>
@@ -35,18 +47,19 @@ export function CallToActionWithIllustration() {
           direction={{ base: 'column', sm: 'row' }}
           w={{ base: '100%', sm: '60%' }}
         >
-          <Button
-            rounded={'full'}
-            size={'lg'}
-            fontWeight={'normal'}
-            colorScheme="orange"
-            px={6}
-            bg={'#daa520'}
-            _hover={{ bg: '#ffd700' }}
-            w={'100%'}
-          >
-            Empezar
-          </Button>
+          <Link to={'/home'}>
+            <Button
+              rounded={'full'}
+              size={'lg'}
+              fontWeight={'normal'}
+              px={6}
+              bg={'#006400'}
+              _hover={{ bg: '#00CC66' }}
+              w={'100%'}
+            >
+              Empezar
+            </Button>
+          </Link>
           <Button rounded={'full'} px={6} size={'lg'} fontWeight={'normal'} w={'100%'}>
             Saber más
           </Button>
@@ -58,7 +71,7 @@ export function CallToActionWithIllustration() {
             alt={'Login Image'}
             objectFit={'cover'}
             src={
-              'https://res.cloudinary.com/dafsjo7al/image/upload/v1718251242/1-removebg-preview_lxqsmo.png'
+              'https://res.cloudinary.com/dafsjo7al/image/upload/v1718253019/1-removebg-preview_vld4df.png'
             }
           />
         </Flex>

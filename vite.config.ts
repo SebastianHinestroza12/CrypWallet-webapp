@@ -1,9 +1,43 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+// import { VitePWA } from 'vite-plugin-pwa';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // VitePWA({
+    //   manifest: {
+    //     name: 'CrypWallet',
+    //     short_name: 'CW',
+    //     description: 'Billetera de criptomonedas',
+    //     theme_color: '#19223c',
+    //     background_color: '#000000',
+    //     display: 'standalone',
+    //     display_override: ['window-controls-overlay'],
+    //     lang: 'en',
+    //     icons: [
+    //       {
+    //         src: '/public/icon-64x64.png',
+    //         sizes: '64x64',
+    //         type: 'image/png',
+    //       },
+    //       {
+    //         src: '/public/icon-192x192.png',
+    //         sizes: '192x192',
+    //         type: 'image/png',
+    //         // purpose: 'any',
+    //       },
+    //       {
+    //         src: '/public/icon-512x512.png',
+    //         sizes: '512x512',
+    //         type: 'image/png',
+    //         // purpose: 'maskable',
+    //       },
+    //     ],
+    //   },
+    //   registerType: 'autoUpdate',
+    // }),
+  ],
   server: {
     host: true,
     port: 3000,
