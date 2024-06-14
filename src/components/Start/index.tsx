@@ -8,7 +8,7 @@ import {
   Image,
   useColorMode,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Logo } from '../Logo';
 
 export function CallToActionWithIllustration() {
@@ -18,6 +18,10 @@ export function CallToActionWithIllustration() {
   ];
   const { colorMode } = useColorMode();
   const colorLogoMode = colorMode === 'dark' ? modeLogo[0] : modeLogo[1];
+  const navigation = useNavigate();
+  const handleNavigation = () => {
+    navigation('/home', { state: { param1: 'value1', param2: 'value2' } });
+  };
   return (
     <Container maxW={'7xl'}>
       <Stack
@@ -33,7 +37,7 @@ export function CallToActionWithIllustration() {
           lineHeight={'110%'}
         >
           Tu billetera de criptomonedas{' '}
-          <Text as={'span'} color={'#006400'}>
+          <Text as={'span'} color={'#daa520'}>
             fácil y segura
           </Text>
         </Heading>
@@ -47,19 +51,19 @@ export function CallToActionWithIllustration() {
           direction={{ base: 'column', sm: 'row' }}
           w={{ base: '100%', sm: '60%' }}
         >
-          <Link to={'/home'}>
-            <Button
-              rounded={'full'}
-              size={'lg'}
-              fontWeight={'normal'}
-              px={6}
-              bg={'#006400'}
-              _hover={{ bg: '#00CC66' }}
-              w={'100%'}
-            >
-              Empezar
-            </Button>
-          </Link>
+          <Button
+            rounded={'full'}
+            size={'lg'}
+            fontWeight={'normal'}
+            px={6}
+            colorScheme="orange"
+            bg={'#daa520'}
+            _hover={{ bg: '#ffd700' }}
+            w={'100%'}
+            onClick={handleNavigation}
+          >
+            Empezar
+          </Button>
           <Button rounded={'full'} px={6} size={'lg'} fontWeight={'normal'} w={'100%'}>
             Saber más
           </Button>
@@ -71,7 +75,7 @@ export function CallToActionWithIllustration() {
             alt={'Login Image'}
             objectFit={'cover'}
             src={
-              'https://res.cloudinary.com/dafsjo7al/image/upload/v1718253019/1-removebg-preview_vld4df.png'
+              'https://res.cloudinary.com/dafsjo7al/image/upload/v1718405919/1-removebg-preview_y815uf.png'
             }
           />
         </Flex>
