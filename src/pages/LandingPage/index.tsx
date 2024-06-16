@@ -22,7 +22,7 @@ export function CallToActionWithIllustration() {
           lineHeight={'110%'}
         >
           Tu billetera de criptomonedas{' '}
-          <Text as={'span'} color={'#daa520'}>
+          <Text as={'span'} color={'#1E59EA'}>
             fácil y segura
           </Text>
         </Heading>
@@ -41,9 +41,9 @@ export function CallToActionWithIllustration() {
             size={'lg'}
             fontWeight={'normal'}
             px={6}
-            colorScheme="orange"
-            bg={'#daa520'}
-            _hover={{ bg: '#ffd700' }}
+            color={'#FFF'}
+            bg={'#1E59EA'}
+            _hover={{ bg: '#007bff' }}
             w={'100%'}
             onClick={handleNavigation}
           >
@@ -60,7 +60,7 @@ export function CallToActionWithIllustration() {
             alt={'Login Image'}
             objectFit={'cover'}
             src={
-              'https://res.cloudinary.com/dafsjo7al/image/upload/v1718405919/1-removebg-preview_y815uf.png'
+              'https://res.cloudinary.com/dafsjo7al/image/upload/v1718577990/1-removebg-preview_zthfzk.png'
             }
           />
         </Flex>
