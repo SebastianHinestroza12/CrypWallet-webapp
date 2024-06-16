@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { useState } from 'react';
 import { Box, CloseButton, Flex, useColorModeValue, Switch, useColorMode } from '@chakra-ui/react';
 import { FiHome, FiSettings } from 'react-icons/fi';
@@ -12,7 +11,7 @@ import { NavItem } from '../NavItem';
 import { LinkItemProps, SidebarProps } from '../../interfaces';
 
 const LinkItems: Array<LinkItemProps> = [
-  { id: 1, name: 'Home', icon: FiHome },
+  { id: 1, name: 'Home', route: '/home', icon: FiHome },
   { id: 2, name: 'Wallets', icon: IoWalletOutline },
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
   { id: 4, name: 'Scan QR code', icon: BsQrCodeScan },
@@ -42,18 +41,14 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Box justifyContent={'flex-start'} display={'flex'} alignItems={'flex-start'}>
-          <Logo
-            size="40%"
-            styles="d-flex items-start justify-center"
-            url="https://res.cloudinary.com/dafsjo7al/image/upload/v1717709429/Captura_de_pantalla_2024-06-06_161425-Photoroom_v11dni.png"
-          />
+          <Logo size="40%" styles="d-flex items-start justify-center" />
         </Box>
         <Box>
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
         </Box>
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.id} icon={link.icon} showDivider={link.showDivider}>
+        <NavItem key={link.id} icon={link.icon} route={link.route} showDivider={link.showDivider}>
           <Box flex={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
             {link.name}
             {link.id === 3 && (

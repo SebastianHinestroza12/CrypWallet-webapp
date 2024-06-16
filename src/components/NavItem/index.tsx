@@ -1,7 +1,16 @@
 import { Box, Flex, Icon, Divider } from '@chakra-ui/react';
 import { NavItemProps } from '../../interfaces';
+import { useNavigate } from 'react-router-dom';
 
-export const NavItem = ({ icon, showDivider, children, ...rest }: NavItemProps) => {
+export const NavItem = ({ icon, showDivider, route, children, ...rest }: NavItemProps) => {
+  const navigation = useNavigate();
+
+  const handleNavigation = () => {
+    if (route) {
+      navigation(route);
+    }
+  };
+
   return (
     <Box as="a" href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
@@ -16,6 +25,7 @@ export const NavItem = ({ icon, showDivider, children, ...rest }: NavItemProps) 
           color: 'white',
         }}
         {...rest}
+        onClick={handleNavigation}
       >
         {icon && (
           <Icon

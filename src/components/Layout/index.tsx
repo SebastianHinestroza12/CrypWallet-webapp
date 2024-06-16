@@ -1,8 +1,10 @@
+import { FC } from 'react';
 import { Box, Drawer, DrawerContent, useDisclosure } from '@chakra-ui/react';
 import { MobileNav } from '../MobileNav';
 import { SidebarContent } from '../SideBarContent';
+import { SidebarWithHeaderProps } from '../../interfaces';
 
-export const SidebarWithHeader = () => {
+export const Layout: FC<SidebarWithHeaderProps> = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -23,7 +25,7 @@ export const SidebarWithHeader = () => {
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-        {/* Content */}
+        {children}
       </Box>
     </Box>
   );
