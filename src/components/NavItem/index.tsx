@@ -1,18 +1,18 @@
-import { Box, Flex, Icon } from '@chakra-ui/react';
+import { Box, Flex, Icon, Divider } from '@chakra-ui/react';
 import { NavItemProps } from '../../interfaces';
 
-export const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+export const NavItem = ({ icon, showDivider, children, ...rest }: NavItemProps) => {
   return (
     <Box as="a" href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
+        as="div"
         align="center"
         p="4"
         mx="4"
         borderRadius="lg"
-        role="group"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
+          bg: 'gray.900',
           color: 'white',
         }}
         {...rest}
@@ -29,6 +29,7 @@ export const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         )}
         {children}
       </Flex>
+      {showDivider && <Divider />}
     </Box>
   );
 };

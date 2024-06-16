@@ -1,23 +1,8 @@
-import {
-  Flex,
-  Container,
-  Heading,
-  Stack,
-  Text,
-  Button,
-  Image,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Flex, Container, Heading, Stack, Text, Button, Image } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Logo } from '../../components/Logo';
 
 export function CallToActionWithIllustration() {
-  const modeLogo: string[] = [
-    'https://res.cloudinary.com/dafsjo7al/image/upload/v1717709429/Captura_de_pantalla_2024-06-06_161425-Photoroom_v11dni.png',
-    'https://res.cloudinary.com/dafsjo7al/image/upload/v1717709428/Captura_de_pantalla_2024-06-06_161442-Photoroom_vfafpj.png',
-  ];
-  const { colorMode } = useColorMode();
-  const colorLogoMode = colorMode === 'dark' ? modeLogo[0] : modeLogo[1];
   const navigation = useNavigate();
   const handleNavigation = () => {
     navigation('/home', { state: { param1: 'value1', param2: 'value2' } });
@@ -30,7 +15,7 @@ export function CallToActionWithIllustration() {
         spacing={{ base: 8, md: 10 }}
         py={{ base: 5, md: 20 }}
       >
-        <Logo url={colorLogoMode} size="60%" />
+        <Logo size="60%" styles="d-flex items-center justify-center" />
         <Heading
           fontWeight={600}
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}

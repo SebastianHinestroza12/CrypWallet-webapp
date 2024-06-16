@@ -1,17 +1,34 @@
-import { Box, CloseButton, Flex, useColorModeValue, Text } from '@chakra-ui/react';
-import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings } from 'react-icons/fi';
+/* eslint-disable max-len */
+import { useState } from 'react';
+import { Box, CloseButton, Flex, useColorModeValue, Switch, useColorMode } from '@chakra-ui/react';
+import { FiHome, FiSettings } from 'react-icons/fi';
+import { IoWalletOutline } from 'react-icons/io5';
+import { MdOutlineDarkMode } from 'react-icons/md';
+import { FaShieldAlt } from 'react-icons/fa';
+import { BsQrCodeScan } from 'react-icons/bs';
+import { IoIosNotificationsOutline } from 'react-icons/io';
+import { Logo } from '../Logo';
 import { NavItem } from '../NavItem';
 import { LinkItemProps, SidebarProps } from '../../interfaces';
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Home', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
+  { id: 1, name: 'Home', icon: FiHome },
+  { id: 2, name: 'Wallets', icon: IoWalletOutline },
+  { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
+  { id: 4, name: 'Scan QR code', icon: BsQrCodeScan },
+  { id: 5, name: 'Preferences', icon: FiSettings },
+  { id: 6, name: 'Notifications', icon: IoIosNotificationsOutline, showDivider: true },
+  { id: 7, name: 'About', icon: FaShieldAlt },
 ];
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const { toggleColorMode, colorMode } = useColorMode();
+  const [isChecked, setIsChecked] = useState(colorMode === 'dark');
+  const handletoggleColorMode = () => {
+    setIsChecked((prev) => !prev);
+    toggleColorMode();
+  };
+
   return (
     <Box
       transition="3s ease"
@@ -24,14 +41,39 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        <Box justifyContent={'flex-start'} display={'flex'} alignItems={'flex-start'}>
+          <Logo
+            size="40%"
+            styles="d-flex items-start justify-center"
+            url="https://res.cloudinary.com/dafsjo7al/image/upload/v1717709429/Captura_de_pantalla_2024-06-06_161425-Photoroom_v11dni.png"
+          />
+        </Box>
+        <Box>
+          <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        </Box>
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
+        <NavItem key={link.id} icon={link.icon} showDivider={link.showDivider}>
+          <Box flex={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+            {link.name}
+            {link.id === 3 && (
+              <Box>
+                <Switch
+                  sx={{
+                    '.chakra-switch__track': {
+                      backgroundColor: isChecked ? '#006400' : '#A0AEC0',
+                    },
+                    '.chakra-switch__thumb': {
+                      backgroundColor: '#FFF',
+                    },
+                  }}
+                  isChecked={isChecked}
+                  size="lg"
+                  onChange={handletoggleColorMode}
+                />
+              </Box>
+            )}
+          </Box>
         </NavItem>
       ))}
     </Box>
