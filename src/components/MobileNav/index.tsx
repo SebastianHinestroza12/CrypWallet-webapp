@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import { useEffect, useState } from 'react';
 import {
   IconButton,
   Avatar,
@@ -13,19 +14,26 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { MobileProps } from '../../interfaces';
+import { TabBottomMobile } from '../TabBottom';
 
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const navigation = useNavigate();
+  const [isBreakpointReady, setIsBreakpointReady] = useState(false);
+  const showTabBottomMobile = useBreakpointValue({ base: true, md: false });
   const handleNavigation = () => {
     navigation('/auth/user/profile');
   };
+  useEffect(() => {
+    setIsBreakpointReady(true);
+  }, [showTabBottomMobile]);
+
   return (
     <Flex
-      // className="sticky top-0 z-50"
       position="sticky"
       top="0"
       zIndex="50"
@@ -96,6 +104,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </Menu>
         </Flex>
       </HStack>
+      {isBreakpointReady && showTabBottomMobile && <TabBottomMobile />}
     </Flex>
   );
 };

@@ -9,6 +9,7 @@ import { IoIosNotificationsOutline } from 'react-icons/io';
 import { Logo } from '../Logo';
 import { NavItem } from '../NavItem';
 import { LinkItemProps, SidebarProps } from '../../interfaces';
+import { FooterSection } from '../FooterSection';
 
 const LinkItems: Array<LinkItemProps> = [
   { id: 1, name: 'Home', route: '/home', icon: FiHome },
@@ -39,9 +40,9 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h="20" alignItems="center" mx="6" mt="2" justifyContent="space-between">
         <Box justifyContent={'flex-start'} display={'flex'} alignItems={'flex-start'}>
-          <Logo size="40%" styles="d-flex items-start justify-center" />
+          <Logo size="35%" styles="d-flex items-start justify-center" />
         </Box>
         <Box>
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
@@ -71,6 +72,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </Box>
         </NavItem>
       ))}
+      <FooterSection />
     </Box>
   );
 };
