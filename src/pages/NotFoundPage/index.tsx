@@ -1,7 +1,9 @@
 import { Heading, Text, Button, Container } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { useStoreTab } from '../../stores/currentMobileTab';
 
 export const NotFoundPage = () => {
+  const { setSelectedTab } = useStoreTab();
   return (
     <Container
       textAlign="center"
@@ -29,7 +31,7 @@ export const NotFoundPage = () => {
         The page you're looking for does not seem to exist
       </Text>
 
-      <Link to="/home">
+      <Link to="/home" onClick={() => setSelectedTab('/home')}>
         <Button
           colorScheme="blue"
           bgGradient="linear(to-r, #1e59ea, #66ccff)"

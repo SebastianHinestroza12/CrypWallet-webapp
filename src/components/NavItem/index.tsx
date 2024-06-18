@@ -12,7 +12,13 @@ export const NavItem = ({ icon, showDivider, route, children, ...rest }: NavItem
   };
 
   return (
-    <Box as="a" href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Box
+      as="a"
+      href="#"
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}
+      overflow={'auto'}
+    >
       <Flex
         as="div"
         align="center"

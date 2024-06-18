@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Box, CloseButton, Flex, useColorModeValue, Switch, useColorMode } from '@chakra-ui/react';
-import { FiHome, FiSettings } from 'react-icons/fi';
+import { FiHome, FiSettings, FiLogIn, FiUserPlus, FiUnlock } from 'react-icons/fi';
 import { IoWalletOutline } from 'react-icons/io5';
 import { MdOutlineDarkMode } from 'react-icons/md';
 import { FaShieldAlt } from 'react-icons/fa';
@@ -10,7 +10,8 @@ import { GiPadlock } from 'react-icons/gi';
 import { Logo } from '../Logo';
 import { NavItem } from '../NavItem';
 import { LinkItemProps, SidebarProps } from '../../interfaces';
-import { FooterSection } from '../FooterSection';
+// import { FooterSection } from '../FooterSection';
+import './scrollbar.css';
 
 const LinkItems: Array<LinkItemProps> = [
   { id: 1, name: 'Home', route: '/home', icon: FiHome },
@@ -18,9 +19,12 @@ const LinkItems: Array<LinkItemProps> = [
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
   { id: 4, name: 'Scan QR code', icon: BsQrCodeScan },
   { id: 5, name: 'Preferences', icon: FiSettings },
-  { id: 8, name: 'Security', icon: GiPadlock },
-  { id: 6, name: 'Notifications', icon: IoIosNotificationsOutline, showDivider: true },
-  { id: 7, name: 'About', icon: FaShieldAlt },
+  { id: 6, name: 'Security', icon: GiPadlock },
+  { id: 7, name: 'Notifications', icon: IoIosNotificationsOutline, showDivider: true },
+  { id: 8, name: 'Login', route: '/auth/user-signin', icon: FiLogIn },
+  { id: 9, name: 'Register', route: '/auth/user-signup', icon: FiUserPlus },
+  { id: 11, name: 'Recover account', route: '/recover', icon: FiUnlock, showDivider: true },
+  { id: 10, name: 'About', icon: FaShieldAlt },
 ];
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -40,6 +44,8 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
+      className="scrollbar-custom"
+      overflow={'auto'}
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="6" mt="2" justifyContent="space-between">
@@ -74,7 +80,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </Box>
         </NavItem>
       ))}
-      <FooterSection />
+      {/* <FooterSection /> */}
     </Box>
   );
 };
