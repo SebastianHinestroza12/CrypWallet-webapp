@@ -26,7 +26,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [isBreakpointReady, setIsBreakpointReady] = useState(false);
   const showTabBottomMobile = useBreakpointValue({ base: true, md: false });
   const handleNavigation = () => {
-    navigation('/auth/user/profile');
+    navigation('/auth/user-profile');
   };
   useEffect(() => {
     setIsBreakpointReady(true);

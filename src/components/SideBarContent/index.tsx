@@ -6,6 +6,7 @@ import { MdOutlineDarkMode } from 'react-icons/md';
 import { FaShieldAlt } from 'react-icons/fa';
 import { BsQrCodeScan } from 'react-icons/bs';
 import { IoIosNotificationsOutline } from 'react-icons/io';
+import { GiPadlock } from 'react-icons/gi';
 import { Logo } from '../Logo';
 import { NavItem } from '../NavItem';
 import { LinkItemProps, SidebarProps } from '../../interfaces';
@@ -17,6 +18,7 @@ const LinkItems: Array<LinkItemProps> = [
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
   { id: 4, name: 'Scan QR code', icon: BsQrCodeScan },
   { id: 5, name: 'Preferences', icon: FiSettings },
+  { id: 8, name: 'Security', icon: GiPadlock },
   { id: 6, name: 'Notifications', icon: IoIosNotificationsOutline, showDivider: true },
   { id: 7, name: 'About', icon: FaShieldAlt },
 ];
