@@ -76,6 +76,7 @@ export const UserRegistrationForm = () => {
               <FormControl isInvalid={!!errors.userName} id="email" isRequired>
                 <FormLabel>Nombre</FormLabel>
                 <Input
+                  autoFocus
                   type="text"
                   id="userName"
                   {...register('userName', {
@@ -120,6 +121,7 @@ export const UserRegistrationForm = () => {
                 <FormLabel>Contraseña</FormLabel>
                 <InputGroup>
                   <Input
+                    placeholder="Contraseña de 6 dígitos"
                     type={showPassword ? 'text' : 'password'}
                     {...register('password', {
                       required: 'Contraseña es requerida',
@@ -166,7 +168,7 @@ export const UserRegistrationForm = () => {
               <Stack pt={6}>
                 <Text align={'center'}>
                   ¿Ya eres usuario?{' '}
-                  <Link to={'/auth/login'} color={'blue.400'}>
+                  <Link to={'/auth/user-signin'} color={'blue.400'}>
                     <Text as="b"> Inicia sesión</Text>
                   </Link>
                 </Text>

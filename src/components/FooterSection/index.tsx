@@ -5,13 +5,14 @@ import { BsGithub, BsLinkedin } from 'react-icons/bs';
 
 export const FooterSection = () => {
   return (
-    <Box mt="4" p="4" borderTop="1px" borderColor={useColorModeValue('gray.200', 'gray.700')}>
-      <Flex justifyContent="center" alignItems="center" p={2}>
+    <Box p="4" borderTop="1px" borderColor={useColorModeValue('gray.200', 'gray.700')}>
+      <Flex justifyContent="center" alignItems="center" p={1}>
         <Text fontSize="sm" textAlign="center">
-          Hecho con <FiHeart color="red" style={{ display: 'inline' }} /> por Sebastián Mena
+          Hecho con <FiHeart color="red" style={{ display: 'inline' }} size={20} /> por Sebastián
+          Mena
         </Text>
       </Flex>
-      <HStack justifyContent="center" mt={{ lg: 10, md: 10 }} spacing={5} px={5}>
+      <HStack justifyContent="center" mt={2} spacing={5} px={2}>
         <FooterLink
           href="https://www.linkedin.com/in/sebastian-mena12/"
           icon={
