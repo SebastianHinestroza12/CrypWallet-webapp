@@ -17,7 +17,7 @@ export const NotFoundPage = () => {
         display="inline-block"
         as="h2"
         size="4xl"
-        bgGradient="linear(to-r, teal.400, teal.600)"
+        bgGradient="linear(to-r, #1e59ea, #66ccff)"
         backgroundClip="text"
       >
         404
@@ -31,8 +31,8 @@ export const NotFoundPage = () => {
 
       <Link to="/home">
         <Button
-          colorScheme="teal"
-          bgGradient="linear(to-r, teal.400, teal.500, teal.600)"
+          colorScheme="blue"
+          bgGradient="linear(to-r, #1e59ea, #66ccff)"
           color="white"
           variant="solid"
         >

@@ -4,6 +4,8 @@ import { NotFoundPage } from '../pages/NotFoundPage';
 import { Home } from '../pages/Home';
 import { ErrorPage } from '../pages/ErrorPage';
 import { UserProfileEdit } from '../pages/Profile';
+import { UserRegistrationForm } from '../pages/Auth/SignUp';
+import { UserLogIn } from '../pages/Auth/SignIn';
 
 export const router = createBrowserRouter([
   {
@@ -17,17 +19,18 @@ export const router = createBrowserRouter([
   },
   {
     path: 'auth',
+    errorElement: <ErrorPage />,
     children: [
       {
-        path: 'login',
-        element: <CallToActionWithIllustration />,
+        path: 'user-signin',
+        element: <UserLogIn />,
       },
       {
-        path: 'register',
-        element: <CallToActionWithIllustration />,
+        path: 'user-signup',
+        element: <UserRegistrationForm />,
       },
       {
-        path: 'user/profile',
+        path: 'user-profile',
         element: <UserProfileEdit />,
       },
     ],

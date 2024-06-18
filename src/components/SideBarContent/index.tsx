@@ -6,9 +6,11 @@ import { MdOutlineDarkMode } from 'react-icons/md';
 import { FaShieldAlt } from 'react-icons/fa';
 import { BsQrCodeScan } from 'react-icons/bs';
 import { IoIosNotificationsOutline } from 'react-icons/io';
+import { GiPadlock } from 'react-icons/gi';
 import { Logo } from '../Logo';
 import { NavItem } from '../NavItem';
 import { LinkItemProps, SidebarProps } from '../../interfaces';
+import { FooterSection } from '../FooterSection';
 
 const LinkItems: Array<LinkItemProps> = [
   { id: 1, name: 'Home', route: '/home', icon: FiHome },
@@ -16,6 +18,7 @@ const LinkItems: Array<LinkItemProps> = [
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
   { id: 4, name: 'Scan QR code', icon: BsQrCodeScan },
   { id: 5, name: 'Preferences', icon: FiSettings },
+  { id: 8, name: 'Security', icon: GiPadlock },
   { id: 6, name: 'Notifications', icon: IoIosNotificationsOutline, showDivider: true },
   { id: 7, name: 'About', icon: FaShieldAlt },
 ];
@@ -39,9 +42,9 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h="20" alignItems="center" mx="6" mt="2" justifyContent="space-between">
         <Box justifyContent={'flex-start'} display={'flex'} alignItems={'flex-start'}>
-          <Logo size="40%" styles="d-flex items-start justify-center" />
+          <Logo size="35%" styles="d-flex items-start justify-center" />
         </Box>
         <Box>
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
@@ -71,6 +74,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </Box>
         </NavItem>
       ))}
+      <FooterSection />
     </Box>
   );
 };

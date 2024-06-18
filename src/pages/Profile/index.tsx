@@ -18,16 +18,15 @@ import { Layout } from '../../components/Layout';
 export const UserProfileEdit = () => {
   return (
     <Layout>
-      <Flex minH={'100vh'} align={'center'} justify={'center'}>
+      <Flex minH={'100vh'} align={'center'} justify={'center'} mb={10}>
         <Stack
           spacing={4}
           w={'full'}
           maxW={'sm'}
           bg={useColorModeValue('white', 'gray.800')}
           rounded={'xl'}
-          boxShadow={'lg'}
+          boxShadow={'2xl'}
           p={6}
-          my={12}
           mx={2}
         >
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>

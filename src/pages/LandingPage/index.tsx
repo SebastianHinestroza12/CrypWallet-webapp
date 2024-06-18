@@ -13,9 +13,9 @@ export function CallToActionWithIllustration() {
         textAlign={'center'}
         align={'center'}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 5, md: 20 }}
+        py={{ base: 3, md: 20 }}
       >
-        <Logo size="60%" styles="d-flex items-center justify-center" />
+        <Logo size="67%" styles="d-flex items-center justify-center" withLetters />
         <Heading
           fontWeight={600}
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
