@@ -4,9 +4,10 @@ import { Logo } from '../../components/Logo';
 
 export function CallToActionWithIllustration() {
   const navigation = useNavigate();
-  const handleNavigation = () => {
-    navigation('/home', { state: { param1: 'value1', param2: 'value2' } });
+  const handleNavigation = (route: string) => {
+    navigation(route);
   };
+
   return (
     <Container maxW={'7xl'}>
       <Stack
@@ -45,11 +46,18 @@ export function CallToActionWithIllustration() {
             bg={'#1E59EA'}
             _hover={{ bg: '#007bff' }}
             w={'100%'}
-            onClick={handleNavigation}
+            onClick={() => handleNavigation('/home')}
           >
             Empezar
           </Button>
-          <Button rounded={'full'} px={6} size={'lg'} fontWeight={'normal'} w={'100%'}>
+          <Button
+            onClick={() => handleNavigation('/about-us')}
+            rounded={'full'}
+            px={6}
+            size={'lg'}
+            fontWeight={'normal'}
+            w={'100%'}
+          >
             Saber más
           </Button>
         </Stack>

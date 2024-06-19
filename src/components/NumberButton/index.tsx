@@ -1,12 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Button } from '@chakra-ui/react';
-
-interface NumberButtonProps {
-  number: number;
-  onClick: (num: number) => void;
-  disabled: boolean;
-}
+import { NumberButtonProps } from '../../interfaces';
 
 export const NumberButton: React.FC<NumberButtonProps> = ({ number, onClick, disabled }) => {
   return (
