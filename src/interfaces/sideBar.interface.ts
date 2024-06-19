@@ -7,12 +7,14 @@ export interface LinkItemProps {
   name: string;
   icon: IconType;
   showDivider?: boolean;
+  route?: string;
 }
 
 export interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactNode;
   showDivider?: boolean;
+  route?: string;
 }
 
 export interface MobileProps extends FlexProps {
@@ -21,4 +23,8 @@ export interface MobileProps extends FlexProps {
 
 export interface SidebarProps extends BoxProps {
   onClose: () => void;
+}
+
+export interface SidebarWithHeaderProps {
+  children?: ReactNode;
 }

@@ -4,25 +4,26 @@ import { Logo } from '../../components/Logo';
 
 export function CallToActionWithIllustration() {
   const navigation = useNavigate();
-  const handleNavigation = () => {
-    navigation('/home', { state: { param1: 'value1', param2: 'value2' } });
+  const handleNavigation = (route: string) => {
+    navigation(route);
   };
+
   return (
     <Container maxW={'7xl'}>
       <Stack
         textAlign={'center'}
         align={'center'}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 5, md: 20 }}
+        py={{ base: 3, md: 20 }}
       >
-        <Logo size="60%" styles="d-flex items-center justify-center" />
+        <Logo size="67%" styles="d-flex items-center justify-center" withLetters />
         <Heading
           fontWeight={600}
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
           lineHeight={'110%'}
         >
           Tu billetera de criptomonedas{' '}
-          <Text as={'span'} color={'#daa520'}>
+          <Text as={'span'} color={'#1E59EA'}>
             fácil y segura
           </Text>
         </Heading>
@@ -41,15 +42,22 @@ export function CallToActionWithIllustration() {
             size={'lg'}
             fontWeight={'normal'}
             px={6}
-            colorScheme="orange"
-            bg={'#daa520'}
-            _hover={{ bg: '#ffd700' }}
+            color={'#FFF'}
+            bg={'#1E59EA'}
+            _hover={{ bg: '#007bff' }}
             w={'100%'}
-            onClick={handleNavigation}
+            onClick={() => handleNavigation('/home')}
           >
             Empezar
           </Button>
-          <Button rounded={'full'} px={6} size={'lg'} fontWeight={'normal'} w={'100%'}>
+          <Button
+            onClick={() => handleNavigation('/about-us')}
+            rounded={'full'}
+            px={6}
+            size={'lg'}
+            fontWeight={'normal'}
+            w={'100%'}
+          >
             Saber más
           </Button>
         </Stack>
@@ -60,7 +68,7 @@ export function CallToActionWithIllustration() {
             alt={'Login Image'}
             objectFit={'cover'}
             src={
-              'https://res.cloudinary.com/dafsjo7al/image/upload/v1718405919/1-removebg-preview_y815uf.png'
+              'https://res.cloudinary.com/dafsjo7al/image/upload/v1718577990/1-removebg-preview_zthfzk.png'
             }
           />
         </Flex>

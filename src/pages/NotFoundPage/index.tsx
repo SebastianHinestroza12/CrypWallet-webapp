@@ -1,13 +1,15 @@
 import { Heading, Text, Button, Container } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { useStoreTab } from '../../stores/currentMobileTab';
 
 export const NotFoundPage = () => {
+  const { setSelectedTab } = useStoreTab();
   return (
     <Container
       textAlign="center"
+      minHeight="100vh"
       py={10}
       px={6}
-      h={'100vh'}
       display={'flex'}
       flexDirection={'column'}
       justifyContent={'center'}
@@ -17,7 +19,7 @@ export const NotFoundPage = () => {
         display="inline-block"
         as="h2"
         size="4xl"
-        bgGradient="linear(to-r, teal.400, teal.600)"
+        bgGradient="linear(to-r, #1e59ea, #66ccff)"
         backgroundClip="text"
       >
         404
@@ -29,10 +31,13 @@ export const NotFoundPage = () => {
         The page you're looking for does not seem to exist
       </Text>
 
-      <Link to="/home">
+      <Link to="/home" onClick={() => setSelectedTab('/home')}>
         <Button
-          colorScheme="teal"
-          bgGradient="linear(to-r, teal.400, teal.500, teal.600)"
+          p={6}
+          fontSize={18}
+          rounded={'full'}
+          colorScheme="blue"
+          bgGradient="linear(to-r, #1e59ea, #66ccff)"
           color="white"
           variant="solid"
         >

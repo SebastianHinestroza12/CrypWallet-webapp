@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import { useEffect, useState } from 'react';
 import {
   IconButton,
   Avatar,
@@ -13,18 +14,34 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import { MobileProps } from '../../interfaces';
+import { TabBottomMobile } from '../TabBottom';
 
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const navigation = useNavigate();
+  const [isBreakpointReady, setIsBreakpointReady] = useState(false);
+  const showTabBottomMobile = useBreakpointValue({ base: true, md: false });
+  const handleNavigation = () => {
+    navigation('/auth/user-profile');
+  };
+  useEffect(() => {
+    setIsBreakpointReady(true);
+  }, [showTabBottomMobile]);
+
   return (
     <Flex
+      position="sticky"
+      top="0"
+      zIndex="50"
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      // bg={useColorModeValue('white', 'gray.900')}
+      bg={useColorModeValue('white', '#101010')}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
@@ -34,6 +51,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
         variant="shot"
+        size={'lg'}
         aria-label="open menu"
         icon={<FiMenu />}
       />
@@ -79,13 +97,14 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
-              <MenuItem>Profile</MenuItem>
+              <MenuItem onClick={handleNavigation}>Profile</MenuItem>
               <MenuDivider />
               <MenuItem>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
       </HStack>
+      {isBreakpointReady && showTabBottomMobile && <TabBottomMobile />}
     </Flex>
   );
 };
