@@ -1,16 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Grid, GridItem } from '@chakra-ui/react';
 import { FaFingerprint, FaTimes } from 'react-icons/fa';
 import { IconButton } from '../../components/IconButton';
 import { NumberButton } from '../../components/NumberButton';
-
-interface NumericKeypadProps {
-  onNumberClick: (num: number) => void;
-  onDeleteClick: () => void;
-  onFingerprintClick: () => void;
-  isDisabled: boolean;
-}
+import { NumericKeypadProps } from '../../interfaces';
 
 export const NumericKeypad: React.FC<NumericKeypadProps> = ({
   onNumberClick,

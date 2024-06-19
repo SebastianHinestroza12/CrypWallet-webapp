@@ -7,9 +7,9 @@ export const NotFoundPage = () => {
   return (
     <Container
       textAlign="center"
+      minHeight="100vh"
       py={10}
       px={6}
-      h={'100vh'}
       display={'flex'}
       flexDirection={'column'}
       justifyContent={'center'}
@@ -33,6 +33,9 @@ export const NotFoundPage = () => {
 
       <Link to="/home" onClick={() => setSelectedTab('/home')}>
         <Button
+          p={6}
+          fontSize={18}
+          rounded={'full'}
           colorScheme="blue"
           bgGradient="linear(to-r, #1e59ea, #66ccff)"
           color="white"

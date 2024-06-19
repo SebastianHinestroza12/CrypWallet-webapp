@@ -6,6 +6,9 @@ import { ErrorPage } from '../pages/ErrorPage';
 import { UserProfileEdit } from '../pages/Profile';
 import { UserRegistrationForm } from '../pages/Auth/SignUp';
 import { UserLogIn } from '../pages/Auth/SignIn';
+import { VerifyAccountForm } from '../pages/Auth/VerifyEmail';
+import { CheckKeywordForm } from '../pages/Auth/CheckKeywords';
+import { AboutUs } from '../pages/AboutUs';
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +36,24 @@ export const router = createBrowserRouter([
         path: 'user-profile',
         element: <UserProfileEdit />,
       },
+      {
+        path: 'verify-account',
+        element: <VerifyAccountForm />,
+      },
+      {
+        path: 'check-keywords',
+        element: <CheckKeywordForm />,
+      },
+      {
+        path: 'recover-account',
+        element: <VerifyAccountForm />,
+      },
     ],
+  },
+  {
+    path: 'about-us',
+    element: <AboutUs />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '*',

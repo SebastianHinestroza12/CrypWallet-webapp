@@ -23,7 +23,13 @@ const LinkItems: Array<LinkItemProps> = [
   { id: 7, name: 'Notifications', icon: IoIosNotificationsOutline, showDivider: true },
   { id: 8, name: 'Login', route: '/auth/user-signin', icon: FiLogIn },
   { id: 9, name: 'Register', route: '/auth/user-signup', icon: FiUserPlus },
-  { id: 11, name: 'Recover account', route: '/recover', icon: FiUnlock, showDivider: true },
+  {
+    id: 11,
+    name: 'Recover account',
+    route: '/auth/verify-account',
+    icon: FiUnlock,
+    showDivider: true,
+  },
   { id: 10, name: 'About', icon: FaShieldAlt },
 ];
 
