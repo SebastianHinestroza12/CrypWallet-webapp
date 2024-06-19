@@ -6,9 +6,10 @@ import { ErrorPage } from '../pages/ErrorPage';
 import { UserProfileEdit } from '../pages/Profile';
 import { UserRegistrationForm } from '../pages/Auth/SignUp';
 import { UserLogIn } from '../pages/Auth/SignIn';
-import { VerifyAccountForm } from '../pages/Auth/VerifyEmail';
-import { CheckKeywordForm } from '../pages/Auth/CheckKeywords';
+import { VerifyAccountForm } from '../components/VerifyEmail';
+import { CheckKeywordForm } from '../components/CheckKeywords';
 import { AboutUs } from '../pages/AboutUs';
+import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
 
 export const router = createBrowserRouter([
   {
@@ -44,16 +45,16 @@ export const router = createBrowserRouter([
         path: 'check-keywords',
         element: <CheckKeywordForm />,
       },
-      {
-        path: 'recover-account',
-        element: <VerifyAccountForm />,
-      },
     ],
   },
   {
     path: 'about-us',
     element: <AboutUs />,
     errorElement: <ErrorPage />,
+  },
+  {
+    path: 'recover-account',
+    element: <RecoverAccountMultistep />,
   },
   {
     path: '*',

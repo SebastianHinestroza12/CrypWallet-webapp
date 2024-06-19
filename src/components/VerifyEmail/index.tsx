@@ -11,7 +11,7 @@ import {
   FormErrorMessage,
   Box,
 } from '@chakra-ui/react';
-import { Logo } from '../../../components/Logo';
+import { Logo } from '../Logo';
 
 type FormData = {
   email: string;
@@ -31,7 +31,10 @@ export const VerifyAccountForm = () => {
   };
 
   return (
-    <Flex p={4} minH="100vh" align="center" justify="center" flexDirection={'column'}>
+    <Flex p={4} minH="100vh" align="center" flexDirection={'column'}>
+      <Heading w="100%" textAlign={'center'} fontWeight="normal">
+        Social Handles
+      </Heading>
       <Box mb={4}>
         <Logo size="67%" styles="d-flex items-center justify-center" withLetters />
       </Box>

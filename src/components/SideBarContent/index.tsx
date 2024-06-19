@@ -10,7 +10,6 @@ import { GiPadlock } from 'react-icons/gi';
 import { Logo } from '../Logo';
 import { NavItem } from '../NavItem';
 import { LinkItemProps, SidebarProps } from '../../interfaces';
-// import { FooterSection } from '../FooterSection';
 import './scrollbar.css';
 
 const LinkItems: Array<LinkItemProps> = [
@@ -26,7 +25,7 @@ const LinkItems: Array<LinkItemProps> = [
   {
     id: 11,
     name: 'Recover account',
-    route: '/auth/verify-account',
+    route: '/recover-account',
     icon: FiUnlock,
     showDivider: true,
   },
@@ -86,7 +85,6 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </Box>
         </NavItem>
       ))}
-      {/* <FooterSection /> */}
     </Box>
   );
 };

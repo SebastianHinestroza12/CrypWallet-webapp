@@ -68,7 +68,10 @@ export const CheckKeywordForm = () => {
   };
 
   return (
-    <Flex minH="100vh" align="center" justify="center" p={4}>
+    <Flex minH="100vh" align="center" p={4} flexDirection={'column'}>
+      <Heading w="100%" textAlign={'center'} fontWeight="normal">
+        Social Handles
+      </Heading>
       <Stack
         spacing={4}
         w="full"
