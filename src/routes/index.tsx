@@ -6,10 +6,9 @@ import { ErrorPage } from '../pages/ErrorPage';
 import { UserProfileEdit } from '../pages/Profile';
 import { UserRegistrationForm } from '../pages/Auth/SignUp';
 import { UserLogIn } from '../pages/Auth/SignIn';
-import { VerifyAccountForm } from '../components/VerifyEmail';
-import { CheckKeywordForm } from '../components/CheckKeywords';
 import { AboutUs } from '../pages/AboutUs';
 import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
+import { Notifications } from '../pages/Notifications';
 
 export const router = createBrowserRouter([
   {
@@ -18,8 +17,22 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/home',
+    path: 'home',
     element: <Home />,
+  },
+  {
+    path: 'about-us',
+    element: <AboutUs />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: 'notifications',
+    element: <Notifications />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
   {
     path: 'auth',
@@ -38,26 +51,9 @@ export const router = createBrowserRouter([
         element: <UserProfileEdit />,
       },
       {
-        path: 'verify-account',
-        element: <VerifyAccountForm />,
-      },
-      {
-        path: 'check-keywords',
-        element: <CheckKeywordForm />,
+        path: 'recover-account',
+        element: <RecoverAccountMultistep />,
       },
     ],
-  },
-  {
-    path: 'about-us',
-    element: <AboutUs />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'recover-account',
-    element: <RecoverAccountMultistep />,
-  },
-  {
-    path: '*',
-    element: <NotFoundPage />,
   },
 ]);

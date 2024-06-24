@@ -16,7 +16,9 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
+  Box,
 } from '@chakra-ui/react';
+import { IoIosAddCircle } from 'react-icons/io';
 
 type FormData = {
   keywords: string[];
@@ -68,50 +70,46 @@ export const CheckKeywordForm = () => {
   };
 
   return (
-    <Flex minH="100vh" align="center" p={4} flexDirection={'column'}>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal">
-        Social Handles
-      </Heading>
+    <Flex align="center">
       <Stack
         spacing={4}
         w="full"
         maxW="md"
         bg={useColorModeValue('white', 'gray.800')}
         rounded="xl"
-        boxShadow="2XL"
+        boxShadow="2xl"
         p={6}
-        my={12}
       >
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
-          Recupera tu cuenta
+          Procederemos a verificar tus palabras de seguridad
         </Heading>
+
         <Text fontSize={{ base: 'sm', sm: 'md' }} color={useColorModeValue('gray.800', 'gray.400')}>
-          Ingresa tus palabras clave en el mismo orden en que se las entregaron.
+          Ingresa las palabras de seguridad en el mismo orden en que se las entregaron.
         </Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl id="keywords" isInvalid={!!errors.keywords}>
             <HStack>
               <Input
-                placeholder="Ingrese una palabra clave"
+                placeholder="Palabra de seguridad"
                 _placeholder={{ color: 'gray.500' }}
                 type="text"
                 value={currentKeyword}
                 onChange={handleKeywordChange}
               />
-              <Button
+              <Box
                 onClick={handleAddKeyword}
-                rounded={'full'}
-                bg={'#1E59EA'}
-                _hover={{ bg: '#007bff' }}
+                _hover={{ transform: 'scale(1.1)', cursor: 'pointer' }}
+                transition="transform 0.2s"
               >
-                Agregar
-              </Button>
+                <IoIosAddCircle size={40} color="#1E59EA" />
+              </Box>
             </HStack>
             <FormErrorMessage>{errors.keywords?.message}</FormErrorMessage>
           </FormControl>
           <Grid display={'flex'} flexWrap={'wrap'} gap={4} mt={4}>
             {keywords.map((keyword, index) => (
-              <GridItem key={index}>
+              <GridItem key={index} width={'100%'}>
                 <Tag
                   size={'ls'}
                   key={index}
@@ -120,23 +118,31 @@ export const CheckKeywordForm = () => {
                   variant="solid"
                   colorScheme="green"
                 >
-                  <TagLabel>{keyword}</TagLabel>
+                  <TagLabel
+                    style={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
+                    {keyword}
+                  </TagLabel>
                   <TagCloseButton onClick={() => handleRemoveKeyword(keyword)} />
                 </Tag>
               </GridItem>
             ))}
           </Grid>
-          <Stack spacing={6} mt={6}>
+          <Stack mt={5}>
             <Button
-              rounded={'full'}
+              rounded="full"
               type="submit"
-              bg={'#1E59EA'}
+              bg="#1E59EA"
               _hover={{ bg: '#007bff' }}
               color="white"
               isLoading={isSubmitting}
               isDisabled={!isValid || keywords.length !== 12}
             >
-              Verificar palabras
+              Verificar Palabras
             </Button>
           </Stack>
         </form>
