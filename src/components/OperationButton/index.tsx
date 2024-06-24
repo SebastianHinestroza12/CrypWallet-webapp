@@ -15,7 +15,6 @@ export const OperationButton: FC<OperationButtonProps> = ({ icon, onClick, text,
       alignItems="center"
       justifyContent="center"
       spacing={2}
-      p={2}
       width="fit-content"
     >
       <Button

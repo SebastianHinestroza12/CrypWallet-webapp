@@ -5,7 +5,6 @@ import { IoWalletOutline } from 'react-icons/io5';
 import { MdOutlineDarkMode } from 'react-icons/md';
 import { FaShieldAlt } from 'react-icons/fa';
 import { BsQrCodeScan } from 'react-icons/bs';
-import { IoIosNotificationsOutline } from 'react-icons/io';
 import { GiPadlock } from 'react-icons/gi';
 import { Logo } from '../Logo';
 import { NavItem } from '../NavItem';
@@ -18,18 +17,17 @@ const LinkItems: Array<LinkItemProps> = [
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
   { id: 4, name: 'Scan QR code', icon: BsQrCodeScan },
   { id: 5, name: 'Preferences', icon: FiSettings },
-  { id: 6, name: 'Security', icon: GiPadlock },
-  { id: 7, name: 'Notifications', icon: IoIosNotificationsOutline, showDivider: true },
-  { id: 8, name: 'Login', route: '/auth/user-signin', icon: FiLogIn },
-  { id: 9, name: 'Register', route: '/auth/user-signup', icon: FiUserPlus },
+  { id: 6, name: 'Security', icon: GiPadlock, showDivider: true },
+  { id: 7, name: 'Login', route: '/auth/user-signin', icon: FiLogIn },
+  { id: 8, name: 'Register', route: '/auth/user-signup', icon: FiUserPlus },
   {
-    id: 11,
+    id: 9,
     name: 'Recover account',
-    route: '/recover-account',
+    route: '/auth/recover-account',
     icon: FiUnlock,
     showDivider: true,
   },
-  { id: 10, name: 'About', icon: FaShieldAlt },
+  { id: 10, name: 'About', route: '/about-us', icon: FaShieldAlt },
 ];
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -70,7 +68,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 <Switch
                   sx={{
                     '.chakra-switch__track': {
-                      backgroundColor: isChecked ? '#006400' : '#A0AEC0',
+                      backgroundColor: isChecked ? 'green' : '#A0AEC0',
                     },
                     '.chakra-switch__thumb': {
                       backgroundColor: '#FFF',

@@ -1,14 +1,26 @@
 import { Layout } from '../../components/Layout';
-import { Stack } from '@chakra-ui/react';
+import { Box, Flex, Stack } from '@chakra-ui/react';
+import { SearchBar } from '../../components/SearchBar';
+import { OperationButton } from '../../components/OperationButton';
+import { GiShoppingBag } from 'react-icons/gi';
+import { RiExchangeDollarLine } from 'react-icons/ri';
+import { IoIosSend } from 'react-icons/io';
+import { MdOutlineCallReceived } from 'react-icons/md';
 
 export const Home = () => {
   return (
-    <Stack>
-      <Layout>
-        <p className="text-2xl font-bold text-center text-blue-500 p-4 bg-gray-100 rounded-lg shadow-md">
-          Dios es bueno
-        </p>
-      </Layout>
-    </Stack>
+    <Layout>
+      <Stack px={2} spacing={7}>
+        <Box>
+          <SearchBar />
+        </Box>
+        <Flex justifyContent={'space-between'}>
+          <OperationButton icon={GiShoppingBag} text="buy" />
+          <OperationButton icon={RiExchangeDollarLine} text="exchange" />
+          <OperationButton icon={IoIosSend} text="send" />
+          <OperationButton icon={MdOutlineCallReceived} text="receive" />
+        </Flex>
+      </Stack>
+    </Layout>
   );
 };

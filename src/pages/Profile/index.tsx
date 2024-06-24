@@ -6,7 +6,6 @@ import {
   Heading,
   Input,
   Stack,
-  useColorModeValue,
   Avatar,
   AvatarBadge,
   IconButton,
@@ -18,17 +17,8 @@ import { Layout } from '../../components/Layout';
 export const UserProfileEdit = () => {
   return (
     <Layout>
-      <Flex minH={'100vh'} align={'center'} justify={'center'} mb={10}>
-        <Stack
-          spacing={4}
-          w={'full'}
-          maxW={'sm'}
-          bg={useColorModeValue('white', 'gray.800')}
-          rounded={'xl'}
-          boxShadow={'2xl'}
-          p={6}
-          mx={2}
-        >
+      <Flex justifyContent={'center'} alignItems={'center'}>
+        <Stack spacing={4} w={'full'} maxW={'lg'} rounded={'xl'} boxShadow={'2xl'} p={6} mx={2}>
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
             User Profile Edit
           </Heading>

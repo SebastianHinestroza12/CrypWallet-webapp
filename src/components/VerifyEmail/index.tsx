@@ -9,9 +9,7 @@ import {
   Text,
   useColorModeValue,
   FormErrorMessage,
-  Box,
 } from '@chakra-ui/react';
-import { Logo } from '../Logo';
 
 type FormData = {
   email: string;
@@ -31,25 +29,18 @@ export const VerifyAccountForm = () => {
   };
 
   return (
-    <Flex p={4} minH="100vh" align="center" flexDirection={'column'}>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal">
-        Social Handles
-      </Heading>
-      <Box mb={4}>
-        <Logo size="67%" styles="d-flex items-center justify-center" withLetters />
-      </Box>
+    <Flex align="center">
       <Stack
         spacing={4}
-        w="full"
-        maxW="md"
         bg={useColorModeValue('white', 'gray.800')}
         rounded="xl"
         boxShadow="2xl"
         p={6}
       >
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
-          Verifica tu cuenta
+          Verificación de tu cuenta
         </Heading>
+
         <Text fontSize={{ base: 'sm', sm: 'md' }} color={useColorModeValue('gray.800', 'gray.400')}>
           Ingresa tu correo electrónico para comprobar si tienes una cuenta existente.
         </Text>
@@ -57,7 +48,7 @@ export const VerifyAccountForm = () => {
           <FormControl id="email" isInvalid={!!errors.email}>
             <Input
               autoFocus
-              placeholder="tu-correo@example.com"
+              placeholder="your-correo@example.com"
               _placeholder={{ color: 'gray.500' }}
               type="email"
               {...register('email', {
@@ -70,7 +61,7 @@ export const VerifyAccountForm = () => {
             />
             <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
           </FormControl>
-          <Stack spacing={6} mt={4}>
+          <Stack mt={5}>
             <Button
               rounded={'full'}
               type="submit"

@@ -28,7 +28,7 @@ export const TabBottomMobile = () => {
       left="0"
       width="100%"
       boxShadow="0 -2px 13px rgba(0, 0, 0, 0.1)"
-      bg={useColorModeValue('white', '#101010')}
+      bg={useColorModeValue('#FFF', '#101010')}
     >
       <Flex justify="space-around" align="center" py="2">
         {tabs.map((tab) => (
@@ -39,11 +39,11 @@ export const TabBottomMobile = () => {
             onClick={() => handleTabClick(tab.path)}
           >
             <IconButton
-              icon={<Icon as={tab.icon} color={getIconColor(tab.path)} boxSize={5} />}
+              icon={<Icon as={tab.icon} color={getIconColor(tab.path)} boxSize={6} />}
               aria-label={tab.label}
               variant="shot"
             />
-            <Text fontSize="x-small" color={getIconColor(tab.path)}>
+            <Text fontSize="small" color={getIconColor(tab.path)}>
               {tab.label}
             </Text>
           </Flex>
