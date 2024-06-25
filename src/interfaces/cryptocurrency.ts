@@ -36,3 +36,6 @@ export interface Roi {
 export interface ListCryptocurrenciesProps {
   cryptocurrencies: CryptoData[];
 }
+export interface ListCryptoManageProps {
+  cryptocurrencies: Partial<CryptoData>[];
+}

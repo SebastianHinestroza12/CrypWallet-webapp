@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { Layout } from '../../components/Layout';
-import { Flex, Stack } from '@chakra-ui/react';
+import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 import { TotalCash } from '../../components/TotalCash';
 import { OperationButton } from '../../components/OperationButton';
 import { ListCryptocurrencies } from '../../components/ListCryptocurrencies';
 import { OPERATION_BUTTONS, CRYPTOCURRENCYS } from '../../constants';
+import { Link } from 'react-router-dom';
 
 export const Home: FC = () => {
   return (
@@ -17,6 +18,18 @@ export const Home: FC = () => {
           ))}
         </Flex>
         <ListCryptocurrencies cryptocurrencies={CRYPTOCURRENCYS} />
+        <Box mb={5}>
+          <Link to={'/crypto/manage'}>
+            <Text
+              _hover={{ transform: 'scale(1.1)', cursor: 'pointer', color: '#007bff' }}
+              color={'#1e59ea'}
+              fontSize={'md'}
+              textAlign={'center'}
+            >
+              Manage cryptocurrencies
+            </Text>
+          </Link>
+        </Box>
       </Stack>
     </Layout>
   );
