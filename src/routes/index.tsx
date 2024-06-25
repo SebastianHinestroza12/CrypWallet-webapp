@@ -9,6 +9,8 @@ import { UserLogIn } from '../pages/Auth/SignIn';
 import { AboutUs } from '../pages/AboutUs';
 import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
 import { Notifications } from '../pages/Notifications';
+import { ManageCryptocurrencies } from '../components/ManageCryptocurrencies';
+import { CRYPTOCURRENCYS } from '../constants';
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +55,16 @@ export const router = createBrowserRouter([
       {
         path: 'recover-account',
         element: <RecoverAccountMultistep />,
+      },
+    ],
+  },
+  {
+    path: 'crypto',
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: 'manage',
+        element: <ManageCryptocurrencies cryptocurrencies={CRYPTOCURRENCYS} />,
       },
     ],
   },
