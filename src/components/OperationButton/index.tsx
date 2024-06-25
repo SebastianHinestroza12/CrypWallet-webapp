@@ -1,12 +1,6 @@
 import { FC } from 'react';
-import { Button, ButtonProps, Icon, Stack, Text } from '@chakra-ui/react';
-import { IconType } from 'react-icons';
-
-interface OperationButtonProps extends ButtonProps {
-  icon: IconType;
-  onClick?: () => void;
-  text: string;
-}
+import { Button, Icon, Stack, Text } from '@chakra-ui/react';
+import { OperationButtonProps } from '../../interfaces';
 
 export const OperationButton: FC<OperationButtonProps> = ({ icon, onClick, text, ...rest }) => {
   return (
