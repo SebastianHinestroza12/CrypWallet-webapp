@@ -11,8 +11,13 @@ export const ManageCryptocurrencies = ({ cryptocurrencies }: ListCryptoManagePro
         <SearchBar />
         <Box>
           {cryptocurrencies.map((cryptocurrency) => (
-            <Flex key={cryptocurrency.id} justifyContent={'space-between'} mb={2}>
-              <Flex>
+            <Flex
+              key={cryptocurrency.id}
+              alignItems={'center'}
+              justifyContent={'space-between'}
+              mb={2}
+            >
+              <Flex alignItems={'center'}>
                 <Image
                   boxSize="30px"
                   borderRadius="full"
