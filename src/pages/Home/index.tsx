@@ -1,25 +1,22 @@
+import { FC } from 'react';
 import { Layout } from '../../components/Layout';
-import { Box, Flex, Stack } from '@chakra-ui/react';
-import { SearchBar } from '../../components/SearchBar';
+import { Flex, Stack } from '@chakra-ui/react';
+import { TotalCash } from '../../components/TotalCash';
 import { OperationButton } from '../../components/OperationButton';
-import { GiShoppingBag } from 'react-icons/gi';
-import { RiExchangeDollarLine } from 'react-icons/ri';
-import { IoIosSend } from 'react-icons/io';
-import { MdOutlineCallReceived } from 'react-icons/md';
+import { ListCryptocurrencies } from '../../components/ListCryptocurrencies';
+import { OPERATION_BUTTONS, CRYPTOCURRENCYS } from '../../constants';
 
-export const Home = () => {
+export const Home: FC = () => {
   return (
     <Layout>
-      <Stack px={2} spacing={7}>
-        <Box>
-          <SearchBar />
-        </Box>
-        <Flex justifyContent={'space-between'}>
-          <OperationButton icon={GiShoppingBag} text="buy" />
-          <OperationButton icon={RiExchangeDollarLine} text="exchange" />
-          <OperationButton icon={IoIosSend} text="send" />
-          <OperationButton icon={MdOutlineCallReceived} text="receive" />
+      <Stack px={2} spacing={5}>
+        <TotalCash amount="$241.324" isPositive percentage="5.57%" />
+        <Flex justifyContent="space-between">
+          {OPERATION_BUTTONS.map((button) => (
+            <OperationButton key={button.text} icon={button.icon} text={button.text} />
+          ))}
         </Flex>
+        <ListCryptocurrencies cryptocurrencies={CRYPTOCURRENCYS} />
       </Stack>
     </Layout>
   );

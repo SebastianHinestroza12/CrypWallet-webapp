@@ -17,13 +17,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Tags } from '../../components/Tags';
 import { MdCheckCircle } from 'react-icons/md';
-
-const services: string[] = [
-  'Gestión de múltiples criptomonedas.',
-  'Compras y ventas rápidas y seguras.',
-  'Transferencias y recepción de criptomonedas.',
-  'Tecnología de seguridad avanzada para proteger tu cuenta.',
-];
+import { SERVICES_ABOUT } from '../../constants';
 
 export const AboutUs = () => {
   const navigate = useNavigate();
@@ -107,7 +101,7 @@ export const AboutUs = () => {
         usuarios. Ofrecemos:
       </Text>
       <List paddingTop="4" spacing="3">
-        {services.map((service) => (
+        {SERVICES_ABOUT.map((service) => (
           <ListItem key={service}>
             <ListIcon as={MdCheckCircle} color="green.500" boxSize={'21px'} />
             {service}
