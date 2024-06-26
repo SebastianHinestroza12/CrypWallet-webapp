@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
 import { ListCryptocurrenciesProps } from '../../interfaces';
+import { useNavigate } from 'react-router-dom';
 
 export const ListCryptocurrencies: FC<ListCryptocurrenciesProps> = ({ cryptocurrencies }) => {
   const formatChange = (change: number): string => {
@@ -11,10 +12,21 @@ export const ListCryptocurrencies: FC<ListCryptocurrenciesProps> = ({ cryptocurr
     }
   };
 
+  const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
+  const navigate = useNavigate();
+
   return (
     <Flex direction="column" width="100%">
       {cryptocurrencies.map((crypto) => (
-        <Flex key={crypto.id} alignItems="center" justifyContent="space-between" mb={4}>
+        <Flex
+          key={crypto.id}
+          alignItems="center"
+          justifyContent="space-between"
+          mb={2}
+          py={1}
+          onClick={() => navigate(`/crypto/detail/${crypto.id}`)}
+          _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
+        >
           <Flex alignItems="center">
             <Image src={crypto.image} alt={crypto.name} boxSize="40px" borderRadius="full" mr={4} />
             <Box>
