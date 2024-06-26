@@ -1,29 +1,31 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Stack, Box } from '@chakra-ui/react';
-import { ListCryptocurrenciesProps } from '../../interfaces';
 import { SearchBar } from '../../components/SearchBar';
 import { Layout } from '../../components/Layout';
 import { useSwitchStore } from '../../stores/switch';
 import { ListCrypto } from '../../components/ListCrypto';
+import { useStoreCrypto } from '../../stores/cryptocurrencies';
 
-export const ManageCryptocurrencies = ({ cryptocurrencies }: ListCryptocurrenciesProps) => {
-  const [crypto, setCrypto] = useState(cryptocurrencies);
+export const ManageCryptocurrencies = () => {
+  const { currentCrypto } = useStoreCrypto();
   const { switchStates } = useSwitchStore();
+  const [crypto, setCrypto] = useState(currentCrypto);
+
   useEffect(() => {
-    setCrypto(cryptocurrencies);
-  }, [cryptocurrencies]);
+    setCrypto(currentCrypto);
+  }, [currentCrypto]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value: textValue } = event.target;
     const lowerCaseTextValue = textValue.toLowerCase();
 
     if (!lowerCaseTextValue) {
-      setCrypto(cryptocurrencies);
+      setCrypto(currentCrypto);
       return;
     }
 
     setCrypto(
-      cryptocurrencies.filter(
+      currentCrypto.filter(
         (crypto) =>
           crypto.name?.toLowerCase().includes(lowerCaseTextValue) ||
           crypto.symbol?.toLowerCase().includes(lowerCaseTextValue),

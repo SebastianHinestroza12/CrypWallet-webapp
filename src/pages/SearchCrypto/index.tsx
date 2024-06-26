@@ -1,13 +1,14 @@
 import { useState, ChangeEvent } from 'react';
 import { ListCrypto } from '../../components/ListCrypto';
 import { SearchBar } from '../../components/SearchBar';
-import { CRYPTOCURRENCYS } from '../../constants';
 import { Layout } from '../../components/Layout';
 import { Box, Stack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { useStoreCrypto } from '../../stores/cryptocurrencies';
 
 export const SerachCrypto = () => {
-  const [crypto, setCrypto] = useState(CRYPTOCURRENCYS);
+  const { currentCrypto } = useStoreCrypto();
+  const [crypto, setCrypto] = useState(currentCrypto);
   const navigate = useNavigate();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -15,12 +16,12 @@ export const SerachCrypto = () => {
     const lowerCaseTextValue = textValue.toLowerCase();
 
     if (!lowerCaseTextValue) {
-      setCrypto(CRYPTOCURRENCYS);
+      setCrypto(currentCrypto);
       return;
     }
 
     setCrypto(
-      CRYPTOCURRENCYS.filter(
+      currentCrypto.filter(
         (crypto) =>
           crypto.name?.toLowerCase().includes(lowerCaseTextValue) ||
           crypto.symbol?.toLowerCase().includes(lowerCaseTextValue),
