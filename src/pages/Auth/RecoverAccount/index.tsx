@@ -1,26 +1,59 @@
-import { useState } from 'react';
-import { Progress, Box, useToast, Container } from '@chakra-ui/react';
+/* eslint-disable indent */
+import { useEffect, useState } from 'react';
+import { Progress, Box, Flex } from '@chakra-ui/react';
 import { CheckKeywordForm } from '../../../components/CheckKeywords';
 import { VerifyAccountForm } from '../../../components/VerifyEmail';
 import { ChangePasswordAccount } from '../../../components/ChangePasswordAccount';
+import { Layout } from '../../../components/Layout';
 
 export const RecoverAccountMultistep = () => {
-  const toast = useToast();
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
-  console.log(toast, setProgress, setStep);
+  console.log(setStep);
+
+  useEffect(() => {
+    switch (step) {
+      case 1:
+        setProgress(33.33);
+        break;
+      case 2:
+        setProgress(66.66);
+        break;
+      case 3:
+        setProgress(100);
+        break;
+      default:
+        setProgress(33.33);
+    }
+  }, [step]);
+
   return (
-    <Container>
-      <Box rounded="lg" shadow="1px 1px 3px rgba(0,0,0,0.3)" maxWidth={800} p={6} m="10px auto">
-        <Progress hasStripe value={progress} mb="5%" mx="5%" isAnimated></Progress>
-        {step === 1 ? (
-          <VerifyAccountForm />
-        ) : step === 2 ? (
-          <CheckKeywordForm />
-        ) : (
-          <ChangePasswordAccount />
-        )}
+    <Layout>
+      <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+        <Box width="100%" px={{ base: 4, md: 10 }} py={4}>
+          <Progress
+            hasStripe
+            value={progress}
+            mb="5%"
+            isAnimated
+            sx={{
+              '& > div': {
+                backgroundColor: '#1e59ea',
+              },
+            }}
+            height="20px"
+          />
+        </Box>
+        <Flex justifyContent="center" alignItems="center" m={2}>
+          {step === 1 ? (
+            <VerifyAccountForm />
+          ) : step === 2 ? (
+            <CheckKeywordForm />
+          ) : (
+            <ChangePasswordAccount />
+          )}
+        </Flex>
       </Box>
-    </Container>
+    </Layout>
   );
 };

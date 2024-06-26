@@ -10,11 +10,13 @@ import {
   Heading,
   HStack,
   Box,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { NumericKeypad } from '../NumericKeypad';
 
 export const ChangePasswordAccount = () => {
   const [pin, setPin] = useState<string>('');
+  const sizePin = useBreakpointValue({ base: true, md: false });
 
   const handleDeleteClick = () => {
     setPin((prevPin) => prevPin.slice(0, -1));
@@ -31,8 +33,8 @@ export const ChangePasswordAccount = () => {
   };
 
   return (
-    <Flex minH="100vh" align="center" justify="center">
-      <Stack spacing={4} w="full" maxW="sm" p={6} my={10}>
+    <Flex align="center" justify="center" width={{ base: '100%', md: '50%' }}>
+      <Stack spacing={6}>
         <Center>
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }} textAlign="center">
             Has verificado tu cuenta correctamente, ahora procede a cambiar tu contraseña.
@@ -43,7 +45,7 @@ export const ChangePasswordAccount = () => {
             <HStack>
               <PinInput
                 type="number"
-                size="lg"
+                size={sizePin ? 'md' : 'lg'}
                 value={pin}
                 onChange={setPin}
                 colorScheme="blue"
@@ -64,13 +66,14 @@ export const ChangePasswordAccount = () => {
             isDisabled={false}
           />
         </Box>
-        <Stack spacing={6}>
+        <Stack px={10}>
           <Button
-            bg="blue.400"
+            bg="#1e59ea"
+            size={'lg'}
             rounded="full"
             color="white"
             _hover={{
-              bg: 'blue.500',
+              bg: '#007bff',
             }}
           >
             Actualizar Contraseña

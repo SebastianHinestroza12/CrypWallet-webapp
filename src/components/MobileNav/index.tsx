@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { useEffect, useState } from 'react';
 import {
   IconButton,
   Avatar,
@@ -14,23 +13,16 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  useBreakpointValue,
 } from '@chakra-ui/react';
 import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { MobileProps } from '../../interfaces';
-import { TabBottomMobile } from '../TabBottom';
 
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const navigation = useNavigate();
-  const [isBreakpointReady, setIsBreakpointReady] = useState(false);
-  const showTabBottomMobile = useBreakpointValue({ base: true, md: false });
   const handleNavigation = () => {
     navigation('/auth/user-profile');
   };
-  useEffect(() => {
-    setIsBreakpointReady(true);
-  }, [showTabBottomMobile]);
 
   return (
     <Flex
@@ -66,7 +58,13 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
+        <IconButton
+          onClick={() => navigation('/notifications')}
+          size="lg"
+          variant="ghost"
+          aria-label="open menu"
+          icon={<FiBell />}
+        />
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
@@ -104,7 +102,6 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </Menu>
         </Flex>
       </HStack>
-      {isBreakpointReady && showTabBottomMobile && <TabBottomMobile />}
     </Flex>
   );
 };
