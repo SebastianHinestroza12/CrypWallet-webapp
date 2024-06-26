@@ -9,6 +9,11 @@ export interface LinkItemProps {
   showDivider?: boolean;
   route?: string;
 }
+export interface TabsBottomProps {
+  label: string;
+  icon: IconType;
+  path: string;
+}
 
 export interface NavItemProps extends FlexProps {
   icon: IconType;

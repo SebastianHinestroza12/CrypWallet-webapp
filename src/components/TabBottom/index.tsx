@@ -1,14 +1,7 @@
 import { Box, Flex, IconButton, Icon, Text, useColorModeValue } from '@chakra-ui/react';
-import { FaHome, FaSearch, FaBell, FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useStoreTab } from '../../stores/currentMobileTab';
-
-const tabs = [
-  { icon: FaHome, label: 'Home', path: '/home' },
-  { icon: FaSearch, label: 'Search', path: '/search' },
-  { icon: FaBell, label: 'Notifications', path: '/notifications' },
-  { icon: FaUser, label: 'Profile', path: '/auth/user-profile' },
-];
+import { TABS_BOTTOM } from '../../constants';
 
 export const TabBottomMobile = () => {
   const { selectedTab, setSelectedTab } = useStoreTab();
@@ -31,7 +24,7 @@ export const TabBottomMobile = () => {
       bg={useColorModeValue('#FFF', '#101010')}
     >
       <Flex justify="space-around" align="center" py="2">
-        {tabs.map((tab) => (
+        {TABS_BOTTOM.map((tab) => (
           <Flex
             key={tab.path}
             direction="column"

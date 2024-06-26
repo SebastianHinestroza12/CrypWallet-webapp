@@ -9,8 +9,9 @@ import { UserLogIn } from '../pages/Auth/SignIn';
 import { AboutUs } from '../pages/AboutUs';
 import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
 import { Notifications } from '../pages/Notifications';
-import { ManageCryptocurrencies } from '../components/ManageCryptocurrencies';
-import { CRYPTOCURRENCYS } from '../constants';
+import { ManageCryptocurrencies } from '../pages/ManageCryptocurrencies';
+import { DetailCrypto } from '../pages/DetailCrypto';
+import { SerachCrypto } from '../pages/SearchCrypto';
 
 export const router = createBrowserRouter([
   {
@@ -63,8 +64,16 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: 'detail/:cryptoId',
+        element: <DetailCrypto />,
+      },
+      {
         path: 'manage',
-        element: <ManageCryptocurrencies cryptocurrencies={CRYPTOCURRENCYS} />,
+        element: <ManageCryptocurrencies />,
+      },
+      {
+        path: 'search',
+        element: <SerachCrypto />,
       },
     ],
   },

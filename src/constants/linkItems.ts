@@ -1,10 +1,10 @@
 import { FiHome, FiSettings, FiLogIn, FiUserPlus, FiUnlock } from 'react-icons/fi';
 import { IoWalletOutline } from 'react-icons/io5';
 import { MdOutlineDarkMode, MdOutlineManageHistory } from 'react-icons/md';
-import { FaShieldAlt } from 'react-icons/fa';
+import { FaShieldAlt, FaHome, FaSearch, FaBell, FaUser } from 'react-icons/fa';
 import { BsQrCodeScan } from 'react-icons/bs';
 import { GiPadlock } from 'react-icons/gi';
-import { LinkItemProps } from '../interfaces';
+import { LinkItemProps, TabsBottomProps } from '../interfaces';
 
 export const LINK_ITEMS: LinkItemProps[] = [
   { id: 1, name: 'Home', route: '/home', icon: FiHome },
@@ -24,4 +24,11 @@ export const LINK_ITEMS: LinkItemProps[] = [
     showDivider: true,
   },
   { id: 11, name: 'About', route: '/about-us', icon: FaShieldAlt },
+];
+
+export const TABS_BOTTOM: TabsBottomProps[] = [
+  { icon: FaHome, label: 'Home', path: '/home' },
+  { icon: FaSearch, label: 'Search', path: '/crypto/search' },
+  { icon: FaBell, label: 'Notifications', path: '/notifications' },
+  { icon: FaUser, label: 'Profile', path: '/auth/user-profile' },
 ];
