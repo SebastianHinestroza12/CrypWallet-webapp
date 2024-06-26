@@ -9,9 +9,10 @@ import { UserLogIn } from '../pages/Auth/SignIn';
 import { AboutUs } from '../pages/AboutUs';
 import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
 import { Notifications } from '../pages/Notifications';
-import { ManageCryptocurrencies } from '../components/ManageCryptocurrencies';
+import { ManageCryptocurrencies } from '../pages/ManageCryptocurrencies';
 import { CRYPTOCURRENCYS } from '../constants';
 import { DetailCrypto } from '../pages/DetailCrypto';
+import { SerachCrypto } from '../pages/SearchCrypto';
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
       {
         path: 'manage',
         element: <ManageCryptocurrencies cryptocurrencies={CRYPTOCURRENCYS} />,
+      },
+      {
+        path: 'search',
+        element: <SerachCrypto />,
       },
     ],
   },
