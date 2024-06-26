@@ -11,6 +11,7 @@ import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
 import { Notifications } from '../pages/Notifications';
 import { ManageCryptocurrencies } from '../components/ManageCryptocurrencies';
 import { CRYPTOCURRENCYS } from '../constants';
+import { DetailCrypto } from '../pages/DetailCrypto';
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
     path: 'crypto',
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: 'detail/:cryptoId',
+        element: <DetailCrypto />,
+      },
       {
         path: 'manage',
         element: <ManageCryptocurrencies cryptocurrencies={CRYPTOCURRENCYS} />,
