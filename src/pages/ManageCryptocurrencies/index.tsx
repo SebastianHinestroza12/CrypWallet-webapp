@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Stack, Box } from '@chakra-ui/react';
 import { SearchBar } from '../../components/SearchBar';
-import { Layout } from '../../components/Layout';
 import { useSwitchStore } from '../../stores/switch';
 import { ListCrypto } from '../../components/ListCrypto';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
@@ -40,19 +39,13 @@ export const ManageCryptocurrencies = () => {
   });
 
   return (
-    <Layout>
-      <Stack p={2} spacing={8}>
-        <SearchBar handleChange={handleChange} />
-        <Box>
-          {sortedCryptocurrencies.map((cryptocurrency) => (
-            <ListCrypto
-              key={cryptocurrency.id}
-              cryptocurrency={cryptocurrency}
-              showSwitches={true}
-            />
-          ))}
-        </Box>
-      </Stack>
-    </Layout>
+    <Stack p={2} spacing={8}>
+      <SearchBar handleChange={handleChange} />
+      <Box>
+        {sortedCryptocurrencies.map((cryptocurrency) => (
+          <ListCrypto key={cryptocurrency.id} cryptocurrency={cryptocurrency} showSwitches={true} />
+        ))}
+      </Box>
+    </Stack>
   );
 };

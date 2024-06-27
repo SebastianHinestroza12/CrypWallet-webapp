@@ -3,9 +3,10 @@ import { Box, Drawer, DrawerContent, useDisclosure, useBreakpointValue } from '@
 import { MobileNav } from '../MobileNav';
 import { SidebarContent } from '../SideBarContent';
 import { SidebarWithHeaderProps } from '../../interfaces';
+import { Outlet } from 'react-router-dom';
 import { TabBottomMobile } from '../TabBottom';
 
-export const Layout: FC<SidebarWithHeaderProps> = ({ children }) => {
+export const Layout: FC<SidebarWithHeaderProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isBreakpointReady, setIsBreakpointReady] = useState(false);
   const showTabBottomMobile = useBreakpointValue({ base: true, md: false });
@@ -35,7 +36,7 @@ export const Layout: FC<SidebarWithHeaderProps> = ({ children }) => {
       </Drawer>
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p={{ base: 2, md: 5 }}>
-        {children}
+        <Outlet />
       </Box>
       {isBreakpointReady && showTabBottomMobile && (
         <Box position="fixed" bottom="0" left="0" width="100%">
