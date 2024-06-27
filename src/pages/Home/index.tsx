@@ -6,13 +6,24 @@ import { ListCryptocurrencies } from '../../components/ListCryptocurrencies';
 import { OPERATION_BUTTONS } from '../../constants';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { Link } from 'react-router-dom';
+import { fetchCryptoData } from '../../utils';
 
 export const Home: FC = () => {
   const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
-  const { currentCrypto } = useStoreCrypto();
+  const { currentCrypto, setCurrentCrypto } = useStoreCrypto();
+
+  const onRefresh = async () => {
+    try {
+      const data = await fetchCryptoData();
+      setCurrentCrypto(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Stack px={2} spacing={5}>
-      <TotalCash amount="$241.324" isPositive percentage="5.57%" />
+      <TotalCash amount="$241.324" isPositive percentage="5.57%" onRefresh={onRefresh} />
       <Flex justifyContent="space-between">
         {OPERATION_BUTTONS.map((button) => (
           <OperationButton key={button.text} icon={button.icon} text={button.text} />

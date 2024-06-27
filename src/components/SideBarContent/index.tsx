@@ -36,28 +36,30 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Box>
       </Flex>
       {LINK_ITEMS.map((link) => (
-        <NavItem key={link.id} icon={link.icon} route={link.route} showDivider={link.showDivider}>
-          <Box flex={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-            {link.name}
-            {link.id === 3 && (
-              <Box>
-                <Switch
-                  sx={{
-                    '.chakra-switch__track': {
-                      backgroundColor: isChecked ? 'green' : '#A0AEC0',
-                    },
-                    '.chakra-switch__thumb': {
-                      backgroundColor: '#FFF',
-                    },
-                  }}
-                  isChecked={isChecked}
-                  size="lg"
-                  onChange={handletoggleColorMode}
-                />
-              </Box>
-            )}
-          </Box>
-        </NavItem>
+        <Box onClick={onClose} key={link.id}>
+          <NavItem icon={link.icon} route={link.route} showDivider={link.showDivider}>
+            <Box flex={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+              {link.name}
+              {link.id === 3 && (
+                <Box>
+                  <Switch
+                    sx={{
+                      '.chakra-switch__track': {
+                        backgroundColor: isChecked ? 'green' : '#A0AEC0',
+                      },
+                      '.chakra-switch__thumb': {
+                        backgroundColor: '#FFF',
+                      },
+                    }}
+                    isChecked={isChecked}
+                    size="lg"
+                    onChange={handletoggleColorMode}
+                  />
+                </Box>
+              )}
+            </Box>
+          </NavItem>
+        </Box>
       ))}
     </Box>
   );

@@ -1,11 +1,14 @@
 import { FC, useState, memo, useLayoutEffect } from 'react';
-import { Box, Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, useColorModeValue, Icon } from '@chakra-ui/react';
 import { ListCryptocurrenciesProps, CryptoData } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { useSwitchStore } from '../../stores/switch';
+import { useStoreVisibilityData } from '../../stores/dataVisibility';
+import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 
 export const ListCryptocurrencies: FC<ListCryptocurrenciesProps> = memo(({ cryptocurrencies }) => {
   const { switchStates } = useSwitchStore();
+  const { isDataVisible } = useStoreVisibilityData();
   const [showCrypto, setShowCrypto] = useState<CryptoData[]>([]);
   const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
   const navigate = useNavigate();
@@ -68,14 +71,18 @@ export const ListCryptocurrencies: FC<ListCryptocurrenciesProps> = memo(({ crypt
                 </Flex>
               </Box>
             </Flex>
-            <Box textAlign="right">
-              <Text fontSize="lg" fontWeight="bold">
-                {crypto.current_price}
-              </Text>
-              <Text fontSize={'sm'} color="gray.500">
-                ${crypto.current_price}
-              </Text>
-            </Box>
+            {isDataVisible ? (
+              <Box textAlign="right">
+                <Text fontSize="lg" fontWeight="bold">
+                  {crypto.current_price}
+                </Text>
+                <Text fontSize={'sm'} color="gray.500">
+                  ${crypto.current_price}
+                </Text>
+              </Box>
+            ) : (
+              <Icon boxSize={12} as={PiDotsThreeOutlineFill} />
+            )}
           </Flex>
         ))
       )}
