@@ -11,7 +11,8 @@ import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
 import { Notifications } from '../pages/Notifications';
 import { ManageCryptocurrencies } from '../pages/ManageCryptocurrencies';
 import { DetailCrypto } from '../pages/DetailCrypto';
-import { SerachCrypto } from '../pages/SearchCrypto';
+import { SearchCrypto } from '../pages/SearchCrypto';
+import { Layout } from '../components/Layout';
 
 export const router = createBrowserRouter([
   {
@@ -20,60 +21,62 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: 'home',
-    element: <Home />,
-  },
-  {
-    path: 'about-us',
-    element: <AboutUs />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: 'notifications',
-    element: <Notifications />,
-    errorElement: <ErrorPage />,
-  },
-  {
     path: '*',
     element: <NotFoundPage />,
   },
   {
-    path: 'auth',
-    errorElement: <ErrorPage />,
+    path: '/',
+    element: <Layout />,
     children: [
       {
-        path: 'user-signin',
-        element: <UserLogIn />,
+        path: 'home',
+        element: <Home />,
       },
       {
-        path: 'user-signup',
-        element: <UserRegistrationForm />,
+        path: 'about-us',
+        element: <AboutUs />,
       },
       {
-        path: 'user-profile',
-        element: <UserProfileEdit />,
+        path: 'notifications',
+        element: <Notifications />,
       },
       {
-        path: 'recover-account',
-        element: <RecoverAccountMultistep />,
+        path: 'auth',
+        children: [
+          {
+            path: 'user-signin',
+            element: <UserLogIn />,
+          },
+          {
+            path: 'user-signup',
+            element: <UserRegistrationForm />,
+          },
+          {
+            path: 'user-profile',
+            element: <UserProfileEdit />,
+          },
+          {
+            path: 'recover-account',
+            element: <RecoverAccountMultistep />,
+          },
+        ],
       },
-    ],
-  },
-  {
-    path: 'crypto',
-    errorElement: <ErrorPage />,
-    children: [
       {
-        path: 'detail/:cryptoId',
-        element: <DetailCrypto />,
-      },
-      {
-        path: 'manage',
-        element: <ManageCryptocurrencies />,
-      },
-      {
-        path: 'search',
-        element: <SerachCrypto />,
+        path: 'crypto',
+        children: [
+          {
+            path: 'detail/:cryptoId',
+            element: <DetailCrypto />,
+          },
+          {
+            path: 'manage',
+            element: <ManageCryptocurrencies />,
+          },
+          {
+            path: 'search',
+            element: <SearchCrypto />,
+          },
+        ],
       },
     ],
   },
