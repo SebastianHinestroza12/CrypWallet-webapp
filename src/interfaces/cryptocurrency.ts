@@ -39,3 +39,10 @@ export interface ListCryptocurrenciesProps {
 export interface ListCryptoManageProps {
   cryptocurrencies: Partial<CryptoData>[];
 }
+
+export interface TotalCashProps {
+  amount: string;
+  percentage: string;
+  isPositive: boolean;
+  onRefresh: () => void;
+}
