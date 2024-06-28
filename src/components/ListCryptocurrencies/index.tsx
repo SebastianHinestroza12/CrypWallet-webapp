@@ -1,16 +1,16 @@
 import { FC, useState, memo, useLayoutEffect } from 'react';
-import { Box, Flex, Image, Text, useColorModeValue, Icon } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Icon } from '@chakra-ui/react';
 import { ListCryptocurrenciesProps, CryptoData } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { useSwitchStore } from '../../stores/switch';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
+import { formatCurrency } from '../../utils';
 
 export const ListCryptocurrencies: FC<ListCryptocurrenciesProps> = memo(({ cryptocurrencies }) => {
   const { switchStates } = useSwitchStore();
   const { isDataVisible } = useStoreVisibilityData();
   const [showCrypto, setShowCrypto] = useState<CryptoData[]>([]);
-  const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
   const navigate = useNavigate();
 
   const formatChange = (change: number): string => {
@@ -46,7 +46,7 @@ export const ListCryptocurrencies: FC<ListCryptocurrenciesProps> = memo(({ crypt
             mb={2}
             py={1}
             onClick={() => navigate(`/crypto/detail/${crypto.id}`)}
-            _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
+            _hover={{ cursor: 'pointer' }}
           >
             <Flex alignItems="center">
               <Image
@@ -61,7 +61,7 @@ export const ListCryptocurrencies: FC<ListCryptocurrenciesProps> = memo(({ crypt
                   {crypto.symbol}
                 </Text>
                 <Flex>
-                  <Text color="gray.500">${crypto.current_price}</Text>
+                  <Text color="gray.500">{formatCurrency(crypto.current_price, 'USD')}</Text>
                   <Text
                     color={crypto.price_change_percentage_24h >= 0 ? 'green.500' : 'red.500'}
                     ml={1}

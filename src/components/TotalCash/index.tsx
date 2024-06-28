@@ -1,38 +1,36 @@
 import { FC } from 'react';
-import { Box, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text, useColorModeValue, Button } from '@chakra-ui/react';
 import { FaSync, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
-
-interface TotalCashProps {
-  amount: string;
-  percentage: string;
-  isPositive: boolean;
-  onRefresh: () => void;
-}
+import { TotalCashProps } from '../../interfaces';
 
 export const TotalCash: FC<TotalCashProps> = ({ amount, percentage, isPositive, onRefresh }) => {
-  const bg = useColorModeValue('gray.100', 'gray.700');
+  const bg = useColorModeValue('gray.100', '#171717');
   const { isDataVisible, setDataVisible } = useStoreVisibilityData();
 
   return (
-    <Box bg={bg} p={2} borderRadius="md" width="100%">
+    <Box bg={bg} p={3} borderRadius="md" width="100%">
       <Flex justifyContent="space-between" alignItems="center" mb={2}>
         <Text fontSize="lg" fontWeight="bold">
           My Wallet
         </Text>
-        <Flex
-          alignItems="center"
+        <Button
+          rounded={'full'}
+          size={'md'}
+          fontWeight={'normal'}
+          px={3}
+          color={'#FFF'}
+          bg={'#1E59EA'}
+          _hover={{ bg: '#007bff', cursor: 'pointer' }}
           onClick={onRefresh}
-          transition="transform 0.2s"
-          _hover={{ transform: 'scale(1.1)', cursor: 'pointer' }}
         >
-          <Text mr={2} color="blue.500" cursor="pointer">
+          <Text mr={2} cursor="pointer">
             Actualizar
           </Text>
-          <Icon as={FaSync} color="blue.500" cursor="pointer" />
-        </Flex>
+          <Icon as={FaSync} cursor="pointer" />
+        </Button>
       </Flex>
 
       <Flex alignItems={'center'}>
