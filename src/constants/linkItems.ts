@@ -12,7 +12,7 @@ export const LINK_ITEMS: LinkItemProps[] = [
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
   { id: 4, name: 'Scan QR code', icon: BsQrCodeScan },
   { id: 5, name: 'Preferences', icon: FiSettings },
-  { id: 6, name: 'Manage cryptocurrencies', route: '/crypto/manage', icon: MdOutlineManageHistory },
+  { id: 6, name: 'Manage crypto', route: '/crypto/manage', icon: MdOutlineManageHistory },
   { id: 7, name: 'Security', icon: GiPadlock, showDivider: true },
   { id: 8, name: 'Login', route: '/auth/user-signin', icon: FiLogIn },
   { id: 9, name: 'Register', route: '/auth/user-signup', icon: FiUserPlus },

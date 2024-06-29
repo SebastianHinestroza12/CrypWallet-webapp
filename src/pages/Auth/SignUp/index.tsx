@@ -2,180 +2,101 @@ import { useState } from 'react';
 import {
   Flex,
   Box,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
   Stack,
-  Button,
   Heading,
   Text,
-  FormErrorMessage,
   useColorModeValue,
+  useToast,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-// import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-// import { instanceAxios } from '../../../utils';
-import { Logo } from '../../../components/Logo';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { DataRegisterProps } from '../../../interfaces';
+import { AxiosError } from 'axios';
+import { RegistrationForm } from '../../../components/RegistrationForm';
+import { SecurityWordsModal } from '../../../components/SecurityWordsModal';
+import { registerUser } from '../../../services/authService';
 
 export const UserRegistrationForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const toast = useToast();
+  const [dataUser, setDataUser] = useState<string[]>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const BG = useColorModeValue('#FFF', '#171717');
   const {
-    // handleSubmit,
+    handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  // const handleRegister: SubmitHandler<FieldValues> = async (values) => {
-  //   const data = values as any;
-  //   try {
-  //     await new Promise((resolve) => setTimeout(resolve, 2000));
-  //     const createdUser = await instanceAxios.post('/auth/register', data);
+  const showToast = (
+    title: string,
+    description: string,
+    status: 'success' | 'error',
+    duration = 5000,
+  ) => {
+    toast({
+      title,
+      description,
+      status,
+      duration,
+      position: 'top-right',
+      isClosable: true,
+    });
+  };
 
-  //     if (createdUser.status === 201) {
-  //       alert('Dios es bueno');
-  //     }
-  //   } catch (error: any) {
-  //     //Servidor Apagado
-  //     if (error.code === 'ERR_NETWORK') {
-  //       alert('Dios es bueno');
-  //     }
+  const handleRegister: SubmitHandler<FieldValues> = async (values) => {
+    const formData = values as DataRegisterProps;
 
-  //     const { status, data } = error.response;
-
-  //     if (status === 409 && data.error.includes('username')) {
-  //       alert('Dios es bueno');
-  //     } else if (status === 409 && data.error.includes('email')) {
-  //       alert('Dios es bueno');
-  //     } else {
-  //       alert('Dios es bueno');
-  //     }
-  //   }
-  // };
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const { status, data } = await registerUser(formData);
+      if (status === 201) {
+        showToast('Registro exitoso', `¡Bienvenido ${formData.name}!`, 'success');
+        setDataUser(data.safeWords);
+        onOpen();
+      }
+    } catch (error) {
+      const serverError = error as AxiosError;
+      if (serverError.code === 'ERR_NETWORK') {
+        showToast('Error del Servidor', 'Por favor, inténtalo de nuevo más tarde.', 'error', 7000);
+        return;
+      }
+      const status = serverError.response?.status;
+      if (status === 409) {
+        showToast(
+          'Error de registro',
+          'Ya existe un usuario con esta dirección de correo.',
+          'error',
+          7000,
+        );
+      } else {
+        showToast('Error del Servidor', 'Por favor, inténtalo de nuevo más tarde.', 'error', 7000);
+      }
+    }
+  };
 
   return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} flexDirection={'column'}>
-      <Box>
-        <Logo size="67%" styles="d-flex items-center justify-center" withLetters />
-      </Box>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={5} px={6}>
+    <Flex align={'center'} justify={'center'} flexDirection={'column'}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} px={6}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
-            Registrate
+            Regístrate
           </Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
             Para disfrutar de todas nuestras funciones interesantes ✌️
           </Text>
         </Stack>
-        <Box rounded={'lg'} bg={useColorModeValue('write', 'gray.800')} boxShadow={'2xl'} p={8}>
-          <form>
-            <Stack spacing={4}>
-              <FormControl isInvalid={!!errors.userName} id="email" isRequired>
-                <FormLabel>Nombre</FormLabel>
-                <Input
-                  autoFocus
-                  type="text"
-                  id="userName"
-                  {...register('userName', {
-                    required: 'Nombre de usuario es obligatorio',
-                    minLength: {
-                      value: 3,
-                      message: 'Minimo 3 caracteres',
-                    },
-                    maxLength: {
-                      value: 20,
-                      message: 'Maximo 20 caracteres',
-                    },
-                  })}
-                />
-                <FormErrorMessage>
-                  {errors.userName && typeof errors.userName.message === 'string' ? (
-                    <span>{errors.userName.message}</span>
-                  ) : null}
-                </FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors.email} id="email" isRequired>
-                <FormLabel>Correo electronico</FormLabel>
-                <Input
-                  type="email"
-                  id="email"
-                  {...register('email', {
-                    required: 'Email es requerido',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: 'No es un correo electrónico válido',
-                    },
-                  })}
-                />
-
-                <FormErrorMessage>
-                  {errors.email && typeof errors.email.message === 'string' ? (
-                    <span>{errors.email.message}</span>
-                  ) : null}
-                </FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors.password} id="password" isRequired>
-                <FormLabel>Contraseña</FormLabel>
-                <InputGroup>
-                  <Input
-                    placeholder="Contraseña de 6 dígitos"
-                    type={showPassword ? 'text' : 'password'}
-                    {...register('password', {
-                      required: 'Contraseña es requerida',
-                      minLength: {
-                        value: 8,
-                        message: 'La contraseña debe tener al menos 8 caracteres',
-                      },
-                      pattern: {
-                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-                        message:
-                          'La contraseña debe contener al menos 1 mayúscula, 1 minúscula, 1 número y 1 caracter especial',
-                      },
-                    })}
-                  />
-                  <InputRightElement h={'full'}>
-                    <Button
-                      variant={'ghost'}
-                      onClick={() => setShowPassword((showPassword) => !showPassword)}
-                    >
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                <FormErrorMessage>
-                  {errors.password && typeof errors.password.message === 'string' ? (
-                    <span>{errors.password.message}</span>
-                  ) : null}
-                </FormErrorMessage>
-              </FormControl>
-              <Stack spacing={10} pt={2}>
-                <Button
-                  isLoading={isSubmitting}
-                  size="lg"
-                  type="submit"
-                  bg={'black'}
-                  color={'white'}
-                  _hover={{
-                    bg: 'gray.900',
-                  }}
-                >
-                  Registrarme
-                </Button>
-              </Stack>
-              <Stack pt={6}>
-                <Text align={'center'}>
-                  ¿Ya eres usuario?{' '}
-                  <Link to={'/auth/user-signin'} color={'blue.400'}>
-                    <Text as="b"> Inicia sesión</Text>
-                  </Link>
-                </Text>
-              </Stack>
-            </Stack>
-          </form>
+        <Box rounded={'lg'} bg={BG} boxShadow={'2xl'} p={8}>
+          <RegistrationForm
+            handleSubmit={handleSubmit}
+            register={register}
+            errors={errors}
+            isSubmitting={isSubmitting}
+            handleRegister={handleRegister}
+          />
         </Box>
+        {dataUser.length > 0 && (
+          <SecurityWordsModal isOpen={isOpen} onClose={onClose} dataUser={dataUser} bg={BG} />
+        )}
       </Stack>
     </Flex>
   );

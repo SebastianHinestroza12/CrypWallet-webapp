@@ -5,3 +5,4 @@ export * from './about';
 export * from './cryptocurrency';
 export * from './operations';
 export * from './chartArea';
+export * from './auth';
