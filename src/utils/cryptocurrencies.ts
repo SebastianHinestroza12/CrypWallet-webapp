@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CryptoData, PriceDataProps } from '../interfaces';
+import { CryptoData, PriceDataProps, CryptoDataIProps } from '../interfaces';
 
 export const fetchCryptoData = async () => {
   try {
@@ -36,5 +36,19 @@ export const fetchPriceData = async (crypto: CryptoData): Promise<PriceDataProps
     return formattedPrices;
   } catch (error) {
     throw new Error(`Error fetching price data: ${error}`);
+  }
+};
+
+export const fetchCryptoCompareData = async (
+  currency: string,
+): Promise<CryptoDataIProps<typeof currency>> => {
+  try {
+    const { data } = await axios(
+      `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=100&tsym=${currency}`,
+    );
+
+    return data.Data as CryptoDataIProps<typeof currency>;
+  } catch (error) {
+    throw new Error(`Error obtaining cryptocurrencies: ${error}`);
   }
 };
