@@ -26,15 +26,15 @@ export const ManageCryptocurrencies = () => {
     setCrypto(
       currentCrypto.filter(
         (crypto) =>
-          crypto.name?.toLowerCase().includes(lowerCaseTextValue) ||
-          crypto.symbol?.toLowerCase().includes(lowerCaseTextValue),
+          crypto.CoinInfo.FullName.toLowerCase().includes(lowerCaseTextValue) ||
+          crypto.CoinInfo.Name.toLowerCase().includes(lowerCaseTextValue),
       ),
     );
   };
 
   const sortedCryptocurrencies = crypto.slice().sort((a, b) => {
-    const aChecked = switchStates[a.id] || false;
-    const bChecked = switchStates[b.id] || false;
+    const aChecked = switchStates[a.CoinInfo.FullName.toLowerCase()] || false;
+    const bChecked = switchStates[b.CoinInfo.FullName.toLowerCase()] || false;
     return (bChecked ? 1 : 0) - (aChecked ? 1 : 0);
   });
 
@@ -43,7 +43,11 @@ export const ManageCryptocurrencies = () => {
       <SearchBar handleChange={handleChange} />
       <Box>
         {sortedCryptocurrencies.map((cryptocurrency) => (
-          <ListCrypto key={cryptocurrency.id} cryptocurrency={cryptocurrency} showSwitches={true} />
+          <ListCrypto
+            key={cryptocurrency.CoinInfo.Id}
+            cryptocurrency={cryptocurrency}
+            showSwitches={true}
+          />
         ))}
       </Box>
     </Stack>

@@ -31,7 +31,7 @@ ChartJS.register(
 export const DetailCrypto = () => {
   const { currentCrypto } = useStoreCrypto();
   const { cryptoId } = useParams<{ cryptoId: string }>();
-  const crypto = currentCrypto.find((c) => c.id === cryptoId);
+  const crypto = currentCrypto.find((c) => c.CoinInfo.FullName.toLowerCase() === cryptoId);
   const [priceData, setPriceData] = useState<PriceDataProps[]>([]);
   const toast = useToast();
 
@@ -73,7 +73,7 @@ export const DetailCrypto = () => {
         fontWeight="bold"
         mb={4}
       >
-        {crypto.symbol}
+        {crypto.CoinInfo.Name}
       </Text>
       <Box width="100%" height={{ base: '320px', md: '400px' }}>
         <Line data={chartDataCrypto} options={chartOptionsCrypto} />

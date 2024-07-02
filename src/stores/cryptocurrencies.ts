@@ -2,11 +2,13 @@
 /* eslint-disable no-unused-vars */
 import { create } from 'zustand';
 import { persist, PersistOptions } from 'zustand/middleware';
-import { CryptoData } from '../interfaces';
+import { CryptoCompareData } from '../interfaces';
 
 interface StoreStateCrypto {
-  currentCrypto: CryptoData[];
-  setCurrentCrypto: (newArray: CryptoData[]) => void;
+  currency: string;
+  setCurrency: (currency: string) => void;
+  currentCrypto: CryptoCompareData[];
+  setCurrentCrypto: (newArray: CryptoCompareData[]) => void;
 }
 
 type MyPersist = (
@@ -22,11 +24,24 @@ type MyPersist = (
   api: any,
 ) => StoreStateCrypto;
 
-export const useStoreCrypto = create<StoreStateCrypto>(
+export const useStoreCrypto = create(
   (persist as MyPersist)(
     (set) => ({
+      //Estado global para las criptomonedas
       currentCrypto: [],
-      setCurrentCrypto: (newArray: CryptoData[]) => set(() => ({ currentCrypto: newArray }) as any),
+      setCurrentCrypto: (newArray) =>
+        set((state) => ({
+          ...state,
+          currentCrypto: newArray,
+        })),
+
+      //Estado global para gestionar el cambio de divisa
+      currency: 'USD',
+      setCurrency: (currency) =>
+        set((state) => ({
+          ...state,
+          currency,
+        })),
     }),
     {
       name: 'crypto-storage',
