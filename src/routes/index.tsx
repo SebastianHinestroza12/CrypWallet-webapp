@@ -15,6 +15,7 @@ import { DetailCrypto } from '../pages/DetailCrypto';
 import { SearchCrypto } from '../pages/SearchCrypto';
 import { Layout } from '../components/Layout';
 import { Currency } from '../pages/Preferences/Currency';
+import { AppLanguage } from '../pages/Preferences/AppLanguage';
 
 export const router = createBrowserRouter([
   {
@@ -44,11 +45,18 @@ export const router = createBrowserRouter([
       },
       {
         path: 'preferences',
-        element: <Preferences />,
         children: [
           {
-            path: 'currency',
+            path: 'list',
+            element: <Preferences />,
+          },
+          {
+            path: 'list/currency',
             element: <Currency />,
+          },
+          {
+            path: 'list/app-language',
+            element: <AppLanguage />,
           },
         ],
       },

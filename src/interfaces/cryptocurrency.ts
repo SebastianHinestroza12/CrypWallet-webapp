@@ -187,7 +187,8 @@ export interface CryptoCompareData {
   };
 }
 
-export interface Currency {
+export interface PreferenceListData {
   code: string;
   name: string;
+  icon: string;
 }
