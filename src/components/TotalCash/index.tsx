@@ -6,7 +6,13 @@ import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 import { TotalCashProps } from '../../interfaces';
 
-export const TotalCash: FC<TotalCashProps> = ({ amount, percentage, isPositive, onRefresh }) => {
+export const TotalCash: FC<TotalCashProps> = ({
+  amount,
+  percentage,
+  isPositive,
+  onRefresh,
+  isLoading,
+}) => {
   const bg = useColorModeValue('gray.100', '#171717');
   const { isDataVisible, setDataVisible } = useStoreVisibilityData();
 
@@ -23,6 +29,7 @@ export const TotalCash: FC<TotalCashProps> = ({ amount, percentage, isPositive, 
           px={3}
           color={'#FFF'}
           bg={'#1E59EA'}
+          isLoading={isLoading}
           _hover={{ bg: '#007bff', cursor: 'pointer' }}
           onClick={onRefresh}
         >

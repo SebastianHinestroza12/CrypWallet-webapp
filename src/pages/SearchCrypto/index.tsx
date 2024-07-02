@@ -22,8 +22,8 @@ export const SearchCrypto = () => {
     setCrypto(
       currentCrypto.filter(
         (crypto) =>
-          crypto.name?.toLowerCase().includes(lowerCaseTextValue) ||
-          crypto.symbol?.toLowerCase().includes(lowerCaseTextValue),
+          crypto.CoinInfo.FullName.toLowerCase().includes(lowerCaseTextValue) ||
+          crypto.CoinInfo.Name.toLowerCase().includes(lowerCaseTextValue),
       ),
     );
   };
@@ -35,9 +35,9 @@ export const SearchCrypto = () => {
         {crypto.map((data) => (
           <ListCrypto
             showSwitches={false}
-            key={data.id}
+            key={data.CoinInfo.Id}
             cryptocurrency={data}
-            onClick={() => navigate(`/crypto/detail/${data.id}`)}
+            onClick={() => navigate(`/crypto/detail/${data.CoinInfo.FullName.toLowerCase()}`)}
           />
         ))}
       </Box>

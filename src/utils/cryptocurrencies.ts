@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CryptoData, PriceDataProps } from '../interfaces';
+import { PriceDataProps, CryptoCompareData } from '../interfaces';
 
 export const fetchCryptoData = async () => {
   try {
@@ -16,10 +16,10 @@ export const fetchCryptoData = async () => {
   }
 };
 
-export const fetchPriceData = async (crypto: CryptoData): Promise<PriceDataProps[]> => {
+export const fetchPriceData = async (crypto: CryptoCompareData): Promise<PriceDataProps[]> => {
   try {
     const { data } = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/${crypto.id}/market_chart`,
+      `https://api.coingecko.com/api/v3/coins/${crypto.CoinInfo.FullName.toLowerCase()}/market_chart`,
       {
         params: {
           vs_currency: 'usd',
@@ -36,5 +36,17 @@ export const fetchPriceData = async (crypto: CryptoData): Promise<PriceDataProps
     return formattedPrices;
   } catch (error) {
     throw new Error(`Error fetching price data: ${error}`);
+  }
+};
+
+export const fetchCryptoCompareData = async (currency: string): Promise<CryptoCompareData[]> => {
+  try {
+    const { data } = await axios(
+      `https://min-api.cryptocompare.com/data/top/totalvolfull?limit=100&tsym=${currency}`,
+    );
+
+    return data.Data;
+  } catch (error) {
+    throw new Error(`Error obtaining cryptocurrencies: ${error}`);
   }
 };

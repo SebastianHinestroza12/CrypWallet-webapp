@@ -9,10 +9,12 @@ import { UserLogIn } from '../pages/Auth/SignIn';
 import { AboutUs } from '../pages/AboutUs';
 import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
 import { Notifications } from '../pages/Notifications';
+import { Preferences } from '../pages/Preferences';
 import { ManageCryptocurrencies } from '../pages/ManageCryptocurrencies';
 import { DetailCrypto } from '../pages/DetailCrypto';
 import { SearchCrypto } from '../pages/SearchCrypto';
 import { Layout } from '../components/Layout';
+import { Currency } from '../pages/Preferences/Currency';
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +41,16 @@ export const router = createBrowserRouter([
       {
         path: 'notifications',
         element: <Notifications />,
+      },
+      {
+        path: 'preferences',
+        element: <Preferences />,
+        children: [
+          {
+            path: 'currency',
+            element: <Currency />,
+          },
+        ],
       },
       {
         path: 'auth',

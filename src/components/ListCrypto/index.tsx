@@ -1,20 +1,19 @@
 import { Flex, Image, Box, Text, Switch, useColorModeValue } from '@chakra-ui/react';
-import { CryptoData } from '../../interfaces';
+import { CryptoCompareData } from '../../interfaces';
 import { useSwitchStore } from '../../stores/switch';
-import { memo } from 'react';
 
 interface ListCryptoProps {
-  cryptocurrency: CryptoData;
+  cryptocurrency: CryptoCompareData;
   showSwitches: boolean;
   onClick?: () => void;
 }
 
-export const ListCrypto = memo(({ cryptocurrency, showSwitches, onClick }: ListCryptoProps) => {
+export const ListCrypto = ({ cryptocurrency, showSwitches, onClick }: ListCryptoProps) => {
   const { switchStates, toggleSwitch } = useSwitchStore();
   const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
   return (
     <Flex
-      key={cryptocurrency.id}
+      key={cryptocurrency.CoinInfo.Id}
       alignItems={'center'}
       justifyContent={'space-between'}
       mb={2}
@@ -23,29 +22,31 @@ export const ListCrypto = memo(({ cryptocurrency, showSwitches, onClick }: ListC
     >
       <Flex alignItems={'center'}>
         <Image
-          boxSize="30px"
+          boxSize="45px"
           borderRadius="full"
           mr={4}
-          src={cryptocurrency.image}
-          alt={cryptocurrency.name}
+          src={`https://www.cryptocompare.com${cryptocurrency.CoinInfo.ImageUrl}`}
+          alt={cryptocurrency.CoinInfo.FullName}
         />
         <Box>
           <Text fontSize={'medium'} textTransform={'uppercase'}>
-            {cryptocurrency.symbol}
+            {cryptocurrency.CoinInfo.Name}
           </Text>
           <Text color={'gray.500'} fontSize={'small'}>
-            {cryptocurrency.name}
+            {cryptocurrency.CoinInfo.FullName}
           </Text>
         </Box>
       </Flex>
       {showSwitches && (
         <Box>
           <Switch
-            isChecked={switchStates[cryptocurrency.id] || false}
-            onChange={() => toggleSwitch(cryptocurrency.id)}
+            isChecked={switchStates[cryptocurrency.CoinInfo.FullName.toLowerCase()] || false}
+            onChange={() => toggleSwitch(cryptocurrency.CoinInfo.FullName.toLowerCase())}
             sx={{
               '.chakra-switch__track': {
-                backgroundColor: switchStates[cryptocurrency.id] ? 'green' : '#A0AEC0',
+                backgroundColor: switchStates[cryptocurrency.CoinInfo.FullName.toLowerCase()]
+                  ? 'green'
+                  : '#A0AEC0',
               },
               '.chakra-switch__thumb': {
                 backgroundColor: '#FFF',
@@ -57,4 +58,4 @@ export const ListCrypto = memo(({ cryptocurrency, showSwitches, onClick }: ListC
       )}
     </Flex>
   );
-});
+};
