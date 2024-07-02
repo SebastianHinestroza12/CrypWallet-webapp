@@ -10,10 +10,14 @@ export const Preferences = () => {
   return (
     <Stack spacing={4}>
       <Heading textAlign={'center'}>Preferencias</Heading>
-      <Box p={2} _hover={{ bg: BG_COLOR }} onClick={() => navigation('/preferences/currency')}>
+      <Box p={2} _hover={{ bg: BG_COLOR }} onClick={() => navigation('/preferences/list/currency')}>
         <PreferenceList title="Currency" subTitle={currency} />
       </Box>
-      <Box p={2} _hover={{ bg: BG_COLOR }}>
+      <Box
+        p={2}
+        _hover={{ bg: BG_COLOR }}
+        onClick={() => navigation('/preferences/list/app-language')}
+      >
         <PreferenceList title="App Language" subTitle="English" />
       </Box>
     </Stack>

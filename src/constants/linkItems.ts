@@ -9,7 +9,7 @@ export const LINK_ITEMS: LinkItemProps[] = [
   { id: 1, name: 'Home', route: '/home', icon: FiHome },
   { id: 2, name: 'Wallets', icon: IoWalletOutline },
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
-  { id: 5, name: 'Preferences', route: '/preferences', icon: FiSettings },
+  { id: 5, name: 'Preferences', route: '/preferences/list', icon: FiSettings },
   { id: 6, name: 'Manage crypto', route: '/crypto/manage', icon: MdOutlineManageHistory },
   { id: 7, name: 'Security', icon: GiPadlock, showDivider: true },
   { id: 8, name: 'Login', route: '/auth/user-signin', icon: FiLogIn },
