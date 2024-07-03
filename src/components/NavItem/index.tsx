@@ -33,16 +33,7 @@ export const NavItem = ({ icon, showDivider, route, children, ...rest }: NavItem
         {...rest}
         onClick={handleNavigation}
       >
-        {icon && (
-          <Icon
-            mr="4"
-            fontSize="16"
-            _groupHover={{
-              color: 'white',
-            }}
-            as={icon}
-          />
-        )}
+        {icon && <Icon mr="4" fontSize="16" as={icon} boxSize={6} />}
         {children}
       </Flex>
       {showDivider && <Divider />}
