@@ -1,9 +1,17 @@
 import { useState } from 'react';
-import { Box, CloseButton, Flex, useColorModeValue, Switch, useColorMode } from '@chakra-ui/react';
-import { Logo } from '../Logo';
+import {
+  Box,
+  CloseButton,
+  Flex,
+  useColorModeValue,
+  Switch,
+  useColorMode,
+  Text,
+} from '@chakra-ui/react';
 import { NavItem } from '../NavItem';
 import { SidebarProps } from '../../interfaces';
 import { LINK_ITEMS } from '../../constants';
+import { Icon } from '@iconify/react';
 import './scrollbar.css';
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -19,7 +27,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       transition="3s ease"
       bg={useColorModeValue('white', '#101010')}
       borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+      borderRightColor={useColorModeValue('gray.100', '#171717')}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -28,9 +36,18 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="6" mt="2" justifyContent="space-between">
-        <Box justifyContent={'flex-start'} display={'flex'} alignItems={'flex-start'}>
-          <Logo size="35%" styles="d-flex items-start justify-center" />
-        </Box>
+        <Flex justifyContent={'center'} alignItems={'center'}>
+          <Icon icon={'mingcute:safe-shield-2-fill'} width={35} color="#1e59ea" />
+          <Text
+            ml={2}
+            textAlign={'center'}
+            fontWeight={'bold'}
+            fontSize={'lg'}
+            textTransform={'uppercase'}
+          >
+            cryp wallet
+          </Text>
+        </Flex>
         <Box>
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
         </Box>

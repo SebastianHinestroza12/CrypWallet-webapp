@@ -3,12 +3,12 @@ import { Stack, Box, Text, Flex, useColorModeValue } from '@chakra-ui/react';
 import { SearchBar } from '../../../components/SearchBar';
 import { CURRENCIES } from '../../../constants';
 import { Icon } from '@iconify/react';
-import { Currency as CurrencyState } from '../../../interfaces';
+import { PreferenceListData } from '../../../interfaces';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 
 export const Currency = () => {
   const BG_COLOR = useColorModeValue('gray.100', '#171717');
-  const [currencies, setCurrencies] = useState<CurrencyState[]>(CURRENCIES);
+  const [currencies, setCurrencies] = useState<PreferenceListData[]>(CURRENCIES);
   const { currency, setCurrency } = useStoreCrypto();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
