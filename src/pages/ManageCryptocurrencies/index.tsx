@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Stack, Box } from '@chakra-ui/react';
 import { SearchBar } from '../../components/SearchBar';
-import { Layout } from '../../components/Layout';
 import { useSwitchStore } from '../../stores/switch';
 import { ListCrypto } from '../../components/ListCrypto';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
@@ -27,32 +26,30 @@ export const ManageCryptocurrencies = () => {
     setCrypto(
       currentCrypto.filter(
         (crypto) =>
-          crypto.name?.toLowerCase().includes(lowerCaseTextValue) ||
-          crypto.symbol?.toLowerCase().includes(lowerCaseTextValue),
+          crypto.CoinInfo.FullName.toLowerCase().includes(lowerCaseTextValue) ||
+          crypto.CoinInfo.Name.toLowerCase().includes(lowerCaseTextValue),
       ),
     );
   };
 
   const sortedCryptocurrencies = crypto.slice().sort((a, b) => {
-    const aChecked = switchStates[a.id] || false;
-    const bChecked = switchStates[b.id] || false;
+    const aChecked = switchStates[a.CoinInfo.FullName.toLowerCase()] || false;
+    const bChecked = switchStates[b.CoinInfo.FullName.toLowerCase()] || false;
     return (bChecked ? 1 : 0) - (aChecked ? 1 : 0);
   });
 
   return (
-    <Layout>
-      <Stack p={2} spacing={8}>
-        <SearchBar handleChange={handleChange} />
-        <Box>
-          {sortedCryptocurrencies.map((cryptocurrency) => (
-            <ListCrypto
-              key={cryptocurrency.id}
-              cryptocurrency={cryptocurrency}
-              showSwitches={true}
-            />
-          ))}
-        </Box>
-      </Stack>
-    </Layout>
+    <Stack p={2} spacing={8}>
+      <SearchBar handleChange={handleChange} />
+      <Box>
+        {sortedCryptocurrencies.map((cryptocurrency) => (
+          <ListCrypto
+            key={cryptocurrency.CoinInfo.Id}
+            cryptocurrency={cryptocurrency}
+            showSwitches={true}
+          />
+        ))}
+      </Box>
+    </Stack>
   );
 };

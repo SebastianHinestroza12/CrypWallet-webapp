@@ -1,11 +1,19 @@
 import { FC, useEffect, useState } from 'react';
-import { Box, Drawer, DrawerContent, useDisclosure, useBreakpointValue } from '@chakra-ui/react';
+import {
+  Box,
+  Drawer,
+  DrawerContent,
+  useDisclosure,
+  useBreakpointValue,
+  Flex,
+} from '@chakra-ui/react';
 import { MobileNav } from '../MobileNav';
 import { SidebarContent } from '../SideBarContent';
 import { SidebarWithHeaderProps } from '../../interfaces';
+import { Outlet } from 'react-router-dom';
 import { TabBottomMobile } from '../TabBottom';
 
-export const Layout: FC<SidebarWithHeaderProps> = ({ children }) => {
+export const Layout: FC<SidebarWithHeaderProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isBreakpointReady, setIsBreakpointReady] = useState(false);
   const showTabBottomMobile = useBreakpointValue({ base: true, md: false });
@@ -34,9 +42,16 @@ export const Layout: FC<SidebarWithHeaderProps> = ({ children }) => {
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p={{ base: 2, md: 5 }}>
-        {children}
-      </Box>
+      <Flex justifyContent={'center'}>
+        <Box
+          ml={{ base: 0, md: 60 }}
+          p={{ base: 2, md: 5 }}
+          width={'100%'}
+          maxW={{ base: '100%', md: '70%' }}
+        >
+          <Outlet />
+        </Box>
+      </Flex>
       {isBreakpointReady && showTabBottomMobile && (
         <Box position="fixed" bottom="0" left="0" width="100%">
           <TabBottomMobile />

@@ -1,20 +1,20 @@
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '../../routes';
-import { fetchCryptoData } from '../../utils';
+import { fetchCryptoCompareData } from '../../utils';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 
 export const App = () => {
-  const { setCurrentCrypto } = useStoreCrypto();
+  const { setCurrentCrypto, currency } = useStoreCrypto();
 
   useEffect(() => {
     const fetchData = async () => {
-      const getAllCrypto = await fetchCryptoData();
+      const getAllCrypto = await fetchCryptoCompareData(currency);
       setCurrentCrypto(getAllCrypto);
     };
 
     fetchData();
-  }, [setCurrentCrypto]);
+  }, [currency, setCurrentCrypto]);
 
   return <RouterProvider router={router} />;
 };

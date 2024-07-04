@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,43 +15,35 @@ import {
   HStack,
   PinInput,
   PinInputField,
-  useBreakpointValue,
+  Heading,
+  useToast,
 } from '@chakra-ui/react';
 import { NumericKeypad } from '../../../components/NumericKeypad';
-import { Logo } from '../../../components/Logo';
+import { loginUser } from '../../../services/authService';
+import { useStoreAutheticated } from '../../../stores/authentication';
+import { WalletsIProps } from '../../../interfaces';
 import './shake.css';
 
 export const UserLogIn: React.FC = () => {
   const navigation = useNavigate();
-  const [isBreakpointReady, setIsBreakpointReady] = useState(false);
-  const showLogo = useBreakpointValue({ base: false, md: true });
   const [pin, setPin] = useState<string>('');
   const [borderColorPin, setBorderColorPin] = useState('#1e59ea');
   const [shake, setShake] = useState<boolean>(false);
+  const toast = useToast();
+  const { addWallet, authenticateUser } = useStoreAutheticated();
   const {
     register,
     formState: { errors, isValid },
     watch,
   } = useForm({ mode: 'onChange' });
 
+  const email = watch('email');
+
   const handleNumberClick = (num: number) => {
     setPin((prevPin) => {
       const newPin = prevPin + num.toString();
       if (newPin.length === 6) {
-        if (newPin === '111111') {
-          setBorderColorPin('green');
-          setTimeout(() => {
-            navigation('/home');
-          }, 2000);
-        } else {
-          setBorderColorPin('red');
-          setShake(true);
-          setTimeout(() => {
-            setShake(false);
-            setBorderColorPin('#1e59ea');
-          }, 1000);
-          setPin('');
-        }
+        handleLoginAttempt(newPin);
       } else {
         setBorderColorPin('#1e59ea');
       }
@@ -57,17 +51,91 @@ export const UserLogIn: React.FC = () => {
     });
   };
 
-  const email = watch('email');
+  const handleLoginAttempt = async (pin: string) => {
+    try {
+      const { status, data } = await loginUser({ email, password: pin });
+
+      if (status === 200) {
+        setBorderColorPin('green');
+
+        //Autenticar al usuario
+        authenticateUser({
+          id: data.id,
+          name: data.name,
+          lastName: data.lastName,
+          email: data.email,
+        });
+
+        //Almacenar las wallet
+        data.wallets.forEach((wallet: WalletsIProps) => {
+          addWallet(wallet);
+        });
+
+        //Almacenar las palabras claves
+
+        setTimeout(() => {
+          //Redireccionar al home
+          navigation('/home');
+        }, 1500);
+      }
+    } catch (error: any) {
+      //Server Off
+      if (error.code === 'ERR_NETWORK') {
+        setPin('');
+        return toast({
+          title: 'Error del Servidor',
+          description: 'Por favor, inténtalo de nuevo más tarde.',
+          status: 'error',
+          position: 'top-right',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+
+      const { status } = error.response;
+
+      //Incorrect password
+      if (status === 401) {
+        setBorderColorPin('red');
+        setShake(true);
+        setTimeout(() => {
+          setShake(false);
+          setBorderColorPin('#1e59ea');
+        }, 1000);
+        setPin('');
+      } else if (status === 403) {
+        //Account disabled
+        toast({
+          title: 'Cuenta Deshabilitada',
+          description:
+            'Tu cuenta ha sido deshabilitada debido a múltiples intentos fallidos de inicio de sesión. Por favor, intenta recuperar tu cuenta para restaurar el acceso.',
+          status: 'error',
+          duration: 12000,
+          isClosable: true,
+          position: 'top-right',
+        });
+        setPin('');
+      } else {
+        //User not found
+        toast({
+          title: 'Error de autenticación',
+          description:
+            'El usuario no se encuentra registrado. Por favor verifica tu información e inténtalo de nuevo.',
+          status: 'error',
+          duration: 7000,
+          isClosable: true,
+          position: 'top-right',
+        });
+        setPin('');
+      }
+    }
+  };
 
   useEffect(() => {
     if (!isValid) {
       setPin('');
     }
   }, [email, isValid]);
-
-  useEffect(() => {
-    setIsBreakpointReady(true);
-  }, []);
 
   const handleDeleteClick = () => {
     setPin((prevPin) => prevPin.slice(0, -1));
@@ -79,15 +147,13 @@ export const UserLogIn: React.FC = () => {
   };
 
   return (
-    <Flex minH={'100vh'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-      <Stack spacing={6} mx={'auto'} maxW={'lg'} py={4} m={3}>
+    <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
+      <Stack spacing={6} mx={'auto'} maxW={'lg'} m={2}>
         <Box>
           <Stack spacing={4}>
-            {isBreakpointReady && showLogo && (
-              <Center>
-                <Logo size="67%" styles="d-flex items-center justify-center" withLetters />
-              </Center>
-            )}
+            <Heading fontSize={'4xl'} textAlign={'center'}>
+              Iniciar Sesión
+            </Heading>
             <FormControl isInvalid={!!errors.email} isRequired>
               <Input
                 autoFocus
@@ -147,7 +213,7 @@ export const UserLogIn: React.FC = () => {
             </Box>
             <Stack pt={6}>
               <Text align={'center'}>
-                <Link className="text-[#1e59ea]" to="#">
+                <Link className="text-[#1e59ea]" to="/auth/recover-account">
                   ¿Olvidaste tu contraseña?
                 </Link>
               </Text>

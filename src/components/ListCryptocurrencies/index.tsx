@@ -1,81 +1,90 @@
-import { FC, useState, memo, useLayoutEffect } from 'react';
-import { Box, Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
-import { ListCryptocurrenciesProps, CryptoData } from '../../interfaces';
+import { useState, useEffect, memo } from 'react';
+import { Box, Flex, Image, Text, Icon } from '@chakra-ui/react';
+import { CryptoCompareData } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { useSwitchStore } from '../../stores/switch';
+import { useStoreVisibilityData } from '../../stores/dataVisibility';
+import { useStoreCrypto } from '../../stores/cryptocurrencies';
+import { PiDotsThreeOutlineFill } from 'react-icons/pi';
+import { EmptyState } from '../../components/EmptyState';
 
-export const ListCryptocurrencies: FC<ListCryptocurrenciesProps> = memo(({ cryptocurrencies }) => {
+export const ListCryptocurrencies = memo(() => {
   const { switchStates } = useSwitchStore();
-  const [showCrypto, setShowCrypto] = useState<CryptoData[]>([]);
-  const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
+  const { isDataVisible } = useStoreVisibilityData();
+  const [showCrypto, setShowCrypto] = useState<CryptoCompareData[]>([]);
+  const { currency, currentCrypto } = useStoreCrypto();
   const navigate = useNavigate();
 
   const formatChange = (change: number): string => {
     if (change > 0) {
-      return `+${change.toFixed(2)}%`;
+      return `+${change?.toFixed(2)}%`;
     } else {
-      return `${change.toFixed(2)}%`;
+      return `${change?.toFixed(2)}%`;
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const convertObjectToArray = Object.entries(switchStates);
-    const filteredCryptocurrencies = cryptocurrencies.filter((data) => {
+    const filteredCryptocurrencies = currentCrypto.filter((data) => {
       return convertObjectToArray.some((item) => {
-        return item[0] === data.id && item[1] === true;
+        return item[0] === data.CoinInfo.FullName.toLowerCase() && item[1] === true;
       });
     });
     setShowCrypto(filteredCryptocurrencies);
-  }, [cryptocurrencies, switchStates]);
+  }, [switchStates, currency, currentCrypto]);
 
   return (
     <Flex direction="column" width="100%">
       {showCrypto.length === 0 ? (
-        <Text textAlign="center" fontSize="lg" color="gray.500">
-          Sin crypto Para Visualizar
-        </Text>
+        <EmptyState />
       ) : (
         showCrypto.map((crypto) => (
           <Flex
-            key={crypto.id}
+            key={crypto.CoinInfo.Id}
             alignItems="center"
             justifyContent="space-between"
             mb={2}
             py={1}
-            onClick={() => navigate(`/crypto/detail/${crypto.id}`)}
-            _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
+            onClick={() => navigate(`/crypto/detail/${crypto.CoinInfo.FullName.toLowerCase()}`)}
+            _hover={{ cursor: 'pointer' }}
           >
             <Flex alignItems="center">
               <Image
-                src={crypto.image}
-                alt={crypto.name}
-                boxSize="40px"
+                src={`https://www.cryptocompare.com${crypto.CoinInfo.ImageUrl}`}
+                alt={crypto.CoinInfo.Name}
+                boxSize="45px"
                 borderRadius="full"
                 mr={4}
               />
               <Box>
                 <Text fontSize="lg" fontWeight="bold" textTransform={'uppercase'}>
-                  {crypto.symbol}
+                  {crypto.CoinInfo.Name}
                 </Text>
                 <Flex>
-                  <Text color="gray.500">${crypto.current_price}</Text>
+                  <Text color="gray.500">{crypto?.DISPLAY?.[currency]?.PRICE || 'N/A'}</Text>
                   <Text
-                    color={crypto.price_change_percentage_24h >= 0 ? 'green.500' : 'red.500'}
+                    color={crypto?.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? 'green.500' : 'red.500'}
                     ml={1}
                   >
-                    {formatChange(crypto.price_change_percentage_24h)}
+                    {crypto?.RAW?.[currency]?.CHANGEPCT24HOUR
+                      ? formatChange(crypto?.RAW?.[currency]?.CHANGEPCT24HOUR)
+                      : ''}
                   </Text>
                 </Flex>
               </Box>
             </Flex>
-            <Box textAlign="right">
-              <Text fontSize="lg" fontWeight="bold">
-                {crypto.current_price}
-              </Text>
-              <Text fontSize={'sm'} color="gray.500">
-                ${crypto.current_price}
-              </Text>
-            </Box>
+            {isDataVisible ? (
+              <Box textAlign="right">
+                <Text fontSize="lg" fontWeight="bold">
+                  {crypto.CoinInfo.BlockTime}
+                </Text>
+                <Text fontSize={'sm'} color="gray.500">
+                  ${crypto.CoinInfo.BlockNumber}
+                </Text>
+              </Box>
+            ) : (
+              <Icon boxSize={12} as={PiDotsThreeOutlineFill} />
+            )}
           </Flex>
         ))
       )}
