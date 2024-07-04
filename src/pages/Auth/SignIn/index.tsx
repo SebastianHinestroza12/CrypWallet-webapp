@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -19,6 +20,8 @@ import {
 } from '@chakra-ui/react';
 import { NumericKeypad } from '../../../components/NumericKeypad';
 import { loginUser } from '../../../services/authService';
+import { useStoreAutheticated } from '../../../stores/authentication';
+import { WalletsIProps } from '../../../interfaces';
 import './shake.css';
 
 export const UserLogIn: React.FC = () => {
@@ -27,6 +30,7 @@ export const UserLogIn: React.FC = () => {
   const [borderColorPin, setBorderColorPin] = useState('#1e59ea');
   const [shake, setShake] = useState<boolean>(false);
   const toast = useToast();
+  const { addWallet, authenticateUser } = useStoreAutheticated();
   const {
     register,
     formState: { errors, isValid },
@@ -49,13 +53,30 @@ export const UserLogIn: React.FC = () => {
 
   const handleLoginAttempt = async (pin: string) => {
     try {
-      const { status } = await loginUser({ email, password: pin });
+      const { status, data } = await loginUser({ email, password: pin });
 
       if (status === 200) {
         setBorderColorPin('green');
+
+        //Autenticar al usuario
+        authenticateUser({
+          id: data.id,
+          name: data.name,
+          lastName: data.lastName,
+          email: data.email,
+        });
+
+        //Almacenar las wallet
+        data.wallets.forEach((wallet: WalletsIProps) => {
+          addWallet(wallet);
+        });
+
+        //Almacenar las palabras claves
+
         setTimeout(() => {
+          //Redireccionar al home
           navigation('/home');
-        }, 2000);
+        }, 1500);
       }
     } catch (error: any) {
       //Server Off
@@ -81,6 +102,18 @@ export const UserLogIn: React.FC = () => {
           setShake(false);
           setBorderColorPin('#1e59ea');
         }, 1000);
+        setPin('');
+      } else if (status === 403) {
+        //Account disabled
+        toast({
+          title: 'Cuenta Deshabilitada',
+          description:
+            'Tu cuenta ha sido deshabilitada debido a múltiples intentos fallidos de inicio de sesión. Por favor, intenta recuperar tu cuenta para restaurar el acceso.',
+          status: 'error',
+          duration: 12000,
+          isClosable: true,
+          position: 'top-right',
+        });
         setPin('');
       } else {
         //User not found
@@ -180,7 +213,7 @@ export const UserLogIn: React.FC = () => {
             </Box>
             <Stack pt={6}>
               <Text align={'center'}>
-                <Link className="text-[#1e59ea]" to="#">
+                <Link className="text-[#1e59ea]" to="/auth/recover-account">
                   ¿Olvidaste tu contraseña?
                 </Link>
               </Text>

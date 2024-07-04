@@ -1,10 +1,13 @@
 import { FC } from 'react';
 import { Box, Flex, Icon, Text, useColorModeValue, Button } from '@chakra-ui/react';
 import { FaSync, FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { IoMdArrowDropdown } from 'react-icons/io';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 import { TotalCashProps } from '../../interfaces';
+import { useNavigate } from 'react-router-dom';
+import { useStoreAutheticated } from '../../stores/authentication';
 
 export const TotalCash: FC<TotalCashProps> = ({
   amount,
@@ -14,14 +17,36 @@ export const TotalCash: FC<TotalCashProps> = ({
   isLoading,
 }) => {
   const bg = useColorModeValue('gray.100', '#171717');
+  const bgWallet = useColorModeValue('gray.300', '#101010');
   const { isDataVisible, setDataVisible } = useStoreVisibilityData();
+  const navigation = useNavigate();
+  const { isAuthenticated } = useStoreAutheticated();
+
+  const handleDataVisible = () => {
+    if (isAuthenticated) {
+      setDataVisible();
+      return;
+    }
+    navigation('/auth/user-signin');
+  };
 
   return (
     <Box bg={bg} p={3} borderRadius="md" width="100%">
       <Flex justifyContent="space-between" alignItems="center" mb={2}>
-        <Text fontSize="lg" fontWeight="bold">
-          My Wallet
-        </Text>
+        <Box
+          display={'flex'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          _hover={{ bg: bgWallet, cursor: 'pointer' }}
+          onClick={() => navigation('/wallets')}
+          p={2}
+          borderRadius={'full'}
+        >
+          <Text fontSize="lg" fontWeight="bold" textAlign={'center'}>
+            Main Wallet One
+          </Text>
+          <Icon as={IoMdArrowDropdown} boxSize={6} />
+        </Box>
         <Button
           rounded={'full'}
           size={'md'}
@@ -40,9 +65,9 @@ export const TotalCash: FC<TotalCashProps> = ({
         </Button>
       </Flex>
 
-      <Flex alignItems={'center'}>
+      <Flex alignItems={'center'} px={2}>
         {isDataVisible ? (
-          <Text mr={3} fontSize="2xl" fontWeight="bold" mb={2}>
+          <Text mr={3} fontSize="2xl" fontWeight="bold" mb={1}>
             {amount}
           </Text>
         ) : (
@@ -52,15 +77,18 @@ export const TotalCash: FC<TotalCashProps> = ({
           boxSize={6}
           as={isDataVisible ? ViewIcon : ViewOffIcon}
           cursor="pointer"
-          onClick={() => setDataVisible()}
+          onClick={handleDataVisible}
         />
       </Flex>
 
-      <Flex alignItems="center" color={isPositive ? 'green.500' : 'red.500'}>
+      <Flex alignItems="center" px={2}>
         {isDataVisible ? (
           <>
-            <Icon as={isPositive ? FaArrowUp : FaArrowDown} />
-            <Text ml={1} fontSize="lg">
+            <Icon
+              as={isPositive ? FaArrowUp : FaArrowDown}
+              color={isPositive ? 'green.500' : 'red.500'}
+            />
+            <Text ml={1} fontSize="lg" color={isPositive ? 'green.500' : 'red.500'}>
               {percentage}
             </Text>
           </>

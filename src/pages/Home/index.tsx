@@ -43,7 +43,7 @@ export const Home: FC = () => {
       <Box mb={3} py={2} _hover={{ bg: BG_COLOR }}>
         <Link to={'/crypto/manage'}>
           <Text
-            _hover={{ cursor: 'pointer', color: '#007bff' }}
+            _hover={{ cursor: 'pointer' }}
             color={'#1e59ea'}
             fontSize={'md'}
             textAlign={'center'}

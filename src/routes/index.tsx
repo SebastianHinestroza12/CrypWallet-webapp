@@ -16,6 +16,8 @@ import { SearchCrypto } from '../pages/SearchCrypto';
 import { Layout } from '../components/Layout';
 import { Currency } from '../pages/Preferences/Currency';
 import { AppLanguage } from '../pages/Preferences/AppLanguage';
+import { Wallets } from '../pages/Wallets';
+import { ProtectedRoute } from '../components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +32,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: 'home',
@@ -41,7 +44,23 @@ export const router = createBrowserRouter([
       },
       {
         path: 'notifications',
-        element: <Notifications />,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '',
+            element: <Notifications />,
+          },
+        ],
+      },
+      {
+        path: 'wallets',
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: '',
+            element: <Wallets />,
+          },
+        ],
       },
       {
         path: 'preferences',
@@ -73,7 +92,13 @@ export const router = createBrowserRouter([
           },
           {
             path: 'user-profile',
-            element: <UserProfileEdit />,
+            element: <ProtectedRoute />,
+            children: [
+              {
+                path: '',
+                element: <UserProfileEdit />,
+              },
+            ],
           },
           {
             path: 'recover-account',

@@ -1,9 +1,10 @@
-import { Box, Flex, Icon, Divider } from '@chakra-ui/react';
+import { Box, Flex, Icon, Divider, useColorModeValue } from '@chakra-ui/react';
 import { NavItemProps } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 
 export const NavItem = ({ icon, showDivider, route, children, ...rest }: NavItemProps) => {
   const navigation = useNavigate();
+  const BG_COLOR = useColorModeValue('gray.100', '#171717');
 
   const handleNavigation = () => {
     if (route) {
@@ -27,8 +28,7 @@ export const NavItem = ({ icon, showDivider, route, children, ...rest }: NavItem
         borderRadius="lg"
         cursor="pointer"
         _hover={{
-          bg: 'gray.900',
-          color: 'white',
+          bg: BG_COLOR,
         }}
         {...rest}
         onClick={handleNavigation}
