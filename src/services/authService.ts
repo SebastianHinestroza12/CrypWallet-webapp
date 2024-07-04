@@ -24,3 +24,12 @@ export const loginUser = async ({ email, password }: UserIProps) => {
     throw serverError;
   }
 };
+
+export const logout = async () => {
+  try {
+    await instanceAxios.post('/auth/logout');
+  } catch (error) {
+    const serverError = error as AxiosError;
+    throw serverError;
+  }
+};

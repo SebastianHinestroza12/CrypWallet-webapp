@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Box,
   CloseButton,
@@ -9,17 +9,35 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { NavItem } from '../NavItem';
-import { SidebarProps } from '../../interfaces';
+import { SidebarProps, LinkItemProps } from '../../interfaces';
 import { LINK_ITEMS } from '../../constants';
 import { Icon } from '@iconify/react';
+import { useStoreAutheticated } from '../../stores/authentication';
 import './scrollbar.css';
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const { isAuthenticated, logoutUser } = useStoreAutheticated();
   const { toggleColorMode, colorMode } = useColorMode();
   const [isChecked, setIsChecked] = useState(colorMode === 'dark');
-  const handletoggleColorMode = () => {
+
+  const handleToggleColorMode = () => {
     setIsChecked((prev) => !prev);
     toggleColorMode();
+  };
+
+  const filterItems = useMemo(() => {
+    return LINK_ITEMS.filter((item) =>
+      isAuthenticated ? item.id !== 8 && item.id !== 9 : item.id !== 10,
+    );
+  }, [isAuthenticated]);
+
+  const handleOnClose = (item: LinkItemProps) => {
+    if (item.id === 10) {
+      logoutUser();
+      onClose();
+    } else {
+      onClose();
+    }
   };
 
   return (
@@ -52,8 +70,8 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
         </Box>
       </Flex>
-      {LINK_ITEMS.map((link) => (
-        <Box onClick={onClose} key={link.id}>
+      {filterItems.map((link) => (
+        <Box onClick={() => handleOnClose(link)} key={link.id}>
           <NavItem icon={link.icon} route={link.route} showDivider={link.showDivider}>
             <Box flex={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
               {link.name}
@@ -70,7 +88,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                     }}
                     isChecked={isChecked}
                     size="lg"
-                    onChange={handletoggleColorMode}
+                    onChange={handleToggleColorMode}
                   />
                 </Box>
               )}

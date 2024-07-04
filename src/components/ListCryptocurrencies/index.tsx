@@ -6,6 +6,7 @@ import { useSwitchStore } from '../../stores/switch';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
+import { EmptyState } from '../../components/EmptyState';
 
 export const ListCryptocurrencies = memo(() => {
   const { switchStates } = useSwitchStore();
@@ -35,9 +36,7 @@ export const ListCryptocurrencies = memo(() => {
   return (
     <Flex direction="column" width="100%">
       {showCrypto.length === 0 ? (
-        <Text textAlign="center" fontSize="lg" color="gray.500">
-          Sin crypto Para Visualizar
-        </Text>
+        <EmptyState />
       ) : (
         showCrypto.map((crypto) => (
           <Flex

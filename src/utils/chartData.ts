@@ -1,4 +1,4 @@
-import { ChartArea, PriceDataProps, Datum } from '../interfaces';
+import { ChartArea, PriceDataProps, CryptoCompareData } from '../interfaces';
 import { ScriptableContext, Plugin } from 'chart.js';
 
 let width: number, height: number, gradient: CanvasGradient;
@@ -68,7 +68,7 @@ export const chartData = (priceData: PriceDataProps[]) => {
   return chartData;
 };
 
-export const chartOptions = (crypto: Datum<string>) => {
+export const chartOptions = (crypto: CryptoCompareData) => {
   const chartOptions = {
     responsive: true,
     plugins: {
