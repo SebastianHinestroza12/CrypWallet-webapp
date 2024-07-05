@@ -19,7 +19,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { NumericKeypad } from '../../../components/NumericKeypad';
-import { loginUser } from '../../../services/authService';
+import { AuthService } from '../../../services/authService';
 import { useStoreAutheticated } from '../../../stores/authentication';
 import { WalletsIProps } from '../../../interfaces';
 import './shake.css';
@@ -30,7 +30,7 @@ export const UserLogIn: React.FC = () => {
   const [borderColorPin, setBorderColorPin] = useState('#1e59ea');
   const [shake, setShake] = useState<boolean>(false);
   const toast = useToast();
-  const { addWallet, authenticateUser } = useStoreAutheticated();
+  const { addWallet, authenticateUser, setCurrentWallet } = useStoreAutheticated();
   const {
     register,
     formState: { errors, isValid },
@@ -53,30 +53,41 @@ export const UserLogIn: React.FC = () => {
 
   const handleLoginAttempt = async (pin: string) => {
     try {
-      const { status, data } = await loginUser({ email, password: pin });
+      const {
+        status,
+        data: { user, wallets },
+      } = await AuthService.loginUser({ email, password: pin });
 
       if (status === 200) {
         setBorderColorPin('green');
 
         //Autenticar al usuario
         authenticateUser({
-          id: data.id,
-          name: data.name,
-          lastName: data.lastName,
-          email: data.email,
+          id: user.id,
+          name: user.name,
+          lastName: user.lastName,
+          email: user.email,
         });
 
         //Almacenar las wallet
-        data.wallets.forEach((wallet: WalletsIProps) => {
+        wallets.forEach((wallet: WalletsIProps) => {
           addWallet(wallet);
         });
 
         //Almacenar las palabras claves
 
+        //Definir la wallet actual del usuario
+        if (user.currentWallet === null) {
+          setCurrentWallet(wallets[0], user.id);
+        } else {
+          const findWallet = wallets.find((w: WalletsIProps) => w.id === user.currentWallet);
+          setCurrentWallet(findWallet, user.id);
+        }
+
         setTimeout(() => {
           //Redireccionar al home
           navigation('/home');
-        }, 1500);
+        }, 2000);
       }
     } catch (error: any) {
       //Server Off

@@ -38,7 +38,7 @@ export const SecurityWordsModal: FC<SecurityWordsModalProps> = ({
       closeOnEsc={false}
     >
       <ModalOverlay />
-      <ModalContent mx={{ base: '5', md: '0' }} bg={bg} maxW={'80%'}>
+      <ModalContent mx={{ base: '5', md: '0' }} bg={bg} maxW={{ md: '80%' }}>
         <ModalHeader>Palabras de Seguridad</ModalHeader>
         <Link to={'/auth/user-signin'}>
           <ModalCloseButton />

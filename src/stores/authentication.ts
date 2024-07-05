@@ -1,12 +1,20 @@
 import { create } from 'zustand';
 import { StoreStateAuthentication, UserProps, WalletsIProps } from '../interfaces';
-import { logout } from '../services/authService';
+import { AuthService } from '../services/authService';
+
+const INITIAL_STATE = {
+  id: '',
+  name: '',
+  lastName: '',
+  email: '',
+};
 
 export const useStoreAutheticated = create<StoreStateAuthentication>((set) => ({
   isAuthenticated: false,
-  authenticatedUser: null,
+  authenticatedUser: INITIAL_STATE,
   safeWords: [],
   wallets: [],
+  currentWallet: null,
 
   // Autenticar al usuario
   authenticateUser: (user: UserProps) =>
@@ -17,9 +25,9 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set) => ({
 
   // Cerrar sesión del usuario
   logoutUser: async () => {
-    set({ isAuthenticated: false, authenticatedUser: null, safeWords: [], wallets: [] });
+    set({ isAuthenticated: false, authenticatedUser: INITIAL_STATE, safeWords: [], wallets: [] });
     //Remover el token del usuario
-    await logout();
+    await AuthService.logout();
   },
 
   // Añadir una cartera
@@ -33,4 +41,11 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set) => ({
     set(() => ({
       safeWords: safes,
     })),
+
+  setCurrentWallet: (wallet: WalletsIProps, userId: string) => {
+    // Actualizarla en el store
+    set(() => ({ currentWallet: wallet }));
+    // Actualizar la wallet en la db
+    AuthService.updateProfile({ currentWallet: wallet.id }, userId);
+  },
 }));

@@ -1,7 +1,11 @@
 import { Box, Flex, Text, IconButton } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
+import { useStoreAutheticated } from '../../stores/authentication';
+import { WalletCardType } from '../../types';
 
-export const WalletCard = ({ name }: { name: string }) => {
+export const WalletCard = ({ name, walletId }: WalletCardType) => {
+  const { currentWallet } = useStoreAutheticated();
+
   return (
     <Flex
       justifyContent="space-between"
@@ -15,17 +19,19 @@ export const WalletCard = ({ name }: { name: string }) => {
     >
       <Box display="flex" alignItems="center">
         <Box position="relative" display="inline-block" mr={2}>
-          <Icon icon="mdi:safe" width="40" height="40" />
-          <Box
-            position="absolute"
-            top="-5px"
-            right="-5px"
-            bg="green.400"
-            borderRadius="full"
-            p="2px"
-          >
-            <Icon icon="mdi:check-bold" color="white" width="16" height="16" />
-          </Box>
+          <Icon icon="ion:wallet-outline" width="40" height="40" />
+          {walletId === currentWallet?.id && (
+            <Box
+              position="absolute"
+              top="-5px"
+              right="-5px"
+              bg="green.400"
+              borderRadius="full"
+              p="2px"
+            >
+              <Icon icon="mdi:check-bold" width="16" height="16" />
+            </Box>
+          )}
         </Box>
         <Text fontSize="lg">{name}</Text>
       </Box>
