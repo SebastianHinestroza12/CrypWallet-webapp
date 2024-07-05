@@ -14,7 +14,7 @@ import { DataRegisterProps } from '../../../interfaces';
 import { AxiosError } from 'axios';
 import { RegistrationForm } from '../../../components/RegistrationForm';
 import { SecurityWordsModal } from '../../../components/SecurityWordsModal';
-import { registerUser } from '../../../services/authService';
+import { AuthService } from '../../../services/authService';
 
 export const UserRegistrationForm = () => {
   const toast = useToast();
@@ -48,7 +48,7 @@ export const UserRegistrationForm = () => {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      const { status, data } = await registerUser(formData);
+      const { status, data } = await AuthService.registerUser(formData);
       if (status === 201) {
         showToast('Registro exitoso', `¡Bienvenido ${formData.name}!`, 'success');
         setDataUser(data.safeWords);
