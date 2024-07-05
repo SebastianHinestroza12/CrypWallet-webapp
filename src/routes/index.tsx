@@ -18,10 +18,15 @@ import { Currency } from '../pages/Preferences/Currency';
 import { AppLanguage } from '../pages/Preferences/AppLanguage';
 import { Wallets } from '../pages/Wallets';
 import { ProtectedRoute } from '../components/ProtectedRoute';
+import { Splash } from '../pages/Splash';
 
 export const router = createBrowserRouter([
   {
     path: '/',
+    element: <Splash />,
+  },
+  {
+    path: 'landing',
     element: <CallToActionWithIllustration />,
     errorElement: <ErrorPage />,
   },
