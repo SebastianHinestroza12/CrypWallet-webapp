@@ -10,10 +10,11 @@ export interface DataRegisterProps extends UserIProps {
 }
 
 export interface UserProps {
-  id: string;
-  name: string;
-  lastName: string;
-  email: string;
+  id?: string;
+  name?: string;
+  lastName?: string;
+  email?: string;
+  currentWallet?: string;
 }
 
 export interface CryptoCurrencyProps {
@@ -31,9 +32,11 @@ export interface WalletsIProps {
 
 export interface StoreStateAuthentication {
   isAuthenticated: boolean;
-  authenticatedUser: UserProps | null;
+  authenticatedUser: UserProps;
   safeWords: string[];
   wallets: WalletsIProps[];
+  currentWallet: WalletsIProps | null;
+  setCurrentWallet: (wallet: WalletsIProps, userId: string) => void;
   authenticateUser: (user: UserProps) => void;
   logoutUser: () => void;
   addWallet: (wallet: WalletsIProps) => void;

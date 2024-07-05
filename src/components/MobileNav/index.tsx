@@ -26,10 +26,6 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const { isAuthenticated } = useStoreAutheticated();
 
-  const handleNavigation = () => {
-    navigation('/auth/user-profile');
-  };
-
   return (
     <Flex
       position="sticky"
@@ -99,7 +95,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 </HStack>
               </MenuButton>
               <MenuList bg={bg} borderColor={borderColor}>
-                <MenuItem onClick={handleNavigation}>Profile</MenuItem>
+                <MenuItem onClick={() => navigation('/auth/user-profile')}>Profile</MenuItem>
                 <MenuDivider />
                 <MenuItem>Sign out</MenuItem>
               </MenuList>
@@ -109,6 +105,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       ) : (
         <Button
           rounded={'full'}
+          onClick={() => navigation('/auth/user-signin')}
           size={'md'}
           fontWeight={'normal'}
           px={7}
