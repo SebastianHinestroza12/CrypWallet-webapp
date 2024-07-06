@@ -7,7 +7,8 @@ import { PreferenceListData } from '../../../interfaces';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 
 export const Currency = () => {
-  const BG_COLOR = useColorModeValue('gray.100', '#171717');
+  const BG_COLOR_HOVER = useColorModeValue('gray.100', '#171717');
+  const BG = useColorModeValue('gray.200', '#151515');
   const [currencies, setCurrencies] = useState<PreferenceListData[]>(CURRENCIES);
   const { currency, setCurrency } = useStoreCrypto();
 
@@ -42,14 +43,15 @@ export const Currency = () => {
 
           {currencies.map((currencie) => (
             <Flex
+              bg={BG}
               key={currencie.code}
               justifyContent={'space-between'}
               alignItems={'center'}
-              _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
-              p={2}
+              _hover={{ bg: BG_COLOR_HOVER, cursor: 'pointer' }}
+              px={2}
+              py={3}
               onClick={() => setCurrency(currencie.code)}
-              borderWidth={1}
-              borderRadius="md"
+              borderRadius="lg"
             >
               <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
                 <Box mr={2}>

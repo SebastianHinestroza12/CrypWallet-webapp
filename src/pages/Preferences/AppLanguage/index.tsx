@@ -4,6 +4,7 @@ import { LANGUAGES } from '../../../constants';
 
 export const AppLanguage = () => {
   const BG_COLOR = useColorModeValue('gray.100', '#171717');
+  const BG = useColorModeValue('gray.200', '#151515');
   return (
     <Stack direction={'column'} spacing={3}>
       <Heading textAlign={'center'} mb={4}>
@@ -11,9 +12,9 @@ export const AppLanguage = () => {
       </Heading>
       {LANGUAGES.map((language) => (
         <Flex
+          bg={BG}
           key={language.code}
           p={3}
-          borderWidth={1}
           borderRadius="md"
           _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
           justifyContent={'space-between'}
