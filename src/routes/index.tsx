@@ -20,6 +20,7 @@ import { Wallets } from '../pages/Wallets';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { Splash } from '../pages/Splash';
 import { CreateWallet } from '../pages/Wallets/CreatedWallet';
+import { EditWallet } from '../pages/Wallets/EditWallet';
 import { ROUTES } from '../constants';
 
 export const router = createBrowserRouter([
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.CREATE_WALLET,
             element: <CreateWallet />,
+          },
+          {
+            path: ROUTES.EDIT_WALLET,
+            element: <EditWallet />,
           },
         ],
       },

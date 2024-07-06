@@ -2,8 +2,14 @@ import { Box, Flex, Text, IconButton } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { WalletCardType } from '../../types';
+import { WalletsIProps } from '../../interfaces';
 
-export const WalletCard = ({ name, walletId }: WalletCardType) => {
+export const WalletCard = ({
+  name,
+  walletId,
+  handleChangeWallet,
+  handleEditWallet,
+}: WalletCardType) => {
   const { currentWallet } = useStoreAutheticated();
 
   return (
@@ -17,7 +23,12 @@ export const WalletCard = ({ name, walletId }: WalletCardType) => {
       mb={4}
       position="relative"
     >
-      <Box display="flex" alignItems="center">
+      <Box
+        flex={1}
+        display="flex"
+        alignItems="center"
+        onClick={() => handleChangeWallet({ id: walletId, name } as WalletsIProps)}
+      >
         <Box position="relative" display="inline-block" mr={2}>
           <Icon icon="ion:wallet-outline" width="40" height="40" />
           {walletId === currentWallet?.id && (
@@ -36,6 +47,7 @@ export const WalletCard = ({ name, walletId }: WalletCardType) => {
         <Text fontSize="lg">{name}</Text>
       </Box>
       <IconButton
+        onClick={() => handleEditWallet(walletId, name)}
         aria-label="Options"
         icon={<Icon icon="mdi:dots-vertical" width="24" height="24" />}
         variant="ghost"

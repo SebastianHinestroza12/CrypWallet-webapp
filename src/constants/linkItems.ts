@@ -7,7 +7,7 @@ import { BsDownload } from 'react-icons/bs';
 import { SiHiveBlockchain } from 'react-icons/si';
 import { CgLogOut, CgLogIn } from 'react-icons/cg';
 import { LinkItemProps, TabsBottomProps } from '../interfaces';
-import { ROUTES } from './';
+import { ROUTES } from './redirectToRoute';
 
 export const LINK_ITEMS: LinkItemProps[] = [
   { id: 1, name: 'Home', route: ROUTES.HOME, icon: FiHome },
