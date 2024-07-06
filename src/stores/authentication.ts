@@ -25,7 +25,13 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set) => ({
 
   // Cerrar sesión del usuario
   logoutUser: async () => {
-    set({ isAuthenticated: false, authenticatedUser: INITIAL_STATE, safeWords: [], wallets: [] });
+    set({
+      isAuthenticated: false,
+      authenticatedUser: INITIAL_STATE,
+      safeWords: [],
+      wallets: [],
+      currentWallet: null,
+    });
     //Remover el token del usuario
     await AuthService.logout();
   },
@@ -42,10 +48,26 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set) => ({
       safeWords: safes,
     })),
 
-  setCurrentWallet: (wallet: WalletsIProps, userId: string) => {
+  setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb = true) => {
     // Actualizarla en el store
     set(() => ({ currentWallet: wallet }));
     // Actualizar la wallet en la db
-    AuthService.updateProfile({ currentWallet: wallet.id }, userId);
+    if (updateDb) AuthService.updateProfile({ currentWallet: wallet.id }, userId);
+  },
+
+  updateWallet: (walleId: string, name: string) => {
+    // Actualizar la wallet en el store
+    set((state) => ({
+      wallets: state.wallets.map((wallet) =>
+        wallet.id === walleId ? { ...wallet, name } : wallet,
+      ),
+    }));
+  },
+
+  deleteWallet: (walletId: string) => {
+    // Eliminar la wallet en el store
+    set((state) => ({
+      wallets: state.wallets.filter((wallet) => wallet.id !== walletId),
+    }));
   },
 }));

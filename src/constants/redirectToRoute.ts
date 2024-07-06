@@ -10,6 +10,7 @@ export const ROUTES: Routes = {
   NOTIFICATIONS: '/notifications',
   WALLETS: '/wallets',
   CREATE_WALLET: '/wallets/created',
+  EDIT_WALLET: '/wallets/edit',
   PREFERENCES: '/preferences',
   PREFERENCES_LIST: '/preferences/list',
   PREFERENCES_CURRENCY: '/preferences/list/currency',

@@ -82,7 +82,7 @@ export const UserLogIn: React.FC = () => {
           setCurrentWallet(wallets[0], user.id);
         } else {
           const findWallet = wallets.find((w: WalletsIProps) => w.id === user.currentWallet);
-          setCurrentWallet(findWallet, user.id);
+          setCurrentWallet(findWallet, user.id, false);
         }
 
         setTimeout(() => {
