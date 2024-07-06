@@ -4,6 +4,7 @@ type Routes = {
 
 export const ROUTES: Routes = {
   ROOT: '/',
+  LANDING: '/landing',
   HOME: '/home',
   ABOUT_US: '/about-us',
   NOTIFICATIONS: '/notifications',
