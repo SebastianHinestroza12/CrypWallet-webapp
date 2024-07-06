@@ -1,12 +1,10 @@
 import { Flex, Container, Heading, Stack, Text, Button, Image } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Logo } from '../../components/Logo';
+import { ROUTES } from '../../constants';
 
 export function CallToActionWithIllustration() {
   const navigation = useNavigate();
-  const handleNavigation = (route: string) => {
-    navigation(route);
-  };
 
   return (
     <Container maxW={'7xl'}>
@@ -46,12 +44,12 @@ export function CallToActionWithIllustration() {
             bg={'#1E59EA'}
             _hover={{ bg: '#007bff' }}
             w={'100%'}
-            onClick={() => handleNavigation('/home')}
+            onClick={() => navigation(ROUTES.HOME)}
           >
             Empezar
           </Button>
           <Button
-            onClick={() => handleNavigation('/about-us')}
+            onClick={() => navigation(ROUTES.ABOUT_US)}
             rounded={'full'}
             px={6}
             size={'lg'}

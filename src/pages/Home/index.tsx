@@ -3,7 +3,7 @@ import { Box, Flex, Stack, Text, useColorModeValue } from '@chakra-ui/react';
 import { TotalCash } from '../../components/TotalCash';
 import { OperationButton } from '../../components/OperationButton';
 import { ListCryptocurrencies } from '../../components/ListCryptocurrencies';
-import { OPERATION_BUTTONS } from '../../constants';
+import { OPERATION_BUTTONS, ROUTES } from '../../constants';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { Link } from 'react-router-dom';
 import { fetchCryptoCompareData } from '../../utils';
@@ -41,7 +41,7 @@ export const Home: FC = () => {
       </Flex>
       <ListCryptocurrencies />
       <Box mb={3} py={2} _hover={{ bg: BG_COLOR }}>
-        <Link to={'/crypto/manage'}>
+        <Link to={ROUTES.CRYPTO_MANAGE}>
           <Text
             _hover={{ cursor: 'pointer' }}
             color={'#1e59ea'}

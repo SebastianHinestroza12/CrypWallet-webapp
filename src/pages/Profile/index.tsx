@@ -16,7 +16,7 @@ import { SmallCloseIcon } from '@chakra-ui/icons';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { useForm } from 'react-hook-form';
 import { UserProps } from '../../interfaces';
-import { AuthService } from '../../services/authService';
+import { AuthService } from '../../services/auth.service';
 
 export const UserProfileEdit = () => {
   const { authenticatedUser, authenticateUser } = useStoreAutheticated();
