@@ -19,10 +19,11 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { NumericKeypad } from '../../../components/NumericKeypad';
-import { AuthService } from '../../../services/authService';
+import { AuthService } from '../../../services/auth.service';
 import { useStoreAutheticated } from '../../../stores/authentication';
 import { WalletsIProps } from '../../../interfaces';
 import './shake.css';
+import { ROUTES } from '../../../constants';
 
 export const UserLogIn: React.FC = () => {
   const navigation = useNavigate();
@@ -86,7 +87,7 @@ export const UserLogIn: React.FC = () => {
 
         setTimeout(() => {
           //Redireccionar al home
-          navigation('/home');
+          navigation(ROUTES.HOME);
         }, 2000);
       }
     } catch (error: any) {
@@ -224,13 +225,13 @@ export const UserLogIn: React.FC = () => {
             </Box>
             <Stack pt={6}>
               <Text align={'center'}>
-                <Link className="text-[#1e59ea]" to="/auth/recover-account">
+                <Link className="text-[#1e59ea]" to={ROUTES.RECOVER_ACCOUNT}>
                   ¿Olvidaste tu contraseña?
                 </Link>
               </Text>
               <Text align={'center'}>
                 ¿No tienes cuenta?{' '}
-                <Link className="text-[#1e59ea]" to="/auth/user-signup">
+                <Link className="text-[#1e59ea]" to={ROUTES.USER_SIGNUP}>
                   Crea una cuenta
                 </Link>
               </Text>

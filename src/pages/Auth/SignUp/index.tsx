@@ -14,7 +14,7 @@ import { DataRegisterProps } from '../../../interfaces';
 import { AxiosError } from 'axios';
 import { RegistrationForm } from '../../../components/RegistrationForm';
 import { SecurityWordsModal } from '../../../components/SecurityWordsModal';
-import { AuthService } from '../../../services/authService';
+import { AuthService } from '../../../services/auth.service';
 
 export const UserRegistrationForm = () => {
   const toast = useToast();

@@ -7,6 +7,7 @@ import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 import { EmptyState } from '../../components/EmptyState';
+import { ROUTES } from '../../constants';
 
 export const ListCryptocurrencies = memo(() => {
   const { switchStates } = useSwitchStore();
@@ -45,7 +46,9 @@ export const ListCryptocurrencies = memo(() => {
             justifyContent="space-between"
             mb={2}
             py={1}
-            onClick={() => navigate(`/crypto/detail/${crypto.CoinInfo.FullName.toLowerCase()}`)}
+            onClick={() =>
+              navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${crypto.CoinInfo.FullName.toLowerCase()}`)
+            }
             _hover={{ cursor: 'pointer' }}
           >
             <Flex alignItems="center">
