@@ -90,13 +90,11 @@ export const CreateWallet: React.FC = () => {
         justifyContent={'center'}
         alignItems={'center'}
       >
-        <Icon icon={'ion:wallet-outline'} style={{ marginRight: '8px' }} />
         <Text>Creación de Wallet</Text>
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.name} mb="4">
           <FormLabel htmlFor="name" display={'flex'} alignItems={'center'}>
-            <Icon icon={'clarity:form-line'} style={{ marginRight: '4px' }} />
             <Text>Wallet Name</Text>
           </FormLabel>
           <Input

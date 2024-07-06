@@ -23,6 +23,8 @@ export const EditWallet = () => {
   const {
     authenticatedUser: { id },
     currentWallet,
+    updateWallet,
+    deleteWallet,
   } = useStoreAutheticated();
   const navigation = useNavigate();
   const {
@@ -48,6 +50,9 @@ export const EditWallet = () => {
           position: 'top-right',
           isClosable: true,
         });
+
+        //actualizar el store
+        updateWallet(state.walletId, data.name);
 
         setTimeout(() => navigation(ROUTES.WALLETS), 2000);
       }
@@ -93,6 +98,9 @@ export const EditWallet = () => {
           position: 'top-right',
           isClosable: true,
         });
+
+        //actualizar el store
+        deleteWallet(state.walletId);
 
         setTimeout(() => navigation(ROUTES.WALLETS), 2000);
       }
