@@ -19,6 +19,7 @@ import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { MobileProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
+import { ROUTES } from '../../constants';
 
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const navigation = useNavigate();
@@ -62,7 +63,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       {isAuthenticated ? (
         <HStack spacing={{ base: '0', md: '6' }}>
           <IconButton
-            onClick={() => navigation('/notifications')}
+            onClick={() => navigation(ROUTES.NOTIFICATIONS)}
             size="lg"
             variant="ghost"
             aria-label="open menu"
@@ -95,7 +96,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 </HStack>
               </MenuButton>
               <MenuList bg={bg} borderColor={borderColor}>
-                <MenuItem onClick={() => navigation('/auth/user-profile')}>Profile</MenuItem>
+                <MenuItem onClick={() => navigation(ROUTES.USER_PROFILE)}>Profile</MenuItem>
                 <MenuDivider />
                 <MenuItem>Sign out</MenuItem>
               </MenuList>
@@ -105,7 +106,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       ) : (
         <Button
           rounded={'full'}
-          onClick={() => navigation('/auth/user-signin')}
+          onClick={() => navigation(ROUTES.USER_SIGNIN)}
           size={'md'}
           fontWeight={'normal'}
           px={7}

@@ -14,6 +14,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useState, FC } from 'react';
 import { UseFormRegister, FieldErrors, SubmitHandler, FieldValues } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 
 interface RegistrationFormProps {
   handleSubmit: any;
@@ -163,7 +164,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
         <Stack pt={5}>
           <Text align={'center'}>
             ¿Ya eres usuario?{' '}
-            <Link to={'/auth/user-signin'}>
+            <Link to={ROUTES.USER_SIGNIN}>
               <Text as="b"> Inicia sesión</Text>
             </Link>
           </Text>

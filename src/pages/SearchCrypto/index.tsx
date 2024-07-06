@@ -4,6 +4,7 @@ import { SearchBar } from '../../components/SearchBar';
 import { Box, Stack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
+import { ROUTES } from '../../constants';
 
 export const SearchCrypto = () => {
   const { currentCrypto } = useStoreCrypto();
@@ -37,7 +38,9 @@ export const SearchCrypto = () => {
             showSwitches={false}
             key={data.CoinInfo.Id}
             cryptocurrency={data}
-            onClick={() => navigate(`/crypto/detail/${data.CoinInfo.FullName.toLowerCase()}`)}
+            onClick={() =>
+              navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${data.CoinInfo.FullName.toLowerCase()}`)
+            }
           />
         ))}
       </Box>

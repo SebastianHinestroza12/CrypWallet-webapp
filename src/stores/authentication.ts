@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { StoreStateAuthentication, UserProps, WalletsIProps } from '../interfaces';
-import { AuthService } from '../services/authService';
+import { AuthService } from '../services/auth.service';
 
 const INITIAL_STATE = {
   id: '',

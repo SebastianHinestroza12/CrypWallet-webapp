@@ -2,6 +2,7 @@ import { Stack, Box, Heading, useColorModeValue } from '@chakra-ui/react';
 import { PreferenceList } from '../../components/PreferenceList';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 
 export const Preferences = () => {
   const navigation = useNavigate();
@@ -13,14 +14,14 @@ export const Preferences = () => {
       <Box
         p={2}
         _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
-        onClick={() => navigation('/preferences/list/currency')}
+        onClick={() => navigation(ROUTES.PREFERENCES_CURRENCY)}
       >
         <PreferenceList title="Currency" subTitle={currency} />
       </Box>
       <Box
         p={2}
         _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
-        onClick={() => navigation('/preferences/list/app-language')}
+        onClick={() => navigation(ROUTES.PREFERENCES_LANGUAGE)}
       >
         <PreferenceList title="App Language" subTitle="English" />
       </Box>
