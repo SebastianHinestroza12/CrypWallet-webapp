@@ -9,7 +9,7 @@ export const Splash = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/landing');
-    }, 3000);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, [navigate]);
@@ -19,12 +19,10 @@ export const Splash = () => {
       <Box mb={4}>
         <Image src={blockWave} alt="Loading..." boxSize="80px" />
       </Box>
-      <Text fontSize="2xl" color="white" fontWeight="bold">
+      <Text fontSize="2xl" fontWeight="bold">
         Cryp Wallet
       </Text>
-      <Text fontSize="md" color="white">
-        Your secure multi-coin wallet
-      </Text>
+      <Text fontSize="md">Your secure multi-coin wallet</Text>
     </Flex>
   );
 };

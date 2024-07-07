@@ -1,5 +1,5 @@
 import { useState, useEffect, memo } from 'react';
-import { Box, Flex, Image, Text, Icon } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, Icon, useColorModeValue } from '@chakra-ui/react';
 import { CryptoCompareData } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { useSwitchStore } from '../../stores/switch';
@@ -15,6 +15,7 @@ export const ListCryptocurrencies = memo(() => {
   const [showCrypto, setShowCrypto] = useState<CryptoCompareData[]>([]);
   const { currency, currentCrypto } = useStoreCrypto();
   const navigate = useNavigate();
+  const bgColor = useColorModeValue('gray.700', 'gray.500');
 
   const formatChange = (change: number): string => {
     if (change > 0) {
@@ -64,9 +65,9 @@ export const ListCryptocurrencies = memo(() => {
                   {crypto.CoinInfo.Name}
                 </Text>
                 <Flex>
-                  <Text color="gray.500">{crypto?.DISPLAY?.[currency]?.PRICE || 'N/A'}</Text>
+                  <Text color={bgColor}>{crypto?.DISPLAY?.[currency]?.PRICE || 'N/A'}</Text>
                   <Text
-                    color={crypto?.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? 'green.500' : 'red.500'}
+                    color={crypto?.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? '#17ca56' : '#cf0c07'}
                     ml={1}
                   >
                     {crypto?.RAW?.[currency]?.CHANGEPCT24HOUR
