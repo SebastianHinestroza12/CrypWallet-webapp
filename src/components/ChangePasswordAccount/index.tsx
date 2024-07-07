@@ -22,8 +22,8 @@ export const ChangePasswordAccount = () => {
     setPin((prevPin) => prevPin.slice(0, -1));
   };
 
-  const handleFingerprintClick = () => {
-    console.log('Fingerprint clicked');
+  const handleDeleteAllClick = () => {
+    setPin('');
   };
 
   const handleNumberClick = (num: number) => {
@@ -62,7 +62,7 @@ export const ChangePasswordAccount = () => {
           <NumericKeypad
             onNumberClick={handleNumberClick}
             onDeleteClick={handleDeleteClick}
-            onFingerprintClick={handleFingerprintClick}
+            onDeleteAllClick={handleDeleteAllClick}
             isDisabled={false}
           />
         </Box>

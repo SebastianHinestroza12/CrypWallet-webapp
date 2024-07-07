@@ -27,7 +27,7 @@ export const LINK_ITEMS: LinkItemProps[] = [
     showDivider: true,
   },
   { id: 12, name: 'About', route: ROUTES.ABOUT_US, icon: FaShieldAlt },
-  { id: 13, name: 'Download App', icon: BsDownload },
+  { id: 13, name: 'Install App', icon: BsDownload },
 ];
 
 export const TABS_BOTTOM: TabsBottomProps[] = [
