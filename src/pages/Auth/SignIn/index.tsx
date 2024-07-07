@@ -22,8 +22,8 @@ import { NumericKeypad } from '../../../components/NumericKeypad';
 import { AuthService } from '../../../services/auth.service';
 import { useStoreAutheticated } from '../../../stores/authentication';
 import { WalletsIProps } from '../../../interfaces';
-import './shake.css';
 import { ROUTES } from '../../../constants';
+import './shake.css';
 
 export const UserLogIn: React.FC = () => {
   const navigation = useNavigate();
@@ -31,7 +31,7 @@ export const UserLogIn: React.FC = () => {
   const [borderColorPin, setBorderColorPin] = useState('#1e59ea');
   const [shake, setShake] = useState<boolean>(false);
   const toast = useToast();
-  const { addWallet, authenticateUser, setCurrentWallet } = useStoreAutheticated();
+  const { addWallet, authenticateUser, setCurrentWallet, addSafeWords } = useStoreAutheticated();
   const {
     register,
     formState: { errors, isValid },
@@ -56,7 +56,7 @@ export const UserLogIn: React.FC = () => {
     try {
       const {
         status,
-        data: { user, wallets },
+        data: { user, wallets, safeWords },
       } = await AuthService.loginUser({ email, password: pin });
 
       if (status === 200) {
@@ -76,6 +76,7 @@ export const UserLogIn: React.FC = () => {
         });
 
         //Almacenar las palabras claves
+        addSafeWords(safeWords);
 
         //Definir la wallet actual del usuario
         if (user.currentWallet === null) {
@@ -154,13 +155,13 @@ export const UserLogIn: React.FC = () => {
     setBorderColorPin('#1e59ea');
   };
 
-  const handleFingerprintClick = () => {
-    console.log('Fingerprint clicked');
+  const handleDeleteAllClick = () => {
+    setPin('');
   };
 
   return (
     <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-      <Stack spacing={6} mx={'auto'} maxW={'lg'} m={2}>
+      <Stack spacing={6} maxW={'lg'} mx={2} mb={2}>
         <Box>
           <Stack spacing={4}>
             <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -198,7 +199,6 @@ export const UserLogIn: React.FC = () => {
                     colorScheme="blue"
                     isDisabled={!isValid}
                     mask
-                    onComplete={() => console.log('Dios es bueno')}
                   >
                     {Array.from({ length: 6 }).map((_, index) => (
                       <PinInputField
@@ -206,6 +206,11 @@ export const UserLogIn: React.FC = () => {
                         readOnly
                         style={{ borderColor: borderColorPin }}
                         className={shake ? 'shake' : ''}
+                        sx={{
+                          borderWidth: '4px',
+                          borderRadius: 'md',
+                          fontSize: '1.7em',
+                        }}
                       />
                     ))}
                   </PinInput>
@@ -219,7 +224,7 @@ export const UserLogIn: React.FC = () => {
               <NumericKeypad
                 onNumberClick={handleNumberClick}
                 onDeleteClick={handleDeleteClick}
-                onFingerprintClick={handleFingerprintClick}
+                onDeleteAllClick={handleDeleteAllClick}
                 isDisabled={!isValid}
               />
             </Box>
