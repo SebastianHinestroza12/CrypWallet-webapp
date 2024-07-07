@@ -176,7 +176,7 @@ export const UserProfileEdit = () => {
               }}
               type="submit"
             >
-              Submit
+              Save
             </Button>
           </Stack>
         </form>

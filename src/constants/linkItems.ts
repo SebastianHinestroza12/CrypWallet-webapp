@@ -15,7 +15,7 @@ export const LINK_ITEMS: LinkItemProps[] = [
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
   { id: 5, name: 'Preferences', route: ROUTES.PREFERENCES_LIST, icon: FiSettings },
   { id: 6, name: 'Manage crypto', route: ROUTES.CRYPTO_MANAGE, icon: MdManageHistory },
-  { id: 7, name: 'Security', icon: RiSafe2Fill, showDivider: true },
+  { id: 7, name: 'Security', route: ROUTES.SECURUTY_LIST, icon: RiSafe2Fill, showDivider: true },
   { id: 8, name: 'Log In', route: ROUTES.USER_SIGNIN, icon: CgLogIn },
   { id: 9, name: 'Register', route: ROUTES.USER_SIGNUP, icon: FiUserPlus },
   { id: 10, name: 'Log Out', route: ROUTES.HOME, icon: CgLogOut },

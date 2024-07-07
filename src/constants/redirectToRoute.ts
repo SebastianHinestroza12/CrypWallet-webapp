@@ -11,6 +11,8 @@ export const ROUTES: Routes = {
   WALLETS: '/wallets',
   CREATE_WALLET: '/wallets/created',
   EDIT_WALLET: '/wallets/edit',
+  SECURUTY_LIST: '/security/list',
+  SECURUTY_SECRET_WORDS: '/security/list/secret-words',
   PREFERENCES: '/preferences',
   PREFERENCES_LIST: '/preferences/list',
   PREFERENCES_CURRENCY: '/preferences/list/currency',

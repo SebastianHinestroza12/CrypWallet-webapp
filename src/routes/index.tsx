@@ -1,3 +1,4 @@
+import { ROUTES } from '../constants';
 import { createBrowserRouter } from 'react-router-dom';
 import { CallToActionWithIllustration } from '../pages/LandingPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
@@ -17,11 +18,13 @@ import { Layout } from '../components/Layout';
 import { Currency } from '../pages/Preferences/Currency';
 import { AppLanguage } from '../pages/Preferences/AppLanguage';
 import { Wallets } from '../pages/Wallets';
-import { ProtectedRoute } from '../components/ProtectedRoute';
+import { ProtectedRoute } from '../middlewares/ProtectedRoute';
 import { Splash } from '../pages/Splash';
 import { CreateWallet } from '../pages/Wallets/CreatedWallet';
 import { EditWallet } from '../pages/Wallets/EditWallet';
-import { ROUTES } from '../constants';
+import { SecurityList } from '../pages/Security';
+import { SafeWords } from '../pages/Security/SafeWords';
+import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +78,26 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.EDIT_WALLET,
             element: <EditWallet />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.SECURUTY_LIST,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <ProtectedSecurityRoute />,
+            children: [
+              {
+                path: ROUTES.EMPTY,
+                element: <SecurityList />,
+              },
+              {
+                path: ROUTES.SECURUTY_SECRET_WORDS,
+                element: <SafeWords />,
+              },
+            ],
           },
         ],
       },

@@ -3,7 +3,7 @@ import { IconType } from 'react-icons';
 export interface NumericKeypadProps {
   onNumberClick: (num: number) => void;
   onDeleteClick: () => void;
-  onFingerprintClick: () => void;
+  onDeleteAllClick: () => void;
   isDisabled: boolean;
 }
 export interface NumberButtonProps {
