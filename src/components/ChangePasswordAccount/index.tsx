@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import {
-  Button,
   FormControl,
   Flex,
   PinInput,
@@ -13,31 +11,47 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { NumericKeypad } from '../NumericKeypad';
+import { usePinInput } from '../../hooks/usePinInput';
+import { AuthService } from '../../services/auth.service';
+import { useToastNotification } from '../../hooks/useToastNotification';
+import { useStoreAutheticated } from '../../stores/authentication';
+import { ROUTES } from '../../constants';
+import { useNavigate } from 'react-router-dom';
 
 export const ChangePasswordAccount = () => {
-  const [pin, setPin] = useState<string>('');
   const sizePin = useBreakpointValue({ base: true, md: false });
+  const { displayToast } = useToastNotification();
+  const { userIdRecoveryAccount, logoutUser } = useStoreAutheticated();
+  const navigation = useNavigate();
+  const { pin, handleNumberClick, handleDeleteClick, handleDeleteAllClick, setPin } = usePinInput({
+    onComplete: async (pin: string) => {
+      try {
+        const { status } = await AuthService.forgotPassword(userIdRecoveryAccount!, {
+          newPassword: pin,
+        });
 
-  const handleDeleteClick = () => {
-    setPin((prevPin) => prevPin.slice(0, -1));
-  };
-
-  const handleDeleteAllClick = () => {
-    setPin('');
-  };
-
-  const handleNumberClick = (num: number) => {
-    setPin((prevPin) => {
-      return prevPin + num.toString();
-    });
-  };
+        if (status === 200) {
+          logoutUser();
+          displayToast(
+            'Contraseña cambiada correctamente.',
+            'Por favor inicia sesión nuevamente.',
+            'success',
+          );
+          setTimeout(() => navigation(ROUTES.USER_SIGNIN), 2000);
+        }
+      } catch (error: unknown) {
+        setPin('');
+        displayToast('Error al cambiar la contraseña.', 'Por favor intenta nuevamente.', 'error');
+      }
+    },
+  });
 
   return (
     <Flex align="center" justify="center" width={{ base: '100%', md: '50%' }}>
       <Stack spacing={6}>
         <Center>
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }} textAlign="center">
-            Has verificado tu cuenta correctamente, ahora procede a cambiar tu contraseña.
+            ¡Cuenta verificada con éxito! Ahora puedes cambiar tu contraseña.
           </Heading>
         </Center>
         <FormControl>
@@ -52,7 +66,17 @@ export const ChangePasswordAccount = () => {
                 onComplete={() => console.log('PIN completo')}
               >
                 {Array.from({ length: 6 }).map((_, index) => (
-                  <PinInputField key={index} readOnly style={{ borderColor: '#1e59ea' }} />
+                  <PinInputField
+                    type="number"
+                    key={index}
+                    readOnly
+                    style={{ borderColor: '#1e59ea' }}
+                    sx={{
+                      borderWidth: '2px',
+                      borderRadius: 'md',
+                      fontSize: '1.7em',
+                    }}
+                  />
                 ))}
               </PinInput>
             </HStack>
@@ -66,19 +90,6 @@ export const ChangePasswordAccount = () => {
             isDisabled={false}
           />
         </Box>
-        <Stack px={10}>
-          <Button
-            bg="#1e59ea"
-            size={'lg'}
-            rounded="full"
-            color="white"
-            _hover={{
-              bg: '#007bff',
-            }}
-          >
-            Actualizar Contraseña
-          </Button>
-        </Stack>
       </Stack>
     </Flex>
   );
