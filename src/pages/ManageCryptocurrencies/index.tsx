@@ -39,7 +39,7 @@ export const ManageCryptocurrencies = () => {
   });
 
   return (
-    <Stack p={2} spacing={8}>
+    <Stack spacing={8}>
       <SearchBar handleChange={handleChange} />
       <Box>
         {sortedCryptocurrencies.map((cryptocurrency) => (

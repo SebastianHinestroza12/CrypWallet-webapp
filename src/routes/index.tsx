@@ -1,3 +1,4 @@
+import { ROUTES } from '../constants';
 import { createBrowserRouter } from 'react-router-dom';
 import { CallToActionWithIllustration } from '../pages/LandingPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
@@ -17,108 +18,146 @@ import { Layout } from '../components/Layout';
 import { Currency } from '../pages/Preferences/Currency';
 import { AppLanguage } from '../pages/Preferences/AppLanguage';
 import { Wallets } from '../pages/Wallets';
-import { ProtectedRoute } from '../components/ProtectedRoute';
+import { ProtectedRoute } from '../middlewares/ProtectedRoute';
+import { Splash } from '../pages/Splash';
+import { CreateWallet } from '../pages/Wallets/CreatedWallet';
+import { EditWallet } from '../pages/Wallets/EditWallet';
+import { SecurityList } from '../pages/Security';
+import { SafeWords } from '../pages/Security/SafeWords';
+import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: ROUTES.ROOT,
+    element: <Splash />,
+  },
+  {
+    path: ROUTES.LANDING,
     element: <CallToActionWithIllustration />,
     errorElement: <ErrorPage />,
   },
   {
-    path: '*',
+    path: ROUTES.NOT_FOUND,
     element: <NotFoundPage />,
   },
   {
-    path: '/',
+    path: ROUTES.ROOT,
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'home',
+        path: ROUTES.HOME,
         element: <Home />,
       },
       {
-        path: 'about-us',
+        path: ROUTES.ABOUT_US,
         element: <AboutUs />,
       },
       {
-        path: 'notifications',
+        path: ROUTES.NOTIFICATIONS,
         element: <ProtectedRoute />,
         children: [
           {
-            path: '',
+            path: ROUTES.EMPTY,
             element: <Notifications />,
           },
         ],
       },
       {
-        path: 'wallets',
+        path: ROUTES.WALLETS,
         element: <ProtectedRoute />,
         children: [
           {
-            path: '',
+            path: ROUTES.EMPTY,
             element: <Wallets />,
+          },
+          {
+            path: ROUTES.CREATE_WALLET,
+            element: <CreateWallet />,
+          },
+          {
+            path: ROUTES.EDIT_WALLET,
+            element: <EditWallet />,
           },
         ],
       },
       {
-        path: 'preferences',
+        path: ROUTES.SECURUTY_LIST,
+        element: <ProtectedRoute />,
         children: [
           {
-            path: 'list',
+            path: ROUTES.EMPTY,
+            element: <ProtectedSecurityRoute />,
+            children: [
+              {
+                path: ROUTES.EMPTY,
+                element: <SecurityList />,
+              },
+              {
+                path: ROUTES.SECURUTY_SECRET_WORDS,
+                element: <SafeWords />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: ROUTES.PREFERENCES,
+        children: [
+          {
+            path: ROUTES.PREFERENCES_LIST,
             element: <Preferences />,
           },
           {
-            path: 'list/currency',
+            path: ROUTES.PREFERENCES_CURRENCY,
             element: <Currency />,
           },
           {
-            path: 'list/app-language',
+            path: ROUTES.PREFERENCES_LANGUAGE,
             element: <AppLanguage />,
           },
         ],
       },
       {
-        path: 'auth',
+        path: ROUTES.AUTHENTICATION,
         children: [
           {
-            path: 'user-signin',
+            path: ROUTES.USER_SIGNIN,
             element: <UserLogIn />,
           },
           {
-            path: 'user-signup',
+            path: ROUTES.USER_SIGNUP,
             element: <UserRegistrationForm />,
           },
           {
-            path: 'user-profile',
+            path: ROUTES.USER_PROFILE,
             element: <ProtectedRoute />,
             children: [
               {
-                path: '',
+                path: ROUTES.EMPTY,
                 element: <UserProfileEdit />,
               },
             ],
           },
           {
-            path: 'recover-account',
+            path: ROUTES.RECOVER_ACCOUNT,
             element: <RecoverAccountMultistep />,
           },
         ],
       },
       {
-        path: 'crypto',
+        path: ROUTES.CRYPTOCURRENCY,
         children: [
           {
-            path: 'detail/:cryptoId',
+            path: ROUTES.CRYPTO_DETAIL,
             element: <DetailCrypto />,
           },
           {
-            path: 'manage',
+            path: ROUTES.CRYPTO_MANAGE,
             element: <ManageCryptocurrencies />,
           },
           {
-            path: 'search',
+            path: ROUTES.CRYPTO_SEARCH,
             element: <SearchCrypto />,
           },
         ],

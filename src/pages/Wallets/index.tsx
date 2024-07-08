@@ -1,23 +1,55 @@
-import { Fragment } from 'react';
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/react';
 import { WalletCard } from '../../components/WalletCard';
-
-const wallets = [{ name: 'Wallet 1' }, { name: 'Wallet 2' }, { name: 'Wallet 3' }];
+import { useStoreAutheticated } from '../../stores/authentication';
+import { Icon } from '@iconify/react';
+import { WalletsIProps } from '../../interfaces';
+import { Link, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 
 export const Wallets = () => {
+  const navigation = useNavigate();
+  const {
+    wallets,
+    authenticatedUser: { id },
+    currentWallet,
+    setCurrentWallet,
+  } = useStoreAutheticated();
+
+  const handleChangeWallet = (wallet: WalletsIProps) => {
+    if (currentWallet !== null && currentWallet.id !== wallet.id) {
+      setCurrentWallet(wallet, id!);
+    }
+  };
+
+  const handleEditWallet = (walletId: string, name: string): void => {
+    navigation(ROUTES.EDIT_WALLET, { state: { walletId, name } });
+  };
+
   return (
-    <Box px={4}>
-      <Heading mb={5} textAlign={'center'}>
-        WALLETS
-      </Heading>
-      <Text fontSize="lg" color="gray.500" mb={4}>
+    <Stack spacing={5}>
+      <Flex justifyContent={'space-between'} alignItems={'center'}>
+        <Heading textAlign={'center'}>Wallets</Heading>
+        <Box>
+          <Link to={ROUTES.CREATE_WALLET}>
+            <Icon icon="carbon:add-filled" width={35} height={35} />
+          </Link>
+        </Box>
+      </Flex>
+      <Text fontSize="lg" color="gray.500">
         MULTI-COIN WALLET
       </Text>
-      {wallets.map((wallet) => (
-        <Fragment key={wallet.name}>
-          <WalletCard name={wallet.name} />
-        </Fragment>
-      ))}
-    </Box>
+      <Box>
+        {wallets.map((wallet) => (
+          <Box key={wallet.id}>
+            <WalletCard
+              name={wallet.name}
+              walletId={wallet.id}
+              handleChangeWallet={() => handleChangeWallet(wallet)}
+              handleEditWallet={() => handleEditWallet(wallet.id, wallet.name)}
+            />
+          </Box>
+        ))}
+      </Box>
+    </Stack>
   );
 };

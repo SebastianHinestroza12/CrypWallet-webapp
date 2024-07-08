@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { FC } from 'react';
+import { ROUTES } from '../../constants';
 
 interface SecurityWordsModalProps {
   isOpen: boolean;
@@ -38,9 +39,9 @@ export const SecurityWordsModal: FC<SecurityWordsModalProps> = ({
       closeOnEsc={false}
     >
       <ModalOverlay />
-      <ModalContent mx={{ base: '5', md: '0' }} bg={bg} maxW={'80%'}>
+      <ModalContent mx={{ base: '5', md: '0' }} bg={bg} maxW={{ md: '80%' }}>
         <ModalHeader>Palabras de Seguridad</ModalHeader>
-        <Link to={'/auth/user-signin'}>
+        <Link to={ROUTES.USER_SIGNIN}>
           <ModalCloseButton />
         </Link>
         <ModalBody>
@@ -64,7 +65,7 @@ export const SecurityWordsModal: FC<SecurityWordsModalProps> = ({
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <Link to={'/auth/user-signin'}>
+          <Link to={ROUTES.USER_SIGNIN}>
             <Button onClick={onClose}>Entendido</Button>
           </Link>
         </ModalFooter>

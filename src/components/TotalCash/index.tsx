@@ -8,6 +8,7 @@ import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 import { TotalCashProps } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { useStoreAutheticated } from '../../stores/authentication';
+import { ROUTES } from '../../constants';
 
 export const TotalCash: FC<TotalCashProps> = ({
   amount,
@@ -27,7 +28,7 @@ export const TotalCash: FC<TotalCashProps> = ({
       setDataVisible();
       return;
     }
-    navigation('/auth/user-signin');
+    navigation(ROUTES.USER_SIGNIN);
   };
 
   return (
@@ -38,11 +39,11 @@ export const TotalCash: FC<TotalCashProps> = ({
           justifyContent={'center'}
           alignItems={'center'}
           _hover={{ bg: bgWallet, cursor: 'pointer' }}
-          onClick={() => navigation('/wallets')}
+          onClick={() => navigation(ROUTES.WALLETS)}
           p={2}
           borderRadius={'full'}
         >
-          <Text fontSize="lg" fontWeight="bold" textAlign={'center'}>
+          <Text fontSize="md" fontWeight="bold" textAlign={'center'}>
             Main Wallet One
           </Text>
           <Icon as={IoMdArrowDropdown} boxSize={6} />

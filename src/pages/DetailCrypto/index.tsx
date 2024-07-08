@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Button, Flex, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -16,6 +16,7 @@ import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { chartData, chartOptions, fetchPriceData, chartAreaBorder } from '../../utils';
 import { PriceDataProps } from '../../interfaces';
 import { CryptoNotFound } from '../../components/CryptoNotFound';
+import { useToastNotification } from '../../hooks/useToastNotification';
 
 ChartJS.register(
   CategoryScale,
@@ -33,7 +34,7 @@ export const DetailCrypto = () => {
   const { cryptoId } = useParams<{ cryptoId: string }>();
   const crypto = currentCrypto.find((c) => c.CoinInfo.FullName.toLowerCase() === cryptoId);
   const [priceData, setPriceData] = useState<PriceDataProps[]>([]);
-  const toast = useToast();
+  const { displayToast } = useToastNotification();
 
   useEffect(() => {
     if (crypto) {
@@ -42,20 +43,17 @@ export const DetailCrypto = () => {
           const data = await fetchPriceData(crypto);
           setPriceData(data);
         } catch (error) {
-          toast({
-            title: 'Límite de API alcanzado',
-            description: 'Espera unos segundos para volver a solicitar los recursos.',
-            status: 'info',
-            duration: 5000,
-            isClosable: true,
-            position: 'top-right',
-          });
+          displayToast(
+            'Límite de API alcanzado',
+            'Espera unos segundos para volver a solicitar los recursos.',
+            'info',
+          );
         }
       };
 
       fetchData();
     }
-  }, [crypto, toast]);
+  }, [crypto, displayToast]);
 
   if (!crypto) {
     return <CryptoNotFound nameCrypto={cryptoId as string} />;
@@ -65,7 +63,7 @@ export const DetailCrypto = () => {
   const chartOptionsCrypto = chartOptions(crypto);
 
   return (
-    <Flex direction="column" px={2}>
+    <Flex direction="column">
       <Text
         textAlign={'center'}
         textTransform={'uppercase'}

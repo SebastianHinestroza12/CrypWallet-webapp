@@ -8,7 +8,6 @@ import {
   Wrap,
   WrapItem,
   useColorModeValue,
-  Container,
   Button,
   List,
   ListItem,
@@ -17,12 +16,12 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Tags } from '../../components/Tags';
 import { MdCheckCircle } from 'react-icons/md';
-import { SERVICES_ABOUT } from '../../constants';
+import { ROUTES, SERVICES_ABOUT } from '../../constants';
 
 export const AboutUs = () => {
   const navigate = useNavigate();
   return (
-    <Container maxW={'7xl'} p="12">
+    <Box>
       <Heading as="h1" mb={6}>
         About CrypWallet
       </Heading>
@@ -171,7 +170,7 @@ export const AboutUs = () => {
       </Wrap>
       <Box mt={9} display={'flex'} justifyContent={'center'} alignItems={'center'}>
         <Button
-          onClick={() => navigate('/home')}
+          onClick={() => navigate(ROUTES.HOME)}
           rounded={'full'}
           bg={'#1E59EA'}
           _hover={{ bg: '#007bff' }}
@@ -179,6 +178,6 @@ export const AboutUs = () => {
           Volver al Home
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 };

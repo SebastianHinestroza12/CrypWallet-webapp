@@ -10,10 +10,11 @@ export interface DataRegisterProps extends UserIProps {
 }
 
 export interface UserProps {
-  id: string;
-  name: string;
-  lastName: string;
-  email: string;
+  id?: string;
+  name?: string;
+  lastName?: string;
+  email?: string;
+  currentWallet?: string;
 }
 
 export interface CryptoCurrencyProps {
@@ -31,11 +32,21 @@ export interface WalletsIProps {
 
 export interface StoreStateAuthentication {
   isAuthenticated: boolean;
-  authenticatedUser: UserProps | null;
+  authenticatedUser: UserProps;
   safeWords: string[];
   wallets: WalletsIProps[];
+  currentWallet: WalletsIProps | null;
+  recoveryProgress: number;
+  recoveryStep: number;
+  userIdRecoveryAccount: string | null;
+  setUserIdRecoveryAccount: (userId: string) => void;
+  setRecoveryStep(step: number): void;
+  setRecoreyProgress(progress: number): void;
+  setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb?: boolean) => void;
   authenticateUser: (user: UserProps) => void;
   logoutUser: () => void;
   addWallet: (wallet: WalletsIProps) => void;
   addSafeWords: (safes: string[]) => void;
+  updateWallet: (walleId: string, name: string) => void;
+  deleteWallet: (walletId: string) => void;
 }

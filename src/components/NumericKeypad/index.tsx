@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, GridItem } from '@chakra-ui/react';
-import { FaFingerprint, FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
+import { TbHttpDelete } from 'react-icons/tb';
 import { IconButton } from '../../components/IconButton';
 import { NumberButton } from '../../components/NumberButton';
 import { NumericKeypadProps } from '../../interfaces';
@@ -8,7 +9,7 @@ import { NumericKeypadProps } from '../../interfaces';
 export const NumericKeypad: React.FC<NumericKeypadProps> = ({
   onNumberClick,
   onDeleteClick,
-  onFingerprintClick,
+  onDeleteAllClick,
   isDisabled,
 }) => {
   return (
@@ -19,7 +20,7 @@ export const NumericKeypad: React.FC<NumericKeypadProps> = ({
         </GridItem>
       ))}
       <GridItem display="flex" justifyContent="center">
-        <IconButton icon={FaFingerprint} onClick={onFingerprintClick} disabled={isDisabled} />
+        <IconButton icon={TbHttpDelete} onClick={onDeleteAllClick} disabled={isDisabled} />
       </GridItem>
       <GridItem display="flex" justifyContent="center">
         <NumberButton number={0} onClick={onNumberClick} disabled={isDisabled} />

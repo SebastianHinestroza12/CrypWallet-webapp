@@ -4,6 +4,7 @@ import { SearchBar } from '../../components/SearchBar';
 import { Box, Stack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
+import { ROUTES } from '../../constants';
 
 export const SearchCrypto = () => {
   const { currentCrypto } = useStoreCrypto();
@@ -29,7 +30,7 @@ export const SearchCrypto = () => {
   };
 
   return (
-    <Stack p={2} spacing={8}>
+    <Stack spacing={8}>
       <SearchBar handleChange={handleChange} />
       <Box>
         {crypto.map((data) => (
@@ -37,7 +38,9 @@ export const SearchCrypto = () => {
             showSwitches={false}
             key={data.CoinInfo.Id}
             cryptocurrency={data}
-            onClick={() => navigate(`/crypto/detail/${data.CoinInfo.FullName.toLowerCase()}`)}
+            onClick={() =>
+              navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${data.CoinInfo.FullName.toLowerCase()}`)
+            }
           />
         ))}
       </Box>

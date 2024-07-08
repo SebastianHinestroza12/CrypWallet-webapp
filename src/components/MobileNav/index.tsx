@@ -19,16 +19,13 @@ import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { MobileProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
+import { ROUTES } from '../../constants';
 
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const navigation = useNavigate();
   const bg = useColorModeValue('white', 'gray.900');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const { isAuthenticated } = useStoreAutheticated();
-
-  const handleNavigation = () => {
-    navigation('/auth/user-profile');
-  };
 
   return (
     <Flex
@@ -48,28 +45,19 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
-        variant="shot"
+        variant="ghost"
         size={'lg'}
         aria-label="open menu"
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
-
       {isAuthenticated ? (
         <HStack spacing={{ base: '0', md: '6' }}>
           <IconButton
-            onClick={() => navigation('/notifications')}
+            onClick={() => navigation(ROUTES.NOTIFICATIONS)}
             size="lg"
             variant="ghost"
-            aria-label="open menu"
+            aria-label="open notification"
             icon={<FiBell />}
           />
           <Flex alignItems={'center'}>
@@ -89,9 +77,6 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     ml="2"
                   >
                     <Text fontSize="sm">Justina Clark</Text>
-                    <Text fontSize="xs" color="gray.600">
-                      Admin
-                    </Text>
                   </VStack>
                   <Box display={{ base: 'none', md: 'flex' }}>
                     <FiChevronDown />
@@ -99,7 +84,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 </HStack>
               </MenuButton>
               <MenuList bg={bg} borderColor={borderColor}>
-                <MenuItem onClick={handleNavigation}>Profile</MenuItem>
+                <MenuItem onClick={() => navigation(ROUTES.USER_PROFILE)}>Profile</MenuItem>
                 <MenuDivider />
                 <MenuItem>Sign out</MenuItem>
               </MenuList>
@@ -109,6 +94,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       ) : (
         <Button
           rounded={'full'}
+          onClick={() => navigation(ROUTES.USER_SIGNIN)}
           size={'md'}
           fontWeight={'normal'}
           px={7}

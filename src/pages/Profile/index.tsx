@@ -12,16 +12,66 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { SmallCloseIcon } from '@chakra-ui/icons';
+import { useStoreAutheticated } from '../../stores/authentication';
+import { useForm } from 'react-hook-form';
+import { UserProps } from '../../interfaces';
+import { AuthService } from '../../services/auth.service';
+import { useToastNotification } from '../../hooks/useToastNotification';
 
 export const UserProfileEdit = () => {
+  const { authenticatedUser, authenticateUser } = useStoreAutheticated();
+  const { id, name, lastName, email } = authenticatedUser;
+  const { displayToast } = useToastNotification();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      name,
+      lastName,
+      email,
+    },
+  });
+
+  const onSubmit = async (data: UserProps) => {
+    // Simular una demora de 2 segundos, para que no sea tan rapido la actualizacion.
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const {
+      status,
+      data: { user },
+    } = await AuthService.updateProfile(data, id!);
+
+    if (status === 200) {
+      displayToast(
+        'Actualización exitosa',
+        'Los datos del usuario han sido actualizados correctamente.',
+        'success',
+      );
+      //Actualizar los datos del estado global
+      authenticateUser({
+        id: user.id,
+        name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+      });
+    } else {
+      displayToast(
+        'Error al actualizar los datos',
+        'Hubo un problema al actualizar los datos del usuario.',
+        'error',
+      );
+    }
+  };
+
   return (
     <Flex justifyContent={'center'} alignItems={'center'}>
-      <Stack spacing={4} w={'full'} maxW={'lg'} rounded={'xl'} boxShadow={'2xl'} p={6} mx={2}>
-        <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
-          User Profile Edit
+      <Stack spacing={4} w={'full'} maxW={'lg'} rounded={'xl'} boxShadow={'2xl'} pb={3}>
+        <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }} mb={2} textAlign={'center'}>
+          User Profile
         </Heading>
-        <FormControl id="userName">
-          <FormLabel>User Icon</FormLabel>
+        <FormControl id="avatar">
           <Stack direction={['column', 'row']} spacing={6}>
             <Center>
               <Avatar size="xl" src="https://bit.ly/sage-adebayo">
@@ -41,44 +91,88 @@ export const UserProfileEdit = () => {
             </Center>
           </Stack>
         </FormControl>
-        <FormControl id="userName" isRequired>
-          <FormLabel>User name</FormLabel>
-          <Input placeholder="UserName" _placeholder={{ color: 'gray.500' }} type="text" />
-        </FormControl>
-        <FormControl id="email" isRequired>
-          <FormLabel>Email address</FormLabel>
-          <Input
-            placeholder="your-email@example.com"
-            _placeholder={{ color: 'gray.500' }}
-            type="email"
-          />
-        </FormControl>
-        <FormControl id="password" isRequired>
-          <FormLabel>Password</FormLabel>
-          <Input placeholder="password" _placeholder={{ color: 'gray.500' }} type="password" />
-        </FormControl>
-        <Stack spacing={6} direction={['column', 'row']}>
-          <Button
-            bg={'red.400'}
-            color={'white'}
-            w="full"
-            _hover={{
-              bg: 'red.500',
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            bg={'blue.400'}
-            color={'white'}
-            w="full"
-            _hover={{
-              bg: 'blue.500',
-            }}
-          >
-            Submit
-          </Button>
-        </Stack>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={5}>
+            <FormControl id="name" isRequired>
+              <FormLabel>Name</FormLabel>
+              <Input
+                placeholder="Name"
+                {...register('name', {
+                  required: 'El nombre es obligatorio',
+                  minLength: {
+                    value: 3,
+                    message: 'Mínimo 3 caracteres',
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: 'Máximo 20 caracteres',
+                  },
+                  pattern: {
+                    value: /^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$/,
+                    message: 'Solo se permiten letras y no se permiten espacios en blanco.',
+                  },
+                })}
+                _placeholder={{ color: 'gray.500' }}
+                type="text"
+              />
+              {errors.name && <p>{errors.name.message}</p>}
+            </FormControl>
+            <FormControl id="lastName" isRequired>
+              <FormLabel>Last Name</FormLabel>
+              <Input
+                placeholder="Last Name"
+                {...register('lastName', {
+                  required: 'El apellido es obligatorio',
+                  minLength: {
+                    value: 3,
+                    message: 'Mínimo 3 caracteres',
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: 'Máximo 20 caracteres',
+                  },
+                  pattern: {
+                    value: /^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$/,
+                    message: 'Solo se permiten letras y no se permiten espacios en blanco.',
+                  },
+                })}
+                _placeholder={{ color: 'gray.500' }}
+                type="text"
+              />
+              {errors.lastName && <p>{errors.lastName.message}</p>}
+            </FormControl>
+            <FormControl id="email" isRequired>
+              <FormLabel>Email address</FormLabel>
+              <Input
+                placeholder="your-email@example.com"
+                disabled
+                {...register('email', {
+                  required: 'El correo electrónico es obligatorio',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: 'No es un correo electrónico válido',
+                  },
+                })}
+                _placeholder={{ color: 'gray.500' }}
+                type="email"
+              />
+              {errors.email && <p>{errors.email.message}</p>}
+            </FormControl>
+            <Button
+              mt={2}
+              bg={'blue.400'}
+              color={'white'}
+              isLoading={isSubmitting}
+              w="full"
+              _hover={{
+                bg: 'blue.500',
+              }}
+              type="submit"
+            >
+              Save
+            </Button>
+          </Stack>
+        </form>
       </Stack>
     </Flex>
   );
