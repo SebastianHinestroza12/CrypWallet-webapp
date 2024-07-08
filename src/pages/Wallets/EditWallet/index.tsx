@@ -1,22 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
-import {
-  Box,
-  Flex,
-  Heading,
-  Stack,
-  Input,
-  Button,
-  IconButton,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, Stack, Input, Button, IconButton, Text } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useStoreAutheticated } from '../../../stores/authentication';
 import { ROUTES } from '../../../constants';
 import { WalletServices } from '../../../services/wallet.service';
+import { useToastNotification } from '../../../hooks/useToastNotification';
 
 export const EditWallet = () => {
   const { state } = useLocation();
@@ -37,7 +28,7 @@ export const EditWallet = () => {
   } = useForm({
     defaultValues: { name: state.name as string },
   });
-  const toast = useToast();
+  const { displayToast } = useToastNotification();
 
   useEffect(() => {
     const findWallet = wallets.find((wallet) => wallet.id === state.walletId);
@@ -50,13 +41,7 @@ export const EditWallet = () => {
       const { status } = await WalletServices.updateWallet(state.walletId, data);
 
       if (status === 200) {
-        toast({
-          title: 'Wallet updated.',
-          status: 'success',
-          duration: 3000,
-          position: 'top-right',
-          isClosable: true,
-        });
+        displayToast('Wallet updated.', '', 'success', 3000);
 
         // Actualizar el store
         updateWallet(state.walletId, data.name);
@@ -64,13 +49,7 @@ export const EditWallet = () => {
         setTimeout(() => navigation(ROUTES.WALLETS), 2000);
       }
     } catch (error) {
-      toast({
-        title: 'Error updating wallet.',
-        status: 'error',
-        duration: 3000,
-        position: 'top-right',
-        isClosable: true,
-      });
+      displayToast('Error creating wallet', '', 'error', 3000);
     }
   };
 
@@ -79,14 +58,7 @@ export const EditWallet = () => {
       setIsLoading(true);
 
       if (currentWallet?.id === state.walletId) {
-        toast({
-          title: 'Cannot delete current wallet.',
-          status: 'info',
-          duration: 3000,
-          position: 'top-right',
-          isClosable: true,
-        });
-
+        displayToast('No puedes eliminar la wallet actual.', '', 'info', 3000);
         setIsLoading(false);
         return;
       }
@@ -98,41 +70,21 @@ export const EditWallet = () => {
       setIsLoading(false);
 
       if (status === 200) {
-        toast({
-          title: 'Wallet deleted.',
-          status: 'success',
-          duration: 3000,
-          position: 'top-right',
-          isClosable: true,
-        });
-
+        displayToast('Wallet deleted.', '', 'success', 3000);
         // Actualizar el store
         deleteWallet(state.walletId);
 
         setTimeout(() => navigation(ROUTES.WALLETS), 2000);
       }
     } catch (error) {
-      toast({
-        title: 'Error deleting wallet.',
-        status: 'error',
-        duration: 3000,
-        position: 'top-right',
-        isClosable: true,
-      });
-
+      displayToast('Error deleting wallet.', '', 'error', 3000);
       setIsLoading(false);
     }
   };
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address);
-    toast({
-      title: 'Address copied to clipboard.',
-      status: 'success',
-      duration: 3000,
-      position: 'top-right',
-      isClosable: true,
-    });
+    displayToast('Address copied to clipboard.', '', 'success');
   };
 
   return (

@@ -9,7 +9,8 @@ import {
   Input,
   Heading,
   Text,
-  useToast,
+  Flex,
+  IconButton,
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import { CreateWalletIProps } from '../../../types';
@@ -17,13 +18,14 @@ import { WalletServices } from '../../../services/wallet.service';
 import { useStoreAutheticated } from '../../../stores/authentication';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
+import { useToastNotification } from '../../../hooks/useToastNotification';
 
 export const CreateWallet: React.FC = () => {
   const {
     authenticatedUser: { id },
     addWallet,
   } = useStoreAutheticated();
-  const toast = useToast();
+  const { displayToast } = useToastNotification();
   const navigation = useNavigate();
 
   const {
@@ -42,15 +44,11 @@ export const CreateWallet: React.FC = () => {
 
       if (status === 201) {
         //Mensaje de exitó
-        toast({
-          title: 'Wallet created successfully',
-          description: 'El wallet ha sido creado correctamente.',
-          status: 'success',
-          duration: 5000,
-          position: 'top-right',
-          isClosable: true,
-        });
-
+        displayToast(
+          'Wallet created successfully',
+          'El wallet ha sido creado correctamente.',
+          'success',
+        );
         //Agregar la nueva wallet al estado global
         addWallet(wallet);
 
@@ -60,14 +58,7 @@ export const CreateWallet: React.FC = () => {
         }, 4000);
       }
     } catch (error) {
-      toast({
-        title: 'Error creating wallet',
-        description: 'Hubo un problema al crear el wallet.',
-        status: 'error',
-        duration: 5000,
-        position: 'top-right',
-        isClosable: true,
-      });
+      displayToast('Error creating wallet', 'Hubo un problema al crear el wallet.', 'error');
     }
   };
 
@@ -81,17 +72,15 @@ export const CreateWallet: React.FC = () => {
       borderRadius="lg"
       boxShadow="md"
     >
-      <Heading
-        as="h2"
-        size="lg"
-        mb="6"
-        textAlign="center"
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
-      >
-        <Text>Creación de Wallet</Text>
-      </Heading>
+      <Flex justifyContent="space-between" alignItems="center" mb={4}>
+        <Heading size="md">Creación de Wallet</Heading>
+        <IconButton
+          icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
+          variant="outline"
+          aria-label="Go back"
+          onClick={() => navigation(-1)}
+        />
+      </Flex>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.name} mb="4">
           <FormLabel htmlFor="name" display={'flex'} alignItems={'center'}>

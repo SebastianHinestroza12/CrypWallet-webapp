@@ -43,7 +43,7 @@ export const TotalCash: FC<TotalCashProps> = ({
           p={2}
           borderRadius={'full'}
         >
-          <Text fontSize="lg" fontWeight="bold" textAlign={'center'}>
+          <Text fontSize="md" fontWeight="bold" textAlign={'center'}>
             Main Wallet One
           </Text>
           <Icon as={IoMdArrowDropdown} boxSize={6} />

@@ -1,26 +1,40 @@
-import { Flex, Container, Heading, Stack, Text, Button, Image } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  Stack,
+  Text,
+  Button,
+  Image,
+  Container,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { Logo } from '../../components/Logo';
+import { Icon } from '@iconify/react';
 import { ROUTES } from '../../constants';
 
 export function CallToActionWithIllustration() {
   const navigation = useNavigate();
-
+  const sizeLogo = useBreakpointValue({ base: 150, md: 200 });
   return (
     <Container maxW={'7xl'}>
       <Stack
         textAlign={'center'}
         align={'center'}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 3, md: 20 }}
+        py={{ base: 3, md: 15 }}
       >
-        <Logo size="67%" styles="d-flex items-center justify-center" withLetters />
+        <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+          <Icon icon={'mingcute:safe-shield-2-fill'} width={sizeLogo} color="#1e59ea" />
+        </Flex>
         <Heading
           fontWeight={600}
           fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
           lineHeight={'110%'}
         >
-          Tu billetera de criptomonedas{' '}
+          <Text as={'span'} color={'#1E59EA'} fontSize={{ base: '3xl', sm: '5xl', md: '7xl' }}>
+            Cryp wallet
+          </Text>
+          , tu billetera de criptomonedas{' '}
           <Text as={'span'} color={'#1E59EA'}>
             fácil y segura
           </Text>

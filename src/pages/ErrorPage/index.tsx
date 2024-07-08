@@ -6,7 +6,7 @@ export const ErrorPage = () => {
   const error: string | Error = useRouteError() as Error | string;
 
   return (
-    <Box textAlign="center" py={10} px={6}>
+    <Box textAlign="center" py={10}>
       <Box display="inline-block">
         <Flex
           flexDirection="column"

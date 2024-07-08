@@ -30,7 +30,7 @@ export const SearchCrypto = () => {
   };
 
   return (
-    <Stack p={2} spacing={8}>
+    <Stack spacing={8}>
       <SearchBar handleChange={handleChange} />
       <Box>
         {crypto.map((data) => (
