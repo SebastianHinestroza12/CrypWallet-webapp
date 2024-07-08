@@ -8,7 +8,6 @@ import {
   useColorMode,
   Text,
   useBreakpointValue,
-  useToast,
 } from '@chakra-ui/react';
 import { NavItem } from '../NavItem';
 import { SidebarProps, LinkItemProps } from '../../interfaces';
@@ -16,7 +15,9 @@ import { MdOutlineInstallMobile, MdOutlineInstallDesktop } from 'react-icons/md'
 import { LINK_ITEMS } from '../../constants';
 import { Icon } from '@iconify/react';
 import { useStoreAutheticated } from '../../stores/authentication';
+import { useToastNotification } from '../../hooks/useToastNotification';
 import './scrollbar.css';
+import { FooterSection } from '../FooterSection';
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [isReadyForInstall, setIsReadyForInstall] = useState(false);
@@ -27,7 +28,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     base: MdOutlineInstallMobile,
     md: MdOutlineInstallDesktop,
   });
-  const toast = useToast();
+  const { displayToast } = useToastNotification();
 
   console.log(isReadyForInstall);
   useEffect(() => {
@@ -57,13 +58,11 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     const promptEvent = window.deferredPrompt;
     if (!promptEvent) {
       // The deferred prompt isn't available.
-      toast({
-        title: 'No installation prompt',
-        description: 'Your browser does not support the installation prompt.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      displayToast(
+        'No installation prompt',
+        'Your browser does not support the installation prompt.',
+        'error',
+      );
       return;
     }
     // Show the install prompt.
@@ -145,6 +144,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </NavItem>
         </Box>
       ))}
+      <FooterSection />
     </Box>
   );
 };

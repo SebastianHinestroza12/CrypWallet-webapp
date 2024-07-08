@@ -36,6 +36,12 @@ export interface StoreStateAuthentication {
   safeWords: string[];
   wallets: WalletsIProps[];
   currentWallet: WalletsIProps | null;
+  recoveryProgress: number;
+  recoveryStep: number;
+  userIdRecoveryAccount: string | null;
+  setUserIdRecoveryAccount: (userId: string) => void;
+  setRecoveryStep(step: number): void;
+  setRecoreyProgress(progress: number): void;
   setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb?: boolean) => void;
   authenticateUser: (user: UserProps) => void;
   logoutUser: () => void;

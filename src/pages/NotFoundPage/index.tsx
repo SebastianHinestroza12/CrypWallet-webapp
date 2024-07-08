@@ -1,4 +1,4 @@
-import { Heading, Text, Button, Container } from '@chakra-ui/react';
+import { Heading, Text, Button, Box } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useStoreTab } from '../../stores/currentMobileTab';
 import { ROUTES } from '../../constants';
@@ -6,7 +6,7 @@ import { ROUTES } from '../../constants';
 export const NotFoundPage = () => {
   const { setSelectedTab } = useStoreTab();
   return (
-    <Container
+    <Box
       textAlign="center"
       minHeight="100vh"
       py={10}
@@ -45,6 +45,6 @@ export const NotFoundPage = () => {
           Go to Home
         </Button>
       </Link>
-    </Container>
+    </Box>
   );
 };

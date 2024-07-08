@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import {
   Box,
   Center,
@@ -11,20 +10,13 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { NumericKeypad } from '../../../components/NumericKeypad';
-import { useStoreAutheticated } from '../../../stores/authentication';
-import { AuthService } from '../../../services/auth.service';
-import { usePinInput } from '../../../hooks/usePinInput';
+import { NumericKeypad } from '../NumericKeypad';
+import { usePinInput } from '../../hooks/usePinInput';
+import { AuthService } from '../../services/auth.service';
+import { useStoreAutheticated } from '../../stores/authentication';
 
-interface PassCodePromptProps {
-  onSuccess: () => void;
-}
-
-export const PassCode: FC<PassCodePromptProps> = ({ onSuccess }) => {
-  const {
-    authenticatedUser: { email },
-  } = useStoreAutheticated();
-
+export const VerifyOtp = () => {
+  const { setRecoveryStep, setRecoreyProgress, userIdRecoveryAccount } = useStoreAutheticated();
   const {
     pin,
     borderColorPin,
@@ -39,11 +31,14 @@ export const PassCode: FC<PassCodePromptProps> = ({ onSuccess }) => {
   } = usePinInput({
     onComplete: async (pin: string) => {
       try {
-        const { status } = await AuthService.loginUser({ email: email!, password: pin });
+        const { status } = await AuthService.verifyOTP({ otp: pin }, userIdRecoveryAccount!);
 
         if (status === 200) {
           setBorderColorPin('green');
-          setTimeout(() => onSuccess(), 1500);
+          setTimeout(() => {
+            setRecoveryStep(3);
+            setRecoreyProgress(75);
+          }, 2000);
         }
       } catch (error: unknown) {
         setBorderColorPin('red');
@@ -58,11 +53,11 @@ export const PassCode: FC<PassCodePromptProps> = ({ onSuccess }) => {
 
   return (
     <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-      <Stack spacing={6} maxW={'lg'}>
+      <Stack spacing={6} maxW={'lg'} mx={2}>
         <Box>
           <Stack spacing={4}>
             <Heading fontSize={'3xl'} textAlign={'center'}>
-              Enter passcode
+              Verify OTP Code
             </Heading>
             <FormControl>
               <Center>
@@ -80,9 +75,10 @@ export const PassCode: FC<PassCodePromptProps> = ({ onSuccess }) => {
                         key={index}
                         readOnly
                         style={{ borderColor: borderColorPin }}
+                        type="number"
                         className={shake ? 'shake' : ''}
                         sx={{
-                          borderWidth: '2px',
+                          borderWidth: '4px',
                           borderRadius: 'md',
                           fontSize: '1.7em',
                         }}
@@ -93,7 +89,7 @@ export const PassCode: FC<PassCodePromptProps> = ({ onSuccess }) => {
               </Center>
             </FormControl>
             <Text textAlign={'center'} color={'gray.500'}>
-              El código de acceso añade una capa adicional de seguridad al usar la aplicación.
+              Enter the OTP code sent to your email for verification.
             </Text>
             <Box>
               <NumericKeypad

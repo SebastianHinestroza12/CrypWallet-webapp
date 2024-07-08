@@ -26,7 +26,7 @@ export const Wallets = () => {
   };
 
   return (
-    <Stack px={3} spacing={5}>
+    <Stack spacing={5}>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
         <Heading textAlign={'center'}>Wallets</Heading>
         <Box>

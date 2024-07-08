@@ -10,18 +10,18 @@ import {
   AvatarBadge,
   IconButton,
   Center,
-  useToast,
 } from '@chakra-ui/react';
 import { SmallCloseIcon } from '@chakra-ui/icons';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { useForm } from 'react-hook-form';
 import { UserProps } from '../../interfaces';
 import { AuthService } from '../../services/auth.service';
+import { useToastNotification } from '../../hooks/useToastNotification';
 
 export const UserProfileEdit = () => {
   const { authenticatedUser, authenticateUser } = useStoreAutheticated();
   const { id, name, lastName, email } = authenticatedUser;
-  const toast = useToast();
+  const { displayToast } = useToastNotification();
 
   const {
     register,
@@ -44,15 +44,11 @@ export const UserProfileEdit = () => {
     } = await AuthService.updateProfile(data, id!);
 
     if (status === 200) {
-      toast({
-        title: 'Actualización exitosa',
-        description: 'Los datos del usuario han sido actualizados correctamente.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
-
+      displayToast(
+        'Actualización exitosa',
+        'Los datos del usuario han sido actualizados correctamente.',
+        'success',
+      );
       //Actualizar los datos del estado global
       authenticateUser({
         id: user.id,
@@ -61,20 +57,17 @@ export const UserProfileEdit = () => {
         email: user.email,
       });
     } else {
-      toast({
-        title: 'Error al actualizar los datos',
-        description: 'Hubo un problema al actualizar los datos del usuario.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
+      displayToast(
+        'Error al actualizar los datos',
+        'Hubo un problema al actualizar los datos del usuario.',
+        'error',
+      );
     }
   };
 
   return (
     <Flex justifyContent={'center'} alignItems={'center'}>
-      <Stack spacing={4} w={'full'} maxW={'lg'} rounded={'xl'} boxShadow={'2xl'} p={3} mx={2}>
+      <Stack spacing={4} w={'full'} maxW={'lg'} rounded={'xl'} boxShadow={'2xl'} pb={3}>
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }} mb={2} textAlign={'center'}>
           User Profile
         </Heading>

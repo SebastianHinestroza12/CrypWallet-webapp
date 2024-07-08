@@ -9,12 +9,15 @@ const INITIAL_STATE = {
   email: '',
 };
 
-export const useStoreAutheticated = create<StoreStateAuthentication>((set) => ({
+export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) => ({
   isAuthenticated: false,
   authenticatedUser: INITIAL_STATE,
   safeWords: [],
   wallets: [],
   currentWallet: null,
+  recoveryProgress: 25,
+  recoveryStep: 1,
+  userIdRecoveryAccount: null,
 
   // Autenticar al usuario
   authenticateUser: (user: UserProps) =>
@@ -25,15 +28,25 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set) => ({
 
   // Cerrar sesión del usuario
   logoutUser: async () => {
+    // Obtener el estado actual
+    const currentState = get();
+
+    // Remover el token del usuario si está autenticado
+    if (currentState.isAuthenticated) {
+      await AuthService.logout();
+    }
+
+    // Actualizar el estado a los valores iniciales
     set({
       isAuthenticated: false,
       authenticatedUser: INITIAL_STATE,
       safeWords: [],
       wallets: [],
       currentWallet: null,
+      recoveryProgress: 25,
+      recoveryStep: 1,
+      userIdRecoveryAccount: null,
     });
-    //Remover el token del usuario
-    await AuthService.logout();
   },
 
   // Añadir una cartera
@@ -70,4 +83,13 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set) => ({
       wallets: state.wallets.filter((wallet) => wallet.id !== walletId),
     }));
   },
+
+  // Actualizar el componente a mostrar de acuerdo cuando vaya avansando en la recuperacion
+  setRecoveryStep: (step: number) => set({ recoveryStep: step }),
+
+  // Actualizar la barra de progreso en la recuperación de cuenta
+  setRecoreyProgress: (progress: number) => set({ recoveryProgress: progress }),
+
+  // Almacenar el id del usuario despues de enviarle el codigo OTP
+  setUserIdRecoveryAccount: (userId: string) => set({ userIdRecoveryAccount: userId }),
 }));

@@ -8,7 +8,6 @@ import {
   Wrap,
   WrapItem,
   useColorModeValue,
-  Container,
   Button,
   List,
   ListItem,
@@ -22,7 +21,7 @@ import { ROUTES, SERVICES_ABOUT } from '../../constants';
 export const AboutUs = () => {
   const navigate = useNavigate();
   return (
-    <Container maxW={'7xl'} p="12">
+    <Box>
       <Heading as="h1" mb={6}>
         About CrypWallet
       </Heading>
@@ -179,6 +178,6 @@ export const AboutUs = () => {
           Volver al Home
         </Button>
       </Box>
-    </Container>
+    </Box>
   );
 };

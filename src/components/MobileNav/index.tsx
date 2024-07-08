@@ -45,7 +45,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       <IconButton
         display={{ base: 'flex', md: 'none' }}
         onClick={onOpen}
-        variant="shot"
+        variant="ghost"
         size={'lg'}
         aria-label="open menu"
         icon={<FiMenu />}
@@ -57,7 +57,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             onClick={() => navigation(ROUTES.NOTIFICATIONS)}
             size="lg"
             variant="ghost"
-            aria-label="open menu"
+            aria-label="open notification"
             icon={<FiBell />}
           />
           <Flex alignItems={'center'}>
@@ -77,9 +77,6 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     ml="2"
                   >
                     <Text fontSize="sm">Justina Clark</Text>
-                    <Text fontSize="xs" color="gray.600">
-                      Admin
-                    </Text>
                   </VStack>
                   <Box display={{ base: 'none', md: 'flex' }}>
                     <FiChevronDown />

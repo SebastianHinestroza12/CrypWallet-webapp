@@ -10,6 +10,10 @@ import {
   useColorModeValue,
   FormErrorMessage,
 } from '@chakra-ui/react';
+import { AuthService } from '../../services/auth.service';
+import { AxiosError } from 'axios';
+import { useToastNotification } from '../../hooks/useToastNotification';
+import { useStoreAutheticated } from '../../stores/authentication';
 
 type FormData = {
   email: string;
@@ -23,20 +27,58 @@ export const VerifyAccountForm = () => {
   } = useForm<FormData>({
     mode: 'onChange',
   });
+  const { displayToast } = useToastNotification();
+  const { setRecoveryStep, setRecoreyProgress, setUserIdRecoveryAccount } = useStoreAutheticated();
+  const bg = useColorModeValue('gray.100', '#171717');
 
-  const onSubmit = (data: FormData) => {
-    console.log('Verificar cuenta para:', data.email);
+  const onSubmit = async (data: FormData) => {
+    try {
+      // Simulate delay for 2 seconds before sending verification code
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const {
+        status,
+        data: { userId },
+      } = await AuthService.generateOTP(data);
+
+      if (status === 200) {
+        displayToast(
+          'Éxito',
+          'Código de verificación enviado a tu correo electrónico.',
+          'success',
+          3000,
+        );
+
+        setTimeout(() => {
+          setUserIdRecoveryAccount(userId);
+          setRecoreyProgress(50);
+          setRecoveryStep(2);
+        }, 3000);
+      }
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError;
+
+      if (axiosError.code === 'ERR_NETWORK') {
+        displayToast('Error del Servidor', 'Por favor, inténtalo de nuevo más tarde.', 'error');
+        return;
+      }
+
+      const { response } = axiosError;
+      if (response?.status === 404) {
+        displayToast(
+          'Error',
+          'No se encontró una cuenta asociada con este correo electrónico.',
+          'error',
+        );
+        return;
+      }
+
+      displayToast('Error', 'Hubo un problema al generar el código de verificación.', 'error');
+    }
   };
 
   return (
     <Flex align="center">
-      <Stack
-        spacing={4}
-        bg={useColorModeValue('white', 'gray.800')}
-        rounded="xl"
-        boxShadow="2xl"
-        p={6}
-      >
+      <Stack spacing={4} bg={bg} rounded="xl" boxShadow="2xl" p={6}>
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
           Verificación de tu cuenta
         </Heading>

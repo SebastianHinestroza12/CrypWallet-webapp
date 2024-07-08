@@ -6,7 +6,7 @@ export const FooterLink = ({ href, icon, text }: FooterLinkProps) => {
     <Link
       href={href}
       isExternal
-      color="blue.500"
+      color="#1e59ea"
       display={'flex'}
       flexDirection={'column'}
       justifyContent={'center'}

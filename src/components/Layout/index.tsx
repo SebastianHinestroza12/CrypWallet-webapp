@@ -5,7 +5,7 @@ import {
   DrawerContent,
   useDisclosure,
   useBreakpointValue,
-  Flex,
+  Container,
 } from '@chakra-ui/react';
 import { MobileNav } from '../MobileNav';
 import { SidebarContent } from '../SideBarContent';
@@ -23,11 +23,7 @@ export const Layout: FC<SidebarWithHeaderProps> = () => {
   }, [showTabBottomMobile]);
 
   return (
-    <Box
-      minH="100vh"
-      position="relative"
-      pb={{ base: showTabBottomMobile ? '60px' : '0', md: '0' }}
-    >
+    <Box position="relative" pb={{ base: showTabBottomMobile ? '60px' : '0', md: '0' }}>
       <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         isOpen={isOpen}
@@ -42,16 +38,11 @@ export const Layout: FC<SidebarWithHeaderProps> = () => {
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} />
-      <Flex justifyContent={'center'}>
-        <Box
-          ml={{ base: 0, md: 60 }}
-          p={{ base: 2, md: 5 }}
-          width={'100%'}
-          maxW={{ base: '100%', md: '70%' }}
-        >
+      <Container maxW={'7xl'}>
+        <Box ml={{ base: 0, md: 60 }} p={{ base: 2, md: 5 }}>
           <Outlet />
         </Box>
-      </Flex>
+      </Container>
       {isBreakpointReady && showTabBottomMobile && (
         <Box position="fixed" bottom="0" left="0" width="100%">
           <TabBottomMobile />

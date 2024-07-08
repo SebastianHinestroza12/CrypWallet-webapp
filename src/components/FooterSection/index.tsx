@@ -1,17 +1,11 @@
-import { Box, Text, Flex, useColorModeValue, IconButton, HStack } from '@chakra-ui/react';
+import { Box, Text, useColorModeValue, IconButton, HStack } from '@chakra-ui/react';
 import { FooterLink } from '../FooterLink';
-import { FiHeart } from 'react-icons/fi';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 
 export const FooterSection = () => {
+  const BG_COLOR = useColorModeValue('gray.300', '#000');
   return (
-    <Box p="4" borderTop="1px" borderColor={useColorModeValue('gray.200', 'gray.700')}>
-      <Flex justifyContent="center" alignItems="center" p={1}>
-        <Text fontSize="sm" textAlign="center">
-          Hecho con <FiHeart color="red" style={{ display: 'inline' }} size={20} /> por Sebastián
-          Mena
-        </Text>
-      </Flex>
+    <Box p="2" borderTop="1px" borderColor={useColorModeValue('gray.200', 'gray.700')}>
       <HStack justifyContent="center" mt={2} spacing={5} px={2}>
         <FooterLink
           href="https://www.linkedin.com/in/sebastian-mena12/"
@@ -33,7 +27,7 @@ export const FooterSection = () => {
               aria-label="github"
               size="lg"
               isRound={true}
-              _hover={{ bg: '#000' }}
+              _hover={{ bg: BG_COLOR }}
               icon={<BsGithub size="28px" />}
             />
           }

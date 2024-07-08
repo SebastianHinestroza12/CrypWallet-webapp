@@ -26,7 +26,7 @@ export const Home: FC = () => {
   };
 
   return (
-    <Stack px={2} spacing={5}>
+    <Stack spacing={5}>
       <TotalCash
         amount="$241.324"
         isPositive

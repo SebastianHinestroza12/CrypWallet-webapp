@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -16,21 +16,19 @@ import {
   PinInput,
   PinInputField,
   Heading,
-  useToast,
 } from '@chakra-ui/react';
 import { NumericKeypad } from '../../../components/NumericKeypad';
 import { AuthService } from '../../../services/auth.service';
 import { useStoreAutheticated } from '../../../stores/authentication';
 import { WalletsIProps } from '../../../interfaces';
 import { ROUTES } from '../../../constants';
+import { useToastNotification } from '../../../hooks/useToastNotification';
+import { usePinInput } from '../../../hooks/usePinInput';
 import './shake.css';
 
 export const UserLogIn: React.FC = () => {
+  const { displayToast } = useToastNotification();
   const navigation = useNavigate();
-  const [pin, setPin] = useState<string>('');
-  const [borderColorPin, setBorderColorPin] = useState('#1e59ea');
-  const [shake, setShake] = useState<boolean>(false);
-  const toast = useToast();
   const { addWallet, authenticateUser, setCurrentWallet, addSafeWords } = useStoreAutheticated();
   const {
     register,
@@ -40,128 +38,110 @@ export const UserLogIn: React.FC = () => {
 
   const email = watch('email');
 
-  const handleNumberClick = (num: number) => {
-    setPin((prevPin) => {
-      const newPin = prevPin + num.toString();
-      if (newPin.length === 6) {
-        handleLoginAttempt(newPin);
-      } else {
-        setBorderColorPin('#1e59ea');
-      }
-      return newPin.length <= 6 ? newPin : prevPin;
-    });
-  };
+  const {
+    pin,
+    borderColorPin,
+    shake,
+    setShake,
+    setBorderColorPin,
+    handleNumberClick,
+    handleDeleteClick,
+    handleDeleteAllClick,
+    resetShake,
+    setPin,
+  } = usePinInput({
+    onComplete: async (pin: string) => {
+      try {
+        const {
+          status,
+          data: { user, wallets, safeWords },
+        } = await AuthService.loginUser({ email, password: pin });
 
-  const handleLoginAttempt = async (pin: string) => {
-    try {
-      const {
-        status,
-        data: { user, wallets, safeWords },
-      } = await AuthService.loginUser({ email, password: pin });
+        if (status === 200) {
+          setBorderColorPin('green');
 
-      if (status === 200) {
-        setBorderColorPin('green');
+          // Autenticar al usuario
+          authenticateUser({
+            id: user.id,
+            name: user.name,
+            lastName: user.lastName,
+            email: user.email,
+          });
 
-        //Autenticar al usuario
-        authenticateUser({
-          id: user.id,
-          name: user.name,
-          lastName: user.lastName,
-          email: user.email,
-        });
+          // Almacenar las wallet
+          wallets.forEach((wallet: WalletsIProps) => {
+            addWallet(wallet);
+          });
 
-        //Almacenar las wallet
-        wallets.forEach((wallet: WalletsIProps) => {
-          addWallet(wallet);
-        });
+          // Almacenar las palabras claves
+          addSafeWords(safeWords);
 
-        //Almacenar las palabras claves
-        addSafeWords(safeWords);
+          // Definir la wallet actual del usuario
+          if (user.currentWallet === null) {
+            setCurrentWallet(wallets[0], user.id);
+          } else {
+            const findWallet = wallets.find((w: WalletsIProps) => w.id === user.currentWallet);
+            setCurrentWallet(findWallet, user.id, false);
+          }
 
-        //Definir la wallet actual del usuario
-        if (user.currentWallet === null) {
-          setCurrentWallet(wallets[0], user.id);
-        } else {
-          const findWallet = wallets.find((w: WalletsIProps) => w.id === user.currentWallet);
-          setCurrentWallet(findWallet, user.id, false);
+          setTimeout(() => {
+            // Redireccionar al home
+            navigation(ROUTES.HOME);
+          }, 2000);
+        }
+      } catch (error: any) {
+        // Server Off
+        if (error.code === 'ERR_NETWORK') {
+          setPin('');
+          return displayToast(
+            'Error del Servidor',
+            'Por favor, inténtalo de nuevo más tarde.',
+            'error',
+          );
         }
 
-        setTimeout(() => {
-          //Redireccionar al home
-          navigation(ROUTES.HOME);
-        }, 2000);
-      }
-    } catch (error: any) {
-      //Server Off
-      if (error.code === 'ERR_NETWORK') {
-        setPin('');
-        return toast({
-          title: 'Error del Servidor',
-          description: 'Por favor, inténtalo de nuevo más tarde.',
-          status: 'error',
-          position: 'top-right',
-          duration: 5000,
-          isClosable: true,
-        });
-      }
+        const { status } = error.response;
 
-      const { status } = error.response;
-
-      //Incorrect password
-      if (status === 401) {
-        setBorderColorPin('red');
-        setShake(true);
-        setTimeout(() => {
-          setShake(false);
-          setBorderColorPin('#1e59ea');
-        }, 1000);
-        setPin('');
-      } else if (status === 403) {
-        //Account disabled
-        toast({
-          title: 'Cuenta Deshabilitada',
-          description:
+        // Incorrect password
+        if (status === 401) {
+          setBorderColorPin('red');
+          setShake(true);
+          setTimeout(() => {
+            resetShake();
+          }, 1000);
+          setPin('');
+        } else if (status === 403) {
+          // Account disabled
+          displayToast(
+            'Cuenta Deshabilitada',
             'Tu cuenta ha sido deshabilitada debido a múltiples intentos fallidos de inicio de sesión. Por favor, intenta recuperar tu cuenta para restaurar el acceso.',
-          status: 'error',
-          duration: 12000,
-          isClosable: true,
-          position: 'top-right',
-        });
-        setPin('');
-      } else {
-        //User not found
-        toast({
-          title: 'Error de autenticación',
-          description:
+            'error',
+            12000,
+          );
+          setPin('');
+        } else {
+          // User not found
+          displayToast(
+            'Error de Autenticación',
             'El usuario no se encuentra registrado. Por favor verifica tu información e inténtalo de nuevo.',
-          status: 'error',
-          duration: 7000,
-          isClosable: true,
-          position: 'top-right',
-        });
-        setPin('');
+            'error',
+            12000,
+          );
+          setPin('');
+        }
       }
-    }
-  };
+    },
+  });
 
   useEffect(() => {
     if (!isValid) {
       setPin('');
     }
-  }, [email, isValid]);
-
-  const handleDeleteClick = () => {
-    setPin((prevPin) => prevPin.slice(0, -1));
-    setBorderColorPin('#1e59ea');
-  };
-
-  const handleDeleteAllClick = () => {
-    setPin('');
-  };
+  }, [email, isValid, setPin]);
 
   return (
     <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-      <Stack spacing={6} maxW={'lg'} mx={2} mb={2}>
+      <Stack spacing={6} maxW={'lg'} mb={2}>
         <Box>
           <Stack spacing={4}>
             <Heading fontSize={'4xl'} textAlign={'center'}>
@@ -207,7 +187,7 @@ export const UserLogIn: React.FC = () => {
                         style={{ borderColor: borderColorPin }}
                         className={shake ? 'shake' : ''}
                         sx={{
-                          borderWidth: '4px',
+                          borderWidth: '2px',
                           borderRadius: 'md',
                           fontSize: '1.7em',
                         }}
