@@ -48,6 +48,7 @@ export const CreateWallet: React.FC = () => {
           'Wallet created successfully',
           'El wallet ha sido creado correctamente.',
           'success',
+          2000,
         );
         //Agregar la nueva wallet al estado global
         addWallet(wallet);
@@ -55,7 +56,7 @@ export const CreateWallet: React.FC = () => {
         // Redireccionar a la página de listado de las wallet
         setTimeout(() => {
           navigation(ROUTES.WALLETS);
-        }, 4000);
+        }, 2000);
       }
     } catch (error) {
       displayToast('Error creating wallet', 'Hubo un problema al crear el wallet.', 'error');

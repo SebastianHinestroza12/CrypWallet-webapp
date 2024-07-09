@@ -14,7 +14,8 @@ import { formatCurrency, formatChange } from '../../utils';
 
 export const ListCryptocurrencies = memo(() => {
   const { switchStates } = useSwitchStore();
-  const { isDataVisible, setTotalCash, setSymbol } = useStoreVisibilityData();
+  const { isDataVisible, setTotalCash, setSymbol, setTotalPercentaje, setIsPositive } =
+    useStoreVisibilityData();
   const [showCrypto, setShowCrypto] = useState<CryptoCompareData[]>([]);
   const { currency, currentCrypto } = useStoreCrypto();
   const navigate = useNavigate();
@@ -33,15 +34,23 @@ export const ListCryptocurrencies = memo(() => {
 
   useEffect(() => {
     let accumulatedValue = 0;
+    let totalPercentage = 0;
+
     showCrypto.forEach((crypto) => {
+      const percentaje24Hour = crypto.RAW?.[currency]?.CHANGEPCT24HOUR;
       const amount = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
       const price = parseFloat((crypto.RAW?.[currency]?.PRICE ?? 0).toFixed(2));
       if (amount) {
         accumulatedValue += amount * price;
+        totalPercentage += percentaje24Hour ?? 0;
       }
     });
+
+    // Actualizacion de estados globales
     setTotalCash(accumulatedValue);
     setSymbol(showCrypto[0]?.DISPLAY?.[currency]?.TOSYMBOL);
+    setTotalPercentaje(totalPercentage);
+    setIsPositive(totalPercentage >= 0);
   }, [currency, currentWallet?.cryptoCurrency, showCrypto]);
 
   const renderCryptoAmountAndValue = useMemo(() => {
@@ -57,7 +66,7 @@ export const ListCryptocurrencies = memo(() => {
             {amount}
           </Text>
           <Text fontSize={'sm'} color="gray.500">
-            {`${symbol} ${formatCurrency(totalValue, currency as SupportedCurrency)}`}
+            {`${symbol ?? ''} ${formatCurrency(totalValue, currency as SupportedCurrency)}`}
           </Text>
         </Box>
       );
