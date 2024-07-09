@@ -20,7 +20,7 @@ export const ListCryptocurrencies = memo(() => {
   const { currency, currentCrypto } = useStoreCrypto();
   const navigate = useNavigate();
   const bgColor = useColorModeValue('gray.700', 'gray.500');
-  const { currentWallet } = useStoreAutheticated();
+  const { currentWallet, isAuthenticated } = useStoreAutheticated();
 
   useEffect(() => {
     const convertObjectToArray = Object.entries(switchStates);
@@ -30,9 +30,13 @@ export const ListCryptocurrencies = memo(() => {
       });
     });
     setShowCrypto(filteredCryptocurrencies);
-  }, [switchStates, currency, currentCrypto]);
+  }, [switchStates]);
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
     let accumulatedValue = 0;
     let totalPercentage = 0;
 
