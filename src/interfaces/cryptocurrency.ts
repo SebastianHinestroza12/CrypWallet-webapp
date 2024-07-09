@@ -40,16 +40,7 @@ export interface ListCryptoManageProps {
   cryptocurrencies: Partial<CryptoData>[];
 }
 
-export interface TotalCashProps {
-  amount: string;
-  percentage: string;
-  isPositive: boolean;
-  onRefresh: () => void;
-  isLoading: boolean;
-}
-
 //Tipado, Data crypto, api de Crypto Compare
-
 export interface WeissRating {
   Rating: string;
   TechnologyAdoptionRating: string;

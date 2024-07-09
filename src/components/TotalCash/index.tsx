@@ -1,27 +1,25 @@
-import { FC } from 'react';
+import { useState } from 'react';
 import { Box, Flex, Icon, Text, useColorModeValue, Button } from '@chakra-ui/react';
 import { FaSync, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { PiDotsThreeOutlineFill } from 'react-icons/pi';
-import { TotalCashProps } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { useStoreAutheticated } from '../../stores/authentication';
-import { ROUTES } from '../../constants';
+import { ROUTES, SupportedCurrency } from '../../constants';
+import { fetchCryptoCompareData, formatCurrency } from '../../utils';
+import { useStoreCrypto } from '../../stores/cryptocurrencies';
 
-export const TotalCash: FC<TotalCashProps> = ({
-  amount,
-  percentage,
-  isPositive,
-  onRefresh,
-  isLoading,
-}) => {
+export const TotalCash = () => {
   const bg = useColorModeValue('gray.100', '#171717');
   const bgWallet = useColorModeValue('gray.300', '#101010');
-  const { isDataVisible, setDataVisible } = useStoreVisibilityData();
+  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigate();
-  const { isAuthenticated } = useStoreAutheticated();
+  const { currency, setCurrentCrypto } = useStoreCrypto();
+  const { isAuthenticated, currentWallet } = useStoreAutheticated();
+  const { isDataVisible, setDataVisible, totalCash, symbol, totalPercentaje, isPositive } =
+    useStoreVisibilityData();
 
   const handleDataVisible = () => {
     if (isAuthenticated) {
@@ -29,6 +27,18 @@ export const TotalCash: FC<TotalCashProps> = ({
       return;
     }
     navigation(ROUTES.USER_SIGNIN);
+  };
+
+  const onRefresh = async () => {
+    try {
+      setIsLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const data = await fetchCryptoCompareData(currency);
+      setCurrentCrypto(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -44,7 +54,7 @@ export const TotalCash: FC<TotalCashProps> = ({
           borderRadius={'full'}
         >
           <Text fontSize="md" fontWeight="bold" textAlign={'center'}>
-            Main Wallet One
+            {currentWallet?.name ?? 'Wallets'}
           </Text>
           <Icon as={IoMdArrowDropdown} boxSize={6} />
         </Box>
@@ -69,7 +79,7 @@ export const TotalCash: FC<TotalCashProps> = ({
       <Flex alignItems={'center'} px={2}>
         {isDataVisible ? (
           <Text mr={3} fontSize="2xl" fontWeight="bold" mb={1}>
-            {amount}
+            {`${symbol} ${formatCurrency(totalCash, currency as SupportedCurrency)}`}
           </Text>
         ) : (
           <Icon boxSize={12} mr={4} as={PiDotsThreeOutlineFill} />
@@ -89,8 +99,8 @@ export const TotalCash: FC<TotalCashProps> = ({
               as={isPositive ? FaArrowUp : FaArrowDown}
               color={isPositive ? 'green.500' : 'red.500'}
             />
-            <Text ml={1} fontSize="lg" color={isPositive ? 'green.500' : 'red.500'}>
-              {percentage}
+            <Text ml={1} fontSize="lg" color={isPositive ? '#17ca56' : '#cf0c07'}>
+              {`${totalPercentaje.toFixed(2)}%`}
             </Text>
           </>
         ) : (
