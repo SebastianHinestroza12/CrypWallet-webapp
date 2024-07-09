@@ -47,6 +47,9 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) 
       recoveryStep: 1,
       userIdRecoveryAccount: null,
     });
+
+    // Recargar la página
+    window.location.reload();
   },
 
   // Añadir una cartera
