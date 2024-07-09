@@ -41,7 +41,6 @@ export interface ListCryptoManageProps {
 }
 
 export interface TotalCashProps {
-  amount: string;
   percentage: string;
   isPositive: boolean;
   onRefresh: () => void;

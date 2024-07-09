@@ -8,21 +8,17 @@ import { PiDotsThreeOutlineFill } from 'react-icons/pi';
 import { TotalCashProps } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
 import { useStoreAutheticated } from '../../stores/authentication';
-import { ROUTES } from '../../constants';
+import { ROUTES, SupportedCurrency } from '../../constants';
+import { formatCurrency } from '../../utils';
+import { useStoreCrypto } from '../../stores/cryptocurrencies';
 
-export const TotalCash: FC<TotalCashProps> = ({
-  amount,
-  percentage,
-  isPositive,
-  onRefresh,
-  isLoading,
-}) => {
+export const TotalCash: FC<TotalCashProps> = ({ percentage, isPositive, onRefresh, isLoading }) => {
   const bg = useColorModeValue('gray.100', '#171717');
   const bgWallet = useColorModeValue('gray.300', '#101010');
-  const { isDataVisible, setDataVisible } = useStoreVisibilityData();
+  const { isDataVisible, setDataVisible, totalCash, symbol } = useStoreVisibilityData();
+  const { isAuthenticated, currentWallet } = useStoreAutheticated();
+  const { currency } = useStoreCrypto();
   const navigation = useNavigate();
-  const { isAuthenticated } = useStoreAutheticated();
-
   const handleDataVisible = () => {
     if (isAuthenticated) {
       setDataVisible();
@@ -44,7 +40,7 @@ export const TotalCash: FC<TotalCashProps> = ({
           borderRadius={'full'}
         >
           <Text fontSize="md" fontWeight="bold" textAlign={'center'}>
-            Main Wallet One
+            {currentWallet?.name ?? 'Wallets'}
           </Text>
           <Icon as={IoMdArrowDropdown} boxSize={6} />
         </Box>
@@ -69,7 +65,7 @@ export const TotalCash: FC<TotalCashProps> = ({
       <Flex alignItems={'center'} px={2}>
         {isDataVisible ? (
           <Text mr={3} fontSize="2xl" fontWeight="bold" mb={1}>
-            {amount}
+            {`${symbol} ${formatCurrency(totalCash, currency as SupportedCurrency)}`}
           </Text>
         ) : (
           <Icon boxSize={12} mr={4} as={PiDotsThreeOutlineFill} />

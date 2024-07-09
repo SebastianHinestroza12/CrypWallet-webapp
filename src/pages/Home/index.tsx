@@ -27,13 +27,7 @@ export const Home: FC = () => {
 
   return (
     <Stack spacing={5}>
-      <TotalCash
-        amount="$241.324"
-        isPositive
-        percentage="5.57%"
-        onRefresh={onRefresh}
-        isLoading={isLoading}
-      />
+      <TotalCash isPositive percentage="5.57%" onRefresh={onRefresh} isLoading={isLoading} />
       <Flex justifyContent="space-between">
         {OPERATION_BUTTONS.map((button) => (
           <OperationButton key={button.text} icon={button.icon} text={button.text} />
