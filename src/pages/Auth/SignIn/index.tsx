@@ -29,7 +29,8 @@ import './shake.css';
 export const UserLogIn: React.FC = () => {
   const { displayToast } = useToastNotification();
   const navigation = useNavigate();
-  const { addWallet, authenticateUser, setCurrentWallet, addSafeWords } = useStoreAutheticated();
+  const { addWallet, authenticateUser, setCurrentWallet, addSafeWords, setAvatarUrl } =
+    useStoreAutheticated();
   const {
     register,
     formState: { errors, isValid },
@@ -59,7 +60,7 @@ export const UserLogIn: React.FC = () => {
 
         if (status === 200) {
           setBorderColorPin('green');
-
+          setAvatarUrl(user.avatarUrl);
           // Autenticar al usuario
           authenticateUser({
             id: user.id,
