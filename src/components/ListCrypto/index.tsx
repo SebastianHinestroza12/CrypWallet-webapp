@@ -6,15 +6,22 @@ interface ListCryptoProps {
   cryptocurrency: CryptoCompareData;
   showSwitches: boolean;
   onClick?: () => void;
+  isCursorPointer?: boolean;
 }
 
-export const ListCrypto = ({ cryptocurrency, showSwitches, onClick }: ListCryptoProps) => {
+export const ListCrypto = ({
+  cryptocurrency,
+  showSwitches,
+  onClick,
+  isCursorPointer = false,
+}: ListCryptoProps) => {
   const { switchStates, toggleSwitch } = useSwitchStore();
   const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
   return (
     <Flex
       key={cryptocurrency.CoinInfo.Id}
       alignItems={'center'}
+      cursor={isCursorPointer ? 'pointer' : 'default'}
       justifyContent={'space-between'}
       mb={2}
       _hover={{ bg: !showSwitches ? BG_COLOR : 'inherit' }}
@@ -40,13 +47,11 @@ export const ListCrypto = ({ cryptocurrency, showSwitches, onClick }: ListCrypto
       {showSwitches && (
         <Box>
           <Switch
-            isChecked={switchStates[cryptocurrency.CoinInfo.FullName.toLowerCase()] || false}
-            onChange={() => toggleSwitch(cryptocurrency.CoinInfo.FullName.toLowerCase())}
+            isChecked={switchStates[cryptocurrency.CoinInfo.Name] || false}
+            onChange={() => toggleSwitch(cryptocurrency.CoinInfo.Name)}
             sx={{
               '.chakra-switch__track': {
-                backgroundColor: switchStates[cryptocurrency.CoinInfo.FullName.toLowerCase()]
-                  ? 'green'
-                  : '#A0AEC0',
+                backgroundColor: switchStates[cryptocurrency.CoinInfo.Name] ? 'green' : '#A0AEC0',
               },
               '.chakra-switch__thumb': {
                 backgroundColor: '#FFF',

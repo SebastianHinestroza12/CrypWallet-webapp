@@ -33,8 +33,8 @@ export const ManageCryptocurrencies = () => {
   };
 
   const sortedCryptocurrencies = crypto.slice().sort((a, b) => {
-    const aChecked = switchStates[a.CoinInfo.FullName.toLowerCase()] || false;
-    const bChecked = switchStates[b.CoinInfo.FullName.toLowerCase()] || false;
+    const aChecked = switchStates[a.CoinInfo.Name] || false;
+    const bChecked = switchStates[b.CoinInfo.Name] || false;
     return (bChecked ? 1 : 0) - (aChecked ? 1 : 0);
   });
 

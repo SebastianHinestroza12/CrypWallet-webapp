@@ -26,7 +26,7 @@ export const ListCryptocurrencies = memo(() => {
     const convertObjectToArray = Object.entries(switchStates);
     const filteredCryptocurrencies = currentCrypto.filter((data) => {
       return convertObjectToArray.some((item) => {
-        return item[0] === data.CoinInfo.FullName.toLowerCase() && item[1] === true;
+        return item[0] === data.CoinInfo.Name && item[1] === true;
       });
     });
     setShowCrypto(filteredCryptocurrencies);
@@ -106,7 +106,7 @@ export const ListCryptocurrencies = memo(() => {
                 <Text fontSize="md" fontWeight="bold" textTransform={'uppercase'}>
                   {crypto.CoinInfo.Name}
                 </Text>
-                <Flex>
+                <Flex flexWrap={'wrap'}>
                   <Text color={bgColor}>{crypto?.DISPLAY?.[currency]?.PRICE || 'N/A'}</Text>
                   <Text
                     color={crypto?.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? '#17ca56' : '#cf0c07'}

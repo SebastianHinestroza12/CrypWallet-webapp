@@ -38,6 +38,7 @@ export const SearchCrypto = () => {
             showSwitches={false}
             key={data.CoinInfo.Id}
             cryptocurrency={data}
+            isCursorPointer
             onClick={() =>
               navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${data.CoinInfo.FullName.toLowerCase()}`)
             }
