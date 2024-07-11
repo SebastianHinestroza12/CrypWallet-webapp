@@ -15,9 +15,10 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) 
   safeWords: [],
   wallets: [],
   currentWallet: null,
-  recoveryProgress: 25,
+  recoveryProgress: 25, // Paso inicial en la recuperacion de las cienta. 25%, 50%, 75% y por ultimo 100% OK
   recoveryStep: 1,
   userIdRecoveryAccount: null,
+  avatarUrl: '',
 
   // Autenticar al usuario
   authenticateUser: (user: UserProps) =>
@@ -46,6 +47,7 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) 
       recoveryProgress: 25,
       recoveryStep: 1,
       userIdRecoveryAccount: null,
+      avatarUrl: '',
     });
 
     // Recargar la página
@@ -95,4 +97,13 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) 
 
   // Almacenar el id del usuario despues de enviarle el codigo OTP
   setUserIdRecoveryAccount: (userId: string) => set({ userIdRecoveryAccount: userId }),
+
+  //Actualizar el avatar del usuario
+  setAvatarUrl: (avatarUrl: string, updateDb = false) => {
+    set({ avatarUrl });
+
+    if (updateDb) {
+      AuthService.updateProfile({ avatarUrl }, get().authenticatedUser.id!);
+    }
+  },
 }));

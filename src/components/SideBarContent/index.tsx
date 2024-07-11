@@ -28,6 +28,10 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     base: MdOutlineInstallMobile,
     md: MdOutlineInstallDesktop,
   });
+  const showSearchMenu = useBreakpointValue({
+    base: false,
+    md: true,
+  });
   const { displayToast } = useToastNotification();
 
   console.log(isReadyForInstall);
@@ -49,10 +53,14 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   };
 
   const filterItems = useMemo(() => {
-    return LINK_ITEMS.filter((item) =>
-      isAuthenticated ? item.id !== 8 && item.id !== 9 : item.id !== 10,
-    );
-  }, [isAuthenticated]);
+    return LINK_ITEMS.filter((item) => {
+      if (isAuthenticated) {
+        return item.id !== 8 && item.id !== 9 && (showSearchMenu || item.id !== 16);
+      } else {
+        return item.id !== 10 && (showSearchMenu || item.id !== 16);
+      }
+    });
+  }, [isAuthenticated, showSearchMenu]);
 
   const downloadApp = async () => {
     const promptEvent = window.deferredPrompt;

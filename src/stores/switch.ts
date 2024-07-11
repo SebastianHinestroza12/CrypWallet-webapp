@@ -16,7 +16,17 @@ type MyPersist = (
 export const useSwitchStore = create<SwitchState>(
   (persist as MyPersist)(
     (set) => ({
-      switchStates: {},
+      switchStates: {
+        BTC: true,
+        ETH: true,
+        LTC: true,
+        SOL: true,
+        BNB: true,
+        USDT: true,
+        DOGE: true,
+        BCH: true,
+        TRX: true,
+      },
       toggleSwitch: (id: string) =>
         set((state: { switchStates: { [x: string]: any } }) => ({
           switchStates: {

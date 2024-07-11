@@ -13,6 +13,7 @@ export const ROUTES: Routes = {
   EDIT_WALLET: '/wallets/edit',
   SECURUTY_LIST: '/security/list',
   SECURUTY_SECRET_WORDS: '/security/list/secret-words',
+  SECURUTY_CHANGE_PASSWORD: '/security/list/change-password',
   PREFERENCES: '/preferences',
   PREFERENCES_LIST: '/preferences/list',
   PREFERENCES_CURRENCY: '/preferences/list/currency',

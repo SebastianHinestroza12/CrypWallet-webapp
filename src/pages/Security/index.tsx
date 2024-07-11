@@ -16,7 +16,12 @@ export const SecurityList = () => {
       </Heading>
       <Stack spacing={4}>
         {[
-          { text: 'Safe Words', icon: 'lucide:view', route: ROUTES.SECURUTY_SECRET_WORDS },
+          { text: 'Safe Words', icon: 'carbon:view-filled', route: ROUTES.SECURUTY_SECRET_WORDS },
+          {
+            text: 'Change Password',
+            icon: 'ic:sharp-change-circle',
+            route: ROUTES.SECURUTY_CHANGE_PASSWORD,
+          },
           {
             text: 'Pass Code',
             component: (
@@ -48,7 +53,12 @@ export const SecurityList = () => {
           >
             <Text>{text}</Text>
             {icon ? (
-              <Icon icon={icon} width="30px" height="30px" onClick={() => navigation(route)} />
+              <Box
+                onClick={() => navigation(route)}
+                _hover={{ transform: 'scale(1.2)', cursor: 'pointer' }}
+              >
+                <Icon icon={icon} width="30px" height="30px" />
+              </Box>
             ) : (
               component
             )}

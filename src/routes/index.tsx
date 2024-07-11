@@ -25,6 +25,7 @@ import { EditWallet } from '../pages/Wallets/EditWallet';
 import { SecurityList } from '../pages/Security';
 import { SafeWords } from '../pages/Security/SafeWords';
 import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
+import { ChangePassword } from '../pages/Security/ChangePassword';
 
 export const router = createBrowserRouter([
   {
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
               {
                 path: ROUTES.SECURUTY_SECRET_WORDS,
                 element: <SafeWords />,
+              },
+              {
+                path: ROUTES.SECURUTY_CHANGE_PASSWORD,
+                element: <ChangePassword />,
               },
             ],
           },

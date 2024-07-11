@@ -152,7 +152,7 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
             isLoading={isSubmitting}
             size="lg"
             type="submit"
-            bg={'black'}
+            bg={'#1e59ea'}
             color={'white'}
             _hover={{
               bg: 'gray.900',
