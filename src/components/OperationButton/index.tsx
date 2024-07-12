@@ -15,9 +15,9 @@ export const OperationButton: FC<OperationButtonProps> = ({ icon, onClick, text,
         onClick={onClick}
         bg="#1e59ea"
         borderRadius="full"
-        width="55px"
-        height="55px"
-        _hover={{ bg: '#66ccff' }}
+        width="50px"
+        height="50px"
+        _hover={{ bg: '#66ccff', cursor: 'pointer' }}
         _active={{ bg: '#007bff' }}
         {...rest}
       >

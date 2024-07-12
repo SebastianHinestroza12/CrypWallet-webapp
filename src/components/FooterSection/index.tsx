@@ -34,7 +34,7 @@ export const FooterSection = () => {
           text="GitHub"
         />
       </HStack>
-      <Text fontSize="xs" textAlign="center" mt="2">
+      <Text fontSize="small" textAlign="center" mt="2">
         © 2024 Sebastián Mena. All rights reserved.
       </Text>
     </Box>
