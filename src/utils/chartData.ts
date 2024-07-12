@@ -1,13 +1,13 @@
 import { PriceDataProps, CryptoCompareData } from '../interfaces';
 
-export const chartData = (priceData: PriceDataProps[], isPositive: boolean) => {
+export const chartData = (priceData: PriceDataProps[], isPositive: boolean, currency: string) => {
   const borderColor = isPositive ? '#17ca56' : '#cf0c07';
   const chartData = {
     type: 'line',
     labels: priceData.map((data) => data.date),
     datasets: [
       {
-        label: 'Precio (USD)',
+        label: `Precio (${currency})`,
         data: priceData.map((data) => data.price),
         borderWidth: 1,
         fill: true,

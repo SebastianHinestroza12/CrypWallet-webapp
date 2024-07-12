@@ -50,3 +50,14 @@ export const fetchCryptoCompareData = async (currency: string): Promise<CryptoCo
     throw new Error(`Error obtaining cryptocurrencies: ${error}`);
   }
 };
+
+export const fetchDescription = async (symbol: string) => {
+  try {
+    const { data } = await axios.get(
+      `https://min-api.cryptocompare.com/data/all/coinlist?fsym=${symbol}`,
+    );
+    return data.Data[symbol].Description;
+  } catch (error) {
+    throw new Error(`Error fetching description: ${error}`);
+  }
+};
