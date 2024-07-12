@@ -99,7 +99,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           px={7}
           _hover={{ bg: '#007bff', cursor: 'pointer', color: 'white' }}
         >
-          <Text cursor="pointer">Log In</Text>
+          <Text cursor="pointer">Sign In</Text>
         </Button>
       )}
     </Flex>

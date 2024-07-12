@@ -1,0 +1,13 @@
+{
+  "home": {
+    "wallet": "Billeteras",
+    "button_total_cash": "Actualizar",
+    "manager_crypto": "Administrar cripto",
+    "operations": {
+      "buy": "comprar",
+      "exchange": "intercambio",
+      "send": "enviar",
+      "receive": "recibir"
+    }
+  }
+}
