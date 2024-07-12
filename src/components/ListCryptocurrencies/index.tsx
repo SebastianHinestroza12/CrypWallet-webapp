@@ -90,7 +90,9 @@ export const ListCryptocurrencies = memo(() => {
             mb={2}
             py={1}
             onClick={() =>
-              navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${crypto.CoinInfo.FullName.toLowerCase()}`)
+              navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${crypto.CoinInfo.FullName.toLowerCase()}`, {
+                state: { infoCrypto: crypto },
+              })
             }
             _hover={{ cursor: 'pointer' }}
           >

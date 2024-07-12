@@ -26,6 +26,8 @@ export const ROUTES: Routes = {
   CRYPTOCURRENCY: '/crypto',
   CRYPTO_DETAIL_MAIN: '/crypto/detail',
   CRYPTO_DETAIL: '/crypto/detail/:cryptoId',
+  CRYPTO_DETAIL_OVERVIEW_MAIN: '/crypto/detail/overview',
+  CRYPTO_DETAIL_OVERVIEW: '/crypto/detail/overview/:cryptoId',
   CRYPTO_MANAGE: '/crypto/manage',
   CRYPTO_SEARCH: '/crypto/search',
   NOT_FOUND: '*',

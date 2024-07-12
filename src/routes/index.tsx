@@ -26,6 +26,7 @@ import { SecurityList } from '../pages/Security';
 import { SafeWords } from '../pages/Security/SafeWords';
 import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
 import { ChangePassword } from '../pages/Security/ChangePassword';
+import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
 
 export const router = createBrowserRouter([
   {
@@ -156,6 +157,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.CRYPTO_DETAIL,
             element: <DetailCrypto />,
+          },
+          {
+            path: ROUTES.CRYPTO_DETAIL_OVERVIEW,
+            element: <CryptoOverview />,
           },
           {
             path: ROUTES.CRYPTO_MANAGE,

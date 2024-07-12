@@ -62,7 +62,7 @@ export const UserRegistrationForm = () => {
 
   return (
     <Flex align={'center'} justify={'center'} flexDirection={'column'} pb={4}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'}>
+      <Stack spacing={8} mx={'auto'} width={{ base: 'full', md: '65%' }}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
             Regístrate
