@@ -55,7 +55,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const filterItems = useMemo(() => {
     return LINK_ITEMS.filter((item) => {
       if (isAuthenticated) {
-        return item.id !== 8 && item.id !== 9 && (showSearchMenu || item.id !== 16);
+        return item.id !== 9 && (showSearchMenu || item.id !== 16);
       } else {
         return item.id !== 10 && (showSearchMenu || item.id !== 16);
       }
@@ -103,6 +103,13 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       className="scrollbar-custom"
       overflow={'auto'}
+      sx={{
+        '::-webkit-scrollbar': {
+          display: 'none', // Oculta la barra de scroll en WebKit (Chrome, Safari)
+        },
+        msOverflowStyle: 'none', // Oculta la barra de scroll en Internet Explorer y Edge
+        scrollbarWidth: 'none', // Oculta la barra de scroll en Firefox
+      }}
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="6" mt="2" justifyContent="space-between">
