@@ -10,6 +10,7 @@ import { useStoreAutheticated } from '../../stores/authentication';
 import { ROUTES, SupportedCurrency } from '../../constants';
 import { fetchCryptoCompareData, formatCurrency } from '../../utils';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
+import { useTranslation } from 'react-i18next';
 
 export const TotalCash = () => {
   const bg = useColorModeValue('gray.100', '#171717');
@@ -20,6 +21,7 @@ export const TotalCash = () => {
   const { isAuthenticated, currentWallet } = useStoreAutheticated();
   const { isDataVisible, setDataVisible, totalCash, symbol, totalPercentaje, isPositive } =
     useStoreVisibilityData();
+  const { t } = useTranslation();
 
   const handleDataVisible = () => {
     if (isAuthenticated) {
@@ -54,7 +56,7 @@ export const TotalCash = () => {
           borderRadius={'full'}
         >
           <Text fontSize="md" fontWeight="bold" textAlign={'center'}>
-            {currentWallet?.name ?? 'Wallets'}
+            {currentWallet?.name ?? t('home.wallet')}
           </Text>
           <Icon as={IoMdArrowDropdown} boxSize={6} />
         </Box>
@@ -70,7 +72,7 @@ export const TotalCash = () => {
           onClick={onRefresh}
         >
           <Text mr={2} cursor="pointer">
-            Actualizar
+            {t('home.button_total_cash')}
           </Text>
           <Icon as={FaSync} cursor="pointer" />
         </Button>

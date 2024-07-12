@@ -1,0 +1,13 @@
+{
+  "home": {
+    "wallet": "Wallets",
+    "button_total_cash": "Update",
+    "manager_crypto": "Manage crypto",
+    "operations": {
+      "buy": "buy",
+      "exchange": "exchange",
+      "send": "send",
+      "receive": "receive"
+    }
+  }
+}

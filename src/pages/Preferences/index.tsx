@@ -4,11 +4,14 @@ import { Icon } from '@iconify/react';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export const Preferences = () => {
   const navigation = useNavigate();
   const { currency } = useStoreCrypto();
   const BG_COLOR = useColorModeValue('gray.100', '#171717');
+  const { i18n } = useTranslation();
+
   return (
     <Stack spacing={4}>
       <Flex justifyContent="space-between" alignItems="center">
@@ -34,7 +37,7 @@ export const Preferences = () => {
         _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
         onClick={() => navigation(ROUTES.PREFERENCES_LANGUAGE)}
       >
-        <PreferenceList title="App Language" subTitle="English" />
+        <PreferenceList title="App Language" subTitle={i18n.language} />
       </Box>
     </Stack>
   );

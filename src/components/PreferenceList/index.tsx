@@ -9,7 +9,9 @@ export const PreferenceList = ({ title, subTitle }: PrefeListProps) => {
   return (
     <Box>
       <Text fontSize={'medium'}>{title}</Text>
-      <Text fontSize={'small'}>{subTitle}</Text>
+      <Text fontSize={'small'} textTransform={'uppercase'}>
+        {subTitle}
+      </Text>
     </Box>
   );
 };
