@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
@@ -13,24 +14,15 @@ import {
   Legend,
 } from 'chart.js';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
-import { chartData, chartOptions, fetchPriceData, chartAreaBorder } from '../../utils';
+import { chartData, chartOptions, fetchPriceData } from '../../utils';
 import { PriceDataProps } from '../../interfaces';
 import { CryptoNotFound } from '../../components/CryptoNotFound';
 import { useToastNotification } from '../../hooks/useToastNotification';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  chartAreaBorder,
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 export const DetailCrypto = () => {
-  const { currentCrypto } = useStoreCrypto();
+  const { currentCrypto, currency } = useStoreCrypto();
   const { cryptoId } = useParams<{ cryptoId: string }>();
   const crypto = currentCrypto.find((c) => c.CoinInfo.FullName.toLowerCase() === cryptoId);
   const [priceData, setPriceData] = useState<PriceDataProps[]>([]);
@@ -53,13 +45,14 @@ export const DetailCrypto = () => {
 
       fetchData();
     }
-  }, [crypto, displayToast]);
+  }, []);
 
   if (!crypto) {
     return <CryptoNotFound nameCrypto={cryptoId as string} />;
   }
 
-  const chartDataCrypto = chartData(priceData);
+  const isPositive = crypto?.RAW?.[currency]?.CHANGEPCT24HOUR > 0;
+  const chartDataCrypto = chartData(priceData, isPositive);
   const chartOptionsCrypto = chartOptions(crypto);
 
   return (
