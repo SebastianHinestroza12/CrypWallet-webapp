@@ -36,13 +36,13 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       position="sticky"
       top="0"
       zIndex="50"
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 4 }}
+      ml={{ base: 0, md: 64 }}
+      px={{ base: 4, md: 8 }}
       height="20"
       alignItems="center"
       bg={useColorModeValue('white', '#101010')}
       borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+      borderBottomColor={useColorModeValue('gray.300', '#171717')}
       justifyContent={{ base: 'space-between', md: 'flex-end' }}
       {...rest}
     >

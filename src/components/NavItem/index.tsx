@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export const NavItem = ({ icon, showDivider, route, children, ...rest }: NavItemProps) => {
   const navigation = useNavigate();
   const BG_COLOR = useColorModeValue('gray.100', '#171717');
+  const BORDER_COLOR = useColorModeValue('gray.300', '#171717');
 
   const handleNavigation = () => {
     if (route) {
@@ -36,7 +37,7 @@ export const NavItem = ({ icon, showDivider, route, children, ...rest }: NavItem
         {icon && <Icon mr="4" fontSize="16" as={icon} boxSize={6} />}
         {children}
       </Flex>
-      {showDivider && <Divider />}
+      {showDivider && <Divider borderColor={BORDER_COLOR} />}
     </Box>
   );
 };

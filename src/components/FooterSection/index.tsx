@@ -5,7 +5,7 @@ import { BsGithub, BsLinkedin } from 'react-icons/bs';
 export const FooterSection = () => {
   const BG_COLOR = useColorModeValue('gray.300', '#000');
   return (
-    <Box p="2" borderTop="1px" borderColor={useColorModeValue('gray.200', 'gray.700')}>
+    <Box p="2" borderTop="1px" borderColor={useColorModeValue('gray.300', '#171717')}>
       <HStack justifyContent="center" mt={2} spacing={5} px={2}>
         <FooterLink
           href="https://www.linkedin.com/in/sebastian-mena12/"

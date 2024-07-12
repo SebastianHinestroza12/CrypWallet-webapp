@@ -97,8 +97,8 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       transition="3s ease"
       bg={useColorModeValue('white', '#101010')}
       borderRight="1px"
-      borderRightColor={useColorModeValue('gray.100', '#171717')}
-      w={{ base: 'full', md: 60 }}
+      borderRightColor={useColorModeValue('gray.300', '#171717')}
+      w={{ base: 'full', md: 64 }}
       pos="fixed"
       h="full"
       className="scrollbar-custom"
