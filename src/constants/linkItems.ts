@@ -1,12 +1,18 @@
 import { FiHome, FiSettings, FiUserPlus, FiUnlock } from 'react-icons/fi';
-import { IoWalletOutline } from 'react-icons/io5';
+import {
+  IoWalletOutline,
+  IoSwapHorizontalOutline,
+  IoHomeOutline,
+  IoPersonOutline,
+} from 'react-icons/io5';
 import { MdOutlineDarkMode, MdManageHistory } from 'react-icons/md';
-import { FaShieldAlt, FaHome, FaSearch, FaUser } from 'react-icons/fa';
+import { FaShieldAlt, FaSearch } from 'react-icons/fa';
 import { RiSafe2Fill } from 'react-icons/ri';
 import { BsDownload } from 'react-icons/bs';
-import { SiHiveBlockchain } from 'react-icons/si';
 import { CgLogOut } from 'react-icons/cg';
+import { AiOutlineFileSearch } from 'react-icons/ai';
 import { LinkItemProps, TabsBottomProps } from '../interfaces';
+
 import { ROUTES } from './redirectToRoute';
 
 export const LINK_ITEMS: LinkItemProps[] = [
@@ -31,8 +37,8 @@ export const LINK_ITEMS: LinkItemProps[] = [
 ];
 
 export const TABS_BOTTOM: TabsBottomProps[] = [
-  { icon: FaHome, label: 'Home', path: ROUTES.HOME },
-  { icon: FaSearch, label: 'Search', path: ROUTES.CRYPTO_SEARCH },
-  { icon: SiHiveBlockchain, label: 'Blockchain', path: ROUTES.NOTIFICATIONS },
-  { icon: FaUser, label: 'Profile', path: ROUTES.USER_PROFILE },
+  { icon: IoHomeOutline, label: 'Home', path: ROUTES.HOME },
+  { icon: IoSwapHorizontalOutline, label: 'Swap', path: ROUTES.NOTIFICATIONS },
+  { icon: AiOutlineFileSearch, label: 'Search', path: ROUTES.CRYPTO_SEARCH },
+  { icon: IoPersonOutline, label: 'Profile', path: ROUTES.USER_PROFILE },
 ];

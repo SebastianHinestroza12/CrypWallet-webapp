@@ -15,13 +15,13 @@ export const OperationButton: FC<OperationButtonProps> = ({ icon, onClick, text,
         onClick={onClick}
         bg="#1e59ea"
         borderRadius="full"
-        width="50px"
-        height="50px"
+        width={{ base: '48px', md: '52px' }}
+        height={{ base: '48px', md: '52px' }}
         _hover={{ bg: '#66ccff', cursor: 'pointer' }}
         _active={{ bg: '#007bff' }}
         {...rest}
       >
-        <Icon as={icon} boxSize={9} color={'#FFF'} />
+        <Icon as={icon} boxSize={{ base: 8, md: 9 }} color={'#FFF'} />
       </Button>
       <Text textTransform={'capitalize'} textAlign={'center'}>
         {text}
