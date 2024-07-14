@@ -5,9 +5,10 @@
     "manager_crypto": "Manage crypto",
     "operations": {
       "buy": "buy",
-      "exchange": "exchange",
+      "sell": "sell",
       "send": "send",
-      "receive": "receive"
+      "receive": "receive",
+      "history": "history"
     }
   }
 }

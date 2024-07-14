@@ -5,9 +5,10 @@
     "manager_crypto": "Administrar cripto",
     "operations": {
       "buy": "comprar",
-      "exchange": "intercambio",
+      "sell": "vender",
       "send": "enviar",
-      "receive": "recibir"
+      "receive": "recibir",
+      "history": "historial"
     }
   }
 }
