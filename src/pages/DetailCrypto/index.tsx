@@ -2,7 +2,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Box, Divider, Flex, Stack, Text, Image, Button } from '@chakra-ui/react';
 import { CryptoNotFound } from '../../components/CryptoNotFound';
 import { Icon } from '@iconify/react';
-import { OPERATION_BUTTONS, ROUTES, SupportedCurrency } from '../../constants';
+import { ROUTES, SupportedCurrency } from '../../constants';
 import { OperationButton } from '../../components/OperationButton';
 import { InviteToLogin } from '../../components/InviteToLogin';
 import { useStoreAutheticated } from '../../stores/authentication';
@@ -79,10 +79,8 @@ export const DetailCrypto = () => {
         </Box>
       </Flex>
       <Flex flexDirection={'column'}>
-        <Box display={'flex'} justifyContent={'space-between'}>
-          {OPERATION_BUTTONS.map((button) => (
-            <OperationButton key={button.text} icon={button.icon} text={button.text} />
-          ))}
+        <Box>
+          <OperationButton />
         </Box>
         <Box pt={4}>
           <Divider borderColor={'gray.500'} />
