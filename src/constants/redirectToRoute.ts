@@ -30,6 +30,13 @@ export const ROUTES: Routes = {
   CRYPTO_DETAIL_OVERVIEW: '/crypto/detail/overview/:cryptoId',
   CRYPTO_MANAGE: '/crypto/manage',
   CRYPTO_SEARCH: '/crypto/search',
+  OPERATIONS: '/operations',
+  OPERATIONS_SEND_CRYPTO: '/operations/send',
+  OPERATIONS_RECEIVE_CRYPTO: '/operations/receive',
+  OPERATIONS_SWAP_CRYPTO: '/operations/swap',
+  OPERATIONS_BUY_CRYPTO: '/operations/buy',
+  OPERATIONS_SELL_CRYPTO: '/operations/sell',
+  OPERATIONS_HISTORY_CRYPTO: '/operations/history',
   NOT_FOUND: '*',
   EMPTY: '',
 };
