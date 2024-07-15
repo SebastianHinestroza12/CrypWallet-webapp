@@ -18,7 +18,7 @@ export const InviteToLogin = () => {
       </Box>
       <Box mb={{ base: 4, md: 6 }}>
         <Text color={TEXT_COLOR} fontSize={'lg'} fontWeight={'medium'}>
-          ¡Necesitas iniciar sesión para ver tus transacciones!
+          ¡Necesitas iniciar sesión para ver o realizar tus transacciones!
         </Text>
         <Text color={TEXT_COLOR} fontSize={'sm'}>
           Inicia sesión o regístrate para empezar a gestionar tus inversiones.

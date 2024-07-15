@@ -8,6 +8,7 @@ import {
   formatChange,
   formatCurrency,
   fetchDescription,
+  translateText,
 } from '../../../utils';
 import {
   Chart as ChartJS,
@@ -36,6 +37,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { SupportedCurrency } from '../../../constants';
 import { Icon } from '@iconify/react';
+import { useTranslation } from 'react-i18next';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -51,6 +53,7 @@ export const CryptoOverview = () => {
   const price = (infoCrypto.RAW?.[currency]?.PRICE ?? 0).toFixed(2);
   const symbol = infoCrypto.DISPLAY?.[currency]?.TOSYMBOL;
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     if (infoCrypto) {
@@ -76,6 +79,14 @@ export const CryptoOverview = () => {
       const fetchDescriptionCrypto = async () => {
         try {
           const description = await fetchDescription(infoCrypto.CoinInfo.Name);
+          if (i18n.language !== 'en') {
+            const traslateDescription = await translateText(description, i18n.language);
+            setDescription(
+              traslateDescription?.status ? traslateDescription.textTraslate : description,
+            );
+
+            return;
+          }
           setDescription(description);
         } catch (error) {
           displayToast(

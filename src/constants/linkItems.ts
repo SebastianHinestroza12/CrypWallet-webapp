@@ -6,7 +6,7 @@ import {
   IoPersonOutline,
 } from 'react-icons/io5';
 import { MdOutlineDarkMode, MdManageHistory } from 'react-icons/md';
-import { FaShieldAlt, FaSearch } from 'react-icons/fa';
+import { FaShieldAlt } from 'react-icons/fa';
 import { RiSafe2Fill } from 'react-icons/ri';
 import { BsDownload } from 'react-icons/bs';
 import { CgLogOut } from 'react-icons/cg';
@@ -21,7 +21,7 @@ export const LINK_ITEMS: LinkItemProps[] = [
   { id: 3, name: 'Dark Mode', icon: MdOutlineDarkMode, showDivider: true },
   { id: 5, name: 'Preferences', route: ROUTES.PREFERENCES_LIST, icon: FiSettings },
   { id: 6, name: 'Manage crypto', route: ROUTES.CRYPTO_MANAGE, icon: MdManageHistory },
-  { id: 16, name: 'Search', route: ROUTES.CRYPTO_SEARCH, icon: FaSearch },
+  { id: 16, name: 'Search', route: ROUTES.CRYPTO_SEARCH, icon: AiOutlineFileSearch },
   { id: 7, name: 'Security', route: ROUTES.SECURUTY_LIST, icon: RiSafe2Fill, showDivider: true },
   { id: 9, name: 'Register', route: ROUTES.USER_SIGNUP, icon: FiUserPlus },
   { id: 10, name: 'Log Out', route: ROUTES.HOME, icon: CgLogOut },

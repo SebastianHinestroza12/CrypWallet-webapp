@@ -28,6 +28,7 @@ import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
 import { ChangePassword } from '../pages/Security/ChangePassword';
 import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
 import { Swap } from '../pages/Operations/Swap';
+import { SendList } from '../pages/Operations/Send';
 
 export const router = createBrowserRouter([
   {
@@ -178,7 +179,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.OPERATIONS_SEND_CRYPTO,
-            element: <div>Send Crypto Operation</div>,
+            element: <SendList />,
           },
           {
             path: ROUTES.OPERATIONS_RECEIVE_CRYPTO,
