@@ -27,6 +27,7 @@ import { SafeWords } from '../pages/Security/SafeWords';
 import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
 import { ChangePassword } from '../pages/Security/ChangePassword';
 import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
+import { Swap } from '../pages/Operations/Swap';
 
 export const router = createBrowserRouter([
   {
@@ -169,6 +170,35 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.CRYPTO_SEARCH,
             element: <SearchCrypto />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.OPERATIONS,
+        children: [
+          {
+            path: ROUTES.OPERATIONS_SEND_CRYPTO,
+            element: <div>Send Crypto Operation</div>,
+          },
+          {
+            path: ROUTES.OPERATIONS_RECEIVE_CRYPTO,
+            element: <div>Receive Crypto Operation</div>,
+          },
+          {
+            path: ROUTES.OPERATIONS_SWAP_CRYPTO,
+            element: <Swap />,
+          },
+          {
+            path: ROUTES.OPERATIONS_BUY_CRYPTO,
+            element: <div>Buy Crypto Operation</div>,
+          },
+          {
+            path: ROUTES.OPERATIONS_SELL_CRYPTO,
+            element: <div>Sell Crypto Operation</div>,
+          },
+          {
+            path: ROUTES.OPERATIONS_HISTORY_CRYPTO,
+            element: <div>History Crypto Operation</div>,
           },
         ],
       },
