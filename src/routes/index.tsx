@@ -29,6 +29,7 @@ import { ChangePassword } from '../pages/Security/ChangePassword';
 import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
 import { Swap } from '../pages/Operations/Swap';
 import { SendList } from '../pages/Operations/Send';
+import { TransferCrypto } from '../pages/Operations/Send/TranferCrypto';
 
 export const router = createBrowserRouter([
   {
@@ -200,6 +201,16 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.OPERATIONS_HISTORY_CRYPTO,
             element: <div>History Crypto Operation</div>,
+          },
+        ],
+      },
+      {
+        path: ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <TransferCrypto />,
           },
         ],
       },

@@ -53,7 +53,7 @@ export const SendList = () => {
                 priceCoin={calculateMounters(data)}
                 isCursorPointer
                 onClick={() =>
-                  navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${data.CoinInfo.FullName.toLowerCase()}`, {
+                  navigate(`${ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO}`, {
                     state: { infoCrypto: data },
                   })
                 }
