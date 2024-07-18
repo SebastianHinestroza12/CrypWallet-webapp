@@ -54,7 +54,11 @@ export const SendList = () => {
                 isCursorPointer
                 onClick={() =>
                   navigate(`${ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO}`, {
-                    state: { infoCrypto: data },
+                    state: {
+                      crypto: data,
+                      maxAmount: calculateMounters(data),
+                      symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
+                    },
                   })
                 }
               />

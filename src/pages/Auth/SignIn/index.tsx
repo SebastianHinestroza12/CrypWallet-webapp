@@ -60,7 +60,7 @@ export const UserLogIn: React.FC = () => {
 
         if (status === 200) {
           setBorderColorPin('green');
-          setAvatarUrl(user.avatarUrl);
+          setAvatarUrl(user.avatarUrl, false);
           // Autenticar al usuario
           authenticateUser({
             id: user.id,

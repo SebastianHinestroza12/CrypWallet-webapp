@@ -52,6 +52,7 @@ export const CryptoOverview = () => {
   const { displayToast } = useToastNotification();
   const price = (infoCrypto.RAW?.[currency]?.PRICE ?? 0).toFixed(2);
   const symbol = infoCrypto.DISPLAY?.[currency]?.TOSYMBOL;
+  const changePrice24Hour = infoCrypto.RAW?.[currency]?.CHANGEPCT24HOUR;
   const navigate = useNavigate();
   const { i18n } = useTranslation();
 
@@ -141,13 +142,10 @@ export const CryptoOverview = () => {
         </Flex>
         <Flex pl={2} mt={2}>
           <Text color="gray.500">
-            {`${symbol} ${formatCurrency(price, currency as SupportedCurrency)}`}
+            {`${symbol ?? ''} ${formatCurrency(price, currency as SupportedCurrency)}`}
           </Text>
-          <Text
-            ml={3}
-            color={infoCrypto.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? '#17ca56' : '#cf0c07'}
-          >
-            {formatChange(infoCrypto.RAW?.[currency]?.CHANGEPCT24HOUR)}
+          <Text ml={3} color={changePrice24Hour >= 0 ? '#17ca56' : '#cf0c07'}>
+            {changePrice24Hour ? formatChange(changePrice24Hour) : ''}
           </Text>
         </Flex>
       </Box>
