@@ -29,7 +29,9 @@ import { ChangePassword } from '../pages/Security/ChangePassword';
 import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
 import { Swap } from '../pages/Operations/Swap';
 import { SendList } from '../pages/Operations/Send';
-import { TransferCrypto } from '../pages/Operations/Send/TranferCrypto';
+import { TransferStep } from '../pages/Operations/Send/TransferStep';
+import { TransactionSuccess } from '../pages/TransactionSuccess';
+import { TransactionDetails } from '../pages/TransactionDetails';
 
 export const router = createBrowserRouter([
   {
@@ -210,7 +212,27 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.EMPTY,
-            element: <TransferCrypto />,
+            element: <TransferStep />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.TRANSACTION_SUCCESS,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <TransactionSuccess />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.TRANSACTION_DETAILS,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <TransactionDetails />,
           },
         ],
       },
