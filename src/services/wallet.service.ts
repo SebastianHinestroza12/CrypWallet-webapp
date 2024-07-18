@@ -38,4 +38,13 @@ export class WalletServices {
       throw serverError;
     }
   }
+
+  static async getWalletByAddress(address: string) {
+    try {
+      return await instanceAxios.get(`/wallet/address/${address}`);
+    } catch (error) {
+      const serverError = error as AxiosError;
+      throw serverError;
+    }
+  }
 }
