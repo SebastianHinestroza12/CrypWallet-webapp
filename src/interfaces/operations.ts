@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-
+import { CryptoCompareData } from './cryptocurrency';
 export interface StoreStateVisibility {
   isDataVisible: boolean;
   totalCash: number;
@@ -11,4 +11,31 @@ export interface StoreStateVisibility {
   setSymbol: (symbol: string) => void;
   setTotalPercentaje: (percentaje: number) => void;
   setIsPositive: (isPositive: boolean) => void;
+}
+
+export interface StoreStateOperations {
+  transferStep: number;
+  cryptoShippingdata: IpropsSendCryptoData;
+  setCryptoShippingdata: (data: IpropsSendCryptoData) => void;
+  setTransferStep: (step: number) => void;
+  removeCryptoShippingdata: () => void;
+}
+
+export interface IpropsSendCryptoData {
+  amount: number | string;
+  cryptoCurrency: string;
+  destinationWalletAddress: string;
+  destinationWalletId: string;
+  destinationUser: string;
+  typeTransaction: TransactionsType;
+  cryptoData: CryptoCompareData | null;
+}
+
+export enum TransactionsType {
+  Send = 'Send',
+  Receive = 'Receive',
+  Buy = 'Buy',
+  Sell = 'Sell',
+  Swap = 'Swap',
+  None = 'None',
 }

@@ -38,6 +38,8 @@ export const ROUTES: Routes = {
   OPERATIONS_BUY_CRYPTO: '/operations/buy',
   OPERATIONS_SELL_CRYPTO: '/operations/sell',
   OPERATIONS_HISTORY_CRYPTO: '/operations/history',
+  TRANSACTION_SUCCESS: '/transaction-success',
+  TRANSACTION_DETAILS: '/transaction-details',
   NOT_FOUND: '*',
   EMPTY: '',
 };
