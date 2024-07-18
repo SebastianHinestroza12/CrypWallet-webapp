@@ -1,21 +1,22 @@
 import { Flex, Image, Box, Text, Switch, useColorModeValue } from '@chakra-ui/react';
-import { CryptoCompareData } from '../../interfaces';
+import { ListCryptoProps } from '../../interfaces';
 import { useSwitchStore } from '../../stores/switch';
-
-interface ListCryptoProps {
-  cryptocurrency: CryptoCompareData;
-  showSwitches: boolean;
-  onClick?: () => void;
-  isCursorPointer?: boolean;
-}
+import { formatCurrency } from '../../utils';
+import { SupportedCurrency } from '../../constants';
+import { useStoreCrypto } from '../../stores/cryptocurrencies';
 
 export const ListCrypto = ({
   cryptocurrency,
-  showSwitches,
+  showSwitches = false,
   onClick,
   isCursorPointer = false,
+  showPriceCoins = false,
+  coin,
+  priceCoin,
+  symbol,
 }: ListCryptoProps) => {
   const { switchStates, toggleSwitch } = useSwitchStore();
+  const { currency } = useStoreCrypto();
   const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
   return (
     <Flex
@@ -59,6 +60,16 @@ export const ListCrypto = ({
             }}
             size="lg"
           />
+        </Box>
+      )}
+      {showPriceCoins && (
+        <Box textAlign="right">
+          <Text fontSize="lg" fontWeight="bold">
+            {coin}
+          </Text>
+          <Text fontSize={'sm'} color="gray.500">
+            {`${symbol ?? ''} ${formatCurrency(priceCoin as number, currency as SupportedCurrency)}`}
+          </Text>
         </Box>
       )}
     </Flex>

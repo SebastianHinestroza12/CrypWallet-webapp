@@ -84,7 +84,7 @@ export const EditWallet = () => {
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address);
-    displayToast('Address copied to clipboard.', '', 'success');
+    displayToast('Address copied to clipboard.', '', 'success', 3000);
   };
 
   return (

@@ -28,7 +28,7 @@ export const useSwitchStore = create<SwitchState>(
         TRX: true,
       },
       toggleSwitch: (id: string) =>
-        set((state: { switchStates: { [x: string]: any } }) => ({
+        set((state: { switchStates: { [x: string]: boolean } }) => ({
           switchStates: {
             ...state.switchStates,
             [id]: !state.switchStates[id],

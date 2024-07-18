@@ -183,3 +183,14 @@ export interface PreferenceListData {
   name: string;
   icon: string;
 }
+
+export interface ListCryptoProps {
+  cryptocurrency: CryptoCompareData;
+  showSwitches: boolean;
+  onClick?: () => void;
+  isCursorPointer?: boolean;
+  showPriceCoins?: boolean;
+  coin?: number | string;
+  priceCoin?: number | string;
+  symbol?: string;
+}

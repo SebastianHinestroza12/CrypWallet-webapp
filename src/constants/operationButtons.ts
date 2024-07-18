@@ -1,17 +1,21 @@
 import { IconType } from 'react-icons';
 import { GiShoppingBag } from 'react-icons/gi';
-import { IoArrowDownOutline, IoArrowUpOutline } from 'react-icons/io5';
+import { IoArrowDownOutline, IoArrowUpOutline, IoSwapHorizontalOutline } from 'react-icons/io5';
 import { GoHistory } from 'react-icons/go';
 import { MdSell } from 'react-icons/md';
+import { ROUTES } from '../constants/redirectToRoute';
 interface OperationButtonConfig {
+  id: number;
   icon: IconType;
   text: string;
+  route: string;
 }
 
 export const OPERATION_BUTTONS: OperationButtonConfig[] = [
-  { icon: IoArrowUpOutline, text: 'send' },
-  { icon: IoArrowDownOutline, text: 'receive' },
-  { icon: GiShoppingBag, text: 'buy' },
-  { icon: MdSell, text: 'sell' },
-  { icon: GoHistory, text: 'history' },
+  { id: 1, icon: IoArrowUpOutline, text: 'send', route: ROUTES.OPERATIONS_SEND_CRYPTO },
+  { id: 2, icon: IoArrowDownOutline, text: 'receive', route: ROUTES.OPERATIONS_RECEIVE_CRYPTO },
+  { id: 3, icon: GiShoppingBag, text: 'buy', route: ROUTES.OPERATIONS_BUY_CRYPTO },
+  { id: 4, icon: MdSell, text: 'sell', route: ROUTES.OPERATIONS_SELL_CRYPTO },
+  { id: 5, icon: IoSwapHorizontalOutline, text: 'swap', route: ROUTES.OPERATIONS_SWAP_CRYPTO },
+  { id: 6, icon: GoHistory, text: 'history', route: ROUTES.OPERATIONS_HISTORY_CRYPTO },
 ];

@@ -92,8 +92,14 @@ export const UserProfileEdit = () => {
   };
 
   const onSubmit = async (data: UserProps) => {
+    if (data.name === name || data.lastName === lastName) {
+      displayToast('Atención', 'Los valores no han cambiado.', 'warning');
+      return;
+    }
+
     // Simular una demora de 2 segundos, para que no sea tan rapido la actualizacion.
     await new Promise((resolve) => setTimeout(resolve, 2000));
+
     const {
       status,
       data: { user },
