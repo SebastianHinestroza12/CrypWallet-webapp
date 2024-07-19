@@ -27,7 +27,6 @@ export interface WalletsIProps {
   name: string;
   userId: string;
   address: string;
-  manageCrypo: string[];
   cryptoCurrency: CryptoCurrencyProps;
 }
 
@@ -47,7 +46,7 @@ export interface StoreStateAuthentication {
   setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb?: boolean) => void;
   authenticateUser: (user: UserProps) => void;
   logoutUser: () => void;
-  addWallet: (wallet: WalletsIProps) => void;
+  addWallet: (wallet: WalletsIProps, replaceWallet: boolean) => void;
   addSafeWords: (safes: string[]) => void;
   updateWallet: (walleId: string, name: string) => void;
   deleteWallet: (walletId: string) => void;

@@ -70,9 +70,7 @@ export const UserLogIn: React.FC = () => {
           });
 
           // Almacenar las wallet
-          wallets.forEach((wallet: WalletsIProps) => {
-            addWallet(wallet);
-          });
+          addWallet(wallets, true);
 
           // Almacenar las palabras claves
           addSafeWords(safeWords);
