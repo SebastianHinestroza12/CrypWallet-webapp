@@ -80,7 +80,7 @@ export const DetailCrypto = () => {
       </Flex>
       <Flex flexDirection={'column'}>
         <Box>
-          <OperationButton />
+          <OperationButton crypto={crypto} />
         </Box>
         <Box pt={4}>
           <Divider borderColor={'gray.500'} />
