@@ -15,29 +15,20 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) 
   safeWords: [],
   wallets: [],
   currentWallet: null,
-  recoveryProgress: 25, // Paso inicial en la recuperacion de las cienta. 25%, 50%, 75% y por ultimo 100% OK
+  recoveryProgress: 25,
   recoveryStep: 1,
   userIdRecoveryAccount: null,
   avatarUrl: '',
 
-  // Autenticar al usuario
-  authenticateUser: (user: UserProps) =>
-    set(() => ({
-      isAuthenticated: true,
-      authenticatedUser: user,
-    })),
+  authenticateUser: (user: UserProps) => set({ isAuthenticated: true, authenticatedUser: user }),
 
-  // Cerrar sesión del usuario
   logoutUser: async () => {
-    // Obtener el estado actual
-    const currentState = get();
+    const { isAuthenticated } = get();
 
-    // Remover el token del usuario si está autenticado
-    if (currentState.isAuthenticated) {
+    if (isAuthenticated) {
       await AuthService.logout();
     }
 
-    // Actualizar el estado a los valores iniciales
     set({
       isAuthenticated: false,
       authenticatedUser: INITIAL_STATE,
@@ -50,40 +41,34 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) 
       avatarUrl: '',
     });
 
-    // Recargar la página
     window.location.reload();
   },
 
-  // Añadir una cartera
-  addWallet: (wallet: WalletsIProps) =>
+  addWallet: (wallet: WalletsIProps, replaceWallet = false) => {
     set((state) => ({
-      wallets: [...state.wallets, wallet],
-    })),
-
-  // Añadir las palabras de seguridad
-  addSafeWords: (safes: string[]) =>
-    set(() => ({
-      safeWords: safes,
-    })),
-
-  setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb = true) => {
-    // Actualizarla en el store
-    set(() => ({ currentWallet: wallet }));
-    // Actualizar la wallet en la db
-    if (updateDb) AuthService.updateProfile({ currentWallet: wallet.id }, userId);
+      wallets: replaceWallet ? [wallet] : [...state.wallets, wallet],
+    }));
   },
 
-  updateWallet: (walleId: string, name: string) => {
-    // Actualizar la wallet en el store
+  addSafeWords: (safes: string[]) => set({ safeWords: safes }),
+
+  setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb = true) => {
+    set({ currentWallet: wallet });
+
+    if (updateDb) {
+      AuthService.updateProfile({ currentWallet: wallet.id }, userId);
+    }
+  },
+
+  updateWallet: (walletId: string, name: string) => {
     set((state) => ({
       wallets: state.wallets.map((wallet) =>
-        wallet.id === walleId ? { ...wallet, name } : wallet,
+        wallet.id === walletId ? { ...wallet, name } : wallet,
       ),
     }));
   },
 
   deleteWallet: (walletId: string) => {
-    // Eliminar la wallet en el store
     set((state) => ({
       wallets: state.wallets.filter((wallet) => wallet.id !== walletId),
     }));
