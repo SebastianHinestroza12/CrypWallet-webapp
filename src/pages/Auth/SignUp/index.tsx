@@ -1,13 +1,5 @@
 import { useState } from 'react';
-import {
-  Flex,
-  Box,
-  Stack,
-  Heading,
-  Text,
-  useColorModeValue,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Flex, Box, Stack, Heading, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { DataRegisterProps } from '../../../interfaces';
 import { AxiosError } from 'axios';
@@ -69,15 +61,12 @@ export const UserRegistrationForm = () => {
   };
 
   return (
-    <Flex align={'center'} justify={'center'} flexDirection={'column'}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'}>
+    <Flex align={'center'} justify={'center'} flexDirection={'column'} pb={4}>
+      <Stack spacing={8} mx={'auto'} width={{ base: 'full', md: '65%' }}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
             Regístrate
           </Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            Para disfrutar de todas nuestras funciones interesantes ✌️
-          </Text>
         </Stack>
         <Box rounded={'lg'} bg={BG} boxShadow={'2xl'} p={8}>
           <RegistrationForm

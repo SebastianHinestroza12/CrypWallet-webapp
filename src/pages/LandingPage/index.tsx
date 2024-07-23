@@ -28,7 +28,7 @@ export function CallToActionWithIllustration() {
         </Flex>
         <Heading
           fontWeight={600}
-          fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
+          fontSize={{ base: '3xl', sm: '5xl', md: '7xl' }}
           lineHeight={'110%'}
         >
           <Text as={'span'} color={'#1E59EA'} fontSize={{ base: '3xl', sm: '5xl', md: '7xl' }}>

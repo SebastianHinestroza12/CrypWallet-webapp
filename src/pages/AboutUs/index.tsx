@@ -8,18 +8,15 @@ import {
   Wrap,
   WrapItem,
   useColorModeValue,
-  Button,
   List,
   ListItem,
   ListIcon,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
 import { Tags } from '../../components/Tags';
 import { MdCheckCircle } from 'react-icons/md';
-import { ROUTES, SERVICES_ABOUT } from '../../constants';
+import { SERVICES_ABOUT } from '../../constants';
 
 export const AboutUs = () => {
-  const navigate = useNavigate();
   return (
     <Box>
       <Heading as="h1" mb={6}>
@@ -168,16 +165,6 @@ export const AboutUs = () => {
           </Box>
         </WrapItem>
       </Wrap>
-      <Box mt={9} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-        <Button
-          onClick={() => navigate(ROUTES.HOME)}
-          rounded={'full'}
-          bg={'#1E59EA'}
-          _hover={{ bg: '#007bff' }}
-        >
-          Volver al Home
-        </Button>
-      </Box>
     </Box>
   );
 };

@@ -8,6 +8,14 @@ export type WalletCardType = {
   handleEditWallet: (walletId: string, name: string) => void;
 };
 
+export type SendTransactionIProps = {
+  amount: number;
+  cryptocurrencyId: string;
+  destinyWalletId: string;
+  originWalletId: string;
+  description: string;
+};
+
 export type CreateWalletIProps = {
   name: string;
 };

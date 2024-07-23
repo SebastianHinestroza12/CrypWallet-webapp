@@ -25,6 +25,20 @@ import { EditWallet } from '../pages/Wallets/EditWallet';
 import { SecurityList } from '../pages/Security';
 import { SafeWords } from '../pages/Security/SafeWords';
 import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
+import { ChangePassword } from '../pages/Security/ChangePassword';
+import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
+import { Swap } from '../pages/Operations/Swap';
+import { SendList } from '../pages/Operations/Send';
+import { TransferStep } from '../pages/Operations/Send/TransferStep';
+import { TransactionSuccess } from '../pages/TransactionSuccess';
+import { TransactionDetails } from '../pages/TransactionDetails';
+import { ReceiveList } from '../pages/Operations/Receive';
+import { ReceiveCrypto } from '../pages/Operations/Receive/ReceiveCrypto';
+import { BuyList } from '../pages/Operations/Buy';
+import { BuyCryptoWithStrape } from '../pages/Operations/Buy/MethodsPayment/BuyCryptoWithStrape';
+import { PaymentMethod } from '../pages/Operations/Buy/MethodsPayment';
+import { Success } from '../pages/SuccessResult';
+import { Cancel } from '../pages/CancelResult';
 
 export const router = createBrowserRouter([
   {
@@ -97,6 +111,10 @@ export const router = createBrowserRouter([
                 path: ROUTES.SECURUTY_SECRET_WORDS,
                 element: <SafeWords />,
               },
+              {
+                path: ROUTES.SECURUTY_CHANGE_PASSWORD,
+                element: <ChangePassword />,
+              },
             ],
           },
         ],
@@ -153,12 +171,125 @@ export const router = createBrowserRouter([
             element: <DetailCrypto />,
           },
           {
+            path: ROUTES.CRYPTO_DETAIL_OVERVIEW,
+            element: <CryptoOverview />,
+          },
+          {
             path: ROUTES.CRYPTO_MANAGE,
             element: <ManageCryptocurrencies />,
           },
           {
             path: ROUTES.CRYPTO_SEARCH,
             element: <SearchCrypto />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.OPERATIONS,
+        children: [
+          {
+            path: ROUTES.OPERATIONS_SEND_CRYPTO,
+            element: <SendList />,
+          },
+          {
+            path: ROUTES.OPERATIONS_RECEIVE_CRYPTO,
+            element: <ReceiveList />,
+          },
+          {
+            path: ROUTES.OPERATIONS_SWAP_CRYPTO,
+            element: <Swap />,
+          },
+          {
+            path: ROUTES.OPERATIONS_BUY_CRYPTO,
+            element: <BuyList />,
+          },
+          {
+            path: ROUTES.OPERATIONS_SELL_CRYPTO,
+            element: <div>Sell Crypto Operation</div>,
+          },
+          {
+            path: ROUTES.OPERATIONS_HISTORY_CRYPTO,
+            element: <div>History Crypto Operation</div>,
+          },
+        ],
+      },
+      {
+        path: ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <TransferStep />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <ReceiveCrypto />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.OPERATIONS_BUY_CRYPTO_WITH_STRIPE,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <BuyCryptoWithStrape />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.PAYMENT_METHODS_CRYPTO,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <PaymentMethod />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.TRANSACTION_SUCCESS,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <TransactionSuccess />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.TRANSACTION_DETAILS,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <TransactionDetails />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.SUCCESS_PAYMENT,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <Success />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.CANCEL_PAYMENT,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <Cancel />,
           },
         ],
       },

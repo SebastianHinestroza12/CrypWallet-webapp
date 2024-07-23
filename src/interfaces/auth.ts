@@ -14,6 +14,7 @@ export interface UserProps {
   name?: string;
   lastName?: string;
   email?: string;
+  avatarUrl?: string;
   currentWallet?: string;
 }
 
@@ -26,7 +27,6 @@ export interface WalletsIProps {
   name: string;
   userId: string;
   address: string;
-  manageCrypo: string[];
   cryptoCurrency: CryptoCurrencyProps;
 }
 
@@ -39,14 +39,16 @@ export interface StoreStateAuthentication {
   recoveryProgress: number;
   recoveryStep: number;
   userIdRecoveryAccount: string | null;
+  avatarUrl: string;
   setUserIdRecoveryAccount: (userId: string) => void;
   setRecoveryStep(step: number): void;
   setRecoreyProgress(progress: number): void;
   setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb?: boolean) => void;
   authenticateUser: (user: UserProps) => void;
   logoutUser: () => void;
-  addWallet: (wallet: WalletsIProps) => void;
+  addWallet: (wallet: WalletsIProps, replaceWallet: boolean) => void;
   addSafeWords: (safes: string[]) => void;
   updateWallet: (walleId: string, name: string) => void;
   deleteWallet: (walletId: string) => void;
+  setAvatarUrl: (url: string, updateDb: boolean) => void;
 }

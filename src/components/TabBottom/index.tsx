@@ -1,22 +1,16 @@
-import { useState } from 'react';
 import { Box, Flex, IconButton, Icon, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TABS_BOTTOM } from '../../constants';
 
 export const TabBottomMobile = () => {
-  const [selectedTab, setSelectedTab] = useState('/home');
   const navigate = useNavigate();
   const location = useLocation();
-
   const handleTabClick = (path: string) => {
-    setSelectedTab(path);
     navigate(path);
   };
 
-  const isTabRoute = (path: string) => TABS_BOTTOM.some((tab) => tab.path === path);
-
   const getIconColor = (path: string) => {
-    if (isTabRoute(location.pathname) && selectedTab === path) {
+    if (location.pathname === path) {
       return '#1e59ea';
     }
     return 'inherit';
@@ -42,7 +36,7 @@ export const TabBottomMobile = () => {
             <IconButton
               icon={<Icon as={tab.icon} color={getIconColor(tab.path)} boxSize={6} />}
               aria-label={tab.label}
-              variant="ghost"
+              variant="ghot"
             />
             <Text fontSize="small" color={getIconColor(tab.path)}>
               {tab.label}

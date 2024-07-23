@@ -4,3 +4,4 @@ export * from './criytocurrency';
 export * from './aboutUs';
 export * from './preferences';
 export * from './redirectToRoute';
+export * from './paymentMethods';

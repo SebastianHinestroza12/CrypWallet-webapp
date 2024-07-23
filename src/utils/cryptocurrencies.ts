@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import axios from 'axios';
 import { PriceDataProps, CryptoCompareData } from '../interfaces';
 
@@ -48,5 +49,37 @@ export const fetchCryptoCompareData = async (currency: string): Promise<CryptoCo
     return data.Data;
   } catch (error) {
     throw new Error(`Error obtaining cryptocurrencies: ${error}`);
+  }
+};
+
+export const fetchDescription = async (symbol: string) => {
+  try {
+    const { data } = await axios.get(
+      `https://min-api.cryptocompare.com/data/all/coinlist?fsym=${symbol}`,
+    );
+    return data.Data[symbol].Description;
+  } catch (error) {
+    throw new Error(`Error fetching description: ${error}`);
+  }
+};
+
+export const translateText = async (text: string, targetLang: string) => {
+  try {
+    let textTraslate = '';
+    const response = await fetch(
+      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`,
+    );
+    const data = await response.json();
+    if (Array.isArray(data) && Array.isArray(data[0])) {
+      data[0].forEach((items) => {
+        textTraslate += items[0];
+      });
+      return { textTraslate, status: 200 };
+    } else {
+      throw new Error('Unexpected response format');
+    }
+  } catch (error) {
+    console.error('Error translating text:', error);
+    return null;
   }
 };

@@ -41,7 +41,7 @@ export const EditWallet = () => {
       const { status } = await WalletServices.updateWallet(state.walletId, data);
 
       if (status === 200) {
-        displayToast('Wallet updated.', '', 'success', 3000);
+        displayToast('Wallet updated.', '', 'success', 2000);
 
         // Actualizar el store
         updateWallet(state.walletId, data.name);
@@ -70,21 +70,21 @@ export const EditWallet = () => {
       setIsLoading(false);
 
       if (status === 200) {
-        displayToast('Wallet deleted.', '', 'success', 3000);
+        displayToast('Wallet deleted.', '', 'success', 2000);
         // Actualizar el store
         deleteWallet(state.walletId);
 
         setTimeout(() => navigation(ROUTES.WALLETS), 2000);
       }
     } catch (error) {
-      displayToast('Error deleting wallet.', '', 'error', 3000);
+      displayToast('Error deleting wallet.', '', 'error', 1500);
       setIsLoading(false);
     }
   };
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address);
-    displayToast('Address copied to clipboard.', '', 'success');
+    displayToast('Address copied to clipboard.', '', 'success', 1000);
   };
 
   return (

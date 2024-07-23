@@ -1,20 +1,28 @@
 import { Flex, Image, Box, Text, Switch, useColorModeValue } from '@chakra-ui/react';
-import { CryptoCompareData } from '../../interfaces';
+import { ListCryptoProps } from '../../interfaces';
 import { useSwitchStore } from '../../stores/switch';
+import { formatCurrency } from '../../utils';
+import { SupportedCurrency } from '../../constants';
+import { useStoreCrypto } from '../../stores/cryptocurrencies';
 
-interface ListCryptoProps {
-  cryptocurrency: CryptoCompareData;
-  showSwitches: boolean;
-  onClick?: () => void;
-}
-
-export const ListCrypto = ({ cryptocurrency, showSwitches, onClick }: ListCryptoProps) => {
+export const ListCrypto = ({
+  cryptocurrency,
+  showSwitches = false,
+  onClick,
+  isCursorPointer = false,
+  showPriceCoins = false,
+  coin,
+  priceCoin,
+  symbol,
+}: ListCryptoProps) => {
   const { switchStates, toggleSwitch } = useSwitchStore();
+  const { currency } = useStoreCrypto();
   const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
   return (
     <Flex
       key={cryptocurrency.CoinInfo.Id}
       alignItems={'center'}
+      cursor={isCursorPointer ? 'pointer' : 'default'}
       justifyContent={'space-between'}
       mb={2}
       _hover={{ bg: !showSwitches ? BG_COLOR : 'inherit' }}
@@ -40,13 +48,11 @@ export const ListCrypto = ({ cryptocurrency, showSwitches, onClick }: ListCrypto
       {showSwitches && (
         <Box>
           <Switch
-            isChecked={switchStates[cryptocurrency.CoinInfo.FullName.toLowerCase()] || false}
-            onChange={() => toggleSwitch(cryptocurrency.CoinInfo.FullName.toLowerCase())}
+            isChecked={switchStates[cryptocurrency.CoinInfo.Name] || false}
+            onChange={() => toggleSwitch(cryptocurrency.CoinInfo.Name)}
             sx={{
               '.chakra-switch__track': {
-                backgroundColor: switchStates[cryptocurrency.CoinInfo.FullName.toLowerCase()]
-                  ? 'green'
-                  : '#A0AEC0',
+                backgroundColor: switchStates[cryptocurrency.CoinInfo.Name] ? 'green' : '#A0AEC0',
               },
               '.chakra-switch__thumb': {
                 backgroundColor: '#FFF',
@@ -54,6 +60,16 @@ export const ListCrypto = ({ cryptocurrency, showSwitches, onClick }: ListCrypto
             }}
             size="lg"
           />
+        </Box>
+      )}
+      {showPriceCoins && (
+        <Box textAlign="right">
+          <Text fontSize="lg" fontWeight="bold">
+            {coin}
+          </Text>
+          <Text fontSize={'sm'} color="gray.500">
+            {`${symbol ?? ''} ${formatCurrency(priceCoin as number, currency as SupportedCurrency)}`}
+          </Text>
         </Box>
       )}
     </Flex>
