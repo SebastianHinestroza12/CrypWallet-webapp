@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist, PersistOptions } from 'zustand/middleware';
 import { StoreStateAuthentication, UserProps, WalletsIProps } from '../interfaces';
 import { AuthService } from '../services/auth.service';
 
@@ -9,36 +10,9 @@ const INITIAL_STATE = {
   email: '',
 };
 
-export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) => ({
-  isAuthenticated: false,
-  authenticatedUser: INITIAL_STATE,
-  safeWords: [],
-  wallets: [],
-  currentWallet: null,
-  recoveryProgress: 25, // Paso inicial en la recuperacion de las cienta. 25%, 50%, 75% y por ultimo 100% OK
-  recoveryStep: 1,
-  userIdRecoveryAccount: null,
-  avatarUrl: '',
-
-  // Autenticar al usuario
-  authenticateUser: (user: UserProps) =>
-    set(() => ({
-      isAuthenticated: true,
-      authenticatedUser: user,
-    })),
-
-  // Cerrar sesión del usuario
-  logoutUser: async () => {
-    // Obtener el estado actual
-    const currentState = get();
-
-    // Remover el token del usuario si está autenticado
-    if (currentState.isAuthenticated) {
-      await AuthService.logout();
-    }
-
-    // Actualizar el estado a los valores iniciales
-    set({
+export const useStoreAutheticated = create(
+  persist<StoreStateAuthentication>(
+    (set, get) => ({
       isAuthenticated: false,
       authenticatedUser: INITIAL_STATE,
       safeWords: [],
@@ -48,62 +22,84 @@ export const useStoreAutheticated = create<StoreStateAuthentication>((set, get) 
       recoveryStep: 1,
       userIdRecoveryAccount: null,
       avatarUrl: '',
-    });
 
-    // Recargar la página
-    window.location.reload();
-  },
+      authenticateUser: (user: UserProps) =>
+        set({ isAuthenticated: true, authenticatedUser: user }),
 
-  // Añadir una cartera
-  addWallet: (wallet: WalletsIProps) =>
-    set((state) => ({
-      wallets: [...state.wallets, wallet],
-    })),
+      logoutUser: async () => {
+        const { isAuthenticated } = get();
 
-  // Añadir las palabras de seguridad
-  addSafeWords: (safes: string[]) =>
-    set(() => ({
-      safeWords: safes,
-    })),
+        if (isAuthenticated) {
+          await AuthService.logout();
+        }
 
-  setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb = true) => {
-    // Actualizarla en el store
-    set(() => ({ currentWallet: wallet }));
-    // Actualizar la wallet en la db
-    if (updateDb) AuthService.updateProfile({ currentWallet: wallet.id }, userId);
-  },
+        set({
+          isAuthenticated: false,
+          authenticatedUser: INITIAL_STATE,
+          safeWords: [],
+          wallets: [],
+          currentWallet: null,
+          recoveryProgress: 25,
+          recoveryStep: 1,
+          userIdRecoveryAccount: null,
+          avatarUrl: '',
+        });
 
-  updateWallet: (walleId: string, name: string) => {
-    // Actualizar la wallet en el store
-    set((state) => ({
-      wallets: state.wallets.map((wallet) =>
-        wallet.id === walleId ? { ...wallet, name } : wallet,
-      ),
-    }));
-  },
+        window.location.reload();
+      },
 
-  deleteWallet: (walletId: string) => {
-    // Eliminar la wallet en el store
-    set((state) => ({
-      wallets: state.wallets.filter((wallet) => wallet.id !== walletId),
-    }));
-  },
+      addWallet: (wallet: WalletsIProps, replaceWallet = false) => {
+        set((state) => ({
+          wallets: replaceWallet
+            ? (wallet as unknown as WalletsIProps[])
+            : [...state.wallets, wallet],
+        }));
+      },
 
-  // Actualizar el componente a mostrar de acuerdo cuando vaya avansando en la recuperacion
-  setRecoveryStep: (step: number) => set({ recoveryStep: step }),
+      addSafeWords: (safes: string[]) => set({ safeWords: safes }),
 
-  // Actualizar la barra de progreso en la recuperación de cuenta
-  setRecoreyProgress: (progress: number) => set({ recoveryProgress: progress }),
+      setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb = true) => {
+        set({ currentWallet: wallet });
 
-  // Almacenar el id del usuario despues de enviarle el codigo OTP
-  setUserIdRecoveryAccount: (userId: string) => set({ userIdRecoveryAccount: userId }),
+        if (updateDb) {
+          AuthService.updateProfile({ currentWallet: wallet.id }, userId);
+        }
+      },
 
-  //Actualizar el avatar del usuario
-  setAvatarUrl: (avatarUrl: string, updateDb = false) => {
-    set({ avatarUrl });
+      updateWallet: (walletId: string, name: string) => {
+        set((state) => ({
+          wallets: state.wallets.map((wallet) =>
+            wallet.id === walletId ? { ...wallet, name } : wallet,
+          ),
+        }));
+      },
 
-    if (updateDb) {
-      AuthService.updateProfile({ avatarUrl }, get().authenticatedUser.id!);
-    }
-  },
-}));
+      deleteWallet: (walletId: string) => {
+        set((state) => ({
+          wallets: state.wallets.filter((wallet) => wallet.id !== walletId),
+        }));
+      },
+
+      // Actualizar el componente a mostrar de acuerdo cuando vaya avanzando en la recuperación
+      setRecoveryStep: (step: number) => set({ recoveryStep: step }),
+
+      // Actualizar la barra de progreso en la recuperación de cuenta
+      setRecoreyProgress: (progress: number) => set({ recoveryProgress: progress }),
+
+      // Almacenar el id del usuario después de enviarle el código OTP
+      setUserIdRecoveryAccount: (userId: string) => set({ userIdRecoveryAccount: userId }),
+
+      //Actualizar el avatar del usuario
+      setAvatarUrl: (avatarUrl: string, updateDb = false) => {
+        set({ avatarUrl });
+
+        if (updateDb) {
+          AuthService.updateProfile({ avatarUrl }, get().authenticatedUser.id!);
+        }
+      },
+    }),
+    {
+      name: 'auth-storage',
+    } as PersistOptions<StoreStateAuthentication>,
+  ),
+);

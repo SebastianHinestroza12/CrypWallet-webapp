@@ -50,8 +50,9 @@ export const CreateWallet: React.FC = () => {
           'success',
           2000,
         );
+
         //Agregar la nueva wallet al estado global
-        addWallet(wallet);
+        addWallet(wallet, false);
 
         // Redireccionar a la página de listado de las wallet
         setTimeout(() => {

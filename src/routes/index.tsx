@@ -32,6 +32,13 @@ import { SendList } from '../pages/Operations/Send';
 import { TransferStep } from '../pages/Operations/Send/TransferStep';
 import { TransactionSuccess } from '../pages/TransactionSuccess';
 import { TransactionDetails } from '../pages/TransactionDetails';
+import { ReceiveList } from '../pages/Operations/Receive';
+import { ReceiveCrypto } from '../pages/Operations/Receive/ReceiveCrypto';
+import { BuyList } from '../pages/Operations/Buy';
+import { BuyCryptoWithStrape } from '../pages/Operations/Buy/MethodsPayment/BuyCryptoWithStrape';
+import { PaymentMethod } from '../pages/Operations/Buy/MethodsPayment';
+import { Success } from '../pages/SuccessResult';
+import { Cancel } from '../pages/CancelResult';
 
 export const router = createBrowserRouter([
   {
@@ -186,7 +193,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.OPERATIONS_RECEIVE_CRYPTO,
-            element: <div>Receive Crypto Operation</div>,
+            element: <ReceiveList />,
           },
           {
             path: ROUTES.OPERATIONS_SWAP_CRYPTO,
@@ -194,7 +201,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.OPERATIONS_BUY_CRYPTO,
-            element: <div>Buy Crypto Operation</div>,
+            element: <BuyList />,
           },
           {
             path: ROUTES.OPERATIONS_SELL_CRYPTO,
@@ -217,6 +224,36 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <ReceiveCrypto />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.OPERATIONS_BUY_CRYPTO_WITH_STRIPE,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <BuyCryptoWithStrape />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.PAYMENT_METHODS_CRYPTO,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <PaymentMethod />,
+          },
+        ],
+      },
+      {
         path: ROUTES.TRANSACTION_SUCCESS,
         element: <ProtectedRoute />,
         children: [
@@ -233,6 +270,26 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.EMPTY,
             element: <TransactionDetails />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.SUCCESS_PAYMENT,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <Success />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.CANCEL_PAYMENT,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <Cancel />,
           },
         ],
       },

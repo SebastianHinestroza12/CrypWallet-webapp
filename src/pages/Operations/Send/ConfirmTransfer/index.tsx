@@ -22,7 +22,8 @@ import { TransactionService } from '../../../../services/transactions.service';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../../constants';
 import { useToastNotification } from '../../../../hooks/useToastNotification';
-
+import { WalletServices } from '../../../../services/wallet.service';
+import { WalletsIProps } from '../../../../interfaces';
 interface FormValues {
   description: string;
 }
@@ -40,11 +41,16 @@ export const ConfirmTransfer = () => {
   });
 
   const navigate = useNavigate();
-  const { currentWallet } = useStoreAutheticated();
+  const {
+    currentWallet,
+    authenticatedUser: { id },
+    addWallet,
+    setCurrentWallet,
+  } = useStoreAutheticated();
   const { symbol } = useStoreVisibilityData();
   const { removeCryptoShippingdata, cryptoShippingdata } = useStoreOperations();
-  const BG_COLOR = useColorModeValue('#FFF', '#171717');
   const { displayToast } = useToastNotification();
+  const BG_COLOR = useColorModeValue('#FFF', '#171717');
 
   const onSubmit = async (dataForm: FormValues) => {
     try {
@@ -59,8 +65,21 @@ export const ConfirmTransfer = () => {
       });
 
       if (status === 201) {
-        navigate(ROUTES.TRANSACTION_SUCCESS, { state: { data } });
+        navigate(ROUTES.TRANSACTION_SUCCESS, { state: { data, cryptoShippingdata } });
         removeCryptoShippingdata();
+        // Actualizar la data de las wallets del usuario
+        const response = await WalletServices.getAllWallets(id!);
+
+        if (response.status === 200) {
+          const allWallets = response.data.wallets;
+          addWallet(allWallets, true);
+
+          // Actualizar la wallet actual del usuario
+          const wallet = allWallets.find(
+            (wallet: WalletsIProps) => wallet.id === currentWallet?.id,
+          );
+          setCurrentWallet(wallet, id!, false);
+        }
       }
     } catch (error) {
       displayToast(

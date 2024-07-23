@@ -1,15 +1,9 @@
-import { IconType } from 'react-icons';
 import { GiShoppingBag } from 'react-icons/gi';
 import { IoArrowDownOutline, IoArrowUpOutline, IoSwapHorizontalOutline } from 'react-icons/io5';
 import { GoHistory } from 'react-icons/go';
 import { MdSell } from 'react-icons/md';
 import { ROUTES } from '../constants/redirectToRoute';
-interface OperationButtonConfig {
-  id: number;
-  icon: IconType;
-  text: string;
-  route: string;
-}
+import { OperationButtonConfig } from '../interfaces';
 
 export const OPERATION_BUTTONS: OperationButtonConfig[] = [
   { id: 1, icon: IoArrowUpOutline, text: 'send', route: ROUTES.OPERATIONS_SEND_CRYPTO },

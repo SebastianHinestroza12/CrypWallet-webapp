@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { IconType } from 'react-icons';
 import { CryptoCompareData } from './cryptocurrency';
 export interface StoreStateVisibility {
   isDataVisible: boolean;
@@ -38,4 +39,11 @@ export enum TransactionsType {
   Sell = 'Sell',
   Swap = 'Swap',
   None = 'None',
+}
+
+export interface OperationButtonConfig {
+  id: number;
+  icon: IconType;
+  text: string;
+  route: string;
 }

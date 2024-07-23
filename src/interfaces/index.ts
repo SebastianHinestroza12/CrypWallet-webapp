@@ -6,3 +6,4 @@ export * from './cryptocurrency';
 export * from './operations';
 export * from './chartArea';
 export * from './auth';
+export * from './/paymentMethods';

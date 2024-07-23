@@ -39,6 +39,7 @@ export const TransferCrypto = () => {
     setValue,
     setError,
     clearErrors,
+    trigger,
     formState: { errors, isValid, isSubmitting },
   } = useForm<FormValues>({
     defaultValues: {
@@ -73,6 +74,7 @@ export const TransferCrypto = () => {
       const equivalentValue = parseFloat(maxAmountStr) * state.crypto?.RAW[currency]?.PRICE;
       setEquivalent(equivalentValue.toFixed(2));
       clearErrors('amount');
+      trigger('amount');
     }
   };
 
@@ -219,6 +221,22 @@ export const TransferCrypto = () => {
                 <Controller
                   name="amount"
                   control={control}
+                  rules={{
+                    required: 'Amount is required',
+                    validate: (value) => {
+                      const parsedValue = parseFloat(value);
+                      if (isNaN(parsedValue)) {
+                        return 'Amount must be a number';
+                      }
+                      if (/^\s|\s$|\s/.test(value)) {
+                        return 'Amount must not contain spaces';
+                      }
+                      if (parsedValue > maxAmount) {
+                        return `The amount exceeds the available ${maxAmount} ${nameCrypto}`;
+                      }
+                      return true;
+                    },
+                  }}
                   render={({ field }) => (
                     <Input
                       type="number"
