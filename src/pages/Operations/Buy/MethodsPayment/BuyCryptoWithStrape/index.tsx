@@ -19,6 +19,7 @@ import { PaymentService } from '../../../../../services/payment.service';
 import { useStorePaymentMethods } from '../../../../../stores/paymentMethods';
 import { useStoreAutheticated } from '../../../../../stores/authentication';
 import { useToastNotification } from '../../../../../hooks/useToastNotification';
+import { AxiosError } from 'axios';
 
 type FormData = {
   amount: string;
@@ -80,6 +81,18 @@ export const BuyCryptoWithStrape = () => {
         });
       }
     } catch (error) {
+      const serverError = error as AxiosError;
+
+      if (serverError.response?.status === 400) {
+        displayToast(
+          'Error en el Pago',
+          'El monto de la transacción debe ser superior a 1.',
+          'error',
+        );
+
+        return;
+      }
+
       displayToast(
         'Error',
         'Hubo un problema al procesar la transacción. Por favor, inténtelo nuevamente.',

@@ -3,7 +3,7 @@ export interface StorePaymentIProps {
   selectedPaymentMethod: string;
   setPaymentMethods: (method: string) => void;
   saveDataPayment: PaymentDetailIProps | null;
-  setSaveDataPayment: (data: PaymentDetailIProps) => void;
+  setSaveDataPayment: (data: PaymentDetailIProps | null) => void;
 }
 
 export interface PaymentMethodsIprops {
