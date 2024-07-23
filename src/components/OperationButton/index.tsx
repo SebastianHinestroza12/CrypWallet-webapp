@@ -46,22 +46,51 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
       return;
     }
 
-    if (crypto && pathLocation && text === 'send') {
-      const coinCrypto = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
-      if (!coinCrypto || coinCrypto <= 0) {
-        displayToast('Atención', 'Saldo insuficiente.', 'warning', 2000);
-        return;
+    if (crypto && pathLocation) {
+      switch (text) {
+        case 'send': {
+          const coinCrypto = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
+
+          if (coinCrypto && coinCrypto > 0) {
+            navigate(ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO, {
+              state: {
+                crypto,
+                maxAmount: calculateMounters(crypto),
+                symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
+              },
+            });
+          } else {
+            displayToast('Atención', 'Saldo insuficiente.', 'warning', 2000);
+          }
+          return;
+        }
+
+        case 'receive': {
+          navigate(ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO, {
+            state: {
+              crypto,
+              symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
+            },
+          });
+          return;
+        }
+
+        case 'buy': {
+          navigate(ROUTES.PAYMENT_METHODS_CRYPTO, {
+            state: {
+              crypto,
+              symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
+            },
+          });
+          return;
+        }
+
+        default:
+          break;
       }
-      navigate(`${ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO}`, {
-        state: {
-          crypto: crypto,
-          maxAmount: calculateMounters(crypto),
-          symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
-        },
-      });
-    } else {
-      navigate(route);
     }
+
+    navigate(route);
   };
 
   return (
