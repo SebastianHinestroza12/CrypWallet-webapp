@@ -92,7 +92,7 @@ export const UserProfileEdit = () => {
   };
 
   const onSubmit = async (data: UserProps) => {
-    if (data.name === name || data.lastName === lastName) {
+    if (data.name === name && data.lastName === lastName) {
       displayToast('Atención', 'Los valores no han cambiado.', 'warning');
       return;
     }
