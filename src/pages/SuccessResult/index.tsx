@@ -31,7 +31,7 @@ export const Success = () => {
   useEffect(() => {
     const createTransaction = async () => {
       try {
-        if (from === 'stripe') {
+        if (from === 'stripe' || from === 'mercadoPago') {
           if (saveDataPayment !== null) {
             const { status } = await PaymentService.handlePaymentIntent({
               amount: saveDataPayment.amount,

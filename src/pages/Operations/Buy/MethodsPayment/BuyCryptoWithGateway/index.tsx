@@ -25,7 +25,7 @@ type FormData = {
   amount: string;
 };
 
-export const BuyCryptoWithStrape = () => {
+export const BuyCryptoWithGateway = () => {
   const { selectedPaymentMethod, setSaveDataPayment } = useStorePaymentMethods();
   const { currentWallet, authenticatedUser } = useStoreAutheticated();
   const { displayToast } = useToastNotification();
@@ -56,10 +56,12 @@ export const BuyCryptoWithStrape = () => {
   const onSubmit = async (dataForm: FormData) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
+      //Realizar peticion para crear la session de pago
       const {
         status,
         data: { data },
       } = await PaymentService.paymentWithStripe({
+        paymentMethod: selectedPaymentMethod,
         unit_amount: parseFloat(priceInUSD),
         currency: currency.toLowerCase(),
         nameCrypto: `${crypto.CoinInfo.FullName} - ${amount} ${crypto.CoinInfo.Name}`,
@@ -68,8 +70,12 @@ export const BuyCryptoWithStrape = () => {
       });
 
       if (status === 200) {
-        // Redireccionar al gateway de pago
-        window.location.href = data.url;
+        // Redireccionar al gateway de pago, sea stripe o mercado pago
+        if (selectedPaymentMethod === 'stripe') {
+          window.location.href = data.url;
+        } else {
+          window.location.href = data.init_point;
+        }
 
         //Guardar la informacion del pago en el state
         setSaveDataPayment({
@@ -132,9 +138,13 @@ export const BuyCryptoWithStrape = () => {
       </Flex>
       <Box px={5} pb={5} borderWidth="1px" borderRadius="lg" bg={BG_COLOR} boxShadow="lg">
         <Flex alignItems="center" direction={'column'} justifyContent="center" mb={4}>
-          <Icon icon={'logos:stripe'} width={70} height={70} />
-          <Text fontSize="lg" ml={2}>
-            Payment powered by Stripe
+          {selectedPaymentMethod === 'stripe' ? (
+            <Icon icon={'logos:stripe'} width={70} height={70} />
+          ) : (
+            <Icon icon={'arcticons:mercado-libre'} color="#00BCFF" width={70} height={70} />
+          )}
+          <Text fontSize={{ base: 'md', md: 'lg' }} ml={2} textTransform={'capitalize'}>
+            Payment powered by {selectedPaymentMethod}
           </Text>
         </Flex>
         <Controller
@@ -150,7 +160,7 @@ export const BuyCryptoWithStrape = () => {
           render={({ field }) => (
             <Input
               {...field}
-              placeholder="Amount"
+              placeholder={`Amount ${crypto.CoinInfo.Name}`}
               type="number"
               mb={4}
               step={'any'}

@@ -150,13 +150,15 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
         <Stack spacing={10} pt={2}>
           <Button
             isLoading={isSubmitting}
-            size="lg"
             type="submit"
-            bg={'#1e59ea'}
-            color={'white'}
-            _hover={{
-              bg: 'gray.900',
-            }}
+            rounded={'full'}
+            fontWeight={'bold'}
+            color={'#FFF'}
+            bg={'#1E59EA'}
+            _hover={{ bg: '#0039A0', cursor: 'pointer' }}
+            _active={{ bg: '#0039A0' }}
+            size={{ base: 'md', md: 'lg' }}
+            mx={2}
           >
             Registrarme
           </Button>

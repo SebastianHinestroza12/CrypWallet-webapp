@@ -34,7 +34,7 @@ export const ROUTES: Routes = {
   OPERATIONS_SEND_CRYPTO: '/operations/send',
   OPERATIONS_SEND_TRANSFER_CRYPTO: '/operations/send/transfer-crypto',
   OPERATIONS_RECEIVE_TRANSFER_CRYPTO: '/operations/receive/transfer-crypto',
-  OPERATIONS_BUY_CRYPTO_WITH_STRIPE: '/operations/buy/transfer-crypto',
+  OPERATIONS_BUY_CRYPTO_WITH_GATEWAY: '/operations/buy/transfer-crypto',
   OPERATIONS_RECEIVE_CRYPTO: '/operations/receive',
   OPERATIONS_SWAP_CRYPTO: '/operations/swap',
   OPERATIONS_BUY_CRYPTO: '/operations/buy',

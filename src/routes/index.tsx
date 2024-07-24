@@ -35,7 +35,7 @@ import { TransactionDetails } from '../pages/TransactionDetails';
 import { ReceiveList } from '../pages/Operations/Receive';
 import { ReceiveCrypto } from '../pages/Operations/Receive/ReceiveCrypto';
 import { BuyList } from '../pages/Operations/Buy';
-import { BuyCryptoWithStrape } from '../pages/Operations/Buy/MethodsPayment/BuyCryptoWithStrape';
+import { BuyCryptoWithGateway } from '../pages/Operations/Buy/MethodsPayment/BuyCryptoWithGateway';
 import { PaymentMethod } from '../pages/Operations/Buy/MethodsPayment';
 import { Success } from '../pages/SuccessResult';
 import { Cancel } from '../pages/CancelResult';
@@ -234,12 +234,12 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: ROUTES.OPERATIONS_BUY_CRYPTO_WITH_STRIPE,
+        path: ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY,
         element: <ProtectedRoute />,
         children: [
           {
             path: ROUTES.EMPTY,
-            element: <BuyCryptoWithStrape />,
+            element: <BuyCryptoWithGateway />,
           },
         ],
       },
