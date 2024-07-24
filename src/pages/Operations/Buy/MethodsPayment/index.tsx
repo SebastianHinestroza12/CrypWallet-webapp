@@ -10,19 +10,16 @@ export const PaymentMethod = () => {
     state: { crypto, symbol },
   } = useLocation();
   const navigate = useNavigate();
-  const redirectPaymentMethod =
-    selectedPaymentMethod !== '' &&
-    (selectedPaymentMethod === 'stripe' ? ROUTES.OPERATIONS_BUY_CRYPTO_WITH_STRIPE : '');
 
   return (
-    <Stack spacing={6} p={5}>
+    <Stack spacing={8} p={5}>
       <Text fontSize="2xl" fontWeight="bold" textAlign="center">
         Select a Payment Gateway
       </Text>
       <Text fontSize="md" textAlign="center" color="gray.500">
         Please select a payment gateway to proceed with your purchase.
       </Text>
-      <Stack spacing={5} display="flex" justify="center" align="center" flexDirection={'column'}>
+      <Stack spacing={7} display="flex" justify="center" align="center" flexDirection={'column'}>
         {PAYMENT_METHODS.map(({ icon, label, method, color }) => (
           <PaymentCard key={label} icon={icon} label={label} color={color} method={method} />
         ))}
@@ -39,7 +36,7 @@ export const PaymentMethod = () => {
             size={{ base: 'md', md: 'lg' }}
             mx={2}
             onClick={() =>
-              navigate(`${redirectPaymentMethod}`, {
+              navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
                 state: {
                   crypto,
                   symbol,

@@ -48,6 +48,22 @@ export const useStoreAutheticated = create(
         window.location.reload();
       },
 
+      sessionExpired: () => {
+        set({
+          isAuthenticated: false,
+          authenticatedUser: INITIAL_STATE,
+          safeWords: [],
+          wallets: [],
+          currentWallet: null,
+          recoveryProgress: 25,
+          recoveryStep: 1,
+          userIdRecoveryAccount: null,
+          avatarUrl: '',
+        });
+
+        window.location.reload();
+      },
+
       addWallet: (wallet: WalletsIProps, replaceWallet = false) => {
         set((state) => ({
           wallets: replaceWallet

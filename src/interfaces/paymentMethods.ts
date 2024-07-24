@@ -3,13 +3,13 @@ export interface StorePaymentIProps {
   selectedPaymentMethod: string;
   setPaymentMethods: (method: string) => void;
   saveDataPayment: PaymentDetailIProps | null;
-  setSaveDataPayment: (data: PaymentDetailIProps) => void;
+  setSaveDataPayment: (data: PaymentDetailIProps | null) => void;
 }
 
 export interface PaymentMethodsIprops {
   icon: string;
   label: string;
-  method: 'stripe' | 'mercado-pago';
+  method: 'stripe' | 'mercadoPago';
   color?: string;
 }
 
@@ -27,4 +27,5 @@ export interface RequestPaymentStripeIprops {
   unit_amount: number;
   urlImage: string;
   customer_email: string;
+  paymentMethod: string;
 }

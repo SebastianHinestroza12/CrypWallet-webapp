@@ -46,6 +46,7 @@ export interface StoreStateAuthentication {
   setCurrentWallet: (wallet: WalletsIProps, userId: string, updateDb?: boolean) => void;
   authenticateUser: (user: UserProps) => void;
   logoutUser: () => void;
+  sessionExpired: () => void;
   addWallet: (wallet: WalletsIProps, replaceWallet: boolean) => void;
   addSafeWords: (safes: string[]) => void;
   updateWallet: (walleId: string, name: string) => void;

@@ -19,7 +19,7 @@ export const PaymentCard = ({ icon, label, method, color }: PaymentMethodsIprops
       boxShadow="lg"
       textAlign="center"
       cursor="pointer"
-      _hover={{ boxShadow: '2xl' }}
+      _hover={{ boxShadow: '2xl', transform: 'scale(1.1)', transition: 'all 0.3s ease-in-out' }}
       onClick={() => setPaymentMethods(method)}
       borderColor={selectedPaymentMethod === method ? '#1e59ea' : 'inherit'}
     >
