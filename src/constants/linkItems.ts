@@ -1,9 +1,9 @@
 import { FiHome, FiSettings, FiUserPlus, FiUnlock } from 'react-icons/fi';
 import {
   IoWalletOutline,
-  IoSwapHorizontalOutline,
   IoHomeOutline,
   IoPersonOutline,
+  IoSettingsOutline,
 } from 'react-icons/io5';
 import { MdOutlineDarkMode, MdManageHistory } from 'react-icons/md';
 import { FaShieldAlt } from 'react-icons/fa';
@@ -38,7 +38,7 @@ export const LINK_ITEMS: LinkItemProps[] = [
 
 export const TABS_BOTTOM: TabsBottomProps[] = [
   { icon: IoHomeOutline, label: 'Home', path: ROUTES.HOME },
-  { icon: IoSwapHorizontalOutline, label: 'Swap', path: ROUTES.OPERATIONS_SWAP_CRYPTO },
   { icon: AiOutlineFileSearch, label: 'Search', path: ROUTES.CRYPTO_SEARCH },
+  { icon: IoSettingsOutline, label: 'Preferences', path: ROUTES.PREFERENCES_LIST },
   { icon: IoPersonOutline, label: 'Profile', path: ROUTES.USER_PROFILE },
 ];

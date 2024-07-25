@@ -38,7 +38,6 @@ export const ROUTES: Routes = {
   OPERATIONS_RECEIVE_CRYPTO: '/operations/receive',
   OPERATIONS_SWAP_CRYPTO: '/operations/swap',
   OPERATIONS_BUY_CRYPTO: '/operations/buy',
-  OPERATIONS_SELL_CRYPTO: '/operations/sell',
   PAYMENT_METHODS_CRYPTO: '/payment/methods',
   OPERATIONS_HISTORY_CRYPTO: '/operations/history',
   TRANSACTION_SUCCESS: '/transaction-success',
@@ -46,7 +45,6 @@ export const ROUTES: Routes = {
   SUCCESS_PAYMENT: '/success-payment',
   CANCEL_PAYMENT: '/cancel-payment',
   TRANSACTION_DETAIL_OPERATION: '/transaction/detail/operation',
-  TRANSACTION_SELL_CRYPTO: '/transaction/sell/crypto',
   NOT_FOUND: '*',
   EMPTY: '',
 };

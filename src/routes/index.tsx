@@ -41,8 +41,6 @@ import { Success } from '../pages/SuccessResult';
 import { Cancel } from '../pages/CancelResult';
 import { AllTransactions } from '../pages/Operations/History';
 import { TransactionDetailsHistory } from '../pages/TransactionDetailsHistory';
-import { SellCryptoList } from '../pages/Operations/Sell/index';
-import { SellCrypto } from '../pages/Operations/Sell/SellCrypto';
 
 export const router = createBrowserRouter([
   {
@@ -208,10 +206,6 @@ export const router = createBrowserRouter([
             element: <BuyList />,
           },
           {
-            path: ROUTES.OPERATIONS_SELL_CRYPTO,
-            element: <SellCryptoList />,
-          },
-          {
             path: ROUTES.OPERATIONS_HISTORY_CRYPTO,
             element: <AllTransactions />,
           },
@@ -304,16 +298,6 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.EMPTY,
             element: <TransactionDetailsHistory />,
-          },
-        ],
-      },
-      {
-        path: ROUTES.TRANSACTION_SELL_CRYPTO,
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: ROUTES.EMPTY,
-            element: <SellCrypto />,
           },
         ],
       },
