@@ -106,8 +106,8 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
                 borderRadius="full"
                 width={{ base: '48px', md: '52px' }}
                 height={{ base: '48px', md: '52px' }}
-                _hover={{ bg: '#66ccff', cursor: 'pointer' }}
-                _active={{ bg: '#007bff' }}
+                _hover={{ bg: '#0039A0', cursor: 'pointer' }}
+                _active={{ bg: '#0039A0' }}
               >
                 <Icon as={icon} boxSize={{ base: 8, md: 9 }} color={'#FFF'} />
               </Button>

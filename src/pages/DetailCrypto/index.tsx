@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Box, Divider, Flex, Stack, Text, Image, Button } from '@chakra-ui/react';
+import { Box, Divider, Flex, Stack, Text, Image } from '@chakra-ui/react';
 import { CryptoNotFound } from '../../components/CryptoNotFound';
 import { Icon } from '@iconify/react';
 import { ROUTES, SupportedCurrency } from '../../constants';
@@ -8,26 +10,52 @@ import { InviteToLogin } from '../../components/InviteToLogin';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { formatCurrency } from '../../utils';
+import { EmptyTransaction } from '../../components/EmptyTransactions';
+import { TransactionUserIProps } from '../../interfaces';
+import { TransactionHistory } from '../../components/TransactionHistory';
 
 export const DetailCrypto = () => {
-  const { isAuthenticated, currentWallet } = useStoreAutheticated();
+  const { isAuthenticated, currentWallet, transactions } = useStoreAutheticated();
   const { currency } = useStoreCrypto();
   const { cryptoId } = useParams<{ cryptoId: string }>();
   const {
     state: { infoCrypto },
   } = useLocation();
+  const [transactionCoin, setTransactionCoin] = useState<TransactionUserIProps[]>([]);
   const crypto = infoCrypto;
   const navigate = useNavigate();
-
-  if (!crypto) {
-    return <CryptoNotFound nameCrypto={cryptoId as string} />;
-  }
 
   const coinCrypto = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
   const price = parseFloat((crypto.RAW?.[currency]?.PRICE ?? 0).toFixed(2));
   const coinSymbol = crypto.DISPLAY?.[currency]?.TOSYMBOL;
   const coinName = crypto.CoinInfo.Name;
   const amount = coinCrypto ? formatCurrency(coinCrypto * price, currency as SupportedCurrency) : 0;
+
+  useEffect(() => {
+    if (currentWallet && isAuthenticated) {
+      setTransactionCoin(
+        transactions.filter(
+          (transaction) =>
+            (transaction.destination === currentWallet.address &&
+              transaction.symbol === coinName) ||
+            (transaction.origin === currentWallet.address && transaction.symbol === coinName),
+        ),
+      );
+    }
+  }, []);
+
+  const handleEventClick = () => {
+    navigate(`${ROUTES.PAYMENT_METHODS_CRYPTO}`, {
+      state: {
+        crypto: infoCrypto,
+        symbol: infoCrypto.DISPLAY?.[currency]?.TOSYMBOL,
+      },
+    });
+  };
+
+  if (!crypto) {
+    return <CryptoNotFound nameCrypto={cryptoId as string} />;
+  }
 
   return (
     <Stack spacing={{ base: 4, md: 10 }}>
@@ -87,38 +115,13 @@ export const DetailCrypto = () => {
         </Box>
       </Flex>
       {isAuthenticated ? (
-        <Flex
-          justifyContent={'center'}
-          alignItems={'center'}
-          flexDirection={'column'}
-          textAlign={'center'}
-          mb={4}
-        >
-          <Box mb={{ base: 4, md: 6 }}>
-            <Icon icon={'quill:paper'} width={60} color={'blue.500'} />
+        transactionCoin.length === 0 ? (
+          <EmptyTransaction coinName={crypto.CoinInfo.FullName} eventClick={handleEventClick} />
+        ) : (
+          <Box pb={4}>
+            <TransactionHistory transactions={transactionCoin} />
           </Box>
-          <Box mb={{ base: 4, md: 6 }}>
-            <Text color={'gray.600'} fontSize={'lg'} fontWeight={'medium'}>
-              No tienes transacciones todavía.
-            </Text>
-            <Text color={'gray.400'} fontSize={'sm'}>
-              Las transacciones aparecerán aquí cuando las realices.
-            </Text>
-          </Box>
-          <Box>
-            <Button
-              rounded={'full'}
-              fontWeight={'bold'}
-              color={'#FFF'}
-              bg={'#1E59EA'}
-              _hover={{ bg: '#0039A0', cursor: 'pointer' }}
-              _active={{ bg: '#0039A0' }}
-              size={{ base: 'md', md: 'lg' }}
-            >
-              {`Compra ${coinName}`}
-            </Button>
-          </Box>
-        </Flex>
+        )
       ) : (
         <InviteToLogin />
       )}

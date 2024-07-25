@@ -39,7 +39,6 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
         <FormControl isInvalid={!!errors.name} id="name" isRequired>
           <FormLabel>Nombre</FormLabel>
           <Input
-            autoFocus
             type="text"
             id="name"
             {...register('name', {

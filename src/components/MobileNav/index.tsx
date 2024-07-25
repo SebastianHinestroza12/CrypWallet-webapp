@@ -97,7 +97,8 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           size={'md'}
           fontWeight={'normal'}
           px={7}
-          _hover={{ bg: '#007bff', cursor: 'pointer', color: 'white' }}
+          _hover={{ bg: '#0039A0', cursor: 'pointer', color: '#FFF' }}
+          _active={{ bg: '#0039A0' }}
         >
           <Text cursor="pointer">Sign In</Text>
         </Button>

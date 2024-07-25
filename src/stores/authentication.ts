@@ -1,6 +1,11 @@
 import { create } from 'zustand';
 import { persist, PersistOptions } from 'zustand/middleware';
-import { StoreStateAuthentication, UserProps, WalletsIProps } from '../interfaces';
+import {
+  StoreStateAuthentication,
+  TransactionUserIProps,
+  UserProps,
+  WalletsIProps,
+} from '../interfaces';
 import { AuthService } from '../services/auth.service';
 
 const INITIAL_STATE = {
@@ -17,6 +22,7 @@ export const useStoreAutheticated = create(
       authenticatedUser: INITIAL_STATE,
       safeWords: [],
       wallets: [],
+      transactions: [],
       currentWallet: null,
       recoveryProgress: 25,
       recoveryStep: 1,
@@ -111,6 +117,16 @@ export const useStoreAutheticated = create(
 
         if (updateDb) {
           AuthService.updateProfile({ avatarUrl }, get().authenticatedUser.id!);
+        }
+      },
+
+      setTransactions: (transactions: TransactionUserIProps[] | TransactionUserIProps) => {
+        if (Array.isArray(transactions)) {
+          set({ transactions });
+        } else {
+          set((state) => ({
+            transactions: [...state.transactions, transactions],
+          }));
         }
       },
     }),

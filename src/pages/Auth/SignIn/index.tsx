@@ -29,8 +29,14 @@ import './shake.css';
 export const UserLogIn: React.FC = () => {
   const { displayToast } = useToastNotification();
   const navigation = useNavigate();
-  const { addWallet, authenticateUser, setCurrentWallet, addSafeWords, setAvatarUrl } =
-    useStoreAutheticated();
+  const {
+    addWallet,
+    authenticateUser,
+    setCurrentWallet,
+    addSafeWords,
+    setAvatarUrl,
+    setTransactions,
+  } = useStoreAutheticated();
   const {
     register,
     formState: { errors, isValid },
@@ -55,7 +61,7 @@ export const UserLogIn: React.FC = () => {
       try {
         const {
           status,
-          data: { user, wallets, safeWords },
+          data: { user, wallets, safeWords, transactions },
         } = await AuthService.loginUser({ email, password: pin });
 
         if (status === 200) {
@@ -74,6 +80,9 @@ export const UserLogIn: React.FC = () => {
 
           // Almacenar las palabras claves
           addSafeWords(safeWords);
+
+          // Almacenar las transacciones
+          setTransactions(transactions);
 
           // Definir la wallet actual del usuario
           if (user.currentWallet === null) {
@@ -148,7 +157,6 @@ export const UserLogIn: React.FC = () => {
             </Heading>
             <FormControl isInvalid={!!errors.email} isRequired>
               <Input
-                autoFocus
                 type="email"
                 id="email"
                 placeholder="Ingrese correo electrónico"

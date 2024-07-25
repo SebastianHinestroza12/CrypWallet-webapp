@@ -68,7 +68,8 @@ export const TotalCash = () => {
           color={'#FFF'}
           bg={'#1E59EA'}
           isLoading={isLoading}
-          _hover={{ bg: '#007bff', cursor: 'pointer' }}
+          _hover={{ bg: '#0039A0', cursor: 'pointer' }}
+          _active={{ bg: '#0039A0' }}
           onClick={onRefresh}
         >
           <Text mr={2} cursor="pointer">

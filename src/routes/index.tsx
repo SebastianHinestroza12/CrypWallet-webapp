@@ -39,6 +39,10 @@ import { BuyCryptoWithGateway } from '../pages/Operations/Buy/MethodsPayment/Buy
 import { PaymentMethod } from '../pages/Operations/Buy/MethodsPayment';
 import { Success } from '../pages/SuccessResult';
 import { Cancel } from '../pages/CancelResult';
+import { AllTransactions } from '../pages/Operations/History';
+import { TransactionDetailsHistory } from '../pages/TransactionDetailsHistory';
+import { SellCryptoList } from '../pages/Operations/Sell/index';
+import { SellCrypto } from '../pages/Operations/Sell/SellCrypto';
 
 export const router = createBrowserRouter([
   {
@@ -205,11 +209,11 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.OPERATIONS_SELL_CRYPTO,
-            element: <div>Sell Crypto Operation</div>,
+            element: <SellCryptoList />,
           },
           {
             path: ROUTES.OPERATIONS_HISTORY_CRYPTO,
-            element: <div>History Crypto Operation</div>,
+            element: <AllTransactions />,
           },
         ],
       },
@@ -290,6 +294,26 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.EMPTY,
             element: <Cancel />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.TRANSACTION_DETAIL_OPERATION,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <TransactionDetailsHistory />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.TRANSACTION_SELL_CRYPTO,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <SellCrypto />,
           },
         ],
       },

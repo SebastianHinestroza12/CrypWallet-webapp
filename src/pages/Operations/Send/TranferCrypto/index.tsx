@@ -13,6 +13,7 @@ import {
   Flex,
   useColorModeValue,
   FormErrorMessage,
+  Image,
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -162,9 +163,23 @@ export const TransferCrypto = () => {
   return (
     <Stack spacing={5}>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
-        <Text ml={2} fontWeight="bold" fontSize="2xl" textAlign="center" textTransform="capitalize">
-          {`Send ${nameCrypto} (COIN)`}
-        </Text>
+        <Flex alignItems={'center'}>
+          <Image
+            src={`https://www.cryptocompare.com${state.crypto.CoinInfo.ImageUrl}`}
+            alt={state.crypto.CoinInfo.Name}
+            boxSize={{ base: '42px', md: '50px' }}
+            borderRadius="full"
+          />
+          <Text
+            ml={2}
+            fontWeight="bold"
+            fontSize="2xl"
+            textAlign="center"
+            textTransform="capitalize"
+          >
+            {`${nameCrypto} (COIN)`}
+          </Text>
+        </Flex>
         <Box>
           <IconButton
             icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
