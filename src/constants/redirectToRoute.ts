@@ -45,6 +45,7 @@ export const ROUTES: Routes = {
   SUCCESS_PAYMENT: '/success-payment',
   CANCEL_PAYMENT: '/cancel-payment',
   TRANSACTION_DETAIL_OPERATION: '/transaction/detail/operation',
+  TRANSACTION_SWAP: '/transaction/swap',
   NOT_FOUND: '*',
   EMPTY: '',
 };

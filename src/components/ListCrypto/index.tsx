@@ -17,7 +17,7 @@ export const ListCrypto = ({
 }: ListCryptoProps) => {
   const { switchStates, toggleSwitch } = useSwitchStore();
   const { currency } = useStoreCrypto();
-  const BG_COLOR = useColorModeValue('gray.100', 'gray.700');
+  const BG_COLOR = useColorModeValue('gray.200', '#171717');
   return (
     <Flex
       key={cryptocurrency.CoinInfo.Id}
@@ -30,7 +30,7 @@ export const ListCrypto = ({
     >
       <Flex alignItems={'center'}>
         <Image
-          boxSize="45px"
+          boxSize="40px"
           borderRadius="full"
           mr={4}
           src={`https://www.cryptocompare.com${cryptocurrency.CoinInfo.ImageUrl}`}

@@ -22,7 +22,7 @@ instanceAxios.interceptors.response.use(
         const sessionExpired = useStoreAutheticated.getState().sessionExpired;
 
         sessionExpired();
-      }, 3000);
+      }, 1000);
 
       return Promise.reject(error);
     }

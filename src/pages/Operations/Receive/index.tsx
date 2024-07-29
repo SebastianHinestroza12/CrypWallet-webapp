@@ -1,4 +1,4 @@
-import { Stack, Box, Flex } from '@chakra-ui/react';
+import { Stack, Box, Flex, Text } from '@chakra-ui/react';
 import { SearchBar } from '../../../components/SearchBar';
 import { ListCrypto } from '../../../components/ListCrypto';
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +23,9 @@ export const ReceiveList = () => {
         <Stack spacing={8}>
           <SearchBar handleChange={handleChange} title="receive" />
           <Box>
+            <Box mb={3}>
+              <Text textTransform={'capitalize'}>all crypto</Text>
+            </Box>
             {crypto.map((data) => (
               <ListCrypto
                 showSwitches={false}

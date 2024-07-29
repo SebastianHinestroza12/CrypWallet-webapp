@@ -27,7 +27,7 @@ import { SafeWords } from '../pages/Security/SafeWords';
 import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
 import { ChangePassword } from '../pages/Security/ChangePassword';
 import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
-import { Swap } from '../pages/Operations/Swap';
+import { SwapList } from '../pages/Operations/Swap';
 import { SendList } from '../pages/Operations/Send';
 import { TransferStep } from '../pages/Operations/Send/TransferStep';
 import { TransactionSuccess } from '../pages/TransactionSuccess';
@@ -41,6 +41,7 @@ import { Success } from '../pages/SuccessResult';
 import { Cancel } from '../pages/CancelResult';
 import { AllTransactions } from '../pages/Operations/History';
 import { TransactionDetailsHistory } from '../pages/TransactionDetailsHistory';
+import { SwapForm } from '../pages/Operations/Swap/SwapForm';
 
 export const router = createBrowserRouter([
   {
@@ -199,7 +200,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.OPERATIONS_SWAP_CRYPTO,
-            element: <Swap />,
+            element: <SwapList />,
           },
           {
             path: ROUTES.OPERATIONS_BUY_CRYPTO,
@@ -298,6 +299,16 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.EMPTY,
             element: <TransactionDetailsHistory />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.TRANSACTION_SWAP,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <SwapForm />,
           },
         ],
       },
