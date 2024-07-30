@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSwitchStore } from '../../stores/switch';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
-import { PiDotsThreeOutlineFill } from 'react-icons/pi';
+import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { EmptyState } from '../../components/EmptyState';
 import { ROUTES, SupportedCurrency } from '../../constants';
 import { useStoreAutheticated } from '../../stores/authentication';
@@ -124,7 +124,7 @@ export const ListCryptocurrencies = memo(() => {
             {isDataVisible ? (
               renderCryptoAmountAndValue(crypto, currentWallet!, currency)
             ) : (
-              <Icon boxSize={12} as={PiDotsThreeOutlineFill} />
+              <Icon boxSize={9} as={BiDotsHorizontalRounded} />
             )}
           </Flex>
         ))

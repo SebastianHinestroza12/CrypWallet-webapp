@@ -4,7 +4,7 @@ import { FaSync, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
-import { PiDotsThreeOutlineFill } from 'react-icons/pi';
+import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { ROUTES, SupportedCurrency } from '../../constants';
@@ -55,7 +55,7 @@ export const TotalCash = () => {
           p={2}
           borderRadius={'full'}
         >
-          <Text fontSize="md" fontWeight="bold" textAlign={'center'}>
+          <Text fontSize="md" fontWeight="bold" textAlign={'center'} textTransform={'capitalize'}>
             {currentWallet?.name ?? t('home.wallet')}
           </Text>
           <Icon as={IoMdArrowDropdown} boxSize={6} />
@@ -85,10 +85,10 @@ export const TotalCash = () => {
             {`${symbol} ${formatCurrency(totalCash, currency as SupportedCurrency)}`}
           </Text>
         ) : (
-          <Icon boxSize={12} mr={4} as={PiDotsThreeOutlineFill} />
+          <Icon boxSize={9} mr={3} as={BiDotsHorizontalRounded} />
         )}
         <Icon
-          boxSize={6}
+          boxSize={5}
           as={isDataVisible ? ViewIcon : ViewOffIcon}
           cursor="pointer"
           onClick={handleDataVisible}
@@ -107,7 +107,7 @@ export const TotalCash = () => {
             </Text>
           </>
         ) : (
-          <Icon boxSize={12} as={PiDotsThreeOutlineFill} />
+          <Icon boxSize={9} as={BiDotsHorizontalRounded} />
         )}
       </Flex>
     </Box>
