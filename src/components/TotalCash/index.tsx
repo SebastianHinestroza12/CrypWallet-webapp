@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Box, Flex, Icon, Text, useColorModeValue, Button } from '@chakra-ui/react';
-import { FaSync, FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import { IoMdArrowDropdown } from 'react-icons/io';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { RiArrowDropDownLine } from 'react-icons/ri';
+import { GrUpdate } from 'react-icons/gr';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
@@ -58,7 +59,7 @@ export const TotalCash = () => {
           <Text fontSize="md" fontWeight="bold" textAlign={'center'} textTransform={'capitalize'}>
             {currentWallet?.name ?? t('home.wallet')}
           </Text>
-          <Icon as={IoMdArrowDropdown} boxSize={6} />
+          <Icon as={RiArrowDropDownLine} boxSize={6} />
         </Box>
         <Button
           rounded={'full'}
@@ -75,7 +76,7 @@ export const TotalCash = () => {
           <Text mr={2} cursor="pointer">
             {t('home.button_total_cash')}
           </Text>
-          <Icon as={FaSync} cursor="pointer" />
+          <Icon as={GrUpdate} cursor="pointer" />
         </Button>
       </Flex>
 

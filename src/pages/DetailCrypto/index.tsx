@@ -13,6 +13,7 @@ import { formatCurrency } from '../../utils';
 import { EmptyTransaction } from '../../components/EmptyTransactions';
 import { TransactionUserIProps } from '../../interfaces';
 import { TransactionHistory } from '../../components/TransactionHistory';
+import { PiApproximateEquals } from 'react-icons/pi';
 
 export const DetailCrypto = () => {
   const { isAuthenticated, currentWallet, transactions } = useStoreAutheticated();
@@ -99,12 +100,14 @@ export const DetailCrypto = () => {
             {isAuthenticated && coinCrypto ? coinCrypto : 0} {coinName}
           </Text>
         </Box>
-        <Box>
-          <Text color={'gray.500'}>
-            {coinCrypto ? '=' : ''}
-            {`${coinSymbol} ${amount}`}
-          </Text>
-        </Box>
+        <Flex alignItems={'center'}>
+          {coinCrypto && (
+            <Box mr={1}>
+              <PiApproximateEquals color={'gray'} />
+            </Box>
+          )}
+          <Text color={'gray.500'}>{`${coinSymbol}${amount}`}</Text>
+        </Flex>
       </Flex>
       <Flex flexDirection={'column'}>
         <Box>

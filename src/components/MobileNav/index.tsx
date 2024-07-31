@@ -14,7 +14,8 @@ import {
   MenuList,
   Button,
 } from '@chakra-ui/react';
-import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
+import { FiBell, FiChevronDown } from 'react-icons/fi';
+import { CgMenuGridO } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import { MobileProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
@@ -52,7 +53,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         variant="ghost"
         size={'lg'}
         aria-label="open menu"
-        icon={<FiMenu />}
+        icon={<CgMenuGridO size={35} />}
       />
 
       {isAuthenticated ? (

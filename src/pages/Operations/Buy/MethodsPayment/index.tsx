@@ -33,8 +33,9 @@ export const PaymentMethod = () => {
             bg={'#1E59EA'}
             _hover={{ bg: '#0039A0', cursor: 'pointer' }}
             _active={{ bg: '#0039A0' }}
-            size={{ base: 'md', md: 'lg' }}
+            width={{ base: 'full', md: 'sm' }}
             mx={2}
+            size={'lg'}
             onClick={() =>
               navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
                 state: {

@@ -25,6 +25,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useStoreOperations } from '../../../../stores/operations';
 import { WalletServices } from '../../../../services/wallet.service';
 import { useToastNotification } from '../../../../hooks/useToastNotification';
+import { PiApproximateEquals } from 'react-icons/pi';
 import { AxiosError } from 'axios';
 import { TransactionsType } from '../../../../interfaces';
 
@@ -284,12 +285,14 @@ export const TransferCrypto = () => {
               )}
             </FormControl>
 
-            <Box textAlign="center" my={3}>
+            <Flex justifyContent={'center'} alignItems={'center'} my={3}>
+              <Box>
+                <PiApproximateEquals color={'gray'} />
+              </Box>
               <Text fontSize="lg" fontWeight="bold" color="gray.600">
-                ={' '}
                 {`${state.symbol}${formatCurrency(parseFloat(equivalent), currency as SupportedCurrency)}`}
               </Text>
-            </Box>
+            </Flex>
 
             <Button
               mx={'auto'}
