@@ -11,6 +11,9 @@ import { EmptyState } from '../../components/EmptyState';
 import { ROUTES, SupportedCurrency } from '../../constants';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { formatCurrency, formatChange } from '../../utils';
+import { motion } from 'framer-motion';
+
+const MotionFlex = motion(Flex);
 
 export const ListCryptocurrencies = memo(() => {
   const { switchStates } = useSwitchStore();
@@ -83,8 +86,11 @@ export const ListCryptocurrencies = memo(() => {
 
   return (
     <Flex direction="column" width="100%">
-      {showCrypto.map((crypto) => (
-        <Flex
+      {showCrypto.map((crypto, index) => (
+        <MotionFlex
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: 'easeOut', delay: index * 0.1 }}
           key={crypto.CoinInfo.Id}
           alignItems="center"
           justifyContent="space-between"
@@ -127,7 +133,7 @@ export const ListCryptocurrencies = memo(() => {
           ) : (
             <Icon boxSize={9} as={BiDotsHorizontalRounded} />
           )}
-        </Flex>
+        </MotionFlex>
       ))}
     </Flex>
   );

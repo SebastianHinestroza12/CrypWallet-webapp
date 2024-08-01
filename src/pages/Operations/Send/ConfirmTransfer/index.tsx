@@ -46,6 +46,7 @@ export const ConfirmTransfer = () => {
     authenticatedUser: { id },
     addWallet,
     setCurrentWallet,
+    setTransactions,
   } = useStoreAutheticated();
   const { symbol } = useStoreVisibilityData();
   const { removeCryptoShippingdata, cryptoShippingdata } = useStoreOperations();
@@ -79,6 +80,13 @@ export const ConfirmTransfer = () => {
             (wallet: WalletsIProps) => wallet.id === currentWallet?.id,
           );
           setCurrentWallet(wallet, id!, false);
+        }
+
+        const getTransacions = await TransactionService.getAllTransaction(id!);
+
+        if (getTransacions?.status === 200) {
+          const response = getTransacions.data.transactions;
+          setTransactions(response);
         }
       }
     } catch (error) {

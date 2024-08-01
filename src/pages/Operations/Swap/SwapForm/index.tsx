@@ -47,6 +47,7 @@ export const SwapForm = () => {
     authenticatedUser: { id },
     addWallet,
     setCurrentWallet,
+    setTransactions,
   } = useStoreAutheticated();
   const {
     state: { crypto, symbol },
@@ -236,6 +237,16 @@ export const SwapForm = () => {
           );
           setCurrentWallet(wallet, id!, false);
         }
+
+        const getTransacions = await TransactionService.getAllTransaction(id!);
+
+        if (getTransacions?.status === 200) {
+          const response = getTransacions.data.transactions;
+          setTransactions(response);
+        }
+
+        setIsLoading(false);
+        setIsDialogOpen(false);
 
         displayToast(
           'Swap Successful',

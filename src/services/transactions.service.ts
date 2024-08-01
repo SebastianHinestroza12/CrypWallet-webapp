@@ -20,4 +20,13 @@ export class TransactionService {
       throw serverError;
     }
   }
+
+  static async getAllTransaction(userId: string) {
+    try {
+      return await instanceAxios.get(`/transaction/${userId}`);
+    } catch (error) {
+      const serverError = error as AxiosError;
+      throw serverError;
+    }
+  }
 }

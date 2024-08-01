@@ -10,6 +10,7 @@ import { WalletServices } from '../../services/wallet.service';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { WalletsIProps } from '../../interfaces';
 import Confetti from 'react-confetti';
+import { TransactionService } from '../../services/transactions.service';
 
 export const Success = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ export const Success = () => {
     authenticatedUser: { id },
     addWallet,
     setCurrentWallet,
+    setTransactions,
   } = useStoreAutheticated();
 
   useEffect(() => {
@@ -62,6 +64,13 @@ export const Success = () => {
                   (wallet: WalletsIProps) => wallet.id === currentWallet?.id,
                 );
                 setCurrentWallet(wallet, id!, false);
+              }
+
+              const getTransacions = await TransactionService.getAllTransaction(id!);
+
+              if (getTransacions?.status === 200) {
+                const response = getTransacions.data.transactions;
+                setTransactions(response);
               }
             }
           }
