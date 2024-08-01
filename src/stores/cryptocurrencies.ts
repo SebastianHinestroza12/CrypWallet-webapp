@@ -9,6 +9,10 @@ interface StoreStateCrypto {
   setCurrency: (currency: string) => void;
   currentCrypto: CryptoCompareData[];
   setCurrentCrypto: (newArray: CryptoCompareData[]) => void;
+  fromCryptoSwap: CryptoCompareData | null;
+  setFromCryptoSwap: (crypto: CryptoCompareData | null) => void;
+  toCryptoSwap: CryptoCompareData | null;
+  setToCryptoSwap: (crypto: CryptoCompareData | null) => void;
 }
 
 type MyPersist = (
@@ -41,6 +45,21 @@ export const useStoreCrypto = create(
         set((state) => ({
           ...state,
           currency,
+        })),
+
+      // Estado global para el swap de criptomonedas
+      fromCryptoSwap: null,
+      setFromCryptoSwap: (crypto) =>
+        set((state) => ({
+          ...state,
+          fromCryptoSwap: crypto,
+        })),
+
+      toCryptoSwap: null,
+      setToCryptoSwap: (crypto) =>
+        set((state) => ({
+          ...state,
+          toCryptoSwap: crypto,
         })),
     }),
     {

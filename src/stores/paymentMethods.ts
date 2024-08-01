@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 import { create } from 'zustand';
-import { persist, PersistOptions } from 'zustand/middleware';
+import { createJSONStorage, persist, PersistOptions } from 'zustand/middleware';
 import { StorePaymentIProps, PaymentDetailIProps } from '../interfaces';
 
 type MyPersist = (
@@ -19,6 +19,7 @@ export const useStorePaymentMethods = create<StorePaymentIProps>(
     }),
     {
       name: 'store-payment-methods',
+      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );

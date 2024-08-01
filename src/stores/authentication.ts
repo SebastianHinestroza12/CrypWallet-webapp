@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist, PersistOptions } from 'zustand/middleware';
+import { persist, PersistOptions, createJSONStorage } from 'zustand/middleware';
 import {
   StoreStateAuthentication,
   TransactionUserIProps,
@@ -132,6 +132,7 @@ export const useStoreAutheticated = create(
     }),
     {
       name: 'auth-storage',
+      storage: createJSONStorage(() => sessionStorage),
     } as PersistOptions<StoreStateAuthentication>,
   ),
 );
