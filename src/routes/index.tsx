@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-refresh/only-export-components */
+import { lazy, Suspense, ComponentType, LazyExoticComponent } from 'react';
 import { ROUTES } from '../constants';
 import { createBrowserRouter } from 'react-router-dom';
 import { CallToActionWithIllustration } from '../pages/LandingPage';
@@ -26,7 +29,6 @@ import { SecurityList } from '../pages/Security';
 import { SafeWords } from '../pages/Security/SafeWords';
 import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
 import { ChangePassword } from '../pages/Security/ChangePassword';
-import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
 import { SwapList } from '../pages/Operations/Swap';
 import { SendList } from '../pages/Operations/Send';
 import { TransferStep } from '../pages/Operations/Send/TransferStep';
@@ -42,6 +44,24 @@ import { Cancel } from '../pages/CancelResult';
 import { AllTransactions } from '../pages/Operations/History';
 import { TransactionDetailsHistory } from '../pages/TransactionDetailsHistory';
 import { SwapForm } from '../pages/Operations/Swap/SwapForm';
+import { Loading } from '../components/Loading';
+
+// Función para simular un retraso en la carga del componente
+const simulateDelay = (delay: number) => {
+  return new Promise((resolve) => setTimeout(resolve, delay));
+};
+
+// Función para crear un componente perezoso con un retraso
+const lazyWithDelay = (
+  importFunction: () => Promise<{ default: ComponentType<any> }>,
+  delay: number,
+): LazyExoticComponent<ComponentType<any>> => {
+  return lazy(() =>
+    Promise.all([importFunction(), simulateDelay(delay)]).then(([moduleExports]) => moduleExports),
+  );
+};
+
+const CryptoOverview = lazyWithDelay(() => import('../pages/DetailCrypto/CryptoOverview'), 2000);
 
 export const router = createBrowserRouter([
   {
@@ -175,7 +195,11 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.CRYPTO_DETAIL_OVERVIEW,
-            element: <CryptoOverview />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <CryptoOverview />
+              </Suspense>
+            ),
           },
           {
             path: ROUTES.CRYPTO_MANAGE,

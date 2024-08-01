@@ -39,9 +39,13 @@ import { SupportedCurrency } from '../../../constants';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
 
+import { motion } from 'framer-motion';
+
+const MotionStack = motion(Stack);
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-export const CryptoOverview = () => {
+const CryptoOverview = () => {
   const {
     state: { infoCrypto },
   } = useLocation();
@@ -64,8 +68,8 @@ export const CryptoOverview = () => {
           setPriceData(data);
         } catch (error) {
           displayToast(
-            'Límite de API alcanzado',
-            'Espera unos segundos para volver a solicitar los recursos.',
+            'Información Importante',
+            `Actualmente, los precios de ${infoCrypto.CoinInfo.FullName} no están disponibles. Por favor, inténtalo más tarde.`,
             'info',
           );
         }
@@ -111,99 +115,109 @@ export const CryptoOverview = () => {
   const TEXT_COLOR = useColorModeValue('gray.700', 'gray.300');
 
   return (
-    <Stack spacing={4} pb={4}>
-      <Box>
-        <Flex justifyContent={'space-between'}>
-          <Flex>
-            <Image
-              src={`https://www.cryptocompare.com${infoCrypto.CoinInfo.ImageUrl}`}
-              alt={infoCrypto.CoinInfo.Name}
-              boxSize={{ base: '35px', md: '50px' }}
-              borderRadius="full"
-            />
-            <Text
-              ml={2}
-              fontWeight="bold"
-              fontSize="2xl"
-              textAlign="center"
-              textTransform="capitalize"
-            >
-              {infoCrypto.CoinInfo.FullName}
-            </Text>
-          </Flex>
-          <Box>
-            <IconButton
-              icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
-              variant="outline"
-              aria-label="Go back"
-              onClick={() => navigate(-1)}
-            />
-          </Box>
-        </Flex>
-        <Flex pl={2} mt={2}>
-          <Text color="gray.500">
-            {`${symbol ?? ''} ${formatCurrency(price, currency as SupportedCurrency)}`}
-          </Text>
-          <Text ml={3} color={changePrice24Hour >= 0 ? '#17ca56' : '#cf0c07'}>
-            {changePrice24Hour ? formatChange(changePrice24Hour) : ''}
-          </Text>
-        </Flex>
-      </Box>
-      <Box width="100%" height={{ base: '320px', md: '400px' }}>
-        <Line data={chartDataCrypto} options={chartOptionsCrypto} />
-      </Box>
-      {description !== '' && (
-        <Box mt={6}>
-          <Text fontSize="lg" fontWeight="bold" mb={2}>
-            {`About ${infoCrypto.CoinInfo.Name}`}
-          </Text>
-          <Collapse in={isExpanded} animateOpacity>
-            <Text color={TEXT_COLOR}>{description}</Text>
-          </Collapse>
-          {!isExpanded && (
-            <Text mt={2} color={TEXT_COLOR}>
-              {description.substring(0, 100)}...
-            </Text>
-          )}
-          <Button mt={2} variant="link" color="#1e59ea" onClick={handleToggle} display="block">
-            {isExpanded ? 'Read less' : 'Read more'}
-          </Button>
-        </Box>
-      )}
-      <Box mt={3}>
-        <Text mb={3} fontSize="lg" fontWeight="bold">
-          Stats
-        </Text>
-        <Stack bg={BG} p={2} borderRadius="md">
-          {[
-            {
-              label: 'market cap',
-              value: infoCrypto.RAW?.[currency]?.CIRCULATINGSUPPLYMKTCAP,
-              symbol,
-            },
-            {
-              label: 'circulating supply',
-              value: infoCrypto.RAW?.[currency]?.CIRCULATINGSUPPLY,
-              suffix: infoCrypto.CoinInfo.Name,
-            },
-            {
-              label: 'total supply',
-              value: infoCrypto.RAW?.[currency]?.SUPPLY,
-              suffix: infoCrypto.CoinInfo.Name,
-            },
-            { label: 'volume (24h)', symbol, value: infoCrypto.RAW?.[currency]?.VOLUME24HOUR },
-          ].map(({ label, value, suffix, symbol }) => (
-            <Flex key={label} justifyContent="space-between" alignItems="center">
-              <Text color={TEXT_COLOR} textTransform="capitalize">
-                {label}
-              </Text>
-              <Text fontSize="smaller">
-                {symbol ?? ''} {formatCurrency(value, currency as SupportedCurrency)} {suffix || ''}
+    <MotionStack
+      spacing={{ base: 4, md: 10 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+    >
+      <Stack spacing={4} pb={4}>
+        <Box>
+          <Flex justifyContent={'space-between'}>
+            <Flex>
+              <Image
+                src={`https://www.cryptocompare.com${infoCrypto.CoinInfo.ImageUrl}`}
+                alt={infoCrypto.CoinInfo.Name}
+                boxSize={{ base: '35px', md: '50px' }}
+                borderRadius="full"
+              />
+              <Text
+                ml={2}
+                fontWeight="bold"
+                fontSize="2xl"
+                textAlign="center"
+                textTransform="capitalize"
+              >
+                {infoCrypto.CoinInfo.FullName}
               </Text>
             </Flex>
-          ))}
-        </Stack>
-      </Box>
-    </Stack>
+            <Box>
+              <IconButton
+                icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
+                variant="outline"
+                aria-label="Go back"
+                onClick={() => navigate(-1)}
+              />
+            </Box>
+          </Flex>
+          <Flex pl={2} mt={2}>
+            <Text color="gray.500">
+              {`${symbol ?? ''} ${formatCurrency(price, currency as SupportedCurrency)}`}
+            </Text>
+            <Text ml={3} color={changePrice24Hour >= 0 ? '#17ca56' : '#cf0c07'}>
+              {changePrice24Hour ? formatChange(changePrice24Hour) : ''}
+            </Text>
+          </Flex>
+        </Box>
+        <Box width="100%" height={{ base: '320px', md: '400px' }}>
+          <Line data={chartDataCrypto} options={chartOptionsCrypto} />
+        </Box>
+        {description !== '' && (
+          <Box mt={6}>
+            <Text fontSize="lg" fontWeight="bold" mb={2}>
+              {`About ${infoCrypto.CoinInfo.Name}`}
+            </Text>
+            <Collapse in={isExpanded} animateOpacity>
+              <Text color={TEXT_COLOR}>{description}</Text>
+            </Collapse>
+            {!isExpanded && (
+              <Text mt={2} color={TEXT_COLOR}>
+                {description.substring(0, 100)}...
+              </Text>
+            )}
+            <Button mt={2} variant="link" color="#1e59ea" onClick={handleToggle} display="block">
+              {isExpanded ? 'Read less' : 'Read more'}
+            </Button>
+          </Box>
+        )}
+        <Box mt={3}>
+          <Text mb={3} fontSize="lg" fontWeight="bold">
+            Stats
+          </Text>
+          <Stack bg={BG} p={2} borderRadius="md">
+            {[
+              {
+                label: 'market cap',
+                value: infoCrypto.RAW?.[currency]?.CIRCULATINGSUPPLYMKTCAP,
+                symbol,
+              },
+              {
+                label: 'circulating supply',
+                value: infoCrypto.RAW?.[currency]?.CIRCULATINGSUPPLY,
+                suffix: infoCrypto.CoinInfo.Name,
+              },
+              {
+                label: 'total supply',
+                value: infoCrypto.RAW?.[currency]?.SUPPLY,
+                suffix: infoCrypto.CoinInfo.Name,
+              },
+              { label: 'volume (24h)', symbol, value: infoCrypto.RAW?.[currency]?.VOLUME24HOUR },
+            ].map(({ label, value, suffix, symbol }) => (
+              <Flex key={label} justifyContent="space-between" alignItems="center">
+                <Text color={TEXT_COLOR} textTransform="capitalize">
+                  {label}
+                </Text>
+                <Text fontSize="smaller">
+                  {symbol ?? ''} {formatCurrency(value, currency as SupportedCurrency)}{' '}
+                  {suffix || ''}
+                </Text>
+              </Flex>
+            ))}
+          </Stack>
+        </Box>
+      </Stack>
+    </MotionStack>
   );
 };
+
+export default CryptoOverview;
