@@ -70,4 +70,8 @@ export interface TransactionUserIProps {
   user_origin: string;
   formatted_date: string;
   user_destination: string | null;
+  cryptoFromId: string | null;
+  cryptoToId: string | null;
+  amountFrom: number | null;
+  amountTo: number | null;
 }

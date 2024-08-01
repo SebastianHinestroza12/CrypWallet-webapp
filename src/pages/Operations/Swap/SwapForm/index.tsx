@@ -131,7 +131,7 @@ export const SwapForm = () => {
   };
 
   const handleBuyCrypto = () => {
-    navigate(`${ROUTES.PAYMENT_METHODS_CRYPTO}`, {
+    navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
       state: {
         crypto: fromCryptoSwap,
         symbol: fromCryptoSwap?.DISPLAY?.[currency]?.TOSYMBOL,

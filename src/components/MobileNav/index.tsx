@@ -57,7 +57,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       />
 
       {isAuthenticated ? (
-        <HStack spacing={{ base: '0', md: '6' }}>
+        <HStack spacing={{ base: '2', md: '6' }}>
           <IconButton
             onClick={() => navigation(ROUTES.NOTIFICATIONS)}
             size="lg"

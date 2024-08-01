@@ -142,20 +142,20 @@ export const ConfirmTransfer = () => {
           <Stack spacing={4}>
             <HStack>
               <Text fontWeight="bold" fontSize={{ base: 'sm', md: 'medium' }}>
-                Destination User:
+                Recipient:
               </Text>
               <Text>{anonymizeName(cryptoShippingdata.destinationUser)}</Text>
             </HStack>
 
             <HStack>
-              <Text fontWeight="bold">Destiny Wallet:</Text>
+              <Text fontWeight="bold">Recipient Wallet:</Text>
               <Text whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" maxWidth="200px">
                 {cryptoShippingdata.destinationWalletAddress}
               </Text>
             </HStack>
 
             <HStack>
-              <Text fontWeight="bold">Origin Wallet:</Text>
+              <Text fontWeight="bold">Your Wallet:</Text>
               <Text whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" maxWidth="200px">
                 {currentWallet?.address}
               </Text>

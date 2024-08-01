@@ -1,10 +1,9 @@
-import React from 'react';
-import { Box, Flex, Text, Icon, VStack, useColorModeValue } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Flex, Text, Icon, Stack, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { Icon as IconifyIcon } from '@iconify/react';
 import { TransactionUserIProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../constants';
+import { DetailHistoryModal } from '../../components/DetailHistoryModal';
 
 type TransactionHistoryProps = {
   transactions: TransactionUserIProps[];
@@ -12,7 +11,10 @@ type TransactionHistoryProps = {
 
 export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions }) => {
   const { currentWallet } = useStoreAutheticated();
-  const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedTransaction, setSelectedTransaction] = useState<TransactionUserIProps | null>(
+    null,
+  );
 
   const renderIcon = (type_transaction: string) => {
     switch (type_transaction) {
@@ -43,10 +45,19 @@ export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transact
     }
   };
 
+  const renderIconDetail = (type: string) => {
+    return renderIcon(type);
+  };
+
+  const handleOpenModal = (transaction: TransactionUserIProps) => {
+    setSelectedTransaction(transaction);
+    onOpen();
+  };
+
   const TEXT_COLOR = useColorModeValue('gray.600', 'gray.500');
 
   return (
-    <VStack spacing={4} align="stretch">
+    <Stack spacing={3} align="stretch">
       {transactions.map((transaction) => {
         const renderIcony =
           transaction.type_transaction === 'Send' &&
@@ -58,11 +69,7 @@ export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transact
           <Flex
             key={transaction.id}
             p={4}
-            onClick={() =>
-              navigate(`${ROUTES.TRANSACTION_DETAIL_OPERATION}`, {
-                state: { transaction, renderIcony },
-              })
-            }
+            onClick={() => handleOpenModal(transaction)}
             borderWidth={1}
             borderRadius="md"
             align="center"
@@ -89,6 +96,20 @@ export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transact
           </Flex>
         );
       })}
-    </VStack>
+      {selectedTransaction && (
+        <DetailHistoryModal
+          isOpen={isOpen}
+          onClose={onClose}
+          transaction={selectedTransaction}
+          renderIcony={
+            selectedTransaction.type_transaction === 'Send' &&
+            selectedTransaction.destination === currentWallet?.address
+              ? 'receive'
+              : selectedTransaction.type_transaction.toLowerCase()
+          }
+          renderIconDetail={renderIconDetail}
+        />
+      )}
+    </Stack>
   );
 };

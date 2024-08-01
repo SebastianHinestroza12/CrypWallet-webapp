@@ -26,6 +26,9 @@ import { UserProps } from '../../interfaces';
 import { AuthService } from '../../services/auth.service';
 import { useToastNotification } from '../../hooks/useToastNotification';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+
+const MotionStack = motion(Stack);
 
 const { VITE_KEY_UPLOAD_PRESET } = import.meta.env;
 
@@ -144,7 +147,7 @@ export const UserProfileEdit = () => {
 
   return (
     <Flex justifyContent={'center'} alignItems={'center'} pb={3}>
-      <Stack
+      <MotionStack
         spacing={4}
         w={'full'}
         maxW={'lg'}
@@ -152,6 +155,9 @@ export const UserProfileEdit = () => {
         boxShadow={'2xl'}
         p={5}
         bg={BG_COLOR}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }} mb={2} textAlign={'center'}>
           Profile
@@ -271,7 +277,7 @@ export const UserProfileEdit = () => {
             </Button>
           </Stack>
         </form>
-      </Stack>
+      </MotionStack>
 
       <AlertDialog
         isOpen={isDialogOpen}

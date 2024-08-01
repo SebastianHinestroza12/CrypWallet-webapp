@@ -49,7 +49,7 @@ export const DetailCrypto = () => {
   }, []);
 
   const handleEventClick = () => {
-    navigate(`${ROUTES.PAYMENT_METHODS_CRYPTO}`, {
+    navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
       state: {
         crypto: infoCrypto,
         symbol: infoCrypto.DISPLAY?.[currency]?.TOSYMBOL,

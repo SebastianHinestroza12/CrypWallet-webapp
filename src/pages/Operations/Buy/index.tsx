@@ -63,14 +63,14 @@ export const BuyList = () => {
                   mr={4}
                   alignItems={'center'}
                   bg={BG_COLOR}
-                  onClick={() =>
-                    navigate(`${ROUTES.PAYMENT_METHODS_CRYPTO}`, {
+                  onClick={() => {
+                    navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
                       state: {
                         crypto: data,
                         symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
                       },
-                    })
-                  }
+                    });
+                  }}
                 >
                   <Image
                     boxSize="45px"
@@ -103,14 +103,14 @@ export const BuyList = () => {
                 justifyContent="space-between"
                 mb={2}
                 py={1}
-                onClick={() =>
-                  navigate(`${ROUTES.PAYMENT_METHODS_CRYPTO}`, {
+                onClick={() => {
+                  navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
                     state: {
                       crypto: data,
                       symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
                     },
-                  })
-                }
+                  });
+                }}
                 _hover={{ cursor: 'pointer', bg: BG_COLOR }}
               >
                 <Flex alignItems="center">
