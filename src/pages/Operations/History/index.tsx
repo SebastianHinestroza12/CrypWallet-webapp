@@ -39,7 +39,7 @@ export const AllTransactions = () => {
       ) : (
         <>
           <Heading as="h2" size="lg" textAlign="center" mb={4}>
-            Historial de Transacciones
+            Operation Summary
           </Heading>
           <MotionStack
             spacing={{ base: 4, md: 10 }}

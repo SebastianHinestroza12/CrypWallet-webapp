@@ -37,21 +37,17 @@ import { TransactionDetails } from '../pages/TransactionDetails';
 import { ReceiveList } from '../pages/Operations/Receive';
 import { ReceiveCrypto } from '../pages/Operations/Receive/ReceiveCrypto';
 import { BuyList } from '../pages/Operations/Buy';
-import { BuyCryptoWithGateway } from '../pages/Operations/Buy/MethodsPayment/BuyCryptoWithGateway';
-import { PaymentMethod } from '../pages/Operations/Buy/MethodsPayment';
+import { BuyCryptoWithGateway } from '../pages/Operations/Buy/BuyCryptoWithGateway';
 import { Success } from '../pages/SuccessResult';
 import { Cancel } from '../pages/CancelResult';
 import { AllTransactions } from '../pages/Operations/History';
-import { TransactionDetailsHistory } from '../pages/TransactionDetailsHistory';
 import { SwapForm } from '../pages/Operations/Swap/SwapForm';
 import { Loading } from '../components/Loading';
 
-// Función para simular un retraso en la carga del componente
 const simulateDelay = (delay: number) => {
   return new Promise((resolve) => setTimeout(resolve, delay));
 };
 
-// Función para crear un componente perezoso con un retraso
 const lazyWithDelay = (
   importFunction: () => Promise<{ default: ComponentType<any> }>,
   delay: number,
@@ -267,16 +263,6 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: ROUTES.PAYMENT_METHODS_CRYPTO,
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: ROUTES.EMPTY,
-            element: <PaymentMethod />,
-          },
-        ],
-      },
-      {
         path: ROUTES.TRANSACTION_SUCCESS,
         element: <ProtectedRoute />,
         children: [
@@ -313,16 +299,6 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.EMPTY,
             element: <Cancel />,
-          },
-        ],
-      },
-      {
-        path: ROUTES.TRANSACTION_DETAIL_OPERATION,
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: ROUTES.EMPTY,
-            element: <TransactionDetailsHistory />,
           },
         ],
       },

@@ -7,6 +7,7 @@ import { CryptoCompareData, OperationButtonConfig } from '../../interfaces';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { useToastNotification } from '../../hooks/useToastNotification';
+import { useStorePaymentMethods } from '../../stores/paymentMethods';
 
 interface OperationIProps {
   crypto?: CryptoCompareData;
@@ -20,6 +21,7 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
   const location = useLocation();
   const { displayToast } = useToastNotification();
   const pathLocation = location.pathname.includes('/detail');
+  const { setPaymentMethods } = useStorePaymentMethods();
 
   useEffect(() => {
     if (pathLocation) {
@@ -72,10 +74,11 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
         }
 
         case 'buy': {
-          navigate(ROUTES.PAYMENT_METHODS_CRYPTO, {
+          setPaymentMethods('stripe');
+          navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
             state: {
               crypto,
-              symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
+              symbol: crypto.DISPLAY?.[currency]?.TOSYMBOL,
             },
           });
           return;
