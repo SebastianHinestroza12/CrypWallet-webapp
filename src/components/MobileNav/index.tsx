@@ -14,12 +14,13 @@ import {
   MenuList,
   Button,
 } from '@chakra-ui/react';
-import { FiBell, FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown } from 'react-icons/fi';
 import { CgMenuGridO } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import { MobileProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { ROUTES } from '../../constants';
+import { DrawerNotification } from '../DrawerNotification';
 
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const navigation = useNavigate();
@@ -58,13 +59,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
       {isAuthenticated ? (
         <HStack spacing={{ base: '2', md: '6' }}>
-          <IconButton
-            onClick={() => navigation(ROUTES.NOTIFICATIONS)}
-            size="lg"
-            variant="ghost"
-            aria-label="open notification"
-            icon={<FiBell />}
-          />
+          <DrawerNotification />
           <Flex alignItems={'center'}>
             <Menu>
               <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>

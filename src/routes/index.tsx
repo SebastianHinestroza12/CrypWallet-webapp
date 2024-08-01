@@ -12,7 +12,6 @@ import { UserRegistrationForm } from '../pages/Auth/SignUp';
 import { UserLogIn } from '../pages/Auth/SignIn';
 import { AboutUs } from '../pages/AboutUs';
 import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
-import { Notifications } from '../pages/Notifications';
 import { Preferences } from '../pages/Preferences';
 import { ManageCryptocurrencies } from '../pages/ManageCryptocurrencies';
 import { DetailCrypto } from '../pages/DetailCrypto';
@@ -85,16 +84,6 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.ABOUT_US,
         element: <AboutUs />,
-      },
-      {
-        path: ROUTES.NOTIFICATIONS,
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: ROUTES.EMPTY,
-            element: <Notifications />,
-          },
-        ],
       },
       {
         path: ROUTES.WALLETS,

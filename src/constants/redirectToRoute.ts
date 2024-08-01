@@ -7,7 +7,6 @@ export const ROUTES: Routes = {
   LANDING: '/landing',
   HOME: '/home',
   ABOUT_US: '/about-us',
-  NOTIFICATIONS: '/notifications',
   WALLETS: '/wallets',
   CREATE_WALLET: '/wallets/created',
   EDIT_WALLET: '/wallets/edit',
