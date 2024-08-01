@@ -8,6 +8,18 @@ export type WalletCardType = {
   handleEditWallet: (walletId: string, name: string) => void;
 };
 
+export type ExchangeDataIProps = {
+  walletId: string;
+  data: CryptoExchange[];
+};
+
+export type CryptoExchange = {
+  id: string;
+  currentAmountCrypto?: number;
+  amount: number;
+  type: 'increment' | 'decrement';
+};
+
 export type SendTransactionIProps = {
   amount: number;
   cryptocurrencyId: string;

@@ -138,6 +138,7 @@ export const EditWallet = () => {
             <Button
               leftIcon={<Icon icon="mdi:delete" width={24} height={24} />}
               bg={'#E53E3E'}
+              color={'#FFF'}
               _hover={{ bg: '#C43030' }}
               onClick={handleDelete}
               isLoading={isLoading}

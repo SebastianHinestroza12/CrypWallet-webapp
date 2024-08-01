@@ -1,26 +1,35 @@
-import { Flex, Stack, useColorModeValue, Text, Image, Box } from '@chakra-ui/react';
+/* eslint-disable no-unused-vars */
+import { Flex, Stack, useColorModeValue, Text, Image, Box, Input } from '@chakra-ui/react';
 import { MdArrowDropDown } from 'react-icons/md';
 import { AiOutlineSwap } from 'react-icons/ai';
+import { PiApproximateEquals } from 'react-icons/pi';
 
 interface SwapItemIProps {
   title: string;
-  urlImage: string;
+  pathImage: string;
   name: string;
   unitAmount: number;
-  needToBuy: boolean;
+  needToBuy?: boolean;
   symbol: string;
-  amountCrypto: number;
-  equalAmount: number;
+  amountCrypto?: string;
+  equalAmount?: string;
   symbolCurrency: string;
   showSwapIcon: boolean;
-  renderCalculateAmount: boolean;
-  totalSwap: number;
-  symbolFrom: string;
+  renderCalculateAmount?: boolean;
+  totalSwap?: string;
+  symbolFrom?: string;
+  isInput?: boolean;
+  valueInput?: string;
+  reverseCoin?: () => void;
+  handleBuyCrypto?: () => void;
+  handleInputChange?: (value: string) => void;
+  changeCrypto?: () => void;
 }
 
 export const SwapItem = ({
   title,
-  urlImage,
+  isInput,
+  pathImage,
   name,
   unitAmount,
   symbol,
@@ -28,16 +37,21 @@ export const SwapItem = ({
   equalAmount,
   symbolCurrency,
   needToBuy,
-  showSwapIcon = true,
+  showSwapIcon,
   totalSwap,
   symbolFrom,
   renderCalculateAmount,
+  valueInput,
+  handleInputChange,
+  handleBuyCrypto,
+  reverseCoin,
+  changeCrypto,
 }: SwapItemIProps) => {
-  const BG_COLOR = useColorModeValue('gray.200', '#171717');
-  const BORDER_COLOR = useColorModeValue('#FFF', '#101010');
+  const BG_COLOR = useColorModeValue('#FFF', '#171717');
+  const BORDER_COLOR = useColorModeValue('gray.200', '#101010');
 
   return (
-    <Box bg={BG_COLOR} borderRadius={'lg'} position={'relative'}>
+    <Box bg={BG_COLOR} borderRadius={'lg'} position={'relative'} boxShadow={'2xl'}>
       <Stack spacing={5} p={3}>
         {showSwapIcon && (
           <Box
@@ -47,31 +61,42 @@ export const SwapItem = ({
             borderRadius={'full'}
             width={'max-content'}
             position="absolute"
-            top="-27px"
+            top="-30px"
             left="50%"
             transform="translateX(-50%)"
+            onClick={reverseCoin}
           >
-            <AiOutlineSwap size={30} />
+            <Box transform="rotate(90deg)">
+              <AiOutlineSwap size={30} color="#FFF" />
+            </Box>
           </Box>
         )}
         <Flex justifyContent={'space-between'}>
-          <Flex alignItems={'center'}>
+          <Flex
+            alignItems={'center'}
+            cursor={'pointer'}
+            onClick={changeCrypto}
+            _hover={{ bg: BORDER_COLOR }}
+          >
             <Text textTransform={'capitalize'} mr={2}>
-              {title || 'To'}
+              {title}
             </Text>
             <Image
-              src={urlImage || 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'}
+              src={`https://www.cryptocompare.com${pathImage}`}
               boxSize="20px"
               borderRadius="full"
               alt="Logo"
             />
-            <Text ml={2}>{name || 'Bitcoin'}</Text>
+            <Text ml={2}>{name}</Text>
             <MdArrowDropDown />
           </Flex>
           <Flex alignItems={'center'}>
-            <Text>{unitAmount || 0}</Text>
+            <Text fontSize={'small'} textAlign={'end'} color={'gray'}>
+              {unitAmount}
+            </Text>
             {needToBuy && (
               <Text
+                onClick={handleBuyCrypto}
                 color="#008000"
                 bg={'#122d21'}
                 borderRadius={'lg'}
@@ -87,22 +112,42 @@ export const SwapItem = ({
         <Flex alignItems={'center'} justifyContent={'space-between'}>
           <Flex alignItems={'center'}>
             <Image
-              src={urlImage || 'https://cryptologos.cc/logos/bitcoin-btc-logo.png'}
+              src={`https://www.cryptocompare.com${pathImage}`}
               boxSize="35px"
               borderRadius="full"
               alt="Logo"
             />
             <Text ml={2} textTransform={'uppercase'}>
-              {symbol || 'BTC'}
+              {symbol}
             </Text>
           </Flex>
           <Box>
-            <Text textAlign={'end'}>{amountCrypto || 0}</Text>
-            {!!equalAmount && (
-              <Text fontSize={'small'}>
-                {'='} {symbolCurrency}
-                {equalAmount || 0}
+            {isInput ? (
+              <Input
+                fontWeight={'bold'}
+                fontSize={'lg'}
+                textAlign={'end'}
+                type="text"
+                step={'any'}
+                variant="unstyled"
+                value={valueInput}
+                onChange={(e) => handleInputChange && handleInputChange(e.target.value)}
+              />
+            ) : (
+              <Text textAlign={'end'} fontWeight={'bold'} fontSize={'lg'}>
+                {amountCrypto}
               </Text>
+            )}
+            {equalAmount && (
+              <Flex justifyContent={'end'} alignItems={'center'}>
+                <Box>
+                  <PiApproximateEquals color={'gray'} />
+                </Box>
+                <Text fontSize={'small'} textAlign={'end'} color={'gray'}>
+                  {symbolCurrency}
+                  {equalAmount}
+                </Text>
+              </Flex>
             )}
           </Box>
         </Flex>
@@ -115,9 +160,17 @@ export const SwapItem = ({
           p={3}
           alignItems={'center'}
         >
-          <Text>{`1 ${symbolFrom || 'BTC'} = ${totalSwap || 11.43543} ${symbol || 'BNB'} `}</Text>
+          <Text color={'gray'}>
+            {valueInput} {symbolFrom}
+          </Text>
+          <Box mx={1}>
+            <PiApproximateEquals color={'gray'} />
+          </Box>
+          <Text color={'gray'}>
+            {totalSwap} {symbol}
+          </Text>
           <Box ml={2}>
-            <AiOutlineSwap />
+            <AiOutlineSwap color={'gray'} />
           </Box>
         </Flex>
       )}

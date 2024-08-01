@@ -17,16 +17,16 @@ export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transact
   const renderIcon = (type_transaction: string) => {
     switch (type_transaction) {
       case 'send':
-        return <Icon as={IconifyIcon} icon={'icomoon-free:arrow-down'} color="red" boxSize={7} />;
+        return <Icon as={IconifyIcon} icon={'formkit:arrowdown'} color="red" boxSize={7} />;
       case 'receive':
-        return <Icon as={IconifyIcon} icon={'icomoon-free:arrow-up'} color="blue" boxSize={7} />;
+        return <Icon as={IconifyIcon} icon={'formkit:arrowup'} color="blue" boxSize={7} />;
       case 'buy':
-        return <Icon as={IconifyIcon} icon={'icomoon-free:arrow-up'} color="green" boxSize={7} />;
-      case 'sell':
+        return <Icon as={IconifyIcon} icon={'formkit:arrowup'} color="green" boxSize={7} />;
+      case 'swap':
         return (
           <Icon
             as={IconifyIcon}
-            icon={'clarity:circle-arrow-solid'}
+            icon={'fluent:arrow-swap-28-filled'}
             color="orange.500"
             boxSize={7}
           />
