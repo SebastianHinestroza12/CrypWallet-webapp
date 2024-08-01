@@ -77,58 +77,58 @@ export const ListCryptocurrencies = memo(() => {
     };
   }, []);
 
+  if (showCrypto.length === 0) {
+    return <EmptyState />;
+  }
+
   return (
     <Flex direction="column" width="100%">
-      {showCrypto.length === 0 ? (
-        <EmptyState />
-      ) : (
-        showCrypto.map((crypto) => (
-          <Flex
-            key={crypto.CoinInfo.Id}
-            alignItems="center"
-            justifyContent="space-between"
-            mb={2}
-            py={1}
-            onClick={() =>
-              navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${crypto.CoinInfo.FullName.toLowerCase()}`, {
-                state: { infoCrypto: crypto },
-              })
-            }
-            _hover={{ cursor: 'pointer' }}
-          >
-            <Flex alignItems="center">
-              <Image
-                src={`https://www.cryptocompare.com${crypto.CoinInfo.ImageUrl}`}
-                alt={crypto.CoinInfo.Name}
-                boxSize={{ base: '42px', md: '50px' }}
-                borderRadius="full"
-                mr={4}
-              />
-              <Box>
-                <Text fontSize="md" fontWeight="bold" textTransform={'uppercase'}>
-                  {crypto.CoinInfo.Name}
+      {showCrypto.map((crypto) => (
+        <Flex
+          key={crypto.CoinInfo.Id}
+          alignItems="center"
+          justifyContent="space-between"
+          mb={2}
+          py={1}
+          onClick={() =>
+            navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${crypto.CoinInfo.FullName.toLowerCase()}`, {
+              state: { infoCrypto: crypto },
+            })
+          }
+          _hover={{ cursor: 'pointer' }}
+        >
+          <Flex alignItems="center">
+            <Image
+              src={`https://www.cryptocompare.com${crypto.CoinInfo.ImageUrl}`}
+              alt={crypto.CoinInfo.Name}
+              boxSize={{ base: '42px', md: '50px' }}
+              borderRadius="full"
+              mr={4}
+            />
+            <Box>
+              <Text fontSize="md" fontWeight="bold" textTransform={'uppercase'}>
+                {crypto.CoinInfo.Name}
+              </Text>
+              <Flex flexWrap={'wrap'}>
+                <Text color={bgColor}>{crypto?.DISPLAY?.[currency]?.PRICE || 'N/A'}</Text>
+                <Text
+                  color={crypto?.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? '#17ca56' : '#cf0c07'}
+                  ml={1}
+                >
+                  {crypto?.RAW?.[currency]?.CHANGEPCT24HOUR
+                    ? formatChange(crypto?.RAW?.[currency]?.CHANGEPCT24HOUR)
+                    : ''}
                 </Text>
-                <Flex flexWrap={'wrap'}>
-                  <Text color={bgColor}>{crypto?.DISPLAY?.[currency]?.PRICE || 'N/A'}</Text>
-                  <Text
-                    color={crypto?.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? '#17ca56' : '#cf0c07'}
-                    ml={1}
-                  >
-                    {crypto?.RAW?.[currency]?.CHANGEPCT24HOUR
-                      ? formatChange(crypto?.RAW?.[currency]?.CHANGEPCT24HOUR)
-                      : ''}
-                  </Text>
-                </Flex>
-              </Box>
-            </Flex>
-            {isDataVisible ? (
-              renderCryptoAmountAndValue(crypto, currentWallet!, currency)
-            ) : (
-              <Icon boxSize={9} as={BiDotsHorizontalRounded} />
-            )}
+              </Flex>
+            </Box>
           </Flex>
-        ))
-      )}
+          {isDataVisible ? (
+            renderCryptoAmountAndValue(crypto, currentWallet!, currency)
+          ) : (
+            <Icon boxSize={9} as={BiDotsHorizontalRounded} />
+          )}
+        </Flex>
+      ))}
     </Flex>
   );
 });

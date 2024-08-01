@@ -20,7 +20,7 @@ export const EmptyTransaction = ({ coinName, eventClick }: EmptyTransactionIProp
       </Box>
       <Box mb={{ base: 4, md: 6 }}>
         <Text color={'gray.600'} fontSize={'lg'} fontWeight={'medium'}>
-          No tienes transacciones todavía.
+          No tienes transacciones de {coinName}.
         </Text>
         <Text color={'gray.400'} fontSize={'sm'}>
           Las transacciones aparecerán aquí cuando las realices.

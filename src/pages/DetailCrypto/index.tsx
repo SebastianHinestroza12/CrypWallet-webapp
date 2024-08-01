@@ -14,6 +14,9 @@ import { EmptyTransaction } from '../../components/EmptyTransactions';
 import { TransactionUserIProps } from '../../interfaces';
 import { TransactionHistory } from '../../components/TransactionHistory';
 import { PiApproximateEquals } from 'react-icons/pi';
+import { motion } from 'framer-motion';
+
+const MotionStack = motion(Stack);
 
 export const DetailCrypto = () => {
   const { isAuthenticated, currentWallet, transactions } = useStoreAutheticated();
@@ -59,75 +62,82 @@ export const DetailCrypto = () => {
   }
 
   return (
-    <Stack spacing={{ base: 4, md: 10 }}>
-      <Flex justifyContent={'space-between'} alignItems={'center'}>
-        <Box>
-          <Text textAlign={'initial'} textTransform={'uppercase'} fontSize="lg" fontWeight="bold">
-            {coinName}
-          </Text>
-          <Flex alignItems={'center'}>
-            <Text color={'gray.500'} fontSize={'smaller'}>
-              Coin
+    <MotionStack
+      spacing={{ base: 4, md: 10 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <Stack spacing={{ base: 4, md: 10 }}>
+        <Flex justifyContent={'space-between'} alignItems={'center'}>
+          <Box>
+            <Text textAlign={'initial'} textTransform={'uppercase'} fontSize="lg" fontWeight="bold">
+              {coinName}
             </Text>
-            <Divider orientation="vertical" borderColor={'gray.500'} mx={2} height="15px" />
-            <Text fontSize={'smaller'} color={'gray.500'} textTransform={'capitalize'}>
-              {crypto.CoinInfo.FullName}
-            </Text>
-          </Flex>
-        </Box>
-        <Box
-          _hover={{ cursor: 'pointer', transform: 'scale(1.2)' }}
-          onClick={() =>
-            navigate(`${ROUTES.CRYPTO_DETAIL_OVERVIEW_MAIN}/${cryptoId}`, {
-              state: { infoCrypto: crypto },
-            })
-          }
-        >
-          <Icon icon={'ic:baseline-info'} width={30} />
-        </Box>
-      </Flex>
-      <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-        <Box>
-          <Image
-            src={`https://www.cryptocompare.com${crypto.CoinInfo.ImageUrl}`}
-            alt={crypto.CoinInfo.Name}
-            boxSize={{ base: '42px', md: '50px' }}
-            borderRadius="full"
-          />
-        </Box>
-        <Box>
-          <Text fontWeight={'bold'} fontSize={'2xl'}>
-            {isAuthenticated && coinCrypto ? coinCrypto : 0} {coinName}
-          </Text>
-        </Box>
-        <Flex alignItems={'center'}>
-          {coinCrypto && (
-            <Box mr={1}>
-              <PiApproximateEquals color={'gray'} />
-            </Box>
-          )}
-          <Text color={'gray.500'}>{`${coinSymbol}${amount}`}</Text>
-        </Flex>
-      </Flex>
-      <Flex flexDirection={'column'}>
-        <Box>
-          <OperationButton crypto={crypto} />
-        </Box>
-        <Box pt={4}>
-          <Divider borderColor={'gray.500'} />
-        </Box>
-      </Flex>
-      {isAuthenticated ? (
-        transactionCoin.length === 0 ? (
-          <EmptyTransaction coinName={crypto.CoinInfo.FullName} eventClick={handleEventClick} />
-        ) : (
-          <Box pb={4}>
-            <TransactionHistory transactions={transactionCoin} />
+            <Flex alignItems={'center'}>
+              <Text color={'gray.500'} fontSize={'smaller'}>
+                Coin
+              </Text>
+              <Divider orientation="vertical" borderColor={'gray.500'} mx={2} height="15px" />
+              <Text fontSize={'smaller'} color={'gray.500'} textTransform={'capitalize'}>
+                {crypto.CoinInfo.FullName}
+              </Text>
+            </Flex>
           </Box>
-        )
-      ) : (
-        <InviteToLogin />
-      )}
-    </Stack>
+          <Box
+            _hover={{ cursor: 'pointer', transform: 'scale(1.2)' }}
+            onClick={() =>
+              navigate(`${ROUTES.CRYPTO_DETAIL_OVERVIEW_MAIN}/${cryptoId}`, {
+                state: { infoCrypto: crypto },
+              })
+            }
+          >
+            <Icon icon={'ic:baseline-info'} width={30} />
+          </Box>
+        </Flex>
+        <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
+          <Box>
+            <Image
+              src={`https://www.cryptocompare.com${crypto.CoinInfo.ImageUrl}`}
+              alt={crypto.CoinInfo.Name}
+              boxSize={{ base: '42px', md: '50px' }}
+              borderRadius="full"
+            />
+          </Box>
+          <Box>
+            <Text fontWeight={'bold'} fontSize={'2xl'}>
+              {isAuthenticated && coinCrypto ? coinCrypto : 0} {coinName}
+            </Text>
+          </Box>
+          <Flex alignItems={'center'}>
+            {coinCrypto && (
+              <Box mr={1}>
+                <PiApproximateEquals color={'gray'} />
+              </Box>
+            )}
+            <Text color={'gray.500'}>{`${coinSymbol}${amount}`}</Text>
+          </Flex>
+        </Flex>
+        <Flex flexDirection={'column'}>
+          <Box>
+            <OperationButton crypto={crypto} />
+          </Box>
+          <Box pt={4}>
+            <Divider borderColor={'gray.500'} />
+          </Box>
+        </Flex>
+        {isAuthenticated ? (
+          transactionCoin.length === 0 ? (
+            <EmptyTransaction coinName={crypto.CoinInfo.FullName} eventClick={handleEventClick} />
+          ) : (
+            <Box pb={4}>
+              <TransactionHistory transactions={transactionCoin} />
+            </Box>
+          )
+        ) : (
+          <InviteToLogin />
+        )}
+      </Stack>
+    </MotionStack>
   );
 };
