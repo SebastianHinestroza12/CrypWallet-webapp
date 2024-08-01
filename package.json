@@ -20,7 +20,7 @@
     "@iconify/react": "^5.0.1",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
-    "framer-motion": "^11.2.10",
+    "framer-motion": "^11.3.19",
     "i18next": "^23.11.5",
     "numeral": "^2.0.6",
     "react": "^18.2.0",
