@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, memo, useMemo } from 'react';
+import { useState, useMemo, useLayoutEffect } from 'react';
 import { Box, Flex, Image, Text, Icon, useColorModeValue } from '@chakra-ui/react';
 import { CryptoCompareData, WalletsIProps } from '../../interfaces';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ import { motion } from 'framer-motion';
 
 const MotionFlex = motion(Flex);
 
-export const ListCryptocurrencies = memo(() => {
+export const ListCryptocurrencies = () => {
   const { switchStates } = useSwitchStore();
   const { isDataVisible, setTotalCash, setSymbol, setTotalPercentaje, setIsPositive } =
     useStoreVisibilityData();
@@ -25,7 +25,11 @@ export const ListCryptocurrencies = memo(() => {
   const bgColor = useColorModeValue('gray.700', 'gray.500');
   const { currentWallet, isAuthenticated } = useStoreAutheticated();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (!currentCrypto.length || !Object.keys(switchStates).length) {
+      return;
+    }
+
     const convertObjectToArray = Object.entries(switchStates);
     const filteredCryptocurrencies = currentCrypto.filter((data) => {
       return convertObjectToArray.some((item) => {
@@ -33,10 +37,10 @@ export const ListCryptocurrencies = memo(() => {
       });
     });
     setShowCrypto(filteredCryptocurrencies);
-  }, [switchStates]);
+  }, [switchStates, currentCrypto]);
 
-  useEffect(() => {
-    if (!isAuthenticated) {
+  useLayoutEffect(() => {
+    if (!isAuthenticated || !showCrypto.length) {
       return;
     }
 
@@ -137,4 +141,4 @@ export const ListCryptocurrencies = memo(() => {
       ))}
     </Flex>
   );
-});
+};
