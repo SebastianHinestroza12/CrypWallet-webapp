@@ -174,7 +174,7 @@ export const UserLogIn: React.FC = () => {
                 ) : null}
               </FormErrorMessage>
             </FormControl>
-            <Text align={'center'}>Ingrese el código de acceso</Text>
+            <Text align={'center'}>Ingrese su contraseña</Text>
             <FormControl>
               <Center>
                 <HStack>
@@ -205,7 +205,7 @@ export const UserLogIn: React.FC = () => {
               </Center>
             </FormControl>
             <Text textAlign={'center'} color={'gray.600'}>
-              El código de acceso añade una capa adicional de seguridad al usar la aplicación.
+              La contraseña asegura el acceso a su cuenta.
             </Text>
             <Box>
               <NumericKeypad

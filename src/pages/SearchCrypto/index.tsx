@@ -25,13 +25,13 @@ export const SearchCrypto = () => {
       <Box>
         {crypto.map((data, index) => (
           <MotionBox
+            key={data.CoinInfo.Id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.1 }}
           >
             <ListCrypto
               showSwitches={false}
-              key={data.CoinInfo.Id}
               cryptocurrency={data}
               isCursorPointer
               onClick={() =>

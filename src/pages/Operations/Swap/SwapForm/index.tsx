@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
-  Box,
   Button,
   Heading,
   Stack,
@@ -288,11 +287,11 @@ export const SwapForm = () => {
   };
 
   return (
-    <Box>
-      <Heading as="h3" size="lg" textAlign="center" mb={5}>
+    <Stack maxW={'600px'} mx={'auto'} spacing={10}>
+      <Heading as="h3" size="lg" textAlign="center">
         Swap
       </Heading>
-      <Stack my={7} spacing={3}>
+      <Stack spacing={3}>
         <SwapItem
           title="from"
           needToBuy={showBuy}
@@ -327,7 +326,13 @@ export const SwapForm = () => {
           showSwapIcon
         />
       </Stack>
-      <FormControl isInvalid={!!error}>
+      <FormControl
+        isInvalid={!!error}
+        display={'flex'}
+        flexDirection={'column'}
+        justifyContent={'center'}
+        alignItems={'center'}
+      >
         {error && <FormErrorMessage mb={3}>{error}</FormErrorMessage>}
         <Button
           isDisabled={disableButton || !!error}
@@ -391,6 +396,6 @@ export const SwapForm = () => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-    </Box>
+    </Stack>
   );
 };

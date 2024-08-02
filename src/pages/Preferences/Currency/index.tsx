@@ -16,6 +16,7 @@ export const Currency = () => {
   const [currencies, setCurrencies] = useState<PreferenceListData[]>(CURRENCIES);
   const { currency, setCurrency } = useStoreCrypto();
   const navigation = useNavigate();
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value: textValue } = event.target;
     const lowerCaseTextValue = textValue.toLowerCase();

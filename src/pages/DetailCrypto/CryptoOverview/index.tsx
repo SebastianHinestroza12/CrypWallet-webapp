@@ -109,7 +109,7 @@ const CryptoOverview = () => {
   const handleToggle = () => setIsExpanded((prev) => !prev);
 
   const isPositive = infoCrypto?.RAW?.[currency]?.CHANGEPCT24HOUR > 0;
-  const chartDataCrypto = chartData(priceData, isPositive, currency);
+  const chartDataCrypto = chartData(priceData, isPositive);
   const chartOptionsCrypto = chartOptions(infoCrypto);
   const BG = useColorModeValue('gray.200', '#171717');
   const TEXT_COLOR = useColorModeValue('gray.700', 'gray.300');
