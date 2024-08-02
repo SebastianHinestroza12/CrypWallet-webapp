@@ -7,6 +7,7 @@ import { useStoreAutheticated } from '../../../stores/authentication';
 import { ROUTES } from '../../../constants';
 import { InviteToLogin } from '../../../components/InviteToLogin';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
+import { useTranslation } from 'react-i18next';
 
 export const SwapList = () => {
   const { currency, currentCrypto } = useStoreCrypto();
@@ -20,12 +21,13 @@ export const SwapList = () => {
   const origin = searchUrl.get('origin');
   const sendParam = origin ?? 'from';
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
       {isAuthenticated ? (
         <Stack spacing={8}>
-          <SearchBar handleChange={handleChange} title="swap" />
+          <SearchBar handleChange={handleChange} title={t('search.title_swap')} />
           <Box>
             {crypto.map((data) => (
               <ListCrypto

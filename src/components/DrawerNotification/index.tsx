@@ -16,10 +16,12 @@ import { Icon } from '@iconify/react';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { TransactionHistory } from '../TransactionHistory';
 import bell from '../../assets/bell-animate.svg';
+import { useTranslation } from 'react-i18next';
+
 export const DrawerNotification = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bg = useColorModeValue('gray.100', '#171717');
-
+  const { t } = useTranslation();
   const { sendNotifications } = useStoreAutheticated();
 
   return (
@@ -35,7 +37,9 @@ export const DrawerNotification = () => {
         <DrawerOverlay />
         <DrawerContent bg={bg}>
           <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px">Notifications</DrawerHeader>
+          <DrawerHeader borderBottomWidth="1px" textTransform={'capitalize'}>
+            {t('notifications.title')}
+          </DrawerHeader>
           <DrawerBody>
             {sendNotifications.length > 0 ? (
               <Stack spacing={3}>
@@ -45,9 +49,9 @@ export const DrawerNotification = () => {
               <Stack spacing={3} align="center" justify="center" height="100%">
                 <Icon icon="mdi:bell-off-outline" width={50} height={50} />
                 <Text fontSize="lg" fontWeight="bold">
-                  No notifications yet
+                  {t('notifications.empty_notification_text_one')}
                 </Text>
-                <Text>You're all caught up!</Text>
+                <Text>{t('notifications.empty_notification_text_two')}</Text>
               </Stack>
             )}
           </DrawerBody>

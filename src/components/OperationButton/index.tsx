@@ -8,6 +8,7 @@ import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { useToastNotification } from '../../hooks/useToastNotification';
 import { useStorePaymentMethods } from '../../stores/paymentMethods';
+import { useTranslation } from 'react-i18next';
 
 interface OperationIProps {
   crypto?: CryptoCompareData;
@@ -22,6 +23,7 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
   const { displayToast } = useToastNotification();
   const pathLocation = location.pathname.includes('/detail');
   const { setPaymentMethods } = useStorePaymentMethods();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (pathLocation) {
@@ -46,55 +48,55 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
 
     if (crypto && pathLocation) {
       switch (text) {
-        case 'send': {
-          const coinCrypto = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
+      case 'send': {
+        const coinCrypto = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
 
-          if (coinCrypto && coinCrypto > 0) {
-            navigate(ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO, {
-              state: {
-                crypto,
-                maxAmount: calculateMounters(crypto),
-                symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
-              },
-            });
-          } else {
-            displayToast('Atención', 'Saldo insuficiente.', 'warning', 2000);
-          }
-          return;
-        }
-
-        case 'receive': {
-          navigate(ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO, {
+        if (coinCrypto && coinCrypto > 0) {
+          navigate(ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO, {
             state: {
               crypto,
+              maxAmount: calculateMounters(crypto),
               symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
             },
           });
-          return;
+        } else {
+          displayToast('Atención', 'Saldo insuficiente.', 'warning', 2000);
         }
+        return;
+      }
 
-        case 'buy': {
-          setPaymentMethods('stripe');
-          navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
-            state: {
-              crypto,
-              symbol: crypto.DISPLAY?.[currency]?.TOSYMBOL,
-            },
-          });
-          return;
-        }
-        case 'swap': {
-          navigate(`${ROUTES.TRANSACTION_SWAP}?origin=from`, {
-            state: {
-              crypto,
-              symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
-            },
-          });
-          return;
-        }
+      case 'receive': {
+        navigate(ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO, {
+          state: {
+            crypto,
+            symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
+          },
+        });
+        return;
+      }
 
-        default:
-          break;
+      case 'buy': {
+        setPaymentMethods('stripe');
+        navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
+          state: {
+            crypto,
+            symbol: crypto.DISPLAY?.[currency]?.TOSYMBOL,
+          },
+        });
+        return;
+      }
+      case 'swap': {
+        navigate(`${ROUTES.TRANSACTION_SWAP}?origin=from`, {
+          state: {
+            crypto,
+            symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
+          },
+        });
+        return;
+      }
+
+      default:
+        break;
       }
     }
 
@@ -117,8 +119,13 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
             >
               <Icon as={icon} boxSize={{ base: 8, md: 9 }} color={'#FFF'} />
             </Button>
-            <Text textTransform={'capitalize'} textAlign={'center'}>
-              {text}
+            <Text
+              textTransform={'capitalize'}
+              textAlign={'center'}
+              whiteSpace="normal"
+              wordBreak="break-word"
+            >
+              {t(`home.operations.${text}`)}
             </Text>
           </Flex>
         ))}

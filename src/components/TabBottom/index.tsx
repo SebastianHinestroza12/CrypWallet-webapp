@@ -1,6 +1,7 @@
 import { Box, Flex, IconButton, Icon, Text, useColorModeValue } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TABS_BOTTOM } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export const TabBottomMobile = () => {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ export const TabBottomMobile = () => {
   const handleTabClick = (path: string) => {
     navigate(path);
   };
+  const { t } = useTranslation();
 
   const getIconColor = (path: string) => {
     if (location.pathname === path) {
@@ -38,8 +40,8 @@ export const TabBottomMobile = () => {
               aria-label={tab.label}
               variant="ghot"
             />
-            <Text fontSize="small" color={getIconColor(tab.path)}>
-              {tab.label}
+            <Text fontSize="small" color={getIconColor(tab.path)} textTransform={'capitalize'}>
+              {t(`tab_botton.${tab.label}`)}
             </Text>
           </Flex>
         ))}

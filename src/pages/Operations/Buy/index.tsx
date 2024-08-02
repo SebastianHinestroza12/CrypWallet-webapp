@@ -9,6 +9,7 @@ import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { useMemo } from 'react';
 import { CryptoCompareData, WalletsIProps } from '../../../interfaces';
 import { formatChange, formatCurrency } from '../../../utils';
+import { useTranslation } from 'react-i18next';
 
 export const BuyList = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ export const BuyList = () => {
   );
   const BG_COLOR = useColorModeValue('gray.200', '#171717');
   const textColor = useColorModeValue('gray.700', 'gray.500');
+  const { t } = useTranslation();
 
   const renderCryptoAmountAndValue = useMemo(() => {
     return (crypto: CryptoCompareData, currentWallet: WalletsIProps, currency: string) => {
@@ -49,9 +51,11 @@ export const BuyList = () => {
     <>
       {isAuthenticated ? (
         <Stack spacing={6}>
-          <SearchBar handleChange={handleChange} title="buy" />
+          <SearchBar handleChange={handleChange} title={t('search.title_buy')} />
           <Box>
-            <Text mb={2}>Popular</Text>
+            <Text mb={2} textTransform={'capitalize'}>
+              {t('search.popular')}
+            </Text>
             <Flex justifyContent={'space-between'}>
               {filterMorePopuplar.map((data) => (
                 <Flex
@@ -94,7 +98,7 @@ export const BuyList = () => {
 
           <Box>
             <Box mb={3}>
-              <Text textTransform={'capitalize'}>all crypto</Text>
+              <Text textTransform={'capitalize'}>{t('search.all_crypto')}</Text>
             </Box>
             {crypto.map((data) => (
               <Flex

@@ -3,27 +3,33 @@ import { Icon } from '@iconify/react';
 import { useSecurityStore } from '../../stores/security';
 import { ROUTES } from '../../constants';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const SecurityList = () => {
   const { isPassCodeEnabled, togglePassCode } = useSecurityStore();
   const BG = useColorModeValue('gray.200', '#151515');
   const navigation = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box>
       <Heading as="h1" mb={6} textAlign="center">
-        Security Options
+        {t('security_manager.security_list.title')}
       </Heading>
       <Stack spacing={4}>
         {[
-          { text: 'Safe Words', icon: 'carbon:view-filled', route: ROUTES.SECURUTY_SECRET_WORDS },
           {
-            text: 'Change Password',
+            text: t('security_manager.security_list.title_safe_words'),
+            icon: 'carbon:view-filled',
+            route: ROUTES.SECURUTY_SECRET_WORDS,
+          },
+          {
+            text: t('security_manager.security_list.title_change_password'),
             icon: 'ic:sharp-change-circle',
             route: ROUTES.SECURUTY_CHANGE_PASSWORD,
           },
           {
-            text: 'Pass Code',
+            text: t('security_manager.security_list.title_passcode'),
             component: (
               <Switch
                 isChecked={isPassCodeEnabled}

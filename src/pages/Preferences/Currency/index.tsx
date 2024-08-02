@@ -7,6 +7,7 @@ import { PreferenceListData } from '../../../interfaces';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const MotionFlex = motion(Flex);
 
@@ -16,6 +17,7 @@ export const Currency = () => {
   const [currencies, setCurrencies] = useState<PreferenceListData[]>(CURRENCIES);
   const { currency, setCurrency } = useStoreCrypto();
   const navigation = useNavigate();
+  const { t } = useTranslation();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value: textValue } = event.target;
@@ -42,8 +44,8 @@ export const Currency = () => {
       </Box>
       <Stack direction={'column'} spacing={4}>
         <Flex justifyContent="space-between" alignItems="center">
-          <Text size="xs" color={'gray.500'}>
-            Popular
+          <Text size="xs" color={'gray.500'} textTransform={'capitalize'}>
+            {t('preferences.currency_list.title')}
           </Text>
           <IconButton
             icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
@@ -73,7 +75,7 @@ export const Currency = () => {
                 <Icon icon={currencie.icon} width={30} />
               </Box>
               <Text>
-                {currencie.code} - {currencie.name}
+                {currencie.code} - {t(`preferences.currency_list.${currencie.code}`)}
               </Text>
             </Box>
             <Box>

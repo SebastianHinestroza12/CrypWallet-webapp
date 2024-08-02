@@ -15,6 +15,7 @@ import { useState, FC } from 'react';
 import { UseFormRegister, FieldErrors, SubmitHandler, FieldValues } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 interface RegistrationFormProps {
   handleSubmit: any;
@@ -32,28 +33,29 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
   handleRegister,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <form onSubmit={handleSubmit(handleRegister)}>
       <Stack spacing={4}>
         <FormControl isInvalid={!!errors.name} id="name" isRequired>
-          <FormLabel>Nombre</FormLabel>
+          <FormLabel>{t('sign_up.form.label_name')}</FormLabel>
           <Input
             type="text"
             id="name"
             {...register('name', {
-              required: 'El nombre es obligatorio',
+              required: t('sign_up.form.validate_input.name_last_name.required'),
               minLength: {
                 value: 3,
-                message: 'Mínimo 3 caracteres',
+                message: t('sign_up.form.validate_input.name_last_name.min_length'),
               },
               maxLength: {
                 value: 20,
-                message: 'Máximo 20 caracteres',
+                message: t('sign_up.form.validate_input.name_last_name.max_length'),
               },
               pattern: {
                 value: /^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$/,
-                message: 'Solo se permiten letras y no se permiten espacios en blanco.',
+                message: t('sign_up.form.validate_input.name_last_name.pattern'),
               },
             })}
           />
@@ -64,23 +66,23 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.lastName} id="lastName" isRequired>
-          <FormLabel>Apellido</FormLabel>
+          <FormLabel>{t('sign_up.form.label_last_name')}</FormLabel>
           <Input
             type="text"
             id="lastName"
             {...register('lastName', {
-              required: 'El apellido es obligatorio',
+              required: t('sign_up.form.validate_input.name_last_name.required'),
               minLength: {
                 value: 3,
-                message: 'Mínimo 3 caracteres',
+                message: t('sign_up.form.validate_input.name_last_name.min_length'),
               },
               maxLength: {
                 value: 20,
-                message: 'Máximo 20 caracteres',
+                message: t('sign_up.form.validate_input.name_last_name.max_length'),
               },
               pattern: {
                 value: /^[a-zA-ZÀ-ÿ]+(?: [a-zA-ZÀ-ÿ]+)*$/,
-                message: 'Solo se permiten letras y no se permiten espacios en blanco.',
+                message: t('sign_up.form.validate_input.name_last_name.pattern'),
               },
             })}
           />
@@ -91,15 +93,15 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.email} id="email" isRequired>
-          <FormLabel>Correo electrónico</FormLabel>
+          <FormLabel>{t('sign_up.form.label_email')}</FormLabel>
           <Input
             type="email"
             id="email"
             {...register('email', {
-              required: 'El correo electrónico es obligatorio',
+              required: t('sign_up.form.validate_input.email.required'),
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: 'No es un correo electrónico válido',
+                message: t('sign_up.form.validate_input.email.pattern'),
               },
             })}
           />
@@ -110,24 +112,24 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
           </FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.password} id="password" isRequired>
-          <FormLabel>Contraseña</FormLabel>
+          <FormLabel>{t('sign_up.form.label_password')}</FormLabel>
           <InputGroup>
             <Input
-              placeholder="Contraseña de 6 dígitos numéricos"
+              placeholder={t('sign_up.form.validate_input.password.placeholder')}
               type={showPassword ? 'text' : 'password'}
               {...register('password', {
-                required: 'La contraseña es obligatoria',
+                required: t('sign_up.form.validate_input.password.required'),
                 minLength: {
                   value: 6,
-                  message: 'La contraseña debe tener exactamente 6 dígitos',
+                  message: t('sign_up.form.validate_input.password.length'),
                 },
                 maxLength: {
                   value: 6,
-                  message: 'La contraseña debe tener exactamente 6 dígitos',
+                  message: t('sign_up.form.validate_input.password.length'),
                 },
                 pattern: {
                   value: /^\d{6}$/,
-                  message: 'La contraseña debe contener exactamente 6 dígitos numéricos',
+                  message: t('sign_up.form.validate_input.password.pattern'),
                 },
               })}
             />
@@ -159,14 +161,14 @@ export const RegistrationForm: FC<RegistrationFormProps> = ({
             size={{ base: 'md', md: 'lg' }}
             mx={2}
           >
-            Registrarme
+            {t('sign_up.form.button_sign_up')}
           </Button>
         </Stack>
         <Stack pt={5}>
           <Text align={'center'}>
-            ¿Ya eres usuario?{' '}
+            {t('sign_up.form.is_existing')}{' '}
             <Link to={ROUTES.USER_SIGNIN}>
-              <Text as="b"> Inicia sesión</Text>
+              <Text as="b">{t('sign_up.form.sing_in')}</Text>
             </Link>
           </Text>
         </Stack>

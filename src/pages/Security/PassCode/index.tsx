@@ -15,6 +15,7 @@ import { NumericKeypad } from '../../../components/NumericKeypad';
 import { useStoreAutheticated } from '../../../stores/authentication';
 import { AuthService } from '../../../services/auth.service';
 import { usePinInput } from '../../../hooks/usePinInput';
+import { useTranslation } from 'react-i18next';
 
 interface PassCodePromptProps {
   onSuccess: () => void;
@@ -24,6 +25,7 @@ export const PassCode: FC<PassCodePromptProps> = ({ onSuccess }) => {
   const {
     authenticatedUser: { email },
   } = useStoreAutheticated();
+  const { t } = useTranslation();
 
   const {
     pin,
@@ -62,7 +64,7 @@ export const PassCode: FC<PassCodePromptProps> = ({ onSuccess }) => {
         <Box>
           <Stack spacing={4}>
             <Heading fontSize={'3xl'} textAlign={'center'}>
-              Enter passcode
+              {t('security_manager.pass_code.title')}
             </Heading>
             <FormControl>
               <Center>
@@ -93,7 +95,7 @@ export const PassCode: FC<PassCodePromptProps> = ({ onSuccess }) => {
               </Center>
             </FormControl>
             <Text textAlign={'center'} color={'gray.500'}>
-              El código de acceso añade una capa adicional de seguridad al usar la aplicación.
+              {t('security_manager.pass_code.description')}
             </Text>
             <Box>
               <NumericKeypad

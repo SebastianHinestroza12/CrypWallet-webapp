@@ -11,7 +11,7 @@ export const AppLanguage = () => {
   const BG_COLOR = useColorModeValue('gray.100', '#171717');
   const BG = useColorModeValue('gray.200', '#151515');
   const navigation = useNavigate();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const handleChangeLanguage = (language: string) => {
     i18n.changeLanguage(language);
@@ -21,7 +21,7 @@ export const AppLanguage = () => {
     <Box>
       <Stack direction={'column'} spacing={3}>
         <Flex justifyContent="space-between" alignItems="center" mb={4}>
-          <Heading size="md">Languages</Heading>
+          <Heading size="md">{t('preferences.language_list.title')}</Heading>
           <IconButton
             icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
             variant="outline"
@@ -45,7 +45,7 @@ export const AppLanguage = () => {
           >
             <Box key={language.code} display="flex" alignItems="center">
               <Icon icon={language.icon} width="24" height="24" style={{ marginRight: '9px' }} />
-              <Text>{language.name}</Text>
+              <Text>{t(`preferences.language_list.${language.code}`)}</Text>
             </Box>
             <Box>
               {i18n.language === language.code && (

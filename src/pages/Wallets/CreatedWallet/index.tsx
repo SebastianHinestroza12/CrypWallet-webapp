@@ -19,6 +19,7 @@ import { useStoreAutheticated } from '../../../stores/authentication';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 import { useToastNotification } from '../../../hooks/useToastNotification';
+import { useTranslation } from 'react-i18next';
 
 export const CreateWallet: React.FC = () => {
   const {
@@ -27,6 +28,7 @@ export const CreateWallet: React.FC = () => {
   } = useStoreAutheticated();
   const { displayToast } = useToastNotification();
   const navigation = useNavigate();
+  const { t } = useTranslation();
 
   const {
     register,
@@ -45,8 +47,8 @@ export const CreateWallet: React.FC = () => {
       if (status === 201) {
         //Mensaje de exitó
         displayToast(
-          'Wallet created successfully',
-          'El wallet ha sido creado correctamente.',
+          t('wallet_page.wallet_create.alert_create.alert_one.title'),
+          t('wallet_page.wallet_create.alert_create.alert_one.description'),
           'success',
           2000,
         );
@@ -60,7 +62,11 @@ export const CreateWallet: React.FC = () => {
         }, 2000);
       }
     } catch (error) {
-      displayToast('Error creating wallet', 'Hubo un problema al crear el wallet.', 'error');
+      displayToast(
+        t('wallet_page.wallet_create.alert_create.alert_two.title'),
+        t('wallet_page.wallet_create.alert_create.alert_two.description'),
+        'error',
+      );
     }
   };
 
@@ -75,7 +81,7 @@ export const CreateWallet: React.FC = () => {
       boxShadow="md"
     >
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
-        <Heading size="md">Creación de Wallet</Heading>
+        <Heading size="md">{t('wallet_page.wallet_create.title')}</Heading>
         <IconButton
           icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
           variant="outline"
@@ -86,11 +92,11 @@ export const CreateWallet: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.name} mb="4">
           <FormLabel htmlFor="name" display={'flex'} alignItems={'center'}>
-            <Text>Wallet Name</Text>
+            <Text>{t('wallet_page.wallet_create.label_name')}</Text>
           </FormLabel>
           <Input
             id="name"
-            placeholder="Enter wallet name"
+            placeholder={t('wallet_page.wallet_create.placeholder')}
             {...register('name', { required: 'Wallet name is required' })}
           />
           <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
@@ -104,7 +110,7 @@ export const CreateWallet: React.FC = () => {
           isLoading={isSubmitting}
         >
           <Icon icon="mdi:wallet-plus" style={{ marginRight: '8px' }} color="#FFF" />
-          <Text color={'#FFF'}>Create Wallet</Text>
+          <Text color={'#FFF'}>{t('wallet_page.wallet_create.button_create')}</Text>
         </Button>
       </form>
     </Box>

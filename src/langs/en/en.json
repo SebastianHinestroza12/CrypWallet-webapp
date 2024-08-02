@@ -5,10 +5,431 @@
     "manager_crypto": "Manage crypto",
     "operations": {
       "buy": "buy",
-      "sell": "sell",
+      "swap": "swap",
       "send": "send",
       "receive": "receive",
       "history": "history"
     }
+  },
+  "search": {
+    "placeholder": "Search...",
+    "title_search": "search",
+    "title_manage_crypto": "manage crypto",
+    "title_receive": "receive",
+    "title_buy": "buy",
+    "title_send": "send",
+    "title_swap": "swap",
+    "all_crypto": "all crypto",
+    "popular": "popular"
+  },
+  "history": {
+    "title": "operation summary"
+  },
+  "notifications": {
+    "title": "notifications",
+    "empty_notification_text_one": "No notifications yet",
+    "empty_notification_text_two": "You're all caught up!"
+  },
+  "tab_botton": {
+    "home": "home",
+    "search": "search",
+    "preferences": "preferences",
+    "profile": "profile"
+  },
+  "profile": {
+    "title": "Profile",
+    "sign_out": "Sign out",
+    "sign_in": "Sign in",
+    "change_picture": "change picture",
+    "input_name": "Name",
+    "input_last_name": "Last name",
+    "input_email": "Email address",
+    "button_save": "Save",
+    "alert_profile": {
+      "upload_image": {
+        "alert_one": {
+          "title": "Error uploading image",
+          "description_one": "The files could not be accessed. Please try again.",
+          "description_two": "No file was selected. Please select a file and try again."
+        },
+        "alert_two": {
+          "title": "Image uploaded successfully",
+          "description": "Your avatar image has been successfully updated."
+        },
+        "alert_three": {
+          "title": "Error uploading image",
+          "description": "There was a problem uploading your avatar image."
+        }
+      },
+      "on_submit": {
+        "alert_one": {
+          "title": "Attention",
+          "description": "The values ​​have not changed."
+        },
+        "alert_two": {
+          "title": "Successful update",
+          "description": "The user's data has been updated correctly."
+        },
+        "alert_three": {
+          "title": "Error updating data",
+          "description": "There was a problem updating the user's data."
+        }
+      },
+      "remove_avatar": {
+        "alert_one": {
+          "title": "Attention",
+          "description": "You cannot delete the default avatar image."
+        }
+      },
+      "confirm_remove": {
+        "alert_one": {
+          "title": "Success",
+          "description": "Image removed successfully."
+        }
+      }
+    },
+    "overlay_dialog": {
+      "text_header": "Delete Avatar",
+      "text_body": "Are you sure you want to delete your profile picture?",
+      "button_confirm": "Delete",
+      "button_cancel": "Cancel"
+    }
+  },
+  "splashscreen": {
+    "title": "Your secure multi-coin wallet"
+  },
+  "landing_page": {
+    "title_text_one": "your cryptocurrency wallet",
+    "title_text_two": "easy and safe",
+    "description": "Never miss a transaction. Keep control of your cryptocurrencies and receive Smart notifications at the right times. Manage your “Daily Agenda” cryptocurrencies every morning.",
+    "button_start": "Get Started",
+    "button_learn_more": "Learn More"
+  },
+  "menu": {
+    "home": "home",
+    "wallets": "wallets",
+    "dark_mode": "dark mode",
+    "preferences": "preferences",
+    "manage_crypto": "manage crypto",
+    "search": "search",
+    "security": "security",
+    "register": "register",
+    "log_out": "log out",
+    "recover_account": "recover account",
+    "about": "about",
+    "install_app": "install app"
+  },
+  "wallet_page": {
+    "wallet_list": {
+      "title": "Wallets",
+      "description": "multi-coin wallet"
+    },
+    "wallet_create": {
+      "title": "Create a new wallet",
+      "label_name": "Wallet Name",
+      "placeholder": "Enter wallet name",
+      "button_create": "Create Wallet",
+      "alert_create": {
+        "alert_one": {
+          "title": "Wallet created successfully",
+          "description": "The wallet has been created correctly."
+        },
+        "alert_two": {
+          "title": "Error creating wallet",
+          "description": "There was a problem creating the wallet."
+        }
+      }
+    },
+    "wallet_edit": {
+      "title": "Edit Wallet",
+      "label_name": "Wallet Name",
+      "placeholder": "Enter wallet name",
+      "label_address": "Wallet Address",
+      "button_save": "Save",
+      "button_delete": "Delete",
+      "alert_wallet": {
+        "alert_one": {
+          "title": "Wallet updated successfully"
+        },
+        "alert_two": {
+          "title": "Error creating wallet"
+        },
+        "alert_three": {
+          "title": "You cannot delete the current wallet."
+        },
+        "alert_four": {
+          "title": "Wallet deleted."
+        },
+        "alert_five": {
+          "title": "Error deleting wallet"
+        },
+        "alert_six": {
+          "title": "Address copied to clipboard."
+        }
+      }
+    }
+  },
+  "preferences": {
+    "preference_list": {
+      "title": "Preferences",
+      "title_currency": "Currency",
+      "title_language": "Language"
+    },
+    "currency_list": {
+      "title": "Popular currency",
+      "description": "Select your preferred currency",
+      "USD": "US Dollar",
+      "EUR": "Euro",
+      "JPY": "Japanese Yen",
+      "GBP": "British Pound",
+      "AUD": "Australian Dollar",
+      "CAD": "Canadian Dollar",
+      "CHF": "Swiss Franc",
+      "NZD": "New Zealand Dollar",
+      "MXN": "Mexican Peso",
+      "SGD": "Singapore Dollar",
+      "KRW": "South Korean Won",
+      "TRY": "Turkish Lira",
+      "INR": "Indian Rupee",
+      "BRL": "Brazilian Real",
+      "RUB": "Russian Ruble",
+      "ZAR": "South African Rand",
+      "COP": "Colombian Peso",
+      "PLN": "Polish Zloty",
+      "THB": "Thai Baht",
+      "IDR": "Indonesian Rupiah",
+      "CZK": "Czech Koruna",
+      "ILS": "Israeli Shekel",
+      "PHP": "Philippine Peso",
+      "AED": "Emirati Dirham",
+      "MYR": "Malaysian Ringgit",
+      "RON": "Romanian Leu",
+      "ARS": "Argentine Peso",
+      "NGN": "Nigerian Naira"
+    },
+    "language_list": {
+      "title": "Languages",
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "it": "Italian",
+      "de": "German",
+      "ru": "Russian",
+      "zh": "Chinese"
+    }
+  },
+  "security_manager": {
+    "pass_code": {
+      "title": "Enter passcode",
+      "description": "The passcode adds an extra layer of security when using the app."
+    },
+    "security_list": {
+      "title": "Security Options",
+      "title_passcode": "Passcode",
+      "title_change_password": "Change Password",
+      "title_safe_words": "Safe Words"
+    },
+    "safe_words": {
+      "title": "Safe Words",
+      "description": "These are your keywords. Do not share them with anyone for security reasons."
+    },
+    "change_password": {
+      "title": "Enter New Password",
+      "description": "The passcode adds an extra layer of security when using the app."
+    }
+  },
+  "recover_account": {
+    "step_one": {
+      "title": "Verifying your account",
+      "description": "Enter your email to check if you have an existing account.",
+      "button_ok": "Verify account",
+      "alert_step": {
+        "alert_one": {
+          "title": "Success",
+          "description": "Verification code sent to your email."
+        },
+        "alert_two": {
+          "title": "Server error",
+          "description": "Please try again later."
+        },
+        "alert_three": {
+          "title": "Mistake",
+          "description": "An account was not found associated with this email."
+        },
+        "alert_four": {
+          "title": "Mistake",
+          "description": "There was a problem generating the verification code."
+        }
+      },
+      "validation_step": {
+        "email": "Email is required",
+        "email_message": "Invalid email"
+      }
+    },
+    "step_two": {
+      "title": "Verify OTP Code",
+      "description": "Enter the OTP code sent to your email for verification."
+    },
+    "step_three": {
+      "title": "We will proceed to verify your safe words",
+      "description": "Enter the 12 safe words in the same order in which they were given to you.",
+      "placeholder": "Safe word",
+      "button_check": "Verify",
+      "validate_input": {
+        "safe_words": "You have now added 12 words. Proceed to verify them.",
+        "safe_words_message": "You must enter exactly 12 words."
+      },
+      "alert_step": {
+        "alert_one": {
+          "title": "Success",
+          "description": "Safewords verified correctly."
+        },
+        "alert_two": {
+          "title": "Server error",
+          "description": "Please try again later."
+        },
+        "alert_three": {
+          "title": "Wrong wordse",
+          "description": "The words entered do not match. Remember to enter them in the same order in which they were given to you."
+        }
+      }
+    },
+    "step_four": {
+      "title": "Account verified successfully! You can now change your password.",
+      "alert_step": {
+        "alert_one": {
+          "title": "Password changed successfully.",
+          "description": "Please log in again."
+        },
+        "alert_two": {
+          "title": "Error changing password.",
+          "description": "Please try again."
+        }
+      }
+    }
+  },
+  "about": {
+    "title": "About Cryp Wallet",
+    "badge": {
+      "badge_one": {
+        "text_one": "Crypto",
+        "text_two": "Security",
+        "text_three": "Finance"
+      },
+      "badge_two": {
+        "text_one": "Crypto",
+        "text_two": "Management"
+      },
+      "badge_three": {
+        "text_one": "Security",
+        "text_two": "Transactions"
+      }
+    },
+    "section_one": {
+      "title": "Cryp Wallet: Your Trusted Crypto Wallet",
+      "description": "Founded in 2024 by Sebastian Mena Hinestroza, CrypWallet is a progressive application (PWA) that allows users to manage, buy, sell, transfer and receive a wide variety of cryptocurrencies safely and efficiently."
+    },
+    "section_two": {
+      "title": "Why Choose CrypWallet?",
+      "description": "At CrypWallet, we take the security of your account and our clients' money very seriously. users. We offer:",
+      "list_one": "Multiple cryptocurrencies support",
+      "list_two": "Secure and private wallets",
+      "list_three": "Real-time price updates",
+      "list_four": "Easy to use interface"
+    },
+    "section_three": {
+      "container_one": {
+        "title": "Manage Your Cryptocurrencies",
+        "description": "With CrypWallet, you can manage all your cryptocurrencies in one place, with total safety and ease."
+      },
+      "container_two": {
+        "title": "Secure Transactions",
+        "description": "Carry out transactions of purchase, sale, transfer and receipt of cryptocurrencies quickly and securely with CrypWallet."
+      }
+    }
+  },
+  "download_app": {
+    "title": "No installation prompt",
+    "description": "Your browser does not support the installation prompt."
+  },
+  "footer": {
+    "duty": "All rights reserved."
+  },
+  "sign_in": {
+    "title": "Sign In",
+    "placeholder": "Enter email",
+    "enter_password": "Enter your password",
+    "description": "The password secures access to your account.",
+    "text_recover": "¿Did you forget your password?",
+    "text_signin_one": "¿You do not have an account?",
+    "text_signin_two": "Create an account",
+    "alert_sign_in": {
+      "alert_one": {
+        "title": "Server error",
+        "description": "Please try again later."
+      },
+      "alert_two": {
+        "title": "Account disabled",
+        "description": "Your account has been disabled due to multiple failed login attempts. Please try to recover your account to restore access."
+      },
+      "alert_three": {
+        "title": "Authentication Error",
+        "description": "The user is not registered. Please verify your information and try again."
+      }
+    },
+    "validation_sign_in": {
+      "email": "Email is required",
+      "email_message": "It is not a valid mail"
+    }
+  },
+  "sign_up": {
+    "title": "Sign Up",
+    "form": {
+      "label_name": "Name",
+      "label_last_name": "Last Name",
+      "label_email": "Email",
+      "label_password": "Password",
+      "button_sign_up": "Register",
+      "is_existing": "¿You are already a user?",
+      "sing_in": "Sign In",
+      "validate_input": {
+        "name_last_name": {
+          "required": "Is required",
+          "min_length": "Minimum 3 characters",
+          "max_length": "Maximum 20 characters",
+          "pattern": "Only letters are allowed and no white spaces are allowed."
+        },
+        "email": {
+          "required": "Email is required",
+          "pattern": "It is not a valid email"
+        },
+        "password": {
+          "required": "Password is required",
+          "length": "Password must be exactly 6 digits",
+          "pattern": "The password must contain exactly 6 numerical digits",
+          "placeholder": "6 digit numeric password"
+        }
+      }
+    },
+    "alert_sign_up": {
+      "alert_one": {
+        "title": "Successful registration",
+        "welcome_message": "¡Bienvenido {{name}}!"
+      },
+      "alert_two": {
+        "title": "Server error",
+        "description": "Please try again later."
+      },
+      "alert_three": {
+        "title": "Registration error",
+        "description": "A user with this email address already exists."
+      }
+    },
+    "modal_safe_words": {
+      "title": "Safety Words",
+      "description": "Next, we will provide you with the passwords for your account. These words are crucial for recovering your account in case you need it. To ensure the security of your account, we strongly recommend that you keep these words in a safe place and do not share them with anyone under any circumstances.",
+      "button_ok": "Understood"
+    }
   }
 }
+

@@ -17,6 +17,7 @@ import { usePinInput } from '../../../hooks/usePinInput';
 import { useToastNotification } from '../../../hooks/useToastNotification';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
+import { useTranslation } from 'react-i18next';
 
 export const ChangePassword = () => {
   const {
@@ -25,6 +26,7 @@ export const ChangePassword = () => {
   } = useStoreAutheticated();
   const { displayToast } = useToastNotification();
   const navigation = useNavigate();
+  const { t } = useTranslation();
 
   const {
     pin,
@@ -65,7 +67,7 @@ export const ChangePassword = () => {
         <Box>
           <Stack spacing={4}>
             <Heading fontSize={'3xl'} textAlign={'center'}>
-              Enter New Password
+              {t('security_manager.change_password.title')}
             </Heading>
             <FormControl>
               <Center>
@@ -95,7 +97,7 @@ export const ChangePassword = () => {
               </Center>
             </FormControl>
             <Text textAlign={'center'} color={'gray.500'}>
-              El código de acceso añade una capa adicional de seguridad al usar la aplicación.
+              {t('security_manager.change_password.description')}
             </Text>
             <Box>
               <NumericKeypad

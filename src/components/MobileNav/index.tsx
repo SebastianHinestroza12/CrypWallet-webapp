@@ -21,6 +21,7 @@ import { MobileProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { ROUTES } from '../../constants';
 import { DrawerNotification } from '../DrawerNotification';
+import { useTranslation } from 'react-i18next';
 
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const navigation = useNavigate();
@@ -32,6 +33,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     avatarUrl,
     authenticatedUser: { name, lastName },
   } = useStoreAutheticated();
+  const { t } = useTranslation();
 
   return (
     <Flex
@@ -79,9 +81,11 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 </HStack>
               </MenuButton>
               <MenuList bg={bg} borderColor={borderColor}>
-                <MenuItem onClick={() => navigation(ROUTES.USER_PROFILE)}>Profile</MenuItem>
+                <MenuItem onClick={() => navigation(ROUTES.USER_PROFILE)}>
+                  {t('profile.title')}
+                </MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={() => logoutUser()}>Sign out</MenuItem>
+                <MenuItem onClick={() => logoutUser()}>{t('profile.sign_out')}</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -96,7 +100,9 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           _hover={{ bg: '#0039A0', cursor: 'pointer', color: '#FFF' }}
           _active={{ bg: '#0039A0' }}
         >
-          <Text cursor="pointer">Sign In</Text>
+          <Text textTransform={'capitalize'} cursor="pointer">
+            {t('profile.sign_in')}
+          </Text>
         </Button>
       )}
     </Flex>

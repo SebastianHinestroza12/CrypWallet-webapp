@@ -8,6 +8,7 @@ import { EmptyTransaction } from '../../../components/EmptyTransactions';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const MotionStack = motion(Stack);
 
@@ -15,6 +16,7 @@ export const AllTransactions = () => {
   const { transactions, currentWallet, isAuthenticated } = useStoreAutheticated();
   const [transactionWallet, setTransactionWallet] = useState<TransactionUserIProps[]>([]);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (currentWallet && isAuthenticated) {
@@ -38,8 +40,8 @@ export const AllTransactions = () => {
         <EmptyTransaction coinName="Cryptocurrency" eventClick={handleEventClick} />
       ) : (
         <Stack spacing={8}>
-          <Heading as="h2" size="lg" textAlign="center">
-            Operation Summary
+          <Heading as="h2" size="lg" textAlign="center" textTransform={'capitalize'}>
+            {t('history.title')}
           </Heading>
           <MotionStack
             spacing={{ base: 4, md: 10 }}

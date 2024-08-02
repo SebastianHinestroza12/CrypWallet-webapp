@@ -25,8 +25,9 @@ import { useForm } from 'react-hook-form';
 import { UserProps } from '../../interfaces';
 import { AuthService } from '../../services/auth.service';
 import { useToastNotification } from '../../hooks/useToastNotification';
-import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 const MotionStack = motion(Stack);
 
@@ -42,6 +43,7 @@ export const UserProfileEdit = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const cancelRef = useRef<HTMLButtonElement>(null);
   const BG_COLOR = useColorModeValue('#FFF', '#171717');
+  const { t } = useTranslation();
 
   const {
     register,
@@ -60,10 +62,10 @@ export const UserProfileEdit = () => {
 
     if (!files || files.length === 0) {
       const errorMessage = !files
-        ? 'No se pudo acceder a los archivos. Por favor, intente nuevamente.'
-        : 'No se seleccionó ningún archivo. Por favor, seleccione un archivo y vuelva a intentarlo.';
+        ? t('profile.alert_profile.upload_image.alert_one.description_one')
+        : t('profile.alert_profile.upload_image.alert_one.description_two');
 
-      displayToast('Error al subir la imagen', errorMessage, 'error');
+      displayToast(t('profile.alert_profile.upload_image.alert_one.title'), errorMessage, 'error');
       return;
     }
 
@@ -80,15 +82,15 @@ export const UserProfileEdit = () => {
       setIsLoading(false);
       setAvatarUrl(secure_url, true);
       displayToast(
-        'Imagen subida correctamente',
-        'La imagen de tu avatar ha sido actualizada correctamente.',
+        t('profile.alert_profile.upload_image.alert_two.title'),
+        t('profile.alert_profile.upload_image.alert_two.description'),
         'success',
       );
     } catch (error) {
       setIsLoading(false);
       displayToast(
-        'Error al subir la imagen',
-        'Hubo un problema al subir la imagen de tu avatar.',
+        t('profile.alert_profile.upload_image.alert_three.title'),
+        t('profile.alert_profile.upload_image.alert_three.description'),
         'error',
       );
     }
@@ -96,7 +98,11 @@ export const UserProfileEdit = () => {
 
   const onSubmit = async (data: UserProps) => {
     if (data.name === name && data.lastName === lastName) {
-      displayToast('Atención', 'Los valores no han cambiado.', 'warning');
+      displayToast(
+        t('profile.alert_profile.on_submit.alert_one.title'),
+        t('profile.alert_profile.on_submit.alert_one.description'),
+        'warning',
+      );
       return;
     }
 
@@ -110,8 +116,8 @@ export const UserProfileEdit = () => {
 
     if (status === 200) {
       displayToast(
-        'Actualización exitosa',
-        'Los datos del usuario han sido actualizados correctamente.',
+        t('profile.alert_profile.on_submit.alert_two.title'),
+        t('profile.alert_profile.on_submit.alert_two.description'),
         'success',
       );
       //Actualizar los datos del estado global
@@ -123,8 +129,8 @@ export const UserProfileEdit = () => {
       });
     } else {
       displayToast(
-        'Error al actualizar los datos',
-        'Hubo un problema al actualizar los datos del usuario.',
+        t('profile.alert_profile.on_submit.alert_three.title'),
+        t('profile.alert_profile.on_submit.alert_three.description'),
         'error',
       );
     }
@@ -132,7 +138,11 @@ export const UserProfileEdit = () => {
 
   const handleRemoveAvatar = () => {
     if (avatarUrl === avatarDefault) {
-      displayToast('¡Info!', 'No puedes eliminar la imagen predeterminada del avatar.', 'warning');
+      displayToast(
+        t('profile.alert_profile.remove_avatar.alert_one.title'),
+        t('profile.alert_profile.remove_avatar.alert_one.description'),
+        'warning',
+      );
       return;
     }
 
@@ -141,7 +151,11 @@ export const UserProfileEdit = () => {
 
   const confirmRemoveAvatar = () => {
     setAvatarUrl(avatarDefault, true);
-    displayToast('Éxito', 'Imagen eliminada correctamente.', 'success');
+    displayToast(
+      t('profile.alert_profile.confirm_remove.alert_one.title'),
+      t('profile.alert_profile.confirm_remove.alert_one.description'),
+      'success',
+    );
     setIsDialogOpen(false);
   };
 
@@ -160,7 +174,7 @@ export const UserProfileEdit = () => {
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }} mb={2} textAlign={'center'}>
-          Profile
+          {t('profile.title')}
         </Heading>
         <FormControl id="avatar">
           <Stack direction={['column', 'row']} spacing={6}>
@@ -188,8 +202,8 @@ export const UserProfileEdit = () => {
                 id="file-upload"
               />
               <FormLabel htmlFor="file-upload" w="full">
-                <Button as="span" w="full" isLoading={isLoading}>
-                  Change Picture
+                <Button as="span" w="full" isLoading={isLoading} textTransform={'capitalize'}>
+                  {t('profile.change_picture')}
                 </Button>
               </FormLabel>
             </Center>
@@ -198,9 +212,9 @@ export const UserProfileEdit = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={5}>
             <FormControl id="name" isRequired>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>{t('profile.input_name')}</FormLabel>
               <Input
-                placeholder="Name"
+                placeholder={t('profile.input_name')}
                 {...register('name', {
                   required: 'El nombre es obligatorio',
                   minLength: {
@@ -222,9 +236,9 @@ export const UserProfileEdit = () => {
               {errors.name && <p>{errors.name.message}</p>}
             </FormControl>
             <FormControl id="lastName" isRequired>
-              <FormLabel>Last Name</FormLabel>
+              <FormLabel textTransform={'capitalize'}>{t('profile.input_last_name')}</FormLabel>
               <Input
-                placeholder="Last Name"
+                placeholder={t('profile.input_last_name')}
                 {...register('lastName', {
                   required: 'El apellido es obligatorio',
                   minLength: {
@@ -246,9 +260,9 @@ export const UserProfileEdit = () => {
               {errors.lastName && <p>{errors.lastName.message}</p>}
             </FormControl>
             <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
+              <FormLabel textTransform={'capitalize'}>{t('profile.input_email')}</FormLabel>
               <Input
-                placeholder="your-email@example.com"
+                placeholder="email@example.com"
                 disabled
                 {...register('email', {
                   required: 'El correo electrónico es obligatorio',
@@ -273,7 +287,7 @@ export const UserProfileEdit = () => {
               }}
               type="submit"
             >
-              Save
+              {t('profile.button_save')}
             </Button>
           </Stack>
         </form>
@@ -295,19 +309,17 @@ export const UserProfileEdit = () => {
             boxShadow={'2xl'}
           >
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Eliminar Avatar
+              {t('profile.overlay_dialog.text_header')}
             </AlertDialogHeader>
 
-            <AlertDialogBody>
-              ¿Estás seguro de que deseas eliminar la imagen de tu perfil?
-            </AlertDialogBody>
+            <AlertDialogBody>{t('profile.overlay_dialog.text_body')}</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={() => setIsDialogOpen(false)}>
-                Cancelar
+                {t('profile.overlay_dialog.button_cancel')}
               </Button>
               <Button colorScheme="red" onClick={confirmRemoveAvatar} ml={3}>
-                Eliminar
+                {t('profile.overlay_dialog.button_confirm')}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
