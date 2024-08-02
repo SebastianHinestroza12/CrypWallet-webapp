@@ -37,8 +37,8 @@ export const AllTransactions = () => {
       {transactionWallet.length === 0 ? (
         <EmptyTransaction coinName="Cryptocurrency" eventClick={handleEventClick} />
       ) : (
-        <>
-          <Heading as="h2" size="lg" textAlign="center" mb={4}>
+        <Stack spacing={8}>
+          <Heading as="h2" size="lg" textAlign="center">
             Operation Summary
           </Heading>
           <MotionStack
@@ -51,7 +51,7 @@ export const AllTransactions = () => {
               <TransactionHistory transactions={transactionWallet} />
             </Box>
           </MotionStack>
-        </>
+        </Stack>
       )}
     </Stack>
   );

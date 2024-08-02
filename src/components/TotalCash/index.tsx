@@ -9,9 +9,11 @@ import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { ROUTES, SupportedCurrency } from '../../constants';
-import { fetchCryptoCompareData, formatCurrency } from '../../utils';
+import { fetchCryptoCompareData, formatCurrency, handleNewTransactions } from '../../utils';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { useTranslation } from 'react-i18next';
+import { WalletServices } from '../../services/wallet.service';
+import { WalletsIProps } from '../../interfaces';
 
 export const TotalCash = () => {
   const bg = useColorModeValue('gray.100', '#171717');
@@ -19,7 +21,16 @@ export const TotalCash = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigate();
   const { currency, setCurrentCrypto } = useStoreCrypto();
-  const { isAuthenticated, currentWallet } = useStoreAutheticated();
+  const {
+    isAuthenticated,
+    currentWallet,
+    authenticatedUser: { id },
+    setTransactions,
+    transactions,
+    setSendNotification,
+    addWallet,
+    setCurrentWallet,
+  } = useStoreAutheticated();
   const { isDataVisible, setDataVisible, totalCash, symbol, totalPercentaje, isPositive } =
     useStoreVisibilityData();
   const { t } = useTranslation();
@@ -32,13 +43,44 @@ export const TotalCash = () => {
     navigation(ROUTES.USER_SIGNIN);
   };
 
+  const handleNotifications = async () => {
+    try {
+      const newTransactions = await handleNewTransactions(
+        id!,
+        transactions,
+        setSendNotification,
+        setTransactions,
+      );
+
+      if (newTransactions) {
+        const response = await WalletServices.getAllWallets(id!);
+
+        if (response.status === 200) {
+          const allWallets = response.data.wallets;
+          addWallet(allWallets, true);
+
+          const wallet = allWallets.find(
+            (wallet: WalletsIProps) => wallet.id === currentWallet?.id,
+          );
+          setCurrentWallet(wallet, id!, false);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const onRefresh = async () => {
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const data = await fetchCryptoCompareData(currency);
       setCurrentCrypto(data);
       setIsLoading(false);
+
+      if (isAuthenticated) {
+        await handleNotifications();
+      }
     } catch (error) {
       console.error(error);
     }

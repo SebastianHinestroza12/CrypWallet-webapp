@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, Flex, Text, Icon, Stack, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { Icon as IconifyIcon } from '@iconify/react';
 import { TransactionUserIProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { DetailHistoryModal } from '../../components/DetailHistoryModal';
-
-type TransactionHistoryProps = {
+interface TransactionHistoryProps {
   transactions: TransactionUserIProps[];
-};
+  showRemoveButton?: boolean;
+}
 
-export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transactions }) => {
-  const { currentWallet } = useStoreAutheticated();
+export const TransactionHistory = ({ transactions, showRemoveButton }: TransactionHistoryProps) => {
+  const { currentWallet, removeNotifications } = useStoreAutheticated();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionUserIProps | null>(
     null,
@@ -54,6 +54,10 @@ export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transact
     onOpen();
   };
 
+  const handleRemoveNotification = (id: number) => {
+    removeNotifications(id);
+  };
+
   const TEXT_COLOR = useColorModeValue('gray.600', 'gray.500');
 
   return (
@@ -66,33 +70,49 @@ export const TransactionHistory: React.FC<TransactionHistoryProps> = ({ transact
             : transaction.type_transaction.toLowerCase();
 
         return (
-          <Flex
-            key={transaction.id}
-            p={4}
-            onClick={() => handleOpenModal(transaction)}
-            borderWidth={1}
-            borderRadius="md"
-            align="center"
-            justify="space-between"
-            cursor={'pointer'}
-          >
-            <Flex align="center">
-              {renderIcon(renderIcony)}
-              <Box ml={3}>
-                <Text fontWeight="bold">{transaction.name_cryptocurrency}</Text>
-                <Text fontSize="sm" color={TEXT_COLOR}>
-                  {transaction.formatted_date}
+          <Flex key={transaction.id} justifyContent={'space-between'} alignItems={'center'}>
+            <Flex
+              p={4}
+              flex={1}
+              onClick={() => handleOpenModal(transaction)}
+              borderWidth={1}
+              borderRadius="md"
+              align="center"
+              justify="space-between"
+              cursor={'pointer'}
+            >
+              <Flex align="center">
+                {renderIcon(renderIcony)}
+                <Box ml={3}>
+                  <Text fontWeight="bold">{transaction.name_cryptocurrency}</Text>
+                  <Text fontSize="sm" color={TEXT_COLOR}>
+                    {transaction.formatted_date}
+                  </Text>
+                </Box>
+              </Flex>
+              <Flex direction="column" align="flex-end">
+                <Text fontWeight="bold">
+                  {transaction.amount} {transaction.symbol}
                 </Text>
-              </Box>
+                <Text fontSize="sm" color={TEXT_COLOR}>
+                  {renderIcony.toUpperCase()}
+                </Text>
+              </Flex>
             </Flex>
-            <Flex direction="column" align="flex-end">
-              <Text fontWeight="bold">
-                {transaction.amount} {transaction.symbol}
-              </Text>
-              <Text fontSize="sm" color={TEXT_COLOR}>
-                {renderIcony.toUpperCase()}
-              </Text>
-            </Flex>
+            <Box>
+              {showRemoveButton && (
+                <Icon
+                  as={IconifyIcon}
+                  onClick={() => handleRemoveNotification(transaction.id)}
+                  icon={'material-symbols-light:delete-outline'}
+                  color="red"
+                  boxSize={7}
+                  ml={3}
+                  _hover={{ transform: 'scale(1.1)' }}
+                  cursor={'pointer'}
+                />
+              )}
+            </Box>
           </Flex>
         );
       })}

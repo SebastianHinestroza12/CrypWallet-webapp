@@ -27,6 +27,7 @@ export const useStoreAutheticated = create(
       recoveryProgress: 25,
       recoveryStep: 1,
       userIdRecoveryAccount: null,
+      sendNotifications: [],
       avatarUrl: '',
 
       authenticateUser: (user: UserProps) =>
@@ -128,6 +129,19 @@ export const useStoreAutheticated = create(
             transactions: [...state.transactions, transactions],
           }));
         }
+      },
+      setSendNotification: (notification: TransactionUserIProps) => {
+        set((state) => ({
+          sendNotifications: [...state.sendNotifications, notification],
+        }));
+      },
+
+      removeNotifications: (id: number) => {
+        set((state) => ({
+          sendNotifications: state.sendNotifications.filter(
+            (notification) => notification.id !== id,
+          ),
+        }));
       },
     }),
     {
