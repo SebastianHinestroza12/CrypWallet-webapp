@@ -18,30 +18,30 @@ export const TransactionHistory = ({ transactions, showRemoveButton }: Transacti
 
   const renderIcon = (type_transaction: string) => {
     switch (type_transaction) {
-    case 'send':
-      return <Icon as={IconifyIcon} icon={'formkit:arrowdown'} color="red" boxSize={7} />;
-    case 'receive':
-      return <Icon as={IconifyIcon} icon={'formkit:arrowup'} color="blue" boxSize={7} />;
-    case 'buy':
-      return <Icon as={IconifyIcon} icon={'formkit:arrowup'} color="green" boxSize={7} />;
-    case 'swap':
-      return (
-        <Icon
-          as={IconifyIcon}
-          icon={'fluent:arrow-swap-28-filled'}
-          color="orange.500"
-          boxSize={7}
-        />
-      );
-    default:
-      return (
-        <Icon
-          as={IconifyIcon}
-          icon={'emojione-monotone:down-arrow'}
-          color="gray.500"
-          boxSize={7}
-        />
-      );
+      case 'send':
+        return <Icon as={IconifyIcon} icon={'formkit:arrowdown'} color="red" boxSize={7} />;
+      case 'receive':
+        return <Icon as={IconifyIcon} icon={'formkit:arrowup'} color="blue" boxSize={7} />;
+      case 'buy':
+        return <Icon as={IconifyIcon} icon={'formkit:arrowup'} color="green" boxSize={7} />;
+      case 'swap':
+        return (
+          <Icon
+            as={IconifyIcon}
+            icon={'fluent:arrow-swap-28-filled'}
+            color="orange.500"
+            boxSize={7}
+          />
+        );
+      default:
+        return (
+          <Icon
+            as={IconifyIcon}
+            icon={'emojione-monotone:down-arrow'}
+            color="gray.500"
+            boxSize={7}
+          />
+        );
     }
   };
 
