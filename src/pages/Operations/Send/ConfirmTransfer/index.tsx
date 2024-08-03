@@ -24,11 +24,14 @@ import { ROUTES } from '../../../../constants';
 import { useToastNotification } from '../../../../hooks/useToastNotification';
 import { WalletServices } from '../../../../services/wallet.service';
 import { WalletsIProps } from '../../../../interfaces';
+import { useTranslation } from 'react-i18next';
+
 interface FormValues {
   description: string;
 }
 
 export const ConfirmTransfer = () => {
+  const { t } = useTranslation();
   const {
     control,
     handleSubmit,
@@ -46,6 +49,7 @@ export const ConfirmTransfer = () => {
     authenticatedUser: { id },
     addWallet,
     setCurrentWallet,
+    setTransactions,
   } = useStoreAutheticated();
   const { symbol } = useStoreVisibilityData();
   const { removeCryptoShippingdata, cryptoShippingdata } = useStoreOperations();
@@ -80,11 +84,18 @@ export const ConfirmTransfer = () => {
           );
           setCurrentWallet(wallet, id!, false);
         }
+
+        const getTransacions = await TransactionService.getAllTransaction(id!);
+
+        if (getTransacions?.status === 200) {
+          const response = getTransacions.data.transactions;
+          setTransactions(response);
+        }
       }
     } catch (error) {
       displayToast(
-        'Error sending crypto',
-        'Please check recipient address and network connection.',
+        t('send.confirm_send.alert.alert_one.title'),
+        t('send.confirm_send.alert.alert_one.description'),
         'error',
       );
     }
@@ -112,7 +123,7 @@ export const ConfirmTransfer = () => {
     <Stack spacing={6}>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
         <Text ml={2} fontWeight="bold" fontSize="2xl" textAlign="center" textTransform="capitalize">
-          {`Send ${cryptoShippingdata.cryptoCurrency} (COIN)`}
+          {`${t('send.title', { coinName: cryptoShippingdata.cryptoCurrency })} (${t('send.coin')})`}
         </Text>
         <Box>
           <IconButton
@@ -128,55 +139,58 @@ export const ConfirmTransfer = () => {
           <Flex justifyContent="center" alignItems="center" mb={5}>
             <Icon as={FaCheckCircle} w={10} h={10} color="green.500" />
             <Text ml={2} fontWeight="bold" fontSize="2xl" textAlign="center">
-              Confirm Transfer
+              {t('send.confirm_send.title')}
             </Text>
           </Flex>
           <Stack spacing={4}>
             <HStack>
               <Text fontWeight="bold" fontSize={{ base: 'sm', md: 'medium' }}>
-                Destination User:
+                {t('send.confirm_send.recipient')}:
               </Text>
               <Text>{anonymizeName(cryptoShippingdata.destinationUser)}</Text>
             </HStack>
 
             <HStack>
-              <Text fontWeight="bold">Destiny Wallet:</Text>
+              <Text fontWeight="bold"> {t('send.confirm_send.recipient_wallet')}:</Text>
               <Text whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" maxWidth="200px">
                 {cryptoShippingdata.destinationWalletAddress}
               </Text>
             </HStack>
 
             <HStack>
-              <Text fontWeight="bold">Origin Wallet:</Text>
+              <Text fontWeight="bold">{t('send.confirm_send.current_wallet')}:</Text>
               <Text whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" maxWidth="200px">
                 {currentWallet?.address}
               </Text>
             </HStack>
 
             <HStack>
-              <Text fontWeight="bold">Date:</Text>
+              <Text fontWeight="bold">{t('send.confirm_send.date')}:</Text>
               <Text>{new Date().toLocaleString()}</Text>
             </HStack>
 
             <HStack>
-              <Text fontWeight="bold">Amount:</Text>
+              <Text fontWeight="bold">{t('send.confirm_send.amount')}:</Text>
               <Text>
                 {cryptoShippingdata.amount} {cryptoShippingdata.cryptoCurrency}
               </Text>
             </HStack>
 
             <HStack>
-              <Text fontWeight="bold">Transaction Fee:</Text>
+              <Text fontWeight="bold">{t('send.confirm_send.transaction_free')}:</Text>
               <Text>{symbol} 0.00</Text>
             </HStack>
 
             <FormControl id="description">
-              <FormLabel>Description (optional)</FormLabel>
+              <FormLabel>{t('send.confirm_send.description')}</FormLabel>
               <Controller
                 name="description"
                 control={control}
                 render={({ field }) => (
-                  <Textarea placeholder="Add a description (optional)" {...field} />
+                  <Textarea
+                    placeholder={t('send.confirm_send.placeholder_description')}
+                    {...field}
+                  />
                 )}
               />
             </FormControl>
@@ -193,7 +207,7 @@ export const ConfirmTransfer = () => {
               mt={4}
               onClick={handleSubmit(onSubmit)}
             >
-              Confirm and Transfer
+              {t('send.confirm_send.button_confirm')}
             </Button>
             <Button
               mx={'auto'}
@@ -205,7 +219,7 @@ export const ConfirmTransfer = () => {
               onClick={() => removeCryptoShippingdata()}
               width="full"
             >
-              Cancel Transfer
+              {t('send.confirm_send.button_cancel')}
             </Button>
           </Stack>
         </Stack>

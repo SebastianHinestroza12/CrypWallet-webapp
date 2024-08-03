@@ -14,6 +14,7 @@ import { AuthService } from '../../services/auth.service';
 import { AxiosError } from 'axios';
 import { useToastNotification } from '../../hooks/useToastNotification';
 import { useStoreAutheticated } from '../../stores/authentication';
+import { useTranslation } from 'react-i18next';
 
 type FormData = {
   email: string;
@@ -30,6 +31,7 @@ export const VerifyAccountForm = () => {
   const { displayToast } = useToastNotification();
   const { setRecoveryStep, setRecoreyProgress, setUserIdRecoveryAccount } = useStoreAutheticated();
   const bg = useColorModeValue('gray.100', '#171717');
+  const { t } = useTranslation();
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -42,8 +44,8 @@ export const VerifyAccountForm = () => {
 
       if (status === 200) {
         displayToast(
-          'Éxito',
-          'Código de verificación enviado a tu correo electrónico.',
+          t('recover_account.step_one.alert_step.alert_one.title'),
+          t('recover_account.step_one.alert_step.alert_one.description'),
           'success',
           3000,
         );
@@ -58,21 +60,29 @@ export const VerifyAccountForm = () => {
       const axiosError = error as AxiosError;
 
       if (axiosError.code === 'ERR_NETWORK') {
-        displayToast('Error del Servidor', 'Por favor, inténtalo de nuevo más tarde.', 'error');
+        displayToast(
+          t('recover_account.step_one.alert_step.alert_two.title'),
+          t('recover_account.step_one.alert_step.alert_two.description'),
+          'error',
+        );
         return;
       }
 
       const { response } = axiosError;
       if (response?.status === 404) {
         displayToast(
-          'Error',
-          'No se encontró una cuenta asociada con este correo electrónico.',
+          t('recover_account.step_one.alert_step.alert_three.title'),
+          t('recover_account.step_one.alert_step.alert_three.description'),
           'error',
         );
         return;
       }
 
-      displayToast('Error', 'Hubo un problema al generar el código de verificación.', 'error');
+      displayToast(
+        t('recover_account.step_one.alert_step.alert_four.title'),
+        t('recover_account.step_one.alert_step.alert_four.description'),
+        'error',
+      );
     }
   };
 
@@ -80,24 +90,24 @@ export const VerifyAccountForm = () => {
     <Flex align="center">
       <Stack spacing={4} bg={bg} rounded="xl" boxShadow="2xl" p={6}>
         <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }}>
-          Verificación de tu cuenta
+          {t('recover_account.step_one.title')}
         </Heading>
 
         <Text fontSize={{ base: 'sm', sm: 'md' }} color={useColorModeValue('gray.800', 'gray.400')}>
-          Ingresa tu correo electrónico para comprobar si tienes una cuenta existente.
+          {t('recover_account.step_one.description')}
         </Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl id="email" isInvalid={!!errors.email}>
             <Input
               autoFocus
-              placeholder="your-correo@example.com"
+              placeholder="correo@example.com"
               _placeholder={{ color: 'gray.500' }}
               type="email"
               {...register('email', {
-                required: 'Correo electrónico es requerido',
+                required: t('recover_account.step_one.validation_step.email'),
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Correo electrónico no válido',
+                  message: t('recover_account.step_one.validation_step.email_message'),
                 },
               })}
             />
@@ -113,7 +123,7 @@ export const VerifyAccountForm = () => {
               color="white"
               isDisabled={!isValid}
             >
-              Verificar cuenta
+              {t('recover_account.step_one.button_ok')}
             </Button>
           </Stack>
         </form>

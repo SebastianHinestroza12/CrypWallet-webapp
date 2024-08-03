@@ -10,6 +10,7 @@ import { ROUTES } from '../../../constants';
 import { InviteToLogin } from '../../../components/InviteToLogin';
 import { CryptoCompareData } from '../../../interfaces';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
+import { useTranslation } from 'react-i18next';
 
 export const SendList = () => {
   const { currency, currentCrypto } = useStoreCrypto();
@@ -20,6 +21,7 @@ export const SendList = () => {
     allCrypto: cryptoWithCoin,
   });
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -40,7 +42,7 @@ export const SendList = () => {
     <>
       {isAuthenticated ? (
         <Stack spacing={8}>
-          <SearchBar handleChange={handleChange} title="send" />
+          <SearchBar handleChange={handleChange} title={t('search.title_send')} />
           <Box>
             {crypto.map((data) => (
               <ListCrypto

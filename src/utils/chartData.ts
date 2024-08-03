@@ -1,13 +1,13 @@
-import { PriceDataProps, CryptoCompareData } from '../interfaces';
+import { PriceDataProps } from '../interfaces';
 
-export const chartData = (priceData: PriceDataProps[], isPositive: boolean, currency: string) => {
+export const chartData = (priceData: PriceDataProps[], isPositive: boolean, price: string) => {
   const borderColor = isPositive ? '#17ca56' : '#cf0c07';
   const chartData = {
     type: 'line',
     labels: priceData.map((data) => data.date),
     datasets: [
       {
-        label: `Precio (${currency})`,
+        label: `${price} (USD)`,
         data: priceData.map((data) => data.price),
         borderWidth: 1,
         fill: true,
@@ -21,7 +21,7 @@ export const chartData = (priceData: PriceDataProps[], isPositive: boolean, curr
   return chartData;
 };
 
-export const chartOptions = (crypto: CryptoCompareData) => {
+export const chartOptions = (text: string) => {
   const chartOptions = {
     responsive: true,
     plugins: {
@@ -30,7 +30,7 @@ export const chartOptions = (crypto: CryptoCompareData) => {
       },
       title: {
         display: true,
-        text: `Precio del ${crypto.CoinInfo.FullName} en los últimos 7 días`,
+        text,
       },
     },
     maintainAspectRatio: false,

@@ -1,6 +1,11 @@
 import { create } from 'zustand';
-import { persist, PersistOptions } from 'zustand/middleware';
-import { StoreStateAuthentication, UserProps, WalletsIProps } from '../interfaces';
+import { persist, PersistOptions, createJSONStorage } from 'zustand/middleware';
+import {
+  StoreStateAuthentication,
+  TransactionUserIProps,
+  UserProps,
+  WalletsIProps,
+} from '../interfaces';
 import { AuthService } from '../services/auth.service';
 
 const INITIAL_STATE = {
@@ -17,10 +22,12 @@ export const useStoreAutheticated = create(
       authenticatedUser: INITIAL_STATE,
       safeWords: [],
       wallets: [],
+      transactions: [],
       currentWallet: null,
       recoveryProgress: 25,
       recoveryStep: 1,
       userIdRecoveryAccount: null,
+      sendNotifications: [],
       avatarUrl: '',
 
       authenticateUser: (user: UserProps) =>
@@ -113,9 +120,33 @@ export const useStoreAutheticated = create(
           AuthService.updateProfile({ avatarUrl }, get().authenticatedUser.id!);
         }
       },
+
+      setTransactions: (transactions: TransactionUserIProps[] | TransactionUserIProps) => {
+        if (Array.isArray(transactions)) {
+          set({ transactions });
+        } else {
+          set((state) => ({
+            transactions: [...state.transactions, transactions],
+          }));
+        }
+      },
+      setSendNotification: (notification: TransactionUserIProps) => {
+        set((state) => ({
+          sendNotifications: [...state.sendNotifications, notification],
+        }));
+      },
+
+      removeNotifications: (id: number) => {
+        set((state) => ({
+          sendNotifications: state.sendNotifications.filter(
+            (notification) => notification.id !== id,
+          ),
+        }));
+      },
     }),
     {
       name: 'auth-storage',
+      storage: createJSONStorage(() => sessionStorage),
     } as PersistOptions<StoreStateAuthentication>,
   ),
 );

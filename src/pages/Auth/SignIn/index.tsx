@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -24,19 +23,26 @@ import { WalletsIProps } from '../../../interfaces';
 import { ROUTES } from '../../../constants';
 import { useToastNotification } from '../../../hooks/useToastNotification';
 import { usePinInput } from '../../../hooks/usePinInput';
+import { useTranslation } from 'react-i18next';
 import './shake.css';
 
 export const UserLogIn: React.FC = () => {
   const { displayToast } = useToastNotification();
   const navigation = useNavigate();
-  const { addWallet, authenticateUser, setCurrentWallet, addSafeWords, setAvatarUrl } =
-    useStoreAutheticated();
+  const {
+    addWallet,
+    authenticateUser,
+    setCurrentWallet,
+    addSafeWords,
+    setAvatarUrl,
+    setTransactions,
+  } = useStoreAutheticated();
   const {
     register,
     formState: { errors, isValid },
     watch,
   } = useForm({ mode: 'onChange' });
-
+  const { t } = useTranslation();
   const email = watch('email');
 
   const {
@@ -55,7 +61,7 @@ export const UserLogIn: React.FC = () => {
       try {
         const {
           status,
-          data: { user, wallets, safeWords },
+          data: { user, wallets, safeWords, transactions },
         } = await AuthService.loginUser({ email, password: pin });
 
         if (status === 200) {
@@ -75,6 +81,9 @@ export const UserLogIn: React.FC = () => {
           // Almacenar las palabras claves
           addSafeWords(safeWords);
 
+          // Almacenar las transacciones
+          setTransactions(transactions);
+
           // Definir la wallet actual del usuario
           if (user.currentWallet === null) {
             setCurrentWallet(wallets[0], user.id);
@@ -93,8 +102,8 @@ export const UserLogIn: React.FC = () => {
         if (error.code === 'ERR_NETWORK') {
           setPin('');
           return displayToast(
-            'Error del Servidor',
-            'Por favor, inténtalo de nuevo más tarde.',
+            t('sign_in.alert_sign_in.alert_one.title'),
+            t('sign_in.alert_sign_in.alert_one.description'),
             'error',
           );
         }
@@ -112,8 +121,8 @@ export const UserLogIn: React.FC = () => {
         } else if (status === 403) {
           // Account disabled
           displayToast(
-            'Cuenta Deshabilitada',
-            'Tu cuenta ha sido deshabilitada debido a múltiples intentos fallidos de inicio de sesión. Por favor, intenta recuperar tu cuenta para restaurar el acceso.',
+            t('sign_in.alert_sign_in.alert_two.title'),
+            t('sign_in.alert_sign_in.alert_two.description'),
             'error',
             12000,
           );
@@ -121,8 +130,8 @@ export const UserLogIn: React.FC = () => {
         } else {
           // User not found
           displayToast(
-            'Error de Autenticación',
-            'El usuario no se encuentra registrado. Por favor verifica tu información e inténtalo de nuevo.',
+            t('sign_in.alert_sign_in.alert_three.title'),
+            t('sign_in.alert_sign_in.alert_three.description'),
             'error',
             12000,
           );
@@ -140,23 +149,22 @@ export const UserLogIn: React.FC = () => {
 
   return (
     <Flex flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-      <Stack spacing={6} maxW={'lg'} mb={2}>
+      <Stack spacing={6} mb={2}>
         <Box>
           <Stack spacing={4}>
             <Heading fontSize={'4xl'} textAlign={'center'}>
-              Iniciar Sesión
+              {t('sign_in.title')}
             </Heading>
             <FormControl isInvalid={!!errors.email} isRequired>
               <Input
-                autoFocus
                 type="email"
                 id="email"
-                placeholder="Ingrese correo electrónico"
+                placeholder={t('sign_in.placeholder')}
                 {...register('email', {
-                  required: 'Email es requerido',
+                  required: t('sign_in.validation_sign_in.email'),
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: 'No es un correo electrónico válido',
+                    message: t('sign_in.validation_sign_in.email_message'),
                   },
                 })}
               />
@@ -166,7 +174,7 @@ export const UserLogIn: React.FC = () => {
                 ) : null}
               </FormErrorMessage>
             </FormControl>
-            <Text align={'center'}>Ingrese el código de acceso</Text>
+            <Text align={'center'}>{t('sign_in.enter_password')}</Text>
             <FormControl>
               <Center>
                 <HStack>
@@ -197,7 +205,7 @@ export const UserLogIn: React.FC = () => {
               </Center>
             </FormControl>
             <Text textAlign={'center'} color={'gray.600'}>
-              El código de acceso añade una capa adicional de seguridad al usar la aplicación.
+              {t('sign_in.description')}
             </Text>
             <Box>
               <NumericKeypad
@@ -210,13 +218,13 @@ export const UserLogIn: React.FC = () => {
             <Stack pt={6}>
               <Text align={'center'}>
                 <Link className="text-[#1e59ea]" to={ROUTES.RECOVER_ACCOUNT}>
-                  ¿Olvidaste tu contraseña?
+                  {t('sign_in.text_recover')}
                 </Link>
               </Text>
               <Text align={'center'}>
-                ¿No tienes cuenta?{' '}
+                {t('sign_in.text_signin_one')}{' '}
                 <Link className="text-[#1e59ea]" to={ROUTES.USER_SIGNUP}>
-                  Crea una cuenta
+                  {t('sign_in.text_signin_two')}
                 </Link>
               </Text>
             </Stack>

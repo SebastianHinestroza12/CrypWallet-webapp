@@ -7,6 +7,7 @@ import { useStoreAutheticated } from '../../../stores/authentication';
 
 export const RecoverAccountMultistep = () => {
   const { recoveryStep, recoveryProgress } = useStoreAutheticated();
+  console.log(recoveryStep);
   return (
     <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <Box width="100%" px={{ base: 4, md: 10 }} py={2}>

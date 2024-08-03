@@ -28,6 +28,7 @@ import { useStoreCrypto } from '../../../../stores/cryptocurrencies';
 import { useToastNotification } from '../../../../hooks/useToastNotification';
 import { formatCurrency } from '../../../../utils';
 import { SupportedCurrency } from '../../../../constants';
+import { useTranslation } from 'react-i18next';
 
 export const ReceiveCrypto = () => {
   const { currentWallet } = useStoreAutheticated();
@@ -40,6 +41,7 @@ export const ReceiveCrypto = () => {
   const {
     state: { crypto, symbol },
   } = useLocation();
+  const { t } = useTranslation();
 
   const currencyConversion = amount * parseFloat((crypto.RAW?.[currency]?.PRICE ?? 0).toFixed(2));
   const amountValue = amount > 0 ? `?amount=${amount}` : '';
@@ -83,8 +85,9 @@ export const ReceiveCrypto = () => {
             bg={useColorModeValue('gray.700', '#101010')}
             size={'md'}
             variant="solid"
+            textTransform={'uppercase'}
           >
-            COIN
+            {t('receive.coin')}
           </Tag>
         </Flex>
       </Flex>
@@ -109,11 +112,16 @@ export const ReceiveCrypto = () => {
           </Flex>
         )}
         <Flex justify="space-around">
-          <Button leftIcon={<CopyIcon />} onClick={handleCopy} aria-label="Copy address">
-            Copy
+          <Button
+            leftIcon={<CopyIcon />}
+            textTransform={'capitalize'}
+            onClick={handleCopy}
+            aria-label="Copy address"
+          >
+            {t('receive.copy')}
           </Button>
           <Button leftIcon={<EditIcon />} onClick={onOpen}>
-            Set Amount
+            {t('receive.set_amount')}
           </Button>
         </Flex>
       </VStack>
@@ -122,12 +130,16 @@ export const ReceiveCrypto = () => {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent maxWidth="400px" borderRadius="md" bg={BG_COLOR} py={5}>
-            <ModalHeader>Set Amount</ModalHeader>
+            <ModalHeader> {t('receive.modal.title')}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <FormControl id="amount" mb={4}>
-                <FormLabel>Amount</FormLabel>
-                <Input type="number" onChange={handleAmountChange} placeholder="Enter amount" />
+                <FormLabel>{t('receive.modal.label')}</FormLabel>
+                <Input
+                  type="number"
+                  onChange={handleAmountChange}
+                  placeholder={t('receive.modal.placeholder')}
+                />
               </FormControl>
               <Button
                 bg={'#1e59ea'}
@@ -136,7 +148,7 @@ export const ReceiveCrypto = () => {
                 onClick={onClose}
                 w="full"
               >
-                Set Amount
+                {t('receive.modal.button')}
               </Button>
             </ModalBody>
           </ModalContent>

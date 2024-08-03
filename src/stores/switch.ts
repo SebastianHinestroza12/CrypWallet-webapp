@@ -23,9 +23,7 @@ export const useSwitchStore = create<SwitchState>(
         SOL: true,
         BNB: true,
         USDT: true,
-        DOGE: true,
         BCH: true,
-        TRX: true,
       },
       toggleSwitch: (id: string) =>
         set((state: { switchStates: { [x: string]: boolean } }) => ({

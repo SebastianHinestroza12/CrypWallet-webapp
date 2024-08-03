@@ -7,6 +7,7 @@ import { RegistrationForm } from '../../../components/RegistrationForm';
 import { SecurityWordsModal } from '../../../components/SecurityWordsModal';
 import { AuthService } from '../../../services/auth.service';
 import { useToastNotification } from '../../../hooks/useToastNotification';
+import { useTranslation } from 'react-i18next';
 
 export const UserRegistrationForm = () => {
   const { displayToast } = useToastNotification();
@@ -18,6 +19,7 @@ export const UserRegistrationForm = () => {
     register,
     formState: { errors, isSubmitting },
   } = useForm();
+  const { t } = useTranslation();
 
   const handleRegister: SubmitHandler<FieldValues> = async (values) => {
     const formData = values as DataRegisterProps;
@@ -26,7 +28,11 @@ export const UserRegistrationForm = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       const { status, data } = await AuthService.registerUser(formData);
       if (status === 201) {
-        displayToast('Registro exitoso', `¡Bienvenido ${formData.name}!`, 'success');
+        displayToast(
+          t('sign_up.alert_sign_up.alert_one.title'),
+          t('sign_up.alert_sign_up.alert_one.welcome_message', { name: formData.name }),
+          'success',
+        );
         setDataUser(data.safeWords);
         onOpen();
       }
@@ -34,8 +40,8 @@ export const UserRegistrationForm = () => {
       const serverError = error as AxiosError;
       if (serverError.code === 'ERR_NETWORK') {
         displayToast(
-          'Error del Servidor',
-          'Por favor, inténtalo de nuevo más tarde.',
+          t('sign_up.alert_sign_up.alert_two.title'),
+          t('sign_up.alert_sign_up.alert_two.description'),
           'error',
           7000,
         );
@@ -44,15 +50,15 @@ export const UserRegistrationForm = () => {
       const status = serverError.response?.status;
       if (status === 409) {
         displayToast(
-          'Error de registro',
-          'Ya existe un usuario con esta dirección de correo.',
+          t('sign_up.alert_sign_up.alert_three.title'),
+          t('sign_up.alert_sign_up.alert_three.description'),
           'error',
           7000,
         );
       } else {
         displayToast(
-          'Error del Servidor',
-          'Por favor, inténtalo de nuevo más tarde.',
+          t('sign_up.alert_sign_up.alert_two.title'),
+          t('sign_up.alert_sign_up.alert_two.description'),
           'error',
           7000,
         );
@@ -65,7 +71,7 @@ export const UserRegistrationForm = () => {
       <Stack spacing={8} mx={'auto'} width={{ base: 'full', md: '65%' }}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'} textAlign={'center'}>
-            Regístrate
+            {t('sign_up.title')}
           </Heading>
         </Stack>
         <Box rounded={'lg'} bg={BG} boxShadow={'2xl'} p={8}>

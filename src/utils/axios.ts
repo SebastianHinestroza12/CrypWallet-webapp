@@ -14,7 +14,14 @@ instanceAxios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response.status === 401) {
+    const {
+      status,
+      data: { message },
+    } = error.response;
+    if (
+      status === 401 &&
+      (message === 'Unauthorized access' || message === 'Access denied. No token provided.')
+    ) {
       setTimeout(() => {
         const setSaveDataPayment = useStorePaymentMethods.getState().setSaveDataPayment;
         setSaveDataPayment(null);
@@ -22,7 +29,7 @@ instanceAxios.interceptors.response.use(
         const sessionExpired = useStoreAutheticated.getState().sessionExpired;
 
         sessionExpired();
-      }, 3000);
+      }, 1000);
 
       return Promise.reject(error);
     }

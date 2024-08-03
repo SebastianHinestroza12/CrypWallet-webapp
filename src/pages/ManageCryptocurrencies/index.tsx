@@ -3,6 +3,7 @@ import { SearchBar } from '../../components/SearchBar';
 import { ListCrypto } from '../../components/ListCrypto';
 import { useSearchCrypto } from '../../hooks/useSearchCrypto';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
+import { useTranslation } from 'react-i18next';
 
 export const ManageCryptocurrencies = () => {
   const { currentCrypto } = useStoreCrypto();
@@ -10,10 +11,11 @@ export const ManageCryptocurrencies = () => {
     filterSwitch: true,
     allCrypto: currentCrypto,
   });
+  const { t } = useTranslation();
 
   return (
     <Stack spacing={8}>
-      <SearchBar handleChange={handleChange} title="manage crypto" />
+      <SearchBar handleChange={handleChange} title={t('search.title_manage_crypto')} />
       <Box>
         {crypto.map((cryptocurrency) => (
           <ListCrypto

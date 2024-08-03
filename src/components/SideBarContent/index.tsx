@@ -16,8 +16,9 @@ import { LINK_ITEMS } from '../../constants';
 import { Icon } from '@iconify/react';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { useToastNotification } from '../../hooks/useToastNotification';
-import './scrollbar.css';
 import { FooterSection } from '../FooterSection';
+import { useTranslation } from 'react-i18next';
+import './scrollbar.css';
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [isReadyForInstall, setIsReadyForInstall] = useState(false);
@@ -32,9 +33,10 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     base: false,
     md: true,
   });
+  console.log(isReadyForInstall);
+  const { t } = useTranslation();
   const { displayToast } = useToastNotification();
 
-  console.log(isReadyForInstall);
   useEffect(() => {
     window.addEventListener('beforeinstallprompt', (event) => {
       // Prevent the mini-infobar from appearing on mobile.
@@ -66,11 +68,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     const promptEvent = window.deferredPrompt;
     if (!promptEvent) {
       // The deferred prompt isn't available.
-      displayToast(
-        'No installation prompt',
-        'Your browser does not support the installation prompt.',
-        'error',
-      );
+      displayToast(t('download_app.title'), t('download_app.description'), 'error');
       return;
     }
     // Show the install prompt.
@@ -105,10 +103,10 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       overflow={'auto'}
       sx={{
         '::-webkit-scrollbar': {
-          display: 'none', // Oculta la barra de scroll en WebKit (Chrome, Safari)
+          display: 'none',
         },
-        msOverflowStyle: 'none', // Oculta la barra de scroll en Internet Explorer y Edge
-        scrollbarWidth: 'none', // Oculta la barra de scroll en Firefox
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
       }}
       {...rest}
     >
@@ -137,7 +135,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             showDivider={link.showDivider}
           >
             <Box flex={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-              {link.name}
+              <Text textTransform={'capitalize'}>{t(`menu.${link.traslateName}`)}</Text>
               {link.id === 3 && (
                 <Box>
                   <Switch

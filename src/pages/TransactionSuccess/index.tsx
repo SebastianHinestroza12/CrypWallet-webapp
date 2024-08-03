@@ -4,13 +4,14 @@ import { FaRegCheckCircle } from 'react-icons/fa';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import Confetti from 'react-confetti';
+import { useTranslation } from 'react-i18next';
 
 export const TransactionSuccess = () => {
   const navigate = useNavigate();
   const BG_COLOR = useColorModeValue('#FFF', '#171717');
   const { state } = useLocation();
+  const { t } = useTranslation();
 
-  console.log(state);
   useEffect(() => {
     const handleResize = () => {
       setConfettiDimension({ width: window.innerWidth, height: window.innerHeight });
@@ -41,11 +42,11 @@ export const TransactionSuccess = () => {
       <Flex justifyContent="center" alignItems="center" mb={5}>
         <Icon as={FaRegCheckCircle} w={10} h={10} color="green.500" />
         <Text ml={2} fontWeight="bold" fontSize="2xl" textAlign="center">
-          Transaction Successful!
+          {t('send.success.title')}
         </Text>
       </Flex>
       <Text fontSize="lg" mb={5}>
-        Your transaction was completed successfully.
+        {t('send.success.description')}
       </Text>
       <Stack spacing={4} direction={{ base: 'column', md: 'row' }} justify="center">
         <Button
@@ -55,7 +56,7 @@ export const TransactionSuccess = () => {
           _hover={{ bg: 'blue.500' }}
           onClick={() => navigate(ROUTES.TRANSACTION_DETAILS, { state: { data: state } })}
         >
-          View Transaction Details
+          {t('send.success.button_detail')}
         </Button>
         <Button
           bg={'gray.500'}
@@ -64,7 +65,7 @@ export const TransactionSuccess = () => {
           _hover={{ bg: 'gray.600' }}
           onClick={() => navigate(ROUTES.HOME)}
         >
-          Return to Home
+          {t('send.success.button_return_to_home')}
         </Button>
       </Stack>
     </Box>

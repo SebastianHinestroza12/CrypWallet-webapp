@@ -10,6 +10,8 @@ import { WalletServices } from '../../services/wallet.service';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { WalletsIProps } from '../../interfaces';
 import Confetti from 'react-confetti';
+import { TransactionService } from '../../services/transactions.service';
+import { useTranslation } from 'react-i18next';
 
 export const Success = () => {
   const location = useLocation();
@@ -26,7 +28,9 @@ export const Success = () => {
     authenticatedUser: { id },
     addWallet,
     setCurrentWallet,
+    setTransactions,
   } = useStoreAutheticated();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const createTransaction = async () => {
@@ -43,8 +47,8 @@ export const Success = () => {
 
             if (status === 201) {
               displayToast(
-                'Transacción realizada',
-                'La transacción se ha completado correctamente.',
+                t('buy.success.alert_success.alert_one.title'),
+                t('buy.success.alert_success.alert_one.description'),
                 'success',
               );
 
@@ -63,13 +67,20 @@ export const Success = () => {
                 );
                 setCurrentWallet(wallet, id!, false);
               }
+
+              const getTransacions = await TransactionService.getAllTransaction(id!);
+
+              if (getTransacions?.status === 200) {
+                const response = getTransacions.data.transactions;
+                setTransactions(response);
+              }
             }
           }
         }
       } catch (error) {
         displayToast(
-          'Pago realizado',
-          'El pago se ha completado, pero la transacción no se ha procesado.',
+          t('buy.success.alert_success.alert_two.title'),
+          t('buy.success.alert_success.alert_two.description'),
           'info',
         );
       }
@@ -92,8 +103,8 @@ export const Success = () => {
     <Box>
       <Confetti width={confettiDimension.width} height={confettiDimension.height} recycle={false} />
       <TransactionResult
-        title="Payment Successful"
-        message="Your payment has been processed successfully."
+        title={t('buy.success.title')}
+        message={t('buy.success.description')}
         status="success"
       />
     </Box>

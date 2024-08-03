@@ -8,15 +8,15 @@ import { useTranslation } from 'react-i18next';
 
 export const Preferences = () => {
   const navigation = useNavigate();
-  const { currency } = useStoreCrypto();
+  const { currency, appLanguage } = useStoreCrypto();
   const BG_COLOR = useColorModeValue('gray.100', '#171717');
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Stack spacing={4}>
       <Flex justifyContent="space-between" alignItems="center">
         <Heading textAlign={'center'} size="md">
-          Preferencias
+          {t('preferences.preference_list.title')}
         </Heading>
         <IconButton
           icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
@@ -30,14 +30,20 @@ export const Preferences = () => {
         _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
         onClick={() => navigation(ROUTES.PREFERENCES_CURRENCY)}
       >
-        <PreferenceList title="Currency" subTitle={currency} />
+        <PreferenceList
+          title={t('preferences.preference_list.title_currency')}
+          subTitle={currency}
+        />
       </Box>
       <Box
         p={2}
         _hover={{ bg: BG_COLOR, cursor: 'pointer' }}
         onClick={() => navigation(ROUTES.PREFERENCES_LANGUAGE)}
       >
-        <PreferenceList title="App Language" subTitle={i18n.language} />
+        <PreferenceList
+          title={t('preferences.preference_list.title_language')}
+          subTitle={appLanguage}
+        />
       </Box>
     </Stack>
   );

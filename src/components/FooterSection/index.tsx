@@ -1,9 +1,11 @@
 import { Box, Text, useColorModeValue, IconButton, HStack } from '@chakra-ui/react';
 import { FooterLink } from '../FooterLink';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 
 export const FooterSection = () => {
   const BG_COLOR = useColorModeValue('gray.300', '#000');
+  const { t } = useTranslation();
   return (
     <Box p="2" borderTop="1px" borderColor={useColorModeValue('gray.300', '#171717')}>
       <HStack justifyContent="center" mt={2} spacing={5} px={2}>
@@ -35,7 +37,7 @@ export const FooterSection = () => {
         />
       </HStack>
       <Text fontSize="small" textAlign="center" mt="2">
-        © 2024 Sebastián Mena. All rights reserved.
+        © 2024 Sebastián Mena. {t('footer.duty')}
       </Text>
     </Box>
   );

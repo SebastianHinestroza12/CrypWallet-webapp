@@ -12,21 +12,27 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useForm, Controller } from 'react-hook-form';
-import { useStoreCrypto } from '../../../../../stores/cryptocurrencies';
-import { formatCurrency } from '../../../../../utils';
-import { SupportedCurrency } from '../../../../../constants';
-import { PaymentService } from '../../../../../services/payment.service';
-import { useStorePaymentMethods } from '../../../../../stores/paymentMethods';
-import { useStoreAutheticated } from '../../../../../stores/authentication';
-import { useToastNotification } from '../../../../../hooks/useToastNotification';
+import { useStoreCrypto } from '../../../../stores/cryptocurrencies';
+import { formatCurrency } from '../../../../utils';
+import { SupportedCurrency } from '../../../../constants';
+import { PaymentService } from '../../../../services/payment.service';
+import { useStorePaymentMethods } from '../../../../stores/paymentMethods';
+import { useStoreAutheticated } from '../../../../stores/authentication';
+import { useToastNotification } from '../../../../hooks/useToastNotification';
 import { AxiosError } from 'axios';
+import { useTranslation } from 'react-i18next';
+
+import { motion } from 'framer-motion';
+
+const MotionBox = motion(Box);
 
 type FormData = {
   amount: string;
 };
 
 export const BuyCryptoWithGateway = () => {
-  const { selectedPaymentMethod, setSaveDataPayment } = useStorePaymentMethods();
+  const { t } = useTranslation();
+  const { setSaveDataPayment } = useStorePaymentMethods();
   const { currentWallet, authenticatedUser } = useStoreAutheticated();
   const { displayToast } = useToastNotification();
   const {
@@ -47,6 +53,8 @@ export const BuyCryptoWithGateway = () => {
     },
   });
 
+  //stripe por defecto, ya que deshabilite los pago por mercado pago
+  const selectedPaymentMethod = 'stripe';
   const amount = parseFloat(watch('amount'));
   const priceInUSD =
     amount && !isNaN(amount) && amount > 0
@@ -91,8 +99,8 @@ export const BuyCryptoWithGateway = () => {
 
       if (serverError.response?.status === 400) {
         displayToast(
-          'Error en el Pago',
-          'El monto de la transacción debe ser superior a 1.',
+          t('buy.alert_buy.alert_one.title'),
+          t('buy.alert_buy.alert_one.description', { currency }),
           'error',
         );
 
@@ -100,8 +108,8 @@ export const BuyCryptoWithGateway = () => {
       }
 
       displayToast(
-        'Error',
-        'Hubo un problema al procesar la transacción. Por favor, inténtelo nuevamente.',
+        t('buy.alert_buy.alert_two.title'),
+        t('buy.alert_buy.alert_two.description'),
         'error',
       );
     }
@@ -136,7 +144,17 @@ export const BuyCryptoWithGateway = () => {
           />
         </Box>
       </Flex>
-      <Box px={5} pb={5} borderWidth="1px" borderRadius="lg" bg={BG_COLOR} boxShadow="lg">
+      <MotionBox
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        px={5}
+        pb={5}
+        borderWidth="1px"
+        borderRadius="lg"
+        bg={BG_COLOR}
+        boxShadow="lg"
+      >
         <Flex alignItems="center" direction={'column'} justifyContent="center" mb={4}>
           {selectedPaymentMethod === 'stripe' ? (
             <Icon icon={'logos:stripe'} width={70} height={70} />
@@ -144,23 +162,24 @@ export const BuyCryptoWithGateway = () => {
             <Icon icon={'arcticons:mercado-libre'} color="#00BCFF" width={70} height={70} />
           )}
           <Text fontSize={{ base: 'md', md: 'lg' }} ml={2} textTransform={'capitalize'}>
-            Payment powered by {selectedPaymentMethod}
+            {t('buy.payment_method', { method: selectedPaymentMethod })}
           </Text>
         </Flex>
         <Controller
           name="amount"
           control={control}
           rules={{
-            required: 'Amount is required',
+            required: t('buy.validate_input.amount.required'),
             validate: {
-              positive: (value) => parseFloat(value) > 0 || 'Amount must be greater than zero',
-              number: (value) => !isNaN(parseFloat(value)) || 'Amount must be a number',
+              positive: (value) =>
+                parseFloat(value) > 0 || t('buy.validate_input.amount.is_positive'),
+              number: (value) => !isNaN(parseFloat(value)) || t('buy.validate_input.amount.number'),
             },
           }}
           render={({ field }) => (
             <Input
               {...field}
-              placeholder={`Amount ${crypto.CoinInfo.Name}`}
+              placeholder={t('buy.placeholder', { coinName: crypto.CoinInfo.Name })}
               type="number"
               mb={4}
               step={'any'}
@@ -171,7 +190,7 @@ export const BuyCryptoWithGateway = () => {
         {errors.amount && <Text color="red.500">{errors.amount.message}</Text>}
         {amount > 0 && priceInUSD && (
           <Text>
-            You will pay:{' '}
+            {t('buy.pay')}:{' '}
             {`${symbol}${formatCurrency(parseFloat(priceInUSD), currency as SupportedCurrency)}`}{' '}
             {currency}
           </Text>
@@ -191,9 +210,9 @@ export const BuyCryptoWithGateway = () => {
           width="100%"
           disabled={!isValid}
         >
-          Buy {crypto.CoinInfo.FullName}
+          {t('buy.button', { coinName: crypto.CoinInfo.FullName })}
         </Button>
-      </Box>
+      </MotionBox>
     </Stack>
   );
 };

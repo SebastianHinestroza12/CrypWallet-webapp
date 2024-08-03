@@ -1,12 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { Button, Flex, Icon, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
+import { Button, Flex, Icon, Stack, Text } from '@chakra-ui/react';
 import { OPERATION_BUTTONS, ROUTES } from '../../constants';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CryptoCompareData, OperationButtonConfig } from '../../interfaces';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { useToastNotification } from '../../hooks/useToastNotification';
+import { useStorePaymentMethods } from '../../stores/paymentMethods';
+import { useTranslation } from 'react-i18next';
 
 interface OperationIProps {
   crypto?: CryptoCompareData;
@@ -17,13 +19,11 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
   const [operationButtom, setOperationButtom] = useState<OperationButtonConfig[]>([]);
   const { currency } = useStoreCrypto();
   const { currentWallet, isAuthenticated } = useStoreAutheticated();
-  const showSwap = useBreakpointValue({
-    base: false,
-    md: true,
-  });
   const location = useLocation();
   const { displayToast } = useToastNotification();
   const pathLocation = location.pathname.includes('/detail');
+  const { setPaymentMethods } = useStorePaymentMethods();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (pathLocation) {
@@ -60,7 +60,12 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
               },
             });
           } else {
-            displayToast('Atención', 'Saldo insuficiente.', 'warning', 2000);
+            displayToast(
+              t('home.operations.alert_operations.alert_one.title'),
+              t('home.operations.alert_operations.alert_one.description'),
+              'warning',
+              2000,
+            );
           }
           return;
         }
@@ -76,7 +81,17 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
         }
 
         case 'buy': {
-          navigate(ROUTES.PAYMENT_METHODS_CRYPTO, {
+          setPaymentMethods('stripe');
+          navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
+            state: {
+              crypto,
+              symbol: crypto.DISPLAY?.[currency]?.TOSYMBOL,
+            },
+          });
+          return;
+        }
+        case 'swap': {
+          navigate(`${ROUTES.TRANSACTION_SWAP}?origin=from`, {
             state: {
               crypto,
               symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
@@ -96,26 +111,29 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
   return (
     <Stack spacing={2}>
       <Flex alignItems="center" justifyContent="space-between">
-        {operationButtom
-          .filter(({ id }) => showSwap || id !== 5)
-          .map(({ icon, route, text }) => (
-            <Flex key={text} direction="column" alignItems="center" width="fit-content">
-              <Button
-                onClick={() => handleNavigate(route, text)}
-                bg="#1e59ea"
-                borderRadius="full"
-                width={{ base: '48px', md: '52px' }}
-                height={{ base: '48px', md: '52px' }}
-                _hover={{ bg: '#66ccff', cursor: 'pointer' }}
-                _active={{ bg: '#007bff' }}
-              >
-                <Icon as={icon} boxSize={{ base: 8, md: 9 }} color={'#FFF'} />
-              </Button>
-              <Text textTransform={'capitalize'} textAlign={'center'}>
-                {text}
-              </Text>
-            </Flex>
-          ))}
+        {operationButtom.map(({ icon, route, text }) => (
+          <Flex key={text} direction="column" alignItems="center" width="fit-content">
+            <Button
+              onClick={() => handleNavigate(route, text)}
+              bg="#1e59ea"
+              borderRadius="full"
+              width={{ base: '48px', md: '52px' }}
+              height={{ base: '48px', md: '52px' }}
+              _hover={{ bg: '#0039A0', cursor: 'pointer' }}
+              _active={{ bg: '#0039A0' }}
+            >
+              <Icon as={icon} boxSize={{ base: 8, md: 9 }} color={'#FFF'} />
+            </Button>
+            <Text
+              textTransform={'capitalize'}
+              textAlign={'center'}
+              whiteSpace="normal"
+              wordBreak="break-word"
+            >
+              {t(`home.operations.${text}`)}
+            </Text>
+          </Flex>
+        ))}
       </Flex>
     </Stack>
   );

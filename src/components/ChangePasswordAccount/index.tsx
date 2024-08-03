@@ -17,10 +17,12 @@ import { useToastNotification } from '../../hooks/useToastNotification';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { ROUTES } from '../../constants';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const ChangePasswordAccount = () => {
   const sizePin = useBreakpointValue({ base: true, md: false });
   const { displayToast } = useToastNotification();
+  const { t } = useTranslation();
   const { userIdRecoveryAccount, logoutUser } = useStoreAutheticated();
   const navigation = useNavigate();
   const { pin, handleNumberClick, handleDeleteClick, handleDeleteAllClick, setPin } = usePinInput({
@@ -33,15 +35,19 @@ export const ChangePasswordAccount = () => {
         if (status === 200) {
           logoutUser();
           displayToast(
-            'Contraseña cambiada correctamente.',
-            'Por favor inicia sesión nuevamente.',
+            t('recover_account.step_four.alert_step.alert_one.title'),
+            t('recover_account.step_four.alert_step.alert_one.description'),
             'success',
           );
           setTimeout(() => navigation(ROUTES.USER_SIGNIN), 2000);
         }
       } catch (error: unknown) {
         setPin('');
-        displayToast('Error al cambiar la contraseña.', 'Por favor intenta nuevamente.', 'error');
+        displayToast(
+          t('recover_account.step_four.alert_step.alert_two.title'),
+          t('recover_account.step_four.alert_step.alert_two.description'),
+          'error',
+        );
       }
     },
   });
@@ -51,7 +57,7 @@ export const ChangePasswordAccount = () => {
       <Stack spacing={6}>
         <Center>
           <Heading lineHeight={1.1} fontSize={{ base: '2xl', md: '3xl' }} textAlign="center">
-            ¡Cuenta verificada con éxito! Ahora puedes cambiar tu contraseña.
+            {t('recover_account.step_four.title')}
           </Heading>
         </Center>
         <FormControl>

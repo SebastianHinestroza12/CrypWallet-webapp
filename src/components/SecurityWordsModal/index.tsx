@@ -16,6 +16,7 @@ import {
 import { Link } from 'react-router-dom';
 import { FC } from 'react';
 import { ROUTES } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityWordsModalProps {
   isOpen: boolean;
@@ -30,6 +31,7 @@ export const SecurityWordsModal: FC<SecurityWordsModalProps> = ({
   dataUser,
   bg,
 }) => {
+  const { t } = useTranslation();
   return (
     <Modal
       onClose={onClose}
@@ -40,19 +42,13 @@ export const SecurityWordsModal: FC<SecurityWordsModalProps> = ({
     >
       <ModalOverlay />
       <ModalContent mx={{ base: '5', md: '0' }} bg={bg} maxW={{ md: '80%' }}>
-        <ModalHeader>Palabras de Seguridad</ModalHeader>
+        <ModalHeader>{t('sign_up.modal_safe_words.title')}</ModalHeader>
         <Link to={ROUTES.USER_SIGNIN}>
           <ModalCloseButton />
         </Link>
         <ModalBody>
           <Stack spacing={3}>
-            <Box>
-              A continuación, te proporcionaremos las palabras de seguridad de tu cuenta. Estas
-              palabras son cruciales para la recuperación de tu cuenta en caso de que lo necesites.
-              Para garantizar la seguridad de tu cuenta, te recomendamos encarecidamente que guardes
-              estas palabras en un lugar seguro y no las compartas con nadie bajo ninguna
-              circunstancia.
-            </Box>
+            <Box>{t('sign_up.modal_safe_words.description')}</Box>
             <Grid templateColumns={{ base: 'repeat(3, 1fr)', md: 'repeat(4, 1fr)' }} gap={4} mt={4}>
               {dataUser.map((item) => (
                 <GridItem key={item}>
@@ -66,7 +62,7 @@ export const SecurityWordsModal: FC<SecurityWordsModalProps> = ({
         </ModalBody>
         <ModalFooter>
           <Link to={ROUTES.USER_SIGNIN}>
-            <Button onClick={onClose}>Entendido</Button>
+            <Button onClick={onClose}>{t('sign_up.modal_safe_words.button_ok')}</Button>
           </Link>
         </ModalFooter>
       </ModalContent>

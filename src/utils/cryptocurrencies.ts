@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 import axios from 'axios';
-import { PriceDataProps, CryptoCompareData } from '../interfaces';
+import { PriceDataProps, CryptoCompareData, TransactionUserIProps } from '../interfaces';
+import { TransactionService } from '../services/transactions.service';
 
 export const fetchCryptoData = async () => {
   try {
@@ -81,5 +83,45 @@ export const translateText = async (text: string, targetLang: string) => {
   } catch (error) {
     console.error('Error translating text:', error);
     return null;
+  }
+};
+
+export const handleNewTransactions = async (
+  id: string | null,
+  currentTransactions: TransactionUserIProps[],
+  setSendNotification: (notification: TransactionUserIProps) => void,
+  setTransactions: (transactions: TransactionUserIProps[] | TransactionUserIProps) => void,
+) => {
+  try {
+    const getTransacions = await TransactionService.getAllTransaction(id!);
+
+    if (getTransacions?.status === 200) {
+      const response = getTransacions.data.transactions;
+
+      const newTransactions = response.filter(
+        (newTransaction: TransactionUserIProps) =>
+          !currentTransactions.some(
+            (transaction: TransactionUserIProps) => transaction.id === newTransaction.id,
+          ),
+      );
+
+      const newSendTransactions = newTransactions.filter(
+        (transaction: TransactionUserIProps) => transaction.type_transaction === 'Send',
+      );
+
+      const isNotEmpty = newSendTransactions.length > 0;
+
+      if (isNotEmpty) {
+        newSendTransactions.forEach((element: TransactionUserIProps) => {
+          setSendNotification(element);
+        });
+      }
+
+      setTransactions(response);
+
+      return isNotEmpty;
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
