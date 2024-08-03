@@ -671,5 +671,9 @@
     "title": "Page non trouvée",
     "description": "La page que vous recherchez semble ne pas exister",
     "button": "Retour à la page d'accueil"
+  },
+  "empty_search": {
+    "title": "Aucun résultat trouvé",
+    "description": "Essayez d'ajuster vos termes de recherche ou de vérifier vos filtres."
   }
 }

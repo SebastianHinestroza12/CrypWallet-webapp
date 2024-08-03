@@ -671,5 +671,9 @@
     "title": "Página No Encontrada",
     "description": "La página que estás buscando no parece existir",
     "button": "Volver a la Página de Inicio"
+  },
+  "empty_search": {
+    "title": "No se encontraron coincidencias",
+    "description": "Intenta ajustar los términos de búsqueda o verifica tus filtros."
   }
 }
