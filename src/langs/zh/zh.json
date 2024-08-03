@@ -1,1 +1,675 @@
-{}
+{
+  "home": {
+    "wallet": "钱包",
+    "button_total_cash": "更新",
+    "manager_crypto": "管理加密货币",
+    "operations": {
+      "buy": "购买",
+      "swap": "交换",
+      "send": "发送",
+      "receive": "接收",
+      "history": "历史",
+      "alert_operations": {
+        "alert_one": {
+          "title": "注意",
+          "description": "余额不足。"
+        }
+      }
+    }
+  },
+  "search": {
+    "placeholder": "搜索...",
+    "title_search": "搜索",
+    "title_manage_crypto": "管理加密货币",
+    "title_receive": "接收",
+    "title_buy": "购买",
+    "title_send": "发送",
+    "title_swap": "交换",
+    "all_crypto": "所有加密货币",
+    "popular": "热门"
+  },
+  "history": {
+    "title": "操作摘要"
+  },
+  "notifications": {
+    "title": "通知",
+    "empty_notification_text_one": "暂无通知",
+    "empty_notification_text_two": "你已经看到所有通知！"
+  },
+  "tab_botton": {
+    "home": "首页",
+    "search": "搜索",
+    "preferences": "设置",
+    "profile": "个人资料"
+  },
+  "profile": {
+    "title": "个人资料",
+    "sign_out": "退出登录",
+    "sign_in": "登录",
+    "change_picture": "更换头像",
+    "input_name": "名字",
+    "input_last_name": "姓氏",
+    "input_email": "电子邮件地址",
+    "button_save": "保存",
+    "alert_profile": {
+      "upload_image": {
+        "alert_one": {
+          "title": "上传图片错误",
+          "description_one": "无法访问文件。请重试。",
+          "description_two": "没有选择文件。请选择文件并重试。"
+        },
+        "alert_two": {
+          "title": "图片上传成功",
+          "description": "您的头像已成功更新。"
+        },
+        "alert_three": {
+          "title": "上传图片错误",
+          "description": "上传头像时出现问题。"
+        }
+      },
+      "on_submit": {
+        "alert_one": {
+          "title": "注意",
+          "description": "值没有更改。"
+        },
+        "alert_two": {
+          "title": "更新成功",
+          "description": "用户数据已成功更新。"
+        },
+        "alert_three": {
+          "title": "更新数据错误",
+          "description": "更新用户数据时出现问题。"
+        }
+      },
+      "remove_avatar": {
+        "alert_one": {
+          "title": "注意",
+          "description": "无法删除默认头像。"
+        }
+      },
+      "confirm_remove": {
+        "alert_one": {
+          "title": "成功",
+          "description": "图片已成功删除。"
+        }
+      }
+    },
+    "overlay_dialog": {
+      "text_header": "删除头像",
+      "text_body": "您确定要删除您的个人资料图片吗？",
+      "button_confirm": "删除",
+      "button_cancel": "取消"
+    }
+  },
+  "splashscreen": {
+    "title": "您的安全多币种钱包"
+  },
+  "landing_page": {
+    "title_text_one": "您的加密货币钱包",
+    "title_text_two": "简单而安全",
+    "description": "不错过任何交易。掌控您的加密货币，并在合适的时间接收智能通知。每天早晨管理您的“日常计划”加密货币。",
+    "button_start": "开始",
+    "button_learn_more": "了解更多"
+  },
+  "menu": {
+    "home": "首页",
+    "wallets": "钱包",
+    "dark_mode": "暗黑模式",
+    "preferences": "设置",
+    "manage_crypto": "管理加密货币",
+    "search": "搜索",
+    "security": "安全",
+    "register": "注册",
+    "log_out": "登出",
+    "recover_account": "找回账户",
+    "about": "关于",
+    "install_app": "安装应用"
+  },
+  "wallet_page": {
+    "wallet_list": {
+      "title": "钱包",
+      "description": "多币种钱包"
+    },
+    "wallet_create": {
+      "title": "创建新钱包",
+      "label_name": "钱包名称",
+      "placeholder": "输入钱包名称",
+      "button_create": "创建钱包",
+      "alert_create": {
+        "alert_one": {
+          "title": "钱包创建成功",
+          "description": "钱包已正确创建。"
+        },
+        "alert_two": {
+          "title": "创建钱包错误",
+          "description": "创建钱包时出现问题。"
+        }
+      }
+    },
+    "wallet_edit": {
+      "title": "编辑钱包",
+      "label_name": "钱包名称",
+      "placeholder": "输入钱包名称",
+      "label_address": "钱包地址",
+      "button_save": "保存",
+      "button_delete": "删除",
+      "alert_wallet": {
+        "alert_one": {
+          "title": "钱包更新成功"
+        },
+        "alert_two": {
+          "title": "创建钱包错误"
+        },
+        "alert_three": {
+          "title": "无法删除当前钱包。"
+        },
+        "alert_four": {
+          "title": "钱包已删除。"
+        },
+        "alert_five": {
+          "title": "删除钱包错误"
+        },
+        "alert_six": {
+          "title": "地址已复制到剪贴板。"
+        }
+      }
+    }
+  },
+  "preferences": {
+    "preference_list": {
+      "title": "偏好设置",
+      "title_currency": "货币",
+      "title_language": "语言"
+    },
+    "currency_list": {
+      "title": "热门货币",
+      "description": "选择你喜欢的货币",
+      "USD": "美元",
+      "EUR": "欧元",
+      "JPY": "日元",
+      "GBP": "英镑",
+      "AUD": "澳元",
+      "CAD": "加元",
+      "CHF": "瑞士法郎",
+      "NZD": "新西兰元",
+      "MXN": "墨西哥比索",
+      "SGD": "新加坡元",
+      "KRW": "韩元",
+      "TRY": "土耳其里拉",
+      "INR": "印度卢比",
+      "BRL": "巴西雷亚尔",
+      "RUB": "俄罗斯卢布",
+      "ZAR": "南非兰特",
+      "COP": "哥伦比亚比索",
+      "PLN": "波兰兹罗提",
+      "THB": "泰铢",
+      "IDR": "印尼盾",
+      "CZK": "捷克克朗",
+      "ILS": "以色列新谢克尔",
+      "PHP": "菲律宾比索",
+      "AED": "阿联酋迪拉姆",
+      "MYR": "马来西亚林吉特",
+      "RON": "罗马尼亚列伊",
+      "ARS": "阿根廷比索",
+      "NGN": "尼日利亚奈拉"
+    },
+    "language_list": {
+      "title": "语言",
+      "en": "英语",
+      "es": "西班牙语",
+      "fr": "法语",
+      "it": "意大利语",
+      "de": "德语",
+      "ru": "俄语",
+      "zh": "中文"
+    }
+  },
+  "security_manager": {
+    "pass_code": {
+      "title": "输入密码",
+      "description": "密码为使用应用程序增加了额外的安全层。"
+    },
+    "security_list": {
+      "title": "安全选项",
+      "title_passcode": "密码",
+      "title_change_password": "更改密码",
+      "title_safe_words": "安全词"
+    },
+    "safe_words": {
+      "title": "安全词",
+      "description": "这些是你的安全词。出于安全考虑，请不要与任何人分享。"
+    },
+    "change_password": {
+      "title": "输入新密码",
+      "description": "密码为使用应用程序增加了额外的安全层。"
+    }
+  },
+  "recover_account": {
+    "step_one": {
+      "title": "验证你的账户",
+      "description": "输入你的电子邮件以检查是否有现有账户。",
+      "button_ok": "验证账户",
+      "alert_step": {
+        "alert_one": {
+          "title": "成功",
+          "description": "验证码已发送到你的电子邮件。"
+        },
+        "alert_two": {
+          "title": "服务器错误",
+          "description": "请稍后再试。"
+        },
+        "alert_three": {
+          "title": "错误",
+          "description": "未找到与此电子邮件关联的账户。"
+        },
+        "alert_four": {
+          "title": "错误",
+          "description": "生成验证码时出现问题。"
+        }
+      },
+      "validation_step": {
+        "email": "电子邮件是必需的",
+        "email_message": "无效的电子邮件"
+      }
+    },
+    "step_two": {
+      "title": "验证OTP码",
+      "description": "输入发送到你电子邮件的OTP码以进行验证。"
+    },
+    "step_three": {
+      "title": "我们将继续验证你的安全词",
+      "description": "输入12个安全词，按它们被给出的顺序。",
+      "placeholder": "安全词",
+      "button_check": "验证",
+      "validate_input": {
+        "safe_words": "你现在已经输入了12个词。继续验证。",
+        "safe_words_message": "你必须输入恰好12个词。"
+      },
+      "alert_step": {
+        "alert_one": {
+          "title": "成功",
+          "description": "安全词已正确验证。"
+        },
+        "alert_two": {
+          "title": "服务器错误",
+          "description": "请稍后再试。"
+        },
+        "alert_three": {
+          "title": "错误的词",
+          "description": "输入的词不匹配。请记住按给出的顺序输入。"
+        }
+      }
+    },
+    "step_four": {
+      "title": "账户验证成功！你现在可以更改密码。",
+      "alert_step": {
+        "alert_one": {
+          "title": "密码更改成功。",
+          "description": "请重新登录。"
+        },
+        "alert_two": {
+          "title": "更改密码错误。",
+          "description": "请再试一次。"
+        }
+      }
+    }
+  },
+  "about": {
+    "title": "关于 Cryp Wallet",
+    "badge": {
+      "badge_one": {
+        "text_one": "加密",
+        "text_two": "安全",
+        "text_three": "金融"
+      },
+      "badge_two": {
+        "text_one": "加密",
+        "text_two": "管理"
+      },
+      "badge_three": {
+        "text_one": "安全",
+        "text_two": "交易"
+      }
+    },
+    "section_one": {
+      "title": "Cryp Wallet: 你值得信赖的加密钱包",
+      "description": "CrypWallet 于2024年由 Sebastian Mena Hinestroza 创立，是一款进步的应用程序（PWA），允许用户安全高效地管理、购买、出售、转账和接收各种加密货币。"
+    },
+    "section_two": {
+      "title": "为什么选择 CrypWallet？",
+      "description": "在 CrypWallet，我们非常重视你的账户和客户资金的安全。我们提供：",
+      "list_one": "多种加密货币支持",
+      "list_two": "安全和隐私的钱包",
+      "list_three": "实时价格更新",
+      "list_four": "易于使用的界面"
+    },
+    "section_three": {
+      "container_one": {
+        "title": "管理你的加密货币",
+        "description": "使用 CrypWallet，你可以在一个地方管理所有加密货币，确保安全和便利。"
+      },
+      "container_two": {
+        "title": "安全交易",
+        "description": "使用 CrypWallet 快速、安全地进行加密货币的购买、出售、转账和接收。"
+      }
+    }
+  },
+  "download_app": {
+    "title": "没有安装提示",
+    "description": "你的浏览器不支持安装提示。"
+  },
+  "footer": {
+    "duty": "版权所有。"
+  },
+  "sign_in": {
+    "title": "登录",
+    "placeholder": "输入电子邮件",
+    "enter_password": "输入你的密码",
+    "description": "密码保护你对账户的访问。",
+    "text_recover": "忘记密码了吗？",
+    "text_signin_one": "没有账户？",
+    "text_signin_two": "创建账户",
+    "alert_sign_in": {
+      "alert_one": {
+        "title": "服务器错误",
+        "description": "请稍后再试。"
+      },
+      "alert_two": {
+        "title": "账户被禁用",
+        "description": "由于多次登录失败，你的账户已被禁用。请尝试恢复你的账户以恢复访问权限。"
+      },
+      "alert_three": {
+        "title": "认证错误",
+        "description": "用户未注册。请验证你的信息并重试。"
+      }
+    },
+    "validation_sign_in": {
+      "email": "电子邮件是必需的",
+      "email_message": "这不是一个有效的邮件"
+    }
+  },
+  "sign_up": {
+    "title": "注册",
+    "form": {
+      "label_name": "姓名",
+      "label_last_name": "姓",
+      "label_email": "电子邮件",
+      "label_password": "密码",
+      "button_sign_up": "注册",
+      "is_existing": "你已经是用户了吗？",
+      "sing_in": "登录",
+      "validate_input": {
+        "name_last_name": {
+          "required": "这是必需的",
+          "min_length": "最少3个字符",
+          "max_length": "最多20个字符",
+          "pattern": "只允许字母，不允许空格。"
+        },
+        "email": {
+          "required": "电子邮件是必需的",
+          "pattern": "这不是一个有效的电子邮件"
+        },
+        "password": {
+          "required": "密码是必需的",
+          "length": "密码必须恰好6位数字",
+          "pattern": "密码必须包含恰好6位数字",
+          "placeholder": "6位数字密码"
+        }
+      }
+    },
+    "alert_sign_up": {
+      "alert_one": {
+        "title": "注册成功",
+        "welcome_message": "欢迎 {{name}}！"
+      },
+      "alert_two": {
+        "title": "服务器错误",
+        "description": "请稍后再试。"
+      },
+      "alert_three": {
+        "title": "注册错误",
+        "description": "该电子邮件地址已经存在用户。"
+      }
+    },
+    "modal_safe_words": {
+      "title": "安全词",
+      "description": "接下来，我们将为你的账户提供密码。这些词对于恢复你的账户至关重要。为了确保账户的安全，我们强烈建议你将这些词保存在安全的地方，并在任何情况下不要与任何人分享。",
+      "button_ok": "明白了"
+    }
+  },
+  "details_crypto": {
+    "basics_detail": {
+      "coin": "币",
+      "invite_to_login": {
+        "title": "你需要登录才能查看或进行交易！",
+        "description": "登录或注册以开始管理你的投资。",
+        "button_register": "注册",
+        "button_login": "登录"
+      },
+      "empty_transaction": {
+        "title": "你没有 {{coinName}} 交易。",
+        "description": "当你进行交易时，交易记录会显示在这里。",
+        "button_buy": "购买 {{coinName}}"
+      }
+    },
+    "advanced_detail": {
+      "price_last_7_days": "{{coinName}} 最近7天的价格",
+      "price": "价格",
+      "title_about": "关于 {{coinName}}",
+      "read_more": "阅读更多",
+      "read_less": "阅读较少",
+      "stats": "统计",
+      "market_cap": "市值",
+      "volume_24h": "(24小时) 交易量",
+      "circulating_supply": "流通供应量",
+      "total_supply": "总供应量",
+      "alerts": {
+        "alert_one": {
+          "title": "重要信息",
+          "description": "目前 {{coinName}} 的价格不可用。请稍后再试。"
+        },
+        "alert_two": {
+          "title": "获取描述错误",
+          "description": "无法获取加密货币描述。"
+        }
+      }
+    }
+  },
+  "history_modal_transaction": {
+    "title": "交易详情",
+    "number_reference": "参考号",
+    "date": "日期",
+    "swap": {
+      "amount_from": "从金额",
+      "amount_to": "到金额"
+    },
+    "others": {
+      "id_payment": "支付ID",
+      "sender_wallet": "发件钱包",
+      "recipient_wallet": "收件钱包",
+      "amount": "金额",
+      "crypto": "加密货币",
+      "payment_method": "支付方式",
+      "sender": "发件人",
+      "recipient": "收件人"
+    }
+  },
+  "empty_switches_state": {
+    "title": "没有可查看的加密货币",
+    "description": "请添加一些加密货币以进行互动。"
+  },
+  "receive": {
+    "coin": "币",
+    "copy": "复制",
+    "set_amount": "设置金额",
+    "alert_receive": {
+      "alert_one": {
+        "title": "地址已复制到剪贴板"
+      }
+    },
+    "modal": {
+      "title": "设置金额",
+      "label": "金额",
+      "placeholder": "输入金额",
+      "button": "设置"
+    }
+  },
+  "buy": {
+    "payment_method": "支付方式由 {{method}} 提供",
+    "placeholder": "{{coinName}} 数量",
+    "button": "购买 {{coinName}}",
+    "pay": "你将支付",
+    "validate_input": {
+      "amount": {
+        "required": "金额是必需的",
+        "is_positive": "金额必须大于零",
+        "number": "金额必须是一个数字"
+      }
+    },
+    "alert_buy": {
+      "alert_one": {
+        "title": "支付错误",
+        "description": "支付金额必须大于1 {{currency}}"
+      },
+      "alert_two": {
+        "title": "错误",
+        "description": "处理支付时发生错误。请稍后再试。"
+      }
+    },
+    "success": {
+      "title": "支付成功",
+      "description": "你的支付已成功处理。",
+      "alert_success": {
+        "alert_one": {
+          "title": "交易完成",
+          "description": "交易已成功完成。"
+        },
+        "alert_two": {
+          "title": "支付已完成",
+          "description": "支付已完成，但交易尚未处理。"
+        }
+      }
+    },
+    "cancel": {
+      "title": "支付已取消",
+      "description": "你的支付已被取消。如果你希望完成交易，请重新尝试。"
+    }
+  },
+  "swap": {
+    "title": "兑换",
+    "from_swap": "从",
+    "to_swap": "到",
+    "button_swap": {
+      "continue": "继续",
+      "not_available": "不可用",
+      "balance": "{{coinName}} 余额不足"
+    },
+    "modal": {
+      "title": "你确定要交换加密货币吗？",
+      "button_cancel": "取消",
+      "button_confirm": "确认"
+    },
+    "validate_input": {
+      "amount_greater": "金额必须是大于0.001的数字",
+      "invalid_amount": "无效金额"
+    },
+    "alert_swap": {
+      "alert_one": {
+        "title": "交换成功",
+        "description": "你的加密货币交换已成功完成。"
+      },
+      "alert_two": {
+        "title": "交换加密货币错误",
+        "description": "请求无效。请检查金额并重试。"
+      },
+      "alert_three": {
+        "title": "交换加密货币错误",
+        "description": "发生了意外错误。请稍后再试。"
+      }
+    }
+  },
+  "send": {
+    "title": "发送 {{coinName}}",
+    "coin": "币",
+    "form": {
+      "label_address": "钱包地址",
+      "placeholder_address": "地址",
+      "label_amount": "金额",
+      "placeholder_amount": "{{coinName}} 数量",
+      "button": "下一步",
+      "button_paste": "粘贴",
+      "button_max": "最大"
+    },
+    "validate_input": {
+      "address": {
+        "required": "地址是必需的",
+        "is_string": "地址必须是一个字符串",
+        "pattern": "地址不能包含空格"
+      },
+      "amount": {
+        "required": "金额是必需的",
+        "is_valid": "金额超过可用的 {{maxAmount}} {{nameCrypto}}",
+        "number": "金额必须是一个数字",
+        "pattern": "金额不能包含空格",
+        "invalid": "无效金额"
+      }
+    },
+    "alert_send": {
+      "alert_one": {
+        "title": "注意",
+        "description": "无法将资金发送到你当前选择的钱包。"
+      },
+      "alert_two": {
+        "title": "服务器错误",
+        "description": "请稍后再试。"
+      },
+      "alert_three": {
+        "title": "钱包未找到",
+        "description": "未找到与此地址关联的钱包。"
+      },
+      "alert_four": {
+        "title": "获取钱包错误",
+        "description": "获取与此地址关联的钱包时出现问题。"
+      }
+    },
+    "confirm_send": {
+      "title": "确认转账",
+      "recipient": "收件人",
+      "recipient_wallet": "收件钱包",
+      "current_wallet": "你的钱包",
+      "date": "日期",
+      "amount": "金额",
+      "transaction_free": "交易费用",
+      "description": "描述（可选）",
+      "placeholder_description": "添加描述（可选）",
+      "button_confirm": "确认并转账",
+      "button_cancel": "取消转账",
+      "alert": {
+        "alert_one": {
+          "title": "发送加密货币错误",
+          "description": "请检查收件人地址和网络连接。"
+        }
+      }
+    },
+    "success": {
+      "title": "转账成功！",
+      "description": "你的交易已成功完成。",
+      "button_detail": "查看交易详情",
+      "button_return_to_home": "返回首页"
+    },
+    "view_details": {
+      "title": "交易详情",
+      "number_reference": "参考号",
+      "date": "日期",
+      "sender": "发件人地址",
+      "recipient": "收件人地址",
+      "amount": "金额",
+      "description": "描述"
+    }
+  },
+  "404": {
+    "title": "页面未找到",
+    "description": "你正在寻找的页面似乎不存在",
+    "button": "返回主页"
+  }
+}

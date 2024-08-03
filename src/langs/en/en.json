@@ -420,7 +420,7 @@
     "alert_sign_up": {
       "alert_one": {
         "title": "Successful registration",
-        "welcome_message": "¡Bienvenido {{name}}!"
+        "welcome_message": "¡Welcome {{name}}!"
       },
       "alert_two": {
         "title": "Server error",

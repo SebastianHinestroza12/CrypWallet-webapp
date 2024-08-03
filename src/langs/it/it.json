@@ -1,0 +1,675 @@
+{
+  "home": {
+    "wallet": "Portafogli",
+    "button_total_cash": "Aggiorna",
+    "manager_crypto": "Gestisci crypto",
+    "operations": {
+      "buy": "compra",
+      "swap": "scambia",
+      "send": "invia",
+      "receive": "ricevi",
+      "history": "storico",
+      "alert_operations": {
+        "alert_one": {
+          "title": "Attenzione",
+          "description": "Saldo insufficiente."
+        }
+      }
+    }
+  },
+  "search": {
+    "placeholder": "Cerca...",
+    "title_search": "cerca",
+    "title_manage_crypto": "gestisci crypto",
+    "title_receive": "ricevi",
+    "title_buy": "compra",
+    "title_send": "invia",
+    "title_swap": "scambia",
+    "all_crypto": "tutte le crypto",
+    "popular": "popolari"
+  },
+  "history": {
+    "title": "riepilogo operazioni"
+  },
+  "notifications": {
+    "title": "notifiche",
+    "empty_notification_text_one": "Nessuna notifica ancora",
+    "empty_notification_text_two": "Hai letto tutto!"
+  },
+  "tab_botton": {
+    "home": "home",
+    "search": "cerca",
+    "preferences": "preferenze",
+    "profile": "profilo"
+  },
+  "profile": {
+    "title": "Profilo",
+    "sign_out": "Esci",
+    "sign_in": "Accedi",
+    "change_picture": "cambia immagine",
+    "input_name": "Nome",
+    "input_last_name": "Cognome",
+    "input_email": "Indirizzo email",
+    "button_save": "Salva",
+    "alert_profile": {
+      "upload_image": {
+        "alert_one": {
+          "title": "Errore durante il caricamento dell'immagine",
+          "description_one": "I file non sono stati accessibili. Per favore riprova.",
+          "description_two": "Nessun file selezionato. Seleziona un file e riprova."
+        },
+        "alert_two": {
+          "title": "Immagine caricata con successo",
+          "description": "La tua immagine avatar è stata aggiornata con successo."
+        },
+        "alert_three": {
+          "title": "Errore durante il caricamento dell'immagine",
+          "description": "C'è stato un problema nel caricare la tua immagine avatar."
+        }
+      },
+      "on_submit": {
+        "alert_one": {
+          "title": "Attenzione",
+          "description": "I valori non sono cambiati."
+        },
+        "alert_two": {
+          "title": "Aggiornamento riuscito",
+          "description": "I dati dell'utente sono stati aggiornati correttamente."
+        },
+        "alert_three": {
+          "title": "Errore nell'aggiornamento dei dati",
+          "description": "C'è stato un problema nell'aggiornare i dati dell'utente."
+        }
+      },
+      "remove_avatar": {
+        "alert_one": {
+          "title": "Attenzione",
+          "description": "Non è possibile eliminare l'immagine avatar predefinita."
+        }
+      },
+      "confirm_remove": {
+        "alert_one": {
+          "title": "Successo",
+          "description": "Immagine rimossa con successo."
+        }
+      }
+    },
+    "overlay_dialog": {
+      "text_header": "Elimina Avatar",
+      "text_body": "Sei sicuro di voler eliminare la tua immagine del profilo?",
+      "button_confirm": "Elimina",
+      "button_cancel": "Annulla"
+    }
+  },
+  "splashscreen": {
+    "title": "Il tuo portafoglio multi-coin sicuro"
+  },
+  "landing_page": {
+    "title_text_one": "il tuo portafoglio di criptovalute",
+    "title_text_two": "facile e sicuro",
+    "description": "Non perdere mai una transazione. Mantieni il controllo delle tue criptovalute e ricevi notifiche intelligenti nei momenti giusti. Gestisci le tue criptovalute “Agenda Giornaliera” ogni mattina.",
+    "button_start": "Inizia",
+    "button_learn_more": "Scopri di più"
+  },
+  "menu": {
+    "home": "home",
+    "wallets": "portafogli",
+    "dark_mode": "modalità scura",
+    "preferences": "preferenze",
+    "manage_crypto": "gestisci crypto",
+    "search": "cerca",
+    "security": "sicurezza",
+    "register": "registrati",
+    "log_out": "esci",
+    "recover_account": "recupera account",
+    "about": "informazioni",
+    "install_app": "installa app"
+  },
+  "wallet_page": {
+    "wallet_list": {
+      "title": "Portafogli",
+      "description": "portafoglio multi-coin"
+    },
+    "wallet_create": {
+      "title": "Crea un nuovo portafoglio",
+      "label_name": "Nome del portafoglio",
+      "placeholder": "Inserisci il nome del portafoglio",
+      "button_create": "Crea Portafoglio",
+      "alert_create": {
+        "alert_one": {
+          "title": "Portafoglio creato con successo",
+          "description": "Il portafoglio è stato creato correttamente."
+        },
+        "alert_two": {
+          "title": "Errore nella creazione del portafoglio",
+          "description": "C'è stato un problema nella creazione del portafoglio."
+        }
+      }
+    },
+    "wallet_edit": {
+      "title": "Modifica Portafoglio",
+      "label_name": "Nome del portafoglio",
+      "placeholder": "Inserisci il nome del portafoglio",
+      "label_address": "Indirizzo del portafoglio",
+      "button_save": "Salva",
+      "button_delete": "Elimina",
+      "alert_wallet": {
+        "alert_one": {
+          "title": "Portafoglio aggiornato con successo"
+        },
+        "alert_two": {
+          "title": "Errore nella creazione del portafoglio"
+        },
+        "alert_three": {
+          "title": "Non puoi eliminare il portafoglio corrente."
+        },
+        "alert_four": {
+          "title": "Portafoglio eliminato."
+        },
+        "alert_five": {
+          "title": "Errore nell'eliminazione del portafoglio"
+        },
+        "alert_six": {
+          "title": "Indirizzo copiato negli appunti."
+        }
+      }
+    }
+  },
+  "preferences": {
+    "preference_list": {
+      "title": "Preferenze",
+      "title_currency": "Valuta",
+      "title_language": "Lingua"
+    },
+    "currency_list": {
+      "title": "Valute popolari",
+      "description": "Seleziona la tua valuta preferita",
+      "USD": "Dollaro USA",
+      "EUR": "Euro",
+      "JPY": "Yen giapponese",
+      "GBP": "Sterlina britannica",
+      "AUD": "Dollaro australiano",
+      "CAD": "Dollaro canadese",
+      "CHF": "Franco svizzero",
+      "NZD": "Dollaro neozelandese",
+      "MXN": "Peso messicano",
+      "SGD": "Dollaro di Singapore",
+      "KRW": "Won sudcoreano",
+      "TRY": "Lira turca",
+      "INR": "Rupia indiana",
+      "BRL": "Real brasiliano",
+      "RUB": "Rublo russo",
+      "ZAR": "Rand sudafricano",
+      "COP": "Peso colombiano",
+      "PLN": "Zloty polacco",
+      "THB": "Baht thailandese",
+      "IDR": "Rupia indonesiana",
+      "CZK": "Corona ceca",
+      "ILS": "Shekel israeliano",
+      "PHP": "Peso filippino",
+      "AED": "Dirham degli Emirati Arabi Uniti",
+      "MYR": "Ringgit malese",
+      "RON": "Leu rumeno",
+      "ARS": "Peso argentino",
+      "NGN": "Naira nigeriana"
+    },
+    "language_list": {
+      "title": "Lingue",
+      "en": "Inglese",
+      "es": "Spagnolo",
+      "fr": "Francese",
+      "it": "Italiano",
+      "de": "Tedesco",
+      "ru": "Russo",
+      "zh": "Cinese"
+    }
+  },
+  "security_manager": {
+    "pass_code": {
+      "title": "Inserisci il codice di accesso",
+      "description": "Il codice di accesso aggiunge un ulteriore livello di sicurezza durante l'uso dell'app."
+    },
+    "security_list": {
+      "title": "Opzioni di Sicurezza",
+      "title_passcode": "Codice di accesso",
+      "title_change_password": "Cambia Password",
+      "title_safe_words": "Parole Sicure"
+    },
+    "safe_words": {
+      "title": "Parole Sicure",
+      "description": "Queste sono le tue parole chiave. Non condividerle con nessuno per motivi di sicurezza."
+    },
+    "change_password": {
+      "title": "Inserisci Nuova Password",
+      "description": "Il codice di accesso aggiunge un ulteriore livello di sicurezza durante l'uso dell'app."
+    }
+  },
+  "recover_account": {
+    "step_one": {
+      "title": "Verifica il tuo account",
+      "description": "Inserisci la tua email per controllare se hai un account esistente.",
+      "button_ok": "Verifica account",
+      "alert_step": {
+        "alert_one": {
+          "title": "Successo",
+          "description": "Codice di verifica inviato alla tua email."
+        },
+        "alert_two": {
+          "title": "Errore del server",
+          "description": "Per favore riprova più tardi."
+        },
+        "alert_three": {
+          "title": "Errore",
+          "description": "Nessun account trovato associato a questa email."
+        },
+        "alert_four": {
+          "title": "Errore",
+          "description": "C'è stato un problema nella generazione del codice di verifica."
+        }
+      },
+      "validation_step": {
+        "email": "Email richiesta",
+        "email_message": "Email non valida"
+      }
+    },
+    "step_two": {
+      "title": "Verifica il codice OTP",
+      "description": "Inserisci il codice OTP inviato alla tua email per la verifica."
+    },
+    "step_three": {
+      "title": "Procederemo a verificare le tue parole sicure",
+      "description": "Inserisci le 12 parole sicure nello stesso ordine in cui ti sono state date.",
+      "placeholder": "Parola sicura",
+      "button_check": "Verifica",
+      "validate_input": {
+        "safe_words": "Hai inserito 12 parole. Procedi a verificarle.",
+        "safe_words_message": "Devi inserire esattamente 12 parole."
+      },
+      "alert_step": {
+        "alert_one": {
+          "title": "Successo",
+          "description": "Le parole sicure sono state verificate correttamente."
+        },
+        "alert_two": {
+          "title": "Errore del server",
+          "description": "Per favore riprova più tardi."
+        },
+        "alert_three": {
+          "title": "Parole errate",
+          "description": "Le parole inserite non corrispondono. Ricorda di inserirle nello stesso ordine in cui ti sono state date."
+        }
+      }
+    },
+    "step_four": {
+      "title": "Account verificato con successo! Ora puoi cambiare la tua password.",
+      "alert_step": {
+        "alert_one": {
+          "title": "Password cambiata con successo.",
+          "description": "Per favore, accedi di nuovo."
+        },
+        "alert_two": {
+          "title": "Errore nella modifica della password.",
+          "description": "Per favore riprova."
+        }
+      }
+    }
+  },
+  "about": {
+    "title": "Informazioni su Cryp Wallet",
+    "badge": {
+      "badge_one": {
+        "text_one": "Cripto",
+        "text_two": "Sicurezza",
+        "text_three": "Finanza"
+      },
+      "badge_two": {
+        "text_one": "Cripto",
+        "text_two": "Gestione"
+      },
+      "badge_three": {
+        "text_one": "Sicurezza",
+        "text_two": "Transazioni"
+      }
+    },
+    "section_one": {
+      "title": "Cryp Wallet: Il Tuo Portafoglio Cripto Affidabile",
+      "description": "Fondata nel 2024 da Sebastian Mena Hinestroza, CrypWallet è un'applicazione progressiva (PWA) che consente agli utenti di gestire, acquistare, vendere, trasferire e ricevere una vasta gamma di criptovalute in modo sicuro ed efficiente."
+    },
+    "section_two": {
+      "title": "Perché Scegliere CrypWallet?",
+      "description": "In CrypWallet, prendiamo molto sul serio la sicurezza del tuo account e dei soldi dei nostri clienti. Offriamo:",
+      "list_one": "Supporto per più criptovalute",
+      "list_two": "Portafogli sicuri e privati",
+      "list_three": "Aggiornamenti dei prezzi in tempo reale",
+      "list_four": "Interfaccia facile da usare"
+    },
+    "section_three": {
+      "container_one": {
+        "title": "Gestisci le Tue Criptovalute",
+        "description": "Con CrypWallet, puoi gestire tutte le tue criptovalute in un unico posto, con totale sicurezza e facilità."
+      },
+      "container_two": {
+        "title": "Transazioni Sicure",
+        "description": "Effettua transazioni di acquisto, vendita, trasferimento e ricezione di criptovalute rapidamente e in sicurezza con CrypWallet."
+      }
+    }
+  },
+  "download_app": {
+    "title": "Nessun prompt di installazione",
+    "description": "Il tuo browser non supporta il prompt di installazione."
+  },
+  "footer": {
+    "duty": "Tutti i diritti riservati."
+  },
+  "sign_in": {
+    "title": "Accedi",
+    "placeholder": "Inserisci email",
+    "enter_password": "Inserisci la tua password",
+    "description": "La password protegge l'accesso al tuo account.",
+    "text_recover": "Hai dimenticato la tua password?",
+    "text_signin_one": "Non hai un account?",
+    "text_signin_two": "Crea un account",
+    "alert_sign_in": {
+      "alert_one": {
+        "title": "Errore del server",
+        "description": "Per favore riprova più tardi."
+      },
+      "alert_two": {
+        "title": "Account disabilitato",
+        "description": "Il tuo account è stato disabilitato a causa di tentativi di accesso falliti. Per favore, prova a recuperare il tuo account per ripristinare l'accesso."
+      },
+      "alert_three": {
+        "title": "Errore di autenticazione",
+        "description": "L'utente non è registrato. Per favore verifica le tue informazioni e riprova."
+      }
+    },
+    "validation_sign_in": {
+      "email": "Email richiesta",
+      "email_message": "Email non valida"
+    }
+  },
+  "sign_up": {
+    "title": "Registrati",
+    "form": {
+      "label_name": "Nome",
+      "label_last_name": "Cognome",
+      "label_email": "Email",
+      "label_password": "Password",
+      "button_sign_up": "Registrati",
+      "is_existing": "Sei già un utente?",
+      "sing_in": "Accedi",
+      "validate_input": {
+        "name_last_name": {
+          "required": "Richiesto",
+          "min_length": "Minimo 3 caratteri",
+          "max_length": "Massimo 20 caratteri",
+          "pattern": "Sono ammesse solo lettere e non sono ammessi spazi bianchi."
+        },
+        "email": {
+          "required": "Email richiesta",
+          "pattern": "Email non valida"
+        },
+        "password": {
+          "required": "Password richiesta",
+          "length": "La password deve contenere esattamente 6 cifre",
+          "pattern": "La password deve contenere esattamente 6 cifre numeriche",
+          "placeholder": "Password numerica a 6 cifre"
+        }
+      }
+    },
+    "alert_sign_up": {
+      "alert_one": {
+        "title": "Registrazione avvenuta con successo",
+        "welcome_message": "Benvenuto {{name}}!"
+      },
+      "alert_two": {
+        "title": "Errore del server",
+        "description": "Per favore riprova più tardi."
+      },
+      "alert_three": {
+        "title": "Errore nella registrazione",
+        "description": "Esiste già un utente con questo indirizzo email."
+      }
+    },
+    "modal_safe_words": {
+      "title": "Parole di Sicurezza",
+      "description": "Successivamente, ti forniremo le password per il tuo account. Queste parole sono cruciali per recuperare il tuo account in caso di necessità. Per garantire la sicurezza del tuo account, ti consigliamo vivamente di tenere queste parole in un luogo sicuro e di non condividerle con nessuno in nessuna circostanza.",
+      "button_ok": "Capito"
+    }
+  },
+  "details_crypto": {
+    "basics_detail": {
+      "coin": "Moneta",
+      "invite_to_login": {
+        "title": "Devi accedere per visualizzare o effettuare le tue transazioni!",
+        "description": "Accedi o registrati per iniziare a gestire i tuoi investimenti.",
+        "button_register": "Registrati",
+        "button_login": "Accedi"
+      },
+      "empty_transaction": {
+        "title": "Non hai transazioni di {{coinName}}.",
+        "description": "Le transazioni appariranno qui quando le effettuerai.",
+        "button_buy": "Compra {{coinName}}"
+      }
+    },
+    "advanced_detail": {
+      "price_last_7_days": "Prezzo di {{coinName}} negli ultimi 7 giorni",
+      "price": "Prezzo",
+      "title_about": "Informazioni su {{coinName}}",
+      "read_more": "Leggi di più",
+      "read_less": "Leggi di meno",
+      "stats": "Statistiche",
+      "market_cap": "Capitalizzazione di mercato",
+      "volume_24h": "(24h) Volume",
+      "circulating_supply": "Offerta circolante",
+      "total_supply": "Offerta totale",
+      "alerts": {
+        "alert_one": {
+          "title": "Informazioni importanti",
+          "description": "Attualmente, i prezzi di {{coinName}} non sono disponibili. Per favore riprova più tardi."
+        },
+        "alert_two": {
+          "title": "Errore nel recupero della descrizione",
+          "description": "Impossibile ottenere la descrizione della criptovaluta."
+        }
+      }
+    }
+  },
+  "history_modal_transaction": {
+    "title": "Dettagli Transazione",
+    "number_reference": "Numero di riferimento",
+    "date": "Data",
+    "swap": {
+      "amount_from": "Importo da",
+      "amount_to": "Importo a"
+    },
+    "others": {
+      "id_payment": "ID pagamento",
+      "sender_wallet": "Portafoglio mittente",
+      "recipient_wallet": "Portafoglio destinatario",
+      "amount": "Importo",
+      "crypto": "Criptovaluta",
+      "payment_method": "Metodo di pagamento",
+      "sender": "Mittente",
+      "recipient": "Destinatario"
+    }
+  },
+  "empty_switches_state": {
+    "title": "Non ci sono criptovalute da visualizzare",
+    "description": "Per favore aggiungi alcune criptovalute con cui interagire."
+  },
+  "receive": {
+    "coin": "Moneta",
+    "copy": "Copia",
+    "set_amount": "Imposta Importo",
+    "alert_receive": {
+      "alert_one": {
+        "title": "Indirizzo copiato negli appunti"
+      }
+    },
+    "modal": {
+      "title": "Imposta Importo",
+      "label": "Importo",
+      "placeholder": "Inserisci importo",
+      "button": "Imposta"
+    }
+  },
+  "buy": {
+    "payment_method": "Pagamento effettuato tramite {{method}}",
+    "placeholder": "Importo {{coinName}}",
+    "button": "Compra {{coinName}}",
+    "pay": "Pagherai",
+    "validate_input": {
+      "amount": {
+        "required": "L'importo è richiesto",
+        "is_positive": "L'importo deve essere maggiore di zero",
+        "number": "L'importo deve essere un numero"
+      }
+    },
+    "alert_buy": {
+      "alert_one": {
+        "title": "Errore di pagamento",
+        "description": "L'importo da pagare deve essere maggiore di 1 {{currency}}"
+      },
+      "alert_two": {
+        "title": "Errore",
+        "description": "Si è verificato un errore durante l'elaborazione del pagamento. Per favore riprova più tardi."
+      }
+    },
+    "success": {
+      "title": "Pagamento effettuato con successo",
+      "description": "Il tuo pagamento è stato elaborato con successo.",
+      "alert_success": {
+        "alert_one": {
+          "title": "Transazione completata",
+          "description": "La transazione è stata completata con successo."
+        },
+        "alert_two": {
+          "title": "Pagamento effettuato",
+          "description": "Il pagamento è stato completato, ma la transazione non è stata elaborata."
+        }
+      }
+    },
+    "cancel": {
+      "title": "Pagamento annullato",
+      "description": "Il tuo pagamento è stato annullato. Per favore riprova se desideri completare la transazione."
+    }
+  },
+  "swap": {
+    "title": "Scambia",
+    "from_swap": "Da",
+    "to_swap": "A",
+    "button_swap": {
+      "continue": "Continua",
+      "not_available": "Non disponibile",
+      "balance": "Saldo {{coinName}} insufficiente"
+    },
+    "modal": {
+      "title": "Sei sicuro di voler scambiare criptovalute?",
+      "button_cancel": "Annulla",
+      "button_confirm": "Conferma"
+    },
+    "validate_input": {
+      "amount_greater": "L'importo deve essere un numero maggiore di 0.001",
+      "invalid_amount": "Importo non valido"
+    },
+    "alert_swap": {
+      "alert_one": {
+        "title": "Scambio riuscito",
+        "description": "Il tuo scambio di criptovalute è stato completato con successo."
+      },
+      "alert_two": {
+        "title": "Errore nello scambio di criptovalute",
+        "description": "Richiesta non valida. Per favore verifica l'importo e riprova."
+      },
+      "alert_three": {
+        "title": "Errore nello scambio di criptovalute",
+        "description": "Si è verificato un errore inaspettato. Per favore riprova più tardi."
+      }
+    }
+  },
+  "send": {
+    "title": "Invia {{coinName}}",
+    "coin": "moneta",
+    "form": {
+      "label_address": "Indirizzo del portafoglio",
+      "placeholder_address": "Indirizzo",
+      "label_amount": "Importo",
+      "placeholder_amount": "Importo {{coinName}}",
+      "button": "Avanti",
+      "button_paste": "Incolla",
+      "button_max": "Massimo"
+    },
+    "validate_input": {
+      "address": {
+        "required": "L'indirizzo è richiesto",
+        "is_string": "L'indirizzo deve essere una stringa",
+        "pattern": "L'indirizzo non deve contenere spazi"
+      },
+      "amount": {
+        "required": "L'importo è richiesto",
+        "is_valid": "L'importo supera il massimo disponibile {{maxAmount}} {{nameCrypto}}",
+        "number": "L'importo deve essere un numero",
+        "pattern": "L'importo non deve contenere spazi",
+        "invalid": "Importo non valido"
+      }
+    },
+    "alert_send": {
+      "alert_one": {
+        "title": "Attenzione",
+        "description": "Non è possibile inviare fondi al portafoglio che hai attualmente selezionato."
+      },
+      "alert_two": {
+        "title": "Errore del server",
+        "description": "Per favore riprova più tardi."
+      },
+      "alert_three": {
+        "title": "Portafoglio non trovato",
+        "description": "Non è stato trovato un portafoglio associato a questo indirizzo."
+      },
+      "alert_four": {
+        "title": "Errore nel recupero del portafoglio",
+        "description": "C'è stato un problema nel recuperare il portafoglio associato a questo indirizzo."
+      }
+    },
+    "confirm_send": {
+      "title": "Conferma Trasferimento",
+      "recipient": "Destinatario",
+      "recipient_wallet": "Portafoglio destinatario",
+      "current_wallet": "Il tuo portafoglio",
+      "date": "Data",
+      "amount": "Importo",
+      "transaction_free": "Commissione di transazione",
+      "description": "Descrizione (opzionale)",
+      "placeholder_description": "Aggiungi una descrizione (opzionale)",
+      "button_confirm": "Conferma e Trasferisci",
+      "button_cancel": "Annulla Trasferimento",
+      "alert": {
+        "alert_one": {
+          "title": "Errore nell'invio di criptovaluta",
+          "description": "Per favore verifica l'indirizzo del destinatario e la connessione di rete."
+        }
+      }
+    },
+    "success": {
+      "title": "Trasferimento riuscito!",
+      "description": "La tua transazione è stata completata con successo.",
+      "button_detail": "Visualizza Dettagli Transazione",
+      "button_return_to_home": "Torna alla Home"
+    },
+    "view_details": {
+      "title": "Dettagli Transazione",
+      "number_reference": "Numero di riferimento",
+      "date": "Data",
+      "sender": "Indirizzo mittente",
+      "recipient": "Indirizzo destinatario",
+      "amount": "Importo",
+      "description": "Descrizione"
+    }
+  },
+  "404": {
+    "title": "Pagina non trovata",
+    "description": "La pagina che stai cercando sembra non esistere",
+    "button": "Torna alla Homepage"
+  }
+}
