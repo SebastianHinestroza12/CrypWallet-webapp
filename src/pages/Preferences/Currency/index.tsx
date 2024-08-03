@@ -6,6 +6,10 @@ import { Icon } from '@iconify/react';
 import { PreferenceListData } from '../../../interfaces';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+
+const MotionFlex = motion(Flex);
 
 export const Currency = () => {
   const BG_COLOR_HOVER = useColorModeValue('gray.100', '#171717');
@@ -13,6 +17,8 @@ export const Currency = () => {
   const [currencies, setCurrencies] = useState<PreferenceListData[]>(CURRENCIES);
   const { currency, setCurrency } = useStoreCrypto();
   const navigation = useNavigate();
+  const { t } = useTranslation();
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value: textValue } = event.target;
     const lowerCaseTextValue = textValue.toLowerCase();
@@ -38,8 +44,8 @@ export const Currency = () => {
       </Box>
       <Stack direction={'column'} spacing={4}>
         <Flex justifyContent="space-between" alignItems="center">
-          <Text size="xs" color={'gray.500'}>
-            Popular
+          <Text size="xs" color={'gray.500'} textTransform={'capitalize'}>
+            {t('preferences.currency_list.title')}
           </Text>
           <IconButton
             icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
@@ -49,8 +55,8 @@ export const Currency = () => {
           />
         </Flex>
 
-        {currencies.map((currencie) => (
-          <Flex
+        {currencies.map((currencie, index) => (
+          <MotionFlex
             bg={BG}
             key={currencie.code}
             justifyContent={'space-between'}
@@ -60,13 +66,16 @@ export const Currency = () => {
             py={3}
             onClick={() => setCurrency(currencie.code)}
             borderRadius="lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
           >
             <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
               <Box mr={2}>
                 <Icon icon={currencie.icon} width={30} />
               </Box>
               <Text>
-                {currencie.code} - {currencie.name}
+                {currencie.code} - {t(`preferences.currency_list.${currencie.code}`)}
               </Text>
             </Box>
             <Box>
@@ -74,7 +83,7 @@ export const Currency = () => {
                 <Icon icon="weui:done-filled" width={30} color="green" />
               )}
             </Box>
-          </Flex>
+          </MotionFlex>
         ))}
       </Stack>
     </Box>

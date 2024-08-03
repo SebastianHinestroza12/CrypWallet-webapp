@@ -14,11 +14,14 @@ import {
   MenuList,
   Button,
 } from '@chakra-ui/react';
-import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown } from 'react-icons/fi';
+import { CgMenuGridO } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import { MobileProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { ROUTES } from '../../constants';
+import { DrawerNotification } from '../DrawerNotification';
+import { useTranslation } from 'react-i18next';
 
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const navigation = useNavigate();
@@ -30,6 +33,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     avatarUrl,
     authenticatedUser: { name, lastName },
   } = useStoreAutheticated();
+  const { t } = useTranslation();
 
   return (
     <Flex
@@ -52,18 +56,12 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         variant="ghost"
         size={'lg'}
         aria-label="open menu"
-        icon={<FiMenu />}
+        icon={<CgMenuGridO size={35} />}
       />
 
       {isAuthenticated ? (
-        <HStack spacing={{ base: '0', md: '6' }}>
-          <IconButton
-            onClick={() => navigation(ROUTES.NOTIFICATIONS)}
-            size="lg"
-            variant="ghost"
-            aria-label="open notification"
-            icon={<FiBell />}
-          />
+        <HStack spacing={{ base: '2', md: '6' }}>
+          <DrawerNotification />
           <Flex alignItems={'center'}>
             <Menu>
               <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
@@ -83,9 +81,11 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 </HStack>
               </MenuButton>
               <MenuList bg={bg} borderColor={borderColor}>
-                <MenuItem onClick={() => navigation(ROUTES.USER_PROFILE)}>Profile</MenuItem>
+                <MenuItem onClick={() => navigation(ROUTES.USER_PROFILE)}>
+                  {t('profile.title')}
+                </MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={() => logoutUser()}>Sign out</MenuItem>
+                <MenuItem onClick={() => logoutUser()}>{t('profile.sign_out')}</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -97,9 +97,12 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           size={'md'}
           fontWeight={'normal'}
           px={7}
-          _hover={{ bg: '#007bff', cursor: 'pointer', color: 'white' }}
+          _hover={{ bg: '#0039A0', cursor: 'pointer', color: '#FFF' }}
+          _active={{ bg: '#0039A0' }}
         >
-          <Text cursor="pointer">Sign In</Text>
+          <Text textTransform={'capitalize'} cursor="pointer">
+            {t('profile.sign_in')}
+          </Text>
         </Button>
       )}
     </Flex>

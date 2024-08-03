@@ -2,9 +2,11 @@ import { Flex, Box, Text, Button, useColorModeValue } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 import { ROUTES } from '../../constants';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const InviteToLogin = () => {
   const TEXT_COLOR = useColorModeValue('gray.700', 'gray.300');
+  const { t } = useTranslation();
   return (
     <Flex
       justifyContent={'center'}
@@ -18,10 +20,10 @@ export const InviteToLogin = () => {
       </Box>
       <Box mb={{ base: 4, md: 6 }}>
         <Text color={TEXT_COLOR} fontSize={'lg'} fontWeight={'medium'}>
-          ¡Necesitas iniciar sesión para ver o realizar tus transacciones!
+          {t('details_crypto.basics_detail.invite_to_login.title')}
         </Text>
         <Text color={TEXT_COLOR} fontSize={'sm'}>
-          Inicia sesión o regístrate para empezar a gestionar tus inversiones.
+          {t('details_crypto.basics_detail.invite_to_login.description')}
         </Text>
       </Box>
       <Flex>
@@ -36,7 +38,7 @@ export const InviteToLogin = () => {
             size={{ base: 'md', md: 'lg' }}
             mx={2}
           >
-            Inicia Sesión
+            {t('details_crypto.basics_detail.invite_to_login.button_login')}
           </Button>
         </Link>
         <Link to={ROUTES.USER_SIGNUP}>
@@ -50,7 +52,7 @@ export const InviteToLogin = () => {
             _active={{ bg: '#218838' }}
             size={{ base: 'md', md: 'lg' }}
           >
-            Regístrate
+            {t('details_crypto.basics_detail.invite_to_login.button_register')}
           </Button>
         </Link>
       </Flex>

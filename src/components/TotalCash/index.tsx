@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { Box, Flex, Icon, Text, useColorModeValue, Button } from '@chakra-ui/react';
-import { FaSync, FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import { IoMdArrowDropdown } from 'react-icons/io';
+import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { RiArrowDropDownLine } from 'react-icons/ri';
+import { GrUpdate } from 'react-icons/gr';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { useStoreVisibilityData } from '../../stores/dataVisibility';
-import { PiDotsThreeOutlineFill } from 'react-icons/pi';
+import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { ROUTES, SupportedCurrency } from '../../constants';
-import { fetchCryptoCompareData, formatCurrency } from '../../utils';
+import { fetchCryptoCompareData, formatCurrency, handleNewTransactions } from '../../utils';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { useTranslation } from 'react-i18next';
+import { WalletServices } from '../../services/wallet.service';
+import { WalletsIProps } from '../../interfaces';
 
 export const TotalCash = () => {
   const bg = useColorModeValue('gray.100', '#171717');
@@ -18,7 +21,16 @@ export const TotalCash = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigate();
   const { currency, setCurrentCrypto } = useStoreCrypto();
-  const { isAuthenticated, currentWallet } = useStoreAutheticated();
+  const {
+    isAuthenticated,
+    currentWallet,
+    authenticatedUser: { id },
+    setTransactions,
+    transactions,
+    setSendNotification,
+    addWallet,
+    setCurrentWallet,
+  } = useStoreAutheticated();
   const { isDataVisible, setDataVisible, totalCash, symbol, totalPercentaje, isPositive } =
     useStoreVisibilityData();
   const { t } = useTranslation();
@@ -31,13 +43,44 @@ export const TotalCash = () => {
     navigation(ROUTES.USER_SIGNIN);
   };
 
+  const handleNotifications = async () => {
+    try {
+      const newTransactions = await handleNewTransactions(
+        id!,
+        transactions,
+        setSendNotification,
+        setTransactions,
+      );
+
+      if (newTransactions) {
+        const response = await WalletServices.getAllWallets(id!);
+
+        if (response.status === 200) {
+          const allWallets = response.data.wallets;
+          addWallet(allWallets, true);
+
+          const wallet = allWallets.find(
+            (wallet: WalletsIProps) => wallet.id === currentWallet?.id,
+          );
+          setCurrentWallet(wallet, id!, false);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const onRefresh = async () => {
     try {
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const data = await fetchCryptoCompareData(currency);
       setCurrentCrypto(data);
       setIsLoading(false);
+
+      if (isAuthenticated) {
+        await handleNotifications();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -55,10 +98,10 @@ export const TotalCash = () => {
           p={2}
           borderRadius={'full'}
         >
-          <Text fontSize="md" fontWeight="bold" textAlign={'center'}>
+          <Text fontSize="md" fontWeight="bold" textAlign={'center'} textTransform={'capitalize'}>
             {currentWallet?.name ?? t('home.wallet')}
           </Text>
-          <Icon as={IoMdArrowDropdown} boxSize={6} />
+          <Icon as={RiArrowDropDownLine} boxSize={6} />
         </Box>
         <Button
           rounded={'full'}
@@ -68,13 +111,14 @@ export const TotalCash = () => {
           color={'#FFF'}
           bg={'#1E59EA'}
           isLoading={isLoading}
-          _hover={{ bg: '#007bff', cursor: 'pointer' }}
+          _hover={{ bg: '#0039A0', cursor: 'pointer' }}
+          _active={{ bg: '#0039A0' }}
           onClick={onRefresh}
         >
           <Text mr={2} cursor="pointer">
             {t('home.button_total_cash')}
           </Text>
-          <Icon as={FaSync} cursor="pointer" />
+          <Icon as={GrUpdate} cursor="pointer" />
         </Button>
       </Flex>
 
@@ -84,10 +128,10 @@ export const TotalCash = () => {
             {`${symbol} ${formatCurrency(totalCash, currency as SupportedCurrency)}`}
           </Text>
         ) : (
-          <Icon boxSize={12} mr={4} as={PiDotsThreeOutlineFill} />
+          <Icon boxSize={9} mr={3} as={BiDotsHorizontalRounded} />
         )}
         <Icon
-          boxSize={6}
+          boxSize={5}
           as={isDataVisible ? ViewIcon : ViewOffIcon}
           cursor="pointer"
           onClick={handleDataVisible}
@@ -106,7 +150,7 @@ export const TotalCash = () => {
             </Text>
           </>
         ) : (
-          <Icon boxSize={12} as={PiDotsThreeOutlineFill} />
+          <Icon boxSize={9} as={BiDotsHorizontalRounded} />
         )}
       </Flex>
     </Box>

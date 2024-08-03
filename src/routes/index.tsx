@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-refresh/only-export-components */
+import { lazy, Suspense, ComponentType, LazyExoticComponent } from 'react';
 import { ROUTES } from '../constants';
 import { createBrowserRouter } from 'react-router-dom';
 import { CallToActionWithIllustration } from '../pages/LandingPage';
@@ -9,7 +12,6 @@ import { UserRegistrationForm } from '../pages/Auth/SignUp';
 import { UserLogIn } from '../pages/Auth/SignIn';
 import { AboutUs } from '../pages/AboutUs';
 import { RecoverAccountMultistep } from '../pages/Auth/RecoverAccount';
-import { Notifications } from '../pages/Notifications';
 import { Preferences } from '../pages/Preferences';
 import { ManageCryptocurrencies } from '../pages/ManageCryptocurrencies';
 import { DetailCrypto } from '../pages/DetailCrypto';
@@ -26,8 +28,7 @@ import { SecurityList } from '../pages/Security';
 import { SafeWords } from '../pages/Security/SafeWords';
 import { ProtectedSecurityRoute } from '../middlewares/ProtectedSecurityRoute';
 import { ChangePassword } from '../pages/Security/ChangePassword';
-import { CryptoOverview } from '../pages/DetailCrypto/CryptoOverview';
-import { Swap } from '../pages/Operations/Swap';
+import { SwapList } from '../pages/Operations/Swap';
 import { SendList } from '../pages/Operations/Send';
 import { TransferStep } from '../pages/Operations/Send/TransferStep';
 import { TransactionSuccess } from '../pages/TransactionSuccess';
@@ -35,10 +36,27 @@ import { TransactionDetails } from '../pages/TransactionDetails';
 import { ReceiveList } from '../pages/Operations/Receive';
 import { ReceiveCrypto } from '../pages/Operations/Receive/ReceiveCrypto';
 import { BuyList } from '../pages/Operations/Buy';
-import { BuyCryptoWithStrape } from '../pages/Operations/Buy/MethodsPayment/BuyCryptoWithStrape';
-import { PaymentMethod } from '../pages/Operations/Buy/MethodsPayment';
+import { BuyCryptoWithGateway } from '../pages/Operations/Buy/BuyCryptoWithGateway';
 import { Success } from '../pages/SuccessResult';
 import { Cancel } from '../pages/CancelResult';
+import { AllTransactions } from '../pages/Operations/History';
+import { SwapForm } from '../pages/Operations/Swap/SwapForm';
+import { Loading } from '../components/Loading';
+
+const simulateDelay = (delay: number) => {
+  return new Promise((resolve) => setTimeout(resolve, delay));
+};
+
+const lazyWithDelay = (
+  importFunction: () => Promise<{ default: ComponentType<any> }>,
+  delay: number,
+): LazyExoticComponent<ComponentType<any>> => {
+  return lazy(() =>
+    Promise.all([importFunction(), simulateDelay(delay)]).then(([moduleExports]) => moduleExports),
+  );
+};
+
+const CryptoOverview = lazyWithDelay(() => import('../pages/DetailCrypto/CryptoOverview'), 2000);
 
 export const router = createBrowserRouter([
   {
@@ -57,7 +75,7 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.ROOT,
     element: <Layout />,
-    errorElement: <ErrorPage />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: ROUTES.HOME,
@@ -66,16 +84,6 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.ABOUT_US,
         element: <AboutUs />,
-      },
-      {
-        path: ROUTES.NOTIFICATIONS,
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: ROUTES.EMPTY,
-            element: <Notifications />,
-          },
-        ],
       },
       {
         path: ROUTES.WALLETS,
@@ -172,7 +180,11 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.CRYPTO_DETAIL_OVERVIEW,
-            element: <CryptoOverview />,
+            element: (
+              <Suspense fallback={<Loading />}>
+                <CryptoOverview />
+              </Suspense>
+            ),
           },
           {
             path: ROUTES.CRYPTO_MANAGE,
@@ -197,19 +209,15 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.OPERATIONS_SWAP_CRYPTO,
-            element: <Swap />,
+            element: <SwapList />,
           },
           {
             path: ROUTES.OPERATIONS_BUY_CRYPTO,
             element: <BuyList />,
           },
           {
-            path: ROUTES.OPERATIONS_SELL_CRYPTO,
-            element: <div>Sell Crypto Operation</div>,
-          },
-          {
             path: ROUTES.OPERATIONS_HISTORY_CRYPTO,
-            element: <div>History Crypto Operation</div>,
+            element: <AllTransactions />,
           },
         ],
       },
@@ -234,22 +242,12 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: ROUTES.OPERATIONS_BUY_CRYPTO_WITH_STRIPE,
+        path: ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY,
         element: <ProtectedRoute />,
         children: [
           {
             path: ROUTES.EMPTY,
-            element: <BuyCryptoWithStrape />,
-          },
-        ],
-      },
-      {
-        path: ROUTES.PAYMENT_METHODS_CRYPTO,
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: ROUTES.EMPTY,
-            element: <PaymentMethod />,
+            element: <BuyCryptoWithGateway />,
           },
         ],
       },
@@ -290,6 +288,16 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.EMPTY,
             element: <Cancel />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.TRANSACTION_SWAP,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: ROUTES.EMPTY,
+            element: <SwapForm />,
           },
         ],
       },

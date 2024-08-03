@@ -15,12 +15,14 @@ import {
 import { Tags } from '../../components/Tags';
 import { MdCheckCircle } from 'react-icons/md';
 import { SERVICES_ABOUT } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export const AboutUs = () => {
+  const { t } = useTranslation();
   return (
     <Box>
       <Heading as="h1" mb={6}>
-        About CrypWallet
+        {t('about.title')}
       </Heading>
       <Box
         marginTop={{ base: '1', sm: '5' }}
@@ -63,10 +65,16 @@ export const AboutUs = () => {
           justifyContent="center"
           marginTop={{ base: '3', sm: '0' }}
         >
-          <Tags tags={['Crypto', 'Security', 'Finance']} />
+          <Tags
+            tags={[
+              t('about.badge.badge_one.text_one'),
+              t('about.badge.badge_one.text_two'),
+              t('about.badge.badge_one.text_three'),
+            ]}
+          />
           <Heading marginTop="1">
             <Text textDecoration="none" _hover={{ textDecoration: 'none' }}>
-              CrypWallet: Your Trusted Crypto Wallet
+              {t('about.section_one.title')}
             </Text>
           </Heading>
           <Text
@@ -75,9 +83,7 @@ export const AboutUs = () => {
             color={useColorModeValue('gray.700', 'gray.200')}
             fontSize="lg"
           >
-            Fundada en 2024 por Sebastian Mena Hinestroza, CrypWallet es una aplicación progresiva
-            (PWA) que permite a los usuarios administrar, comprar, vender, transferir y recibir una
-            amplia variedad de criptomonedas de manera segura y eficiente.
+            {t('about.section_one.description')}
           </Text>
         </Box>
       </Box>
@@ -90,17 +96,16 @@ export const AboutUs = () => {
         />
       </Box>
       <Heading as="h2" marginTop="5">
-        Why Choose CrypWallet?
+        {t('about.section_two.title')}
       </Heading>
       <Text as="p" fontSize="lg" marginTop="2">
-        En CrypWallet, nos tomamos muy en serio la seguridad de tu cuenta y el dinero de nuestros
-        usuarios. Ofrecemos:
+        {t('about.section_two.description')}
       </Text>
       <List paddingTop="4" spacing="3">
         {SERVICES_ABOUT.map((service) => (
-          <ListItem key={service}>
+          <ListItem key={service.key}>
             <ListIcon as={MdCheckCircle} color="green.500" boxSize={'21px'} />
-            {service}
+            {t(`about.section_two.${service.key}`)}
           </ListItem>
         ))}
       </List>
@@ -123,15 +128,17 @@ export const AboutUs = () => {
                 />
               </Box>
             </Box>
-            <Tags tags={['Crypto', 'Management']} marginTop={3} />
+            <Tags
+              tags={[t('about.badge.badge_two.text_one'), t('about.badge.badge_two.text_two')]}
+              marginTop={3}
+            />
             <Heading fontSize="xl" marginTop="2">
               <Text textDecoration="none" _hover={{ textDecoration: 'none' }}>
-                Manage Your Cryptocurrencies
+                {t('about.section_three.container_one.title')}
               </Text>
             </Heading>
             <Text as="p" fontSize="md" marginTop="2">
-              Con CrypWallet, puedes administrar todas tus criptomonedas en un solo lugar, con total
-              seguridad y facilidad.
+              {t('about.section_three.container_one.description')}
             </Text>
           </Box>
         </WrapItem>
@@ -152,15 +159,17 @@ export const AboutUs = () => {
                 />
               </Box>
             </Box>
-            <Tags tags={['Security', 'Transactions']} marginTop={3} />
+            <Tags
+              tags={[t('about.badge.badge_three.text_one'), t('about.badge.badge_three.text_two')]}
+              marginTop={3}
+            />
             <Heading fontSize="xl" marginTop="2">
               <Text textDecoration="none" _hover={{ textDecoration: 'none' }}>
-                Secure Transactions
+                {t('about.section_three.container_two.title')}
               </Text>
             </Heading>
             <Text as="p" fontSize="md" marginTop="2">
-              Realiza transacciones de compra, venta, transferencia y recepción de criptomonedas de
-              forma rápida y segura con CrypWallet.
+              {t('about.section_three.container_two.description')}
             </Text>
           </Box>
         </WrapItem>

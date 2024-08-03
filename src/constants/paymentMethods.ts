@@ -10,6 +10,6 @@ export const PAYMENT_METHODS: PaymentMethodsIprops[] = [
     icon: 'arcticons:mercado-libre',
     label: 'Mercado Pago',
     color: '#00BCFF',
-    method: 'mercado-pago',
+    method: 'mercadoPago',
   },
 ];

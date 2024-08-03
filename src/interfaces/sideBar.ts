@@ -8,6 +8,7 @@ export interface LinkItemProps {
   icon: IconType;
   showDivider?: boolean;
   route?: string;
+  traslateName: string;
 }
 export interface TabsBottomProps {
   label: string;

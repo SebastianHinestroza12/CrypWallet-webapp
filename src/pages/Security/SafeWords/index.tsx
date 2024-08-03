@@ -11,6 +11,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useStoreAutheticated } from '../../../stores/authentication';
+import { useTranslation } from 'react-i18next';
 
 export const SafeWords = () => {
   const navigate = useNavigate();
@@ -18,12 +19,13 @@ export const SafeWords = () => {
   const boxBg = useColorModeValue('white', 'gray.800');
   const textColor = useColorModeValue('gray.800', 'white');
   const { safeWords } = useStoreAutheticated();
+  const { t } = useTranslation();
 
   return (
     <Box p={5} bg={bg} borderRadius="lg" boxShadow="md">
       <Flex justifyContent="space-between" alignItems="center" mb={4}>
         <Heading as="h2" size="lg">
-          Safe Words
+          {t('security_manager.safe_words.title')}
         </Heading>
         <IconButton
           icon={<Icon icon="mdi:arrow-left" width="24" height="24" />}
@@ -34,7 +36,7 @@ export const SafeWords = () => {
       </Flex>
       <Stack spacing={4} mb={4}>
         <Text fontSize="md" color={textColor}>
-          Estas son tus palabras clave. No las compartas con nadie por cuestiones de seguridad.
+          {t('security_manager.safe_words.description')}
         </Text>
       </Stack>
       <SimpleGrid columns={3} spacing={4}>

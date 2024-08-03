@@ -11,10 +11,13 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { ROUTES } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export function CallToActionWithIllustration() {
   const navigation = useNavigate();
   const sizeLogo = useBreakpointValue({ base: 150, md: 200 });
+  const { t } = useTranslation();
+
   return (
     <Container maxW={'7xl'}>
       <Stack
@@ -34,15 +37,13 @@ export function CallToActionWithIllustration() {
           <Text as={'span'} color={'#1E59EA'} fontSize={{ base: '3xl', sm: '5xl', md: '7xl' }}>
             Cryp wallet
           </Text>
-          , tu billetera de criptomonedas{' '}
+          , {t('landing_page.title_text_one')}{' '}
           <Text as={'span'} color={'#1E59EA'}>
-            fácil y segura
+            {t('landing_page.title_text_two')}
           </Text>
         </Heading>
         <Text color={'gray.500'} maxW={'3xl'}>
-          Nunca pierdas una transacción. Mantén el control de tus criptomonedas y recibe
-          notificaciones inteligentes en los momentos adecuados. Administra tu “Agenda Diaria” de
-          criptomonedas cada mañana.
+          {t('landing_page.description')}
         </Text>
         <Stack
           spacing={{ base: 4, sm: 6 }}
@@ -60,7 +61,7 @@ export function CallToActionWithIllustration() {
             w={'100%'}
             onClick={() => navigation(ROUTES.HOME)}
           >
-            Empezar
+            {t('landing_page.button_start')}
           </Button>
           <Button
             onClick={() => navigation(ROUTES.ABOUT_US)}
@@ -70,7 +71,7 @@ export function CallToActionWithIllustration() {
             fontWeight={'normal'}
             w={'100%'}
           >
-            Saber más
+            {t('landing_page.button_learn_more')}
           </Button>
         </Stack>
         <Flex w={'full'} justifyContent={'center'} alignItems={'center'}>

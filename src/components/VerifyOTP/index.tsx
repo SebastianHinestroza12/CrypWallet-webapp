@@ -14,8 +14,10 @@ import { NumericKeypad } from '../NumericKeypad';
 import { usePinInput } from '../../hooks/usePinInput';
 import { AuthService } from '../../services/auth.service';
 import { useStoreAutheticated } from '../../stores/authentication';
+import { useTranslation } from 'react-i18next';
 
 export const VerifyOtp = () => {
+  const { t } = useTranslation();
   const { setRecoveryStep, setRecoreyProgress, userIdRecoveryAccount } = useStoreAutheticated();
   const {
     pin,
@@ -57,7 +59,7 @@ export const VerifyOtp = () => {
         <Box>
           <Stack spacing={4}>
             <Heading fontSize={'3xl'} textAlign={'center'}>
-              Verify OTP Code
+              {t('recover_account.step_two.title')}
             </Heading>
             <FormControl>
               <Center>
@@ -89,7 +91,7 @@ export const VerifyOtp = () => {
               </Center>
             </FormControl>
             <Text textAlign={'center'} color={'gray.500'}>
-              Enter the OTP code sent to your email for verification.
+              {t('recover_account.step_two.description')}
             </Text>
             <Box>
               <NumericKeypad

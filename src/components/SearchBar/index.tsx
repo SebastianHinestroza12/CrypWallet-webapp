@@ -10,6 +10,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { FaSearch } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 type SearchBarProps = {
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -17,6 +18,7 @@ type SearchBarProps = {
 };
 
 export const SearchBar = ({ handleChange, title }: SearchBarProps) => {
+  const { t } = useTranslation();
   return (
     <Box width="100%" maxW="600px" mx="auto">
       <Text textAlign={'center'} textTransform={'capitalize'} fontSize={'2xl'} mb={3}>
@@ -28,7 +30,7 @@ export const SearchBar = ({ handleChange, title }: SearchBarProps) => {
         </InputLeftElement>
         <Input
           type="text"
-          placeholder="Search..."
+          placeholder={t('search.placeholder')}
           borderRadius="full"
           borderColor="gray.300"
           onChange={handleChange}
