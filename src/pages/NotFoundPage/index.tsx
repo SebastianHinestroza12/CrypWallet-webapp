@@ -1,8 +1,10 @@
 import { Heading, Text, Button, Box } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export const NotFoundPage = () => {
+  const { t } = useTranslation();
   return (
     <Box
       textAlign="center"
@@ -24,10 +26,10 @@ export const NotFoundPage = () => {
         404
       </Heading>
       <Text fontSize="25px" mt={3} mb={2}>
-        Page Not Found
+        {t('404.title')}
       </Text>
       <Text fontSize="20px" color={'gray.500'} mb={6}>
-        The page you're looking for does not seem to exist
+        {t('404.description')}
       </Text>
 
       <Link to={ROUTES.HOME}>
@@ -40,7 +42,7 @@ export const NotFoundPage = () => {
           color="white"
           variant="solid"
         >
-          Go to Home
+          {t('404.button')}
         </Button>
       </Link>
     </Box>

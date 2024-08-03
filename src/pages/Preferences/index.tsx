@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next';
 
 export const Preferences = () => {
   const navigation = useNavigate();
-  const { currency } = useStoreCrypto();
+  const { currency, appLanguage } = useStoreCrypto();
   const BG_COLOR = useColorModeValue('gray.100', '#171717');
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Stack spacing={4}>
@@ -42,7 +42,7 @@ export const Preferences = () => {
       >
         <PreferenceList
           title={t('preferences.preference_list.title_language')}
-          subTitle={i18n.language}
+          subTitle={appLanguage}
         />
       </Box>
     </Stack>

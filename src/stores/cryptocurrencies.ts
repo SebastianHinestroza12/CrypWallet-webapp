@@ -13,6 +13,8 @@ interface StoreStateCrypto {
   setFromCryptoSwap: (crypto: CryptoCompareData | null) => void;
   toCryptoSwap: CryptoCompareData | null;
   setToCryptoSwap: (crypto: CryptoCompareData | null) => void;
+  appLanguage: string;
+  setAppLanguage: (language: string) => void;
 }
 
 type MyPersist = (
@@ -61,6 +63,9 @@ export const useStoreCrypto = create(
           ...state,
           toCryptoSwap: crypto,
         })),
+
+      appLanguage: 'en',
+      setAppLanguage: (language) => set((state) => ({ ...state, appLanguage: language })),
     }),
     {
       name: 'crypto-storage',

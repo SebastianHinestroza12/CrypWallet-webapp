@@ -4,6 +4,7 @@ import { Icon as IconifyIcon } from '@iconify/react';
 import { TransactionUserIProps } from '../../interfaces';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { DetailHistoryModal } from '../../components/DetailHistoryModal';
+import { useTranslation } from 'react-i18next';
 interface TransactionHistoryProps {
   transactions: TransactionUserIProps[];
   showRemoveButton?: boolean;
@@ -15,6 +16,7 @@ export const TransactionHistory = ({ transactions, showRemoveButton }: Transacti
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionUserIProps | null>(
     null,
   );
+  const { t } = useTranslation();
 
   const renderIcon = (type_transaction: string) => {
     switch (type_transaction) {
@@ -94,8 +96,8 @@ export const TransactionHistory = ({ transactions, showRemoveButton }: Transacti
                 <Text fontWeight="bold">
                   {transaction.amount} {transaction.symbol}
                 </Text>
-                <Text fontSize="sm" color={TEXT_COLOR}>
-                  {renderIcony.toUpperCase()}
+                <Text fontSize="sm" color={TEXT_COLOR} textTransform={'uppercase'}>
+                  {t(`home.operations.${renderIcony}`)}
                 </Text>
               </Flex>
             </Flex>

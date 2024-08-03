@@ -25,6 +25,7 @@ import { WalletServices } from '../../../../services/wallet.service';
 import { WalletsIProps } from '../../../../interfaces';
 import { useToastNotification } from '../../../../hooks/useToastNotification';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 type TextButtonIProps = {
   text: string;
@@ -32,6 +33,7 @@ type TextButtonIProps = {
 };
 
 export const SwapForm = () => {
+  const { t } = useTranslation();
   const {
     currentCrypto,
     currency,
@@ -53,7 +55,7 @@ export const SwapForm = () => {
     search,
   } = useLocation();
   const [textButton, setTextButton] = useState<TextButtonIProps>({
-    text: 'Continuar',
+    text: t('swap.button_swap.continue'),
     isBuy: false,
   });
   const searchParams = new URLSearchParams(search);
@@ -92,7 +94,7 @@ export const SwapForm = () => {
   useEffect(() => {
     if (nameSymbolTo === nameSymbolFrom) {
       setTextButton({
-        text: 'Not available',
+        text: t('swap.button_swap.not_available'),
         isBuy: false,
       });
       setDisableButton(true);
@@ -102,13 +104,13 @@ export const SwapForm = () => {
 
     if (parseFloat(amount) > (currentWallet?.cryptoCurrency[nameSymbolFrom ?? ''] ?? 0)) {
       setTextButton({
-        text: `Insufficient ${nameSymbolFrom} balance`,
+        text: t('swap.button_swap.balance', { coinName: nameSymbolFrom }),
         isBuy: true,
       });
       setShowBuy(true);
     } else {
       setTextButton({
-        text: 'Continuar',
+        text: t('swap.button_swap.continue'),
         isBuy: false,
       });
       setShowBuy(false);
@@ -161,7 +163,7 @@ export const SwapForm = () => {
       const priceTo = parseFloat((toCryptoSwap?.RAW?.[currency]?.PRICE ?? 0).toFixed(2));
 
       if (isNaN(parseValue) || parseValue < 0.001) {
-        setError('Amount must be a number greater than 0.001');
+        setError(t('swap.validate_input.amount_greater'));
         setEqualAmount('0');
         setEqualAmountSwap('0');
       } else {
@@ -193,7 +195,7 @@ export const SwapForm = () => {
       parseAmount > (currentWallet?.cryptoCurrency[nameSymbolFrom ?? ''] ?? 0) ||
       parseAmount === 0
     ) {
-      setError('Invalid amount');
+      setError(t('swap.validate_input.invalid_amount'));
       return;
     }
 
@@ -248,8 +250,8 @@ export const SwapForm = () => {
         setIsDialogOpen(false);
 
         displayToast(
-          'Swap Successful',
-          'Your cryptocurrency exchange has been completed successfully.',
+          t('swap.alert_swap.alert_one.title'),
+          t('swap.alert_swap.alert_one.description'),
           'success',
         );
 
@@ -265,21 +267,22 @@ export const SwapForm = () => {
         const status = error.response?.status;
 
         if (status === 400) {
-          const errorMessage =
-            error.response?.data?.message ||
-            'Invalid request. Please check the amount and try again.';
-          displayToast('Swap Crypto Error', errorMessage, 'error');
+          displayToast(
+            t('swap.alert_swap.alert_two.title'),
+            t('swap.alert_swap.alert_two.description'),
+            'error',
+          );
         } else {
           displayToast(
-            'Swap Crypto Error',
-            'An unexpected error occurred. Please try again later.',
+            t('swap.alert_swap.alert_three.title'),
+            t('swap.alert_swap.alert_three.description'),
             'error',
           );
         }
       } else {
         displayToast(
-          'Swap Crypto Error',
-          'An unexpected error occurred. Please try again later.',
+          t('swap.alert_swap.alert_three.title'),
+          t('swap.alert_swap.alert_three.description'),
           'error',
         );
       }
@@ -289,11 +292,11 @@ export const SwapForm = () => {
   return (
     <Stack maxW={'600px'} mx={'auto'} spacing={10}>
       <Heading as="h3" size="lg" textAlign="center">
-        Swap
+        {t('swap.title')}
       </Heading>
       <Stack spacing={3}>
         <SwapItem
-          title="from"
+          title={t('swap.from_swap')}
           needToBuy={showBuy}
           equalAmount={equalAmount}
           symbolCurrency={symbol}
@@ -309,7 +312,7 @@ export const SwapForm = () => {
           isInput
         />
         <SwapItem
-          title="to"
+          title={t('swap.to_swap')}
           amountCrypto={amountSwap}
           equalAmount={equalAmountSwap}
           symbolCurrency={symbol}
@@ -362,27 +365,27 @@ export const SwapForm = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            maxWidth="xs"
-            p={1}
-            mx="auto"
+            maxWidth={{ base: 'xs', md: 'md' }}
+            p={3}
+            m="auto"
             boxShadow="2xl"
           >
-            <AlertDialogBody>
-              ¿Estás seguro(a) de que deseas realizar el cambio de criptomonedas?
-            </AlertDialogBody>
+            <AlertDialogBody textAlign={'center'}>{t('swap.modal.title')}</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button
                 bg={'#E53E3E'}
+                borderRadius={'full'}
                 color={'#FFF'}
                 _hover={{ bg: '#C43030' }}
                 ref={cancelRef}
                 onClick={() => setIsDialogOpen(false)}
               >
-                Cancelar
+                {t('swap.modal.button_cancel')}
               </Button>
               <Button
                 isLoading={isLoading}
+                borderRadius={'full'}
                 bg={'#1e59ea'}
                 _hover={{ bg: '#0039A0', cursor: 'pointer' }}
                 _active={{ bg: '#0039A0' }}
@@ -390,7 +393,7 @@ export const SwapForm = () => {
                 onClick={performOperation}
                 ml={3}
               >
-                Confirmar
+                {t('swap.modal.button_confirm')}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

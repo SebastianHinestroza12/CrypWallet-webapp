@@ -60,7 +60,12 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
               },
             });
           } else {
-            displayToast('Atención', 'Saldo insuficiente.', 'warning', 2000);
+            displayToast(
+              t('home.operations.alert_operations.alert_one.title'),
+              t('home.operations.alert_operations.alert_one.description'),
+              'warning',
+              2000,
+            );
           }
           return;
         }

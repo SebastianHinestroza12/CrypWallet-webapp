@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Box, Divider, Flex, Stack, Text, Image } from '@chakra-ui/react';
-import { CryptoNotFound } from '../../components/CryptoNotFound';
 import { Icon } from '@iconify/react';
 import { ROUTES, SupportedCurrency } from '../../constants';
 import { OperationButton } from '../../components/OperationButton';
@@ -15,6 +14,8 @@ import { TransactionUserIProps } from '../../interfaces';
 import { TransactionHistory } from '../../components/TransactionHistory';
 import { PiApproximateEquals } from 'react-icons/pi';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { NotFoundPage } from '../NotFoundPage';
 
 const MotionStack = motion(Stack);
 
@@ -28,6 +29,7 @@ export const DetailCrypto = () => {
   const [transactionCoin, setTransactionCoin] = useState<TransactionUserIProps[]>([]);
   const crypto = infoCrypto;
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const coinCrypto = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
   const price = parseFloat((crypto.RAW?.[currency]?.PRICE ?? 0).toFixed(2));
@@ -57,8 +59,8 @@ export const DetailCrypto = () => {
     });
   };
 
-  if (!crypto) {
-    return <CryptoNotFound nameCrypto={cryptoId as string} />;
+  if (!crypto || !infoCrypto) {
+    return <NotFoundPage />;
   }
 
   return (
@@ -75,8 +77,8 @@ export const DetailCrypto = () => {
               {coinName}
             </Text>
             <Flex alignItems={'center'}>
-              <Text color={'gray.500'} fontSize={'smaller'}>
-                Coin
+              <Text color={'gray.500'} fontSize={'smaller'} textTransform={'capitalize'}>
+                {t('details_crypto.basics_detail.coin')}
               </Text>
               <Divider orientation="vertical" borderColor={'gray.500'} mx={2} height="15px" />
               <Text fontSize={'smaller'} color={'gray.500'} textTransform={'capitalize'}>

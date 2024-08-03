@@ -18,6 +18,7 @@ import {
 import { FC } from 'react';
 import { FiUser, FiCalendar } from 'react-icons/fi';
 import { TransactionUserIProps } from '../../interfaces';
+import { useTranslation } from 'react-i18next';
 
 interface ModalProps {
   isOpen: boolean;
@@ -35,11 +36,12 @@ export const DetailHistoryModal: FC<ModalProps> = ({
   renderIconDetail,
 }) => {
   const BG = useColorModeValue('#FFF', '#171717');
+  const { t } = useTranslation();
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay />
       <ModalContent mx={{ base: '4', md: '0' }} bg={BG} maxW={{ md: '70%' }} maxH={'90vh'}>
-        <ModalHeader>Transaction Details</ModalHeader>
+        <ModalHeader> {t('history_modal_transaction.title')}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Box pb={2}>
@@ -47,32 +49,32 @@ export const DetailHistoryModal: FC<ModalProps> = ({
               <Stack align="start">
                 <HStack spacing={2}>
                   {renderIconDetail(renderIcony)}
-                  <Text fontWeight="bold" fontSize="xl">
-                    {renderIcony.toUpperCase()}
+                  <Text fontWeight="bold" fontSize="md" textTransform={'uppercase'}>
+                    {t(`home.operations.${renderIcony}`)}
                   </Text>
                 </HStack>
 
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    From Amount:
+                    {t('history_modal_transaction.swap.amount_from')}:
                   </Text>
                   <Text>{`${transaction.amountFrom} ${transaction.cryptoFromId}`}</Text>
                 </Flex>
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    To Amount:
+                    {t('history_modal_transaction.swap.amount_to')}:
                   </Text>
                   <Text>{`${transaction.amountTo} ${transaction.cryptoToId}`}</Text>
                 </Flex>
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    Reference No. :
+                    {t('history_modal_transaction.number_reference')} :
                   </Text>
                   <Text>{transaction.referenceNumber}</Text>
                 </Flex>
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    Date:
+                    {t('history_modal_transaction.date')}:
                   </Text>
                   <HStack>
                     <Icon as={FiCalendar} />
@@ -84,15 +86,15 @@ export const DetailHistoryModal: FC<ModalProps> = ({
               <Stack align="start">
                 <HStack spacing={2}>
                   {renderIconDetail(renderIcony)}
-                  <Text fontWeight="bold" fontSize="xl">
-                    {renderIcony.toUpperCase()}
+                  <Text fontWeight="bold" fontSize="md" textTransform={'uppercase'}>
+                    {t(`home.operations.${renderIcony}`)}
                   </Text>
                 </HStack>
 
                 {transaction.idPayment && (
                   <Flex>
                     <Text fontWeight="bold" mr={2}>
-                      Payment ID:
+                      {t('history_modal_transaction.others.id_payment')}:
                     </Text>
                     <Text whiteSpace="normal" wordBreak="break-word">
                       {transaction.idPayment}
@@ -101,7 +103,7 @@ export const DetailHistoryModal: FC<ModalProps> = ({
                 )}
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    Sender Wallet:
+                    {t('history_modal_transaction.others.sender_wallet')}:
                   </Text>
                   <Text whiteSpace="normal" wordBreak="break-word">
                     {transaction.origin}
@@ -110,7 +112,7 @@ export const DetailHistoryModal: FC<ModalProps> = ({
                 {transaction.destination && (
                   <Flex>
                     <Text fontWeight="bold" mr={2}>
-                      Recipient Wallet:
+                      {t('history_modal_transaction.others.recipient_wallet')}:
                     </Text>
                     <Text whiteSpace="normal" wordBreak="break-word">
                       {transaction.destination}
@@ -119,33 +121,33 @@ export const DetailHistoryModal: FC<ModalProps> = ({
                 )}
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    Amount:
+                    {t('history_modal_transaction.others.amount')}:
                   </Text>
                   <Text>{`${transaction.amount} ${transaction.symbol}`}</Text>
                 </Flex>
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    Cryptocurrency:
+                    {t('history_modal_transaction.others.crypto')}:
                   </Text>
                   <Text>{transaction.name_cryptocurrency}</Text>
                 </Flex>
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    Reference No. :
+                    {t('history_modal_transaction.number_reference')} :
                   </Text>
                   <Text>{transaction.referenceNumber}</Text>
                 </Flex>
                 {transaction.paymentGateway && (
                   <Flex>
                     <Text fontWeight="bold" mr={2}>
-                      Payment Method:
+                      {t('history_modal_transaction.others.payment_method')}:
                     </Text>
                     <Text textTransform={'capitalize'}>{transaction.paymentGateway}</Text>
                   </Flex>
                 )}
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    Sender:
+                    {t('history_modal_transaction.others.sender')}:
                   </Text>
                   <HStack>
                     <Icon as={FiUser} />
@@ -155,7 +157,7 @@ export const DetailHistoryModal: FC<ModalProps> = ({
                 {transaction.user_destination && (
                   <Flex>
                     <Text fontWeight="bold" whiteSpace="normal" mr={2} wordBreak="break-word">
-                      Recipient:
+                      {t('history_modal_transaction.others.recipient')}:
                     </Text>
                     <HStack>
                       <Icon as={FiUser} />
@@ -167,7 +169,7 @@ export const DetailHistoryModal: FC<ModalProps> = ({
                 )}
                 <Flex>
                   <Text fontWeight="bold" mr={2}>
-                    Date:
+                    {t('history_modal_transaction.date')}:
                   </Text>
                   <HStack>
                     <Icon as={FiCalendar} />

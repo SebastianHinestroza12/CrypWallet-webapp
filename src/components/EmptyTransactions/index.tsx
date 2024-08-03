@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
+import { useTranslation } from 'react-i18next';
 
 interface EmptyTransactionIProps {
   coinName: string;
@@ -7,6 +8,7 @@ interface EmptyTransactionIProps {
 }
 
 export const EmptyTransaction = ({ coinName, eventClick }: EmptyTransactionIProps) => {
+  const { t } = useTranslation();
   return (
     <Flex
       justifyContent={'center'}
@@ -20,10 +22,10 @@ export const EmptyTransaction = ({ coinName, eventClick }: EmptyTransactionIProp
       </Box>
       <Box mb={{ base: 4, md: 6 }}>
         <Text color={'gray.600'} fontSize={'lg'} fontWeight={'medium'}>
-          No tienes transacciones de {coinName}.
+          {t('details_crypto.basics_detail.empty_transaction.title', { coinName })}
         </Text>
         <Text color={'gray.400'} fontSize={'sm'}>
-          Las transacciones aparecerán aquí cuando las realices.
+          {t('details_crypto.basics_detail.empty_transaction.description')}
         </Text>
       </Box>
       <Box>
@@ -37,7 +39,7 @@ export const EmptyTransaction = ({ coinName, eventClick }: EmptyTransactionIProp
           _active={{ bg: '#0039A0' }}
           size={{ base: 'md', md: 'lg' }}
         >
-          {`Comprar ${coinName}`}
+          {t('details_crypto.basics_detail.empty_transaction.button_buy', { coinName })}
         </Button>
       </Box>
     </Flex>

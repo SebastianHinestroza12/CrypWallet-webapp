@@ -28,6 +28,7 @@ import { useToastNotification } from '../../../../hooks/useToastNotification';
 import { PiApproximateEquals } from 'react-icons/pi';
 import { AxiosError } from 'axios';
 import { TransactionsType } from '../../../../interfaces';
+import { useTranslation } from 'react-i18next';
 
 interface FormValues {
   address: string;
@@ -35,6 +36,7 @@ interface FormValues {
 }
 
 export const TransferCrypto = () => {
+  const { t } = useTranslation();
   const {
     control,
     handleSubmit,
@@ -90,7 +92,7 @@ export const TransferCrypto = () => {
       if (parsedValue > maxAmount) {
         setError('amount', {
           type: 'manual',
-          message: `The amount exceeds those ${maxAmount} ${nameCrypto} available`,
+          message: t('send.validate_input.amount.is_valid', { maxAmount, nameCrypto }),
         });
 
         return;
@@ -100,7 +102,7 @@ export const TransferCrypto = () => {
     } else {
       setValue('amount', '');
       setEquivalent('0.00');
-      setError('amount', { type: 'manual', message: 'Invalid amount' });
+      setError('amount', { type: 'manual', message: t('send.validate_input.amount.invalid') });
     }
   };
 
@@ -109,8 +111,8 @@ export const TransferCrypto = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       if (currentWallet?.address === data.address) {
         displayToast(
-          'Atención',
-          'No es posible enviar fondos a la billetera que tienes actualmente seleccionada.',
+          t('send.alert_send.alert_one.title'),
+          t('send.alert_send.alert_one.description'),
           'info',
         );
         return;
@@ -133,12 +135,11 @@ export const TransferCrypto = () => {
         setTransferStep(2);
       }
     } catch (error) {
-      console.log(error);
       const serverError = error as AxiosError;
       if (serverError.code === 'ERR_NETWORK') {
         displayToast(
-          'Error del Servidor',
-          'Por favor, inténtalo de nuevo más tarde.',
+          t('send.alert_send.alert_two.title'),
+          t('send.alert_send.alert_two.description'),
           'error',
           7000,
         );
@@ -147,15 +148,15 @@ export const TransferCrypto = () => {
       const status = serverError.response?.status;
       if (status === 404) {
         displayToast(
-          'Billetera no encontrada',
-          'No se ha encontrado una billetera asociada a esta dirección.',
+          t('send.alert_send.alert_three.title'),
+          t('send.alert_send.alert_three.description'),
           'error',
         );
         return;
       }
       displayToast(
-        'Error al obtener la billetera',
-        'Hubo un problema al obtener la billetera asociada a esta dirección.',
+        t('send.alert_send.alert_four.title'),
+        t('send.alert_send.alert_four.description'),
         'error',
       );
     }
@@ -176,9 +177,9 @@ export const TransferCrypto = () => {
             fontWeight="bold"
             fontSize="2xl"
             textAlign="center"
-            textTransform="capitalize"
+            textTransform="uppercase"
           >
-            {`${nameCrypto} (COIN)`}
+            {`${nameCrypto} (${t('send.coin')})`}
           </Text>
         </Flex>
         <Box>
@@ -194,25 +195,29 @@ export const TransferCrypto = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={4}>
             <FormControl id="address" isInvalid={!!errors.address}>
-              <FormLabel>Address or domain</FormLabel>
+              <FormLabel>{t('send.form.label_address')}</FormLabel>
               <InputGroup>
                 <Controller
                   name="address"
                   control={control}
                   rules={{
-                    required: 'Address is required',
+                    required: t('send.validate_input.address.required'),
                     validate: (value) => {
                       if (typeof value !== 'string') {
-                        return 'Address must be a string';
+                        return t('send.validate_input.address.is_string');
                       }
                       if (/^\s|\s$|\s/.test(value)) {
-                        return 'Address must not contain spaces';
+                        return t('send.validate_input.address.pattern');
                       }
                       return true;
                     },
                   }}
                   render={({ field }) => (
-                    <Input type="text" placeholder="Search or enter" {...field} />
+                    <Input
+                      type="text"
+                      placeholder={t('send.form.placeholder_address')}
+                      {...field}
+                    />
                   )}
                 />
                 <InputRightElement width="4.5rem">
@@ -224,7 +229,7 @@ export const TransferCrypto = () => {
                     color={'#FFF'}
                     onClick={handlePaste}
                   >
-                    Paste
+                    {t('send.form.button_paste')}
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -232,23 +237,23 @@ export const TransferCrypto = () => {
             </FormControl>
 
             <FormControl id="amount" isInvalid={!!errors.amount}>
-              <FormLabel>Amount</FormLabel>
+              <FormLabel>{t('send.form.label_amount')}</FormLabel>
               <InputGroup>
                 <Controller
                   name="amount"
                   control={control}
                   rules={{
-                    required: 'Amount is required',
+                    required: t('send.validate_input.amount.required'),
                     validate: (value) => {
                       const parsedValue = parseFloat(value);
                       if (isNaN(parsedValue)) {
-                        return 'Amount must be a number';
+                        return t('send.validate_input.amount.number');
                       }
                       if (/^\s|\s$|\s/.test(value)) {
-                        return 'Amount must not contain spaces';
+                        return t('send.validate_input.amount.pattern');
                       }
                       if (parsedValue > maxAmount) {
-                        return `The amount exceeds the available ${maxAmount} ${nameCrypto}`;
+                        return t('send.validate_input.amount.is_valid', { maxAmount, nameCrypto });
                       }
                       return true;
                     },
@@ -256,7 +261,7 @@ export const TransferCrypto = () => {
                   render={({ field }) => (
                     <Input
                       type="number"
-                      placeholder={`${nameCrypto} amount`}
+                      placeholder={t('send.form.placeholder_amount', { coinName: nameCrypto })}
                       {...field}
                       onChange={(e) => handleAmountChange(e.target.value)}
                     />
@@ -273,7 +278,7 @@ export const TransferCrypto = () => {
                       color={'#FFF'}
                       onClick={handleMax}
                     >
-                      Max
+                      {t('send.form.button_max')}
                     </Button>
                   </Box>
                 </InputRightElement>
@@ -305,7 +310,7 @@ export const TransferCrypto = () => {
               width="full"
               isDisabled={!isValid || isSubmitting}
             >
-              Next
+              {t('send.form.button')}
             </Button>
           </Stack>
         </form>

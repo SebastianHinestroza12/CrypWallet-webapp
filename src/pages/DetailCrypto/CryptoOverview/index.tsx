@@ -38,7 +38,6 @@ import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { SupportedCurrency } from '../../../constants';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
-
 import { motion } from 'framer-motion';
 
 const MotionStack = motion(Stack);
@@ -49,7 +48,7 @@ const CryptoOverview = () => {
   const {
     state: { infoCrypto },
   } = useLocation();
-  const { currency } = useStoreCrypto();
+  const { currency, appLanguage } = useStoreCrypto();
   const [priceData, setPriceData] = useState<PriceDataProps[]>([]);
   const [description, setDescription] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState(false);
@@ -58,7 +57,7 @@ const CryptoOverview = () => {
   const symbol = infoCrypto.DISPLAY?.[currency]?.TOSYMBOL;
   const changePrice24Hour = infoCrypto.RAW?.[currency]?.CHANGEPCT24HOUR;
   const navigate = useNavigate();
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (infoCrypto) {
@@ -68,8 +67,10 @@ const CryptoOverview = () => {
           setPriceData(data);
         } catch (error) {
           displayToast(
-            'Información Importante',
-            `Actualmente, los precios de ${infoCrypto.CoinInfo.FullName} no están disponibles. Por favor, inténtalo más tarde.`,
+            t('details_crypto.advanced_detail.alerts.alert_one.title'),
+            t('details_crypto.advanced_detail.alerts.alert_one.description', {
+              coinName: infoCrypto.CoinInfo.FullName,
+            }),
             'info',
           );
         }
@@ -84,8 +85,8 @@ const CryptoOverview = () => {
       const fetchDescriptionCrypto = async () => {
         try {
           const description = await fetchDescription(infoCrypto.CoinInfo.Name);
-          if (i18n.language !== 'en') {
-            const traslateDescription = await translateText(description, i18n.language);
+          if (appLanguage !== 'en') {
+            const traslateDescription = await translateText(description, appLanguage);
             setDescription(
               traslateDescription?.status ? traslateDescription.textTraslate : description,
             );
@@ -95,8 +96,8 @@ const CryptoOverview = () => {
           setDescription(description);
         } catch (error) {
           displayToast(
-            'Error al obtener descripción',
-            'No se pudo obtener la descripción de la criptomoneda.',
+            t('details_crypto.advanced_detail.alerts.alert_two.title'),
+            t('details_crypto.advanced_detail.alerts.alert_two.description'),
             'error',
           );
         }
@@ -109,8 +110,16 @@ const CryptoOverview = () => {
   const handleToggle = () => setIsExpanded((prev) => !prev);
 
   const isPositive = infoCrypto?.RAW?.[currency]?.CHANGEPCT24HOUR > 0;
-  const chartDataCrypto = chartData(priceData, isPositive);
-  const chartOptionsCrypto = chartOptions(infoCrypto);
+  const chartDataCrypto = chartData(
+    priceData,
+    isPositive,
+    t('details_crypto.advanced_detail.price'),
+  );
+  const chartOptionsCrypto = chartOptions(
+    t('details_crypto.advanced_detail.price_last_7_days', {
+      coinName: infoCrypto.CoinInfo.FullName,
+    }),
+  );
   const BG = useColorModeValue('gray.200', '#171717');
   const TEXT_COLOR = useColorModeValue('gray.700', 'gray.300');
 
@@ -165,7 +174,9 @@ const CryptoOverview = () => {
         {description !== '' && (
           <Box mt={6}>
             <Text fontSize="lg" fontWeight="bold" mb={2}>
-              {`About ${infoCrypto.CoinInfo.Name}`}
+              {t('details_crypto.advanced_detail.title_about', {
+                coinName: infoCrypto.CoinInfo.Name,
+              })}
             </Text>
             <Collapse in={isExpanded} animateOpacity>
               <Text color={TEXT_COLOR}>{description}</Text>
@@ -176,36 +187,38 @@ const CryptoOverview = () => {
               </Text>
             )}
             <Button mt={2} variant="link" color="#1e59ea" onClick={handleToggle} display="block">
-              {isExpanded ? 'Read less' : 'Read more'}
+              {isExpanded
+                ? t('details_crypto.advanced_detail.read_less')
+                : t('details_crypto.advanced_detail.read_more')}
             </Button>
           </Box>
         )}
         <Box mt={3}>
           <Text mb={3} fontSize="lg" fontWeight="bold">
-            Stats
+            {t('details_crypto.advanced_detail.stats')}
           </Text>
           <Stack bg={BG} p={2} borderRadius="md">
             {[
               {
-                label: 'market cap',
+                label: 'market_cap',
                 value: infoCrypto.RAW?.[currency]?.CIRCULATINGSUPPLYMKTCAP,
                 symbol,
               },
               {
-                label: 'circulating supply',
+                label: 'circulating_supply',
                 value: infoCrypto.RAW?.[currency]?.CIRCULATINGSUPPLY,
                 suffix: infoCrypto.CoinInfo.Name,
               },
               {
-                label: 'total supply',
+                label: 'total_supply',
                 value: infoCrypto.RAW?.[currency]?.SUPPLY,
                 suffix: infoCrypto.CoinInfo.Name,
               },
-              { label: 'volume (24h)', symbol, value: infoCrypto.RAW?.[currency]?.VOLUME24HOUR },
+              { label: 'volume_24h', symbol, value: infoCrypto.RAW?.[currency]?.VOLUME24HOUR },
             ].map(({ label, value, suffix, symbol }) => (
               <Flex key={label} justifyContent="space-between" alignItems="center">
                 <Text color={TEXT_COLOR} textTransform="capitalize">
-                  {label}
+                  {t(`details_crypto.advanced_detail.${label}`)}
                 </Text>
                 <Text fontSize="smaller">
                   {symbol ?? ''} {formatCurrency(value, currency as SupportedCurrency)}{' '}
