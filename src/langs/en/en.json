@@ -8,7 +8,13 @@
       "swap": "swap",
       "send": "send",
       "receive": "receive",
-      "history": "history"
+      "history": "history",
+      "alert_operations": {
+        "alert_one": {
+          "title": "Attention",
+          "description": "Insufficient balance."
+        }
+      }
     }
   },
   "search": {
@@ -430,5 +436,240 @@
       "description": "Next, we will provide you with the passwords for your account. These words are crucial for recovering your account in case you need it. To ensure the security of your account, we strongly recommend that you keep these words in a safe place and do not share them with anyone under any circumstances.",
       "button_ok": "Understood"
     }
+  },
+  "details_crypto": {
+    "basics_detail": {
+      "coin": "Coin",
+      "invite_to_login": {
+        "title": "You need to log in to view or make your transactions!",
+        "description": "Log in or register to start managing your investments.",
+        "button_register": "Sign Up",
+        "button_login": "Sign In"
+      },
+      "empty_transaction": {
+        "title": "You do not have {{coinName}} transactions.",
+        "description": "Transactions will appear here when you make them.",
+        "button_buy": "Buy {{coinName}}"
+      }
+    },
+    "advanced_detail": {
+      "price_last_7_days": "{{coinName}} price in the last 7 days",
+      "price": "Price",
+      "title_about": "About {{coinName}}",
+      "read_more": "Read more",
+      "read_less": "Read less",
+      "stats": "Stats",
+      "market_cap": "Market Cap",
+      "volume_24h": "(24h) Volume",
+      "circulating_supply": "circulating supply",
+      "total_supply": "total supply",
+      "alerts": {
+        "alert_one": {
+          "title": "Important information",
+          "description": "Currently, {{coinName}} prices are not available. Please try again later."
+        },
+        "alert_two": {
+          "title": "Error getting description",
+          "description": "Could not get cryptocurrency description."
+        }
+      }
+    }
+  },
+  "history_modal_transaction": {
+    "title": "Transaction Details",
+    "number_reference": "Reference No.",
+    "date": "Date",
+    "swap": {
+      "amount_from": "From Amount",
+      "amount_to": "To Amount"
+    },
+    "others": {
+      "id_payment": "Payment Id",
+      "sender_wallet": "Sender Wallet",
+      "recipient_wallet": "Recipient Wallet",
+      "amount": "Amount",
+      "crypto": "Cryptocurrency",
+      "payment_method": "Payment Method",
+      "sender": "Sender",
+      "recipient": "Recipient"
+    }
+  },
+  "empty_switches_state": {
+    "title": "There are no cryptocurrencies to view",
+    "description": "Please add some cryptocurrencies to interact."
+  },
+  "receive": {
+    "coin": "Coin",
+    "copy": "Copy",
+    "set_amount": "Set Amount",
+    "alert_receive": {
+      "alert_one": {
+        "title": "Address copied to clipboard"
+      }
+    },
+    "modal": {
+      "title": "Set Amount",
+      "label": "Amount",
+      "placeholder": "Enter amount",
+      "button": "Set"
+    }
+  },
+  "buy": {
+    "payment_method": "Payment powered by {{method}}",
+    "placeholder": "Amount {{coinName}}",
+    "button": "Buy {{coinName}}",
+    "pay": "You will pay",
+    "validate_input": {
+      "amount": {
+        "required": "Amount is required",
+        "is_positive": "Amount must be greater than zero",
+        "number": "Amount must be a number"
+      }
+    },
+    "alert_buy": {
+      "alert_one": {
+        "title": "Payment error",
+        "description": "The amount to be paid must be greater than 1 {{currency}}"
+      },
+      "alert_two": {
+        "title": "Error",
+        "description": "An error occurred while processing your payment. Please try again later."
+      }
+    },
+    "success": {
+      "title": "Payment successful",
+      "description": "Your payment has been processed successfully.",
+      "alert_success": {
+        "alert_one": {
+          "title": "Transaction carried out",
+          "description": "The transaction has completed successfully."
+        },
+        "alert_two": {
+          "title": "Payment made",
+          "description": "The payment has been completed, but the transaction has not been processed."
+        }
+      }
+    },
+    "cancel": {
+      "title": "Payment cancelled",
+      "description": "Your payment was cancelled. Please try again if you wish to complete the transaction."
+    }
+  },
+  "swap": {
+    "title": "Swap",
+    "from_swap": "From",
+    "to_swap": "To",
+    "button_swap": {
+      "continue": "Continue",
+      "not_available": "Not available",
+      "balance": "Insufficient {{coinName}} balance"
+    },
+    "modal": {
+      "title": "Are you sure you want to exchange cryptocurrencies?",
+      "button_cancel": "Cancel",
+      "button_confirm": "Confirm"
+    },
+    "validate_input": {
+      "amount_greater": "Amount must be a number greater than 0.001",
+      "invalid_amount": "Invalid amount"
+    },
+    "alert_swap": {
+      "alert_one": {
+        "title": "Swap Successful",
+        "description": "Your cryptocurrency exchange has been completed successfully."
+      },
+      "alert_two": {
+        "title": "Swap Crypto Error",
+        "description": "Invalid request. Please check the amount and try again."
+      },
+      "alert_three": {
+        "title": "Swap Crypto Error",
+        "description": "An unexpected error occurred. Please try again later."
+      }
+    }
+  },
+  "send": {
+    "title": "Send {{coinName}}",
+    "coin": "coin",
+    "form": {
+      "label_address": "Wallet address",
+      "placeholder_address": "Address",
+      "label_amount": "Amount",
+      "placeholder_amount": "{{coinName}} amount",
+      "button": "Next",
+      "button_paste": "Paste",
+      "button_max": "Max"
+    },
+    "validate_input": {
+      "address": {
+        "required": "Address is required",
+        "is_string": "Address must be a string",
+        "pattern": "Address must not contain spaces"
+      },
+      "amount": {
+        "required": "Amount is required",
+        "is_valid": "The amount exceeds the available {{maxAmount}} {{nameCrypto}}",
+        "number": "Amount must be a number",
+        "pattern": "Amount must not contain spaces",
+        "invalid": "Invalid amount"
+      }
+    },
+    "alert_send": {
+      "alert_one": {
+        "title": "Attention",
+        "description": "It is not possible to send funds to the wallet you currently have selected."
+      },
+      "alert_two": {
+        "title": "Server error",
+        "description": "Please try again later."
+      },
+      "alert_three": {
+        "title": "Wallet not found",
+        "description": "A wallet associated with this address has not been found."
+      },
+      "alert_four": {
+        "title": "Error getting wallet",
+        "description": "There was a problem obtaining the wallet associated with this address."
+      }
+    },
+    "confirm_send": {
+      "title": "Confirm Transfer",
+      "recipient": "Recipient",
+      "recipient_wallet": "Recipient Wallet",
+      "current_wallet": "Your Wallet",
+      "date": "Date",
+      "amount": "Amount",
+      "transaction_free": "Transaction Fee",
+      "description": "Description (optional)",
+      "placeholder_description": "Add a description (optional)",
+      "button_confirm": "Confirm and Transfer",
+      "button_cancel": "Cancel Transfer",
+      "alert": {
+        "alert_one": {
+          "title": "Error sending crypto",
+          "description": "Please check recipient address and network connection."
+        }
+      }
+    },
+    "success": {
+      "title": "Transfer Successful!",
+      "description": "Your transaction was completed successfully.",
+      "button_detail": "View Transaction Details",
+      "button_return_to_home": "Return to Home"
+    },
+    "view_details": {
+      "title": "Transaction Details",
+      "number_reference": "Reference No.",
+      "date": "Date",
+      "sender": "Sender Address",
+      "recipient": "Recipient Address",
+      "amount": "Amount",
+      "description": "Description"
+    }
+  },
+  "404": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for does not seem to exist",
+    "button": "Back to Homepage"
   }
 }

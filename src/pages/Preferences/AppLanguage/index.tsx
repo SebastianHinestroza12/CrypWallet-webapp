@@ -4,16 +4,19 @@ import { LANGUAGES } from '../../../constants';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 
 const MotionFlex = motion(Flex);
 
 export const AppLanguage = () => {
   const BG_COLOR = useColorModeValue('gray.100', '#171717');
+  const { appLanguage, setAppLanguage } = useStoreCrypto();
   const BG = useColorModeValue('gray.200', '#151515');
   const navigation = useNavigate();
   const { i18n, t } = useTranslation();
 
   const handleChangeLanguage = (language: string) => {
+    setAppLanguage(language);
     i18n.changeLanguage(language);
   };
 
@@ -48,7 +51,7 @@ export const AppLanguage = () => {
               <Text>{t(`preferences.language_list.${language.code}`)}</Text>
             </Box>
             <Box>
-              {i18n.language === language.code && (
+              {appLanguage === language.code && (
                 <Icon icon="weui:done-filled" width={25} color="green" />
               )}
             </Box>
