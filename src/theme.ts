@@ -14,7 +14,6 @@ const styles = {
   }),
 };
 
-
 const theme = extendTheme({ config, styles });
 
 export { theme };
