@@ -153,7 +153,6 @@ export const SwapForm = () => {
         setEqualAmount('0');
         setEqualAmountSwap('0');
         setAmountSwap('0');
-        // setAmount('0');
         setError(null);
         return;
       }

@@ -10,6 +10,7 @@ import {
   List,
   ListItem,
   ListIcon,
+  Flex,
 } from '@chakra-ui/react';
 import { Tags } from '../../components/Tags';
 import { MdCheckCircle } from 'react-icons/md';
@@ -58,7 +59,7 @@ export const AboutUs = () => {
           </Text>
         </Box>
       </Box>
-      <Box marginTop="5">
+      <Flex my={10} justifyContent={'center'} alignItems={'center'}>
         <Image
           borderRadius="lg"
           src="https://res.cloudinary.com/dafsjo7al/image/upload/v1722709107/iPhone-12-PRO-MAX-localhost_xvijuz.png"
@@ -69,7 +70,7 @@ export const AboutUs = () => {
             transform: 'scale(1.05)',
           }}
         />
-      </Box>
+      </Flex>
       <Heading as="h2" marginTop="5">
         {t('about.section_two.title')}
       </Heading>
@@ -85,7 +86,7 @@ export const AboutUs = () => {
         ))}
       </List>
       <Divider marginTop="5" />
-      <Wrap spacing="30px" marginTop="5">
+      <Wrap spacing="30px" marginTop={6}>
         <WrapItem width={{ base: '100%', sm: '45%', md: '45%', lg: '30%' }}>
           <Box w="100%">
             <Box borderRadius="lg" overflow="hidden">

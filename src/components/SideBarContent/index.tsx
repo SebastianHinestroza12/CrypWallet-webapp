@@ -19,7 +19,10 @@ import { useToastNotification } from '../../hooks/useToastNotification';
 import { FooterSection } from '../FooterSection';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './scrollbar.css';
+
+const MotionFlex = motion(Flex);
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const [isReadyForInstall, setIsReadyForInstall] = useState(false);
@@ -49,6 +52,10 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       setIsReadyForInstall(true);
     });
   }, []);
+
+  useEffect(() => {
+    setIsChecked(colorMode === 'dark');
+  }, [colorMode]);
 
   const handleToggleColorMode = () => {
     setIsChecked((prev) => !prev);
@@ -86,82 +93,89 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       onClose();
     } else if (item.id === 13) {
       downloadApp();
-    } else {
+    } else if (item.id !== 3) {
       onClose();
     }
   };
 
   return (
-    <Box
-      transition="3s ease"
-      bg={useColorModeValue('white', '#101010')}
-      borderRight="1px"
-      borderRightColor={useColorModeValue('gray.300', '#171717')}
-      w={{ base: 'full', md: 64 }}
-      pos="fixed"
-      h="full"
-      className="scrollbar-custom"
-      overflow={'auto'}
-      sx={{
-        '::-webkit-scrollbar': {
-          display: 'none',
-        },
-        msOverflowStyle: 'none',
-        scrollbarWidth: 'none',
-      }}
-      {...rest}
+    <MotionFlex
+      initial={{ width: 0 }}
+      animate={{ width: 'auto' }}
+      exit={{ width: 0 }}
+      transition={{ duration: 0.5, ease: 'easeInOut' }}
     >
-      <Flex h="20" alignItems="center" mx="6" mt="2" justifyContent="space-between">
-        <Flex justifyContent={'center'} alignItems={'center'}>
-          <Icon icon={'mingcute:safe-shield-2-fill'} width={37} color="#1e59ea" />
-          <Link to={ROUTES.HOME}>
-            <Text
-              ml={2}
-              textAlign={'center'}
-              fontWeight={'bold'}
-              fontSize={'lg'}
-              textTransform={'uppercase'}
-              cursor={'pointer'}
-            >
-              cryp wallet
-            </Text>
-          </Link>
+      <Box
+        transition="5s ease"
+        bg={useColorModeValue('white', '#101010')}
+        borderRight="1px"
+        borderRightColor={useColorModeValue('gray.300', '#171717')}
+        w={{ base: 'full', md: 64 }}
+        pos="fixed"
+        h="full"
+        className="scrollbar-custom"
+        overflow={'auto'}
+        sx={{
+          '::-webkit-scrollbar': {
+            display: 'none',
+          },
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
+        {...rest}
+      >
+        <Flex h="20" alignItems="center" mx="6" mt="2" justifyContent="space-between">
+          <Flex justifyContent={'center'} alignItems={'center'}>
+            <Icon icon={'mingcute:safe-shield-2-fill'} width={37} color="#1e59ea" />
+            <Link to={ROUTES.HOME}>
+              <Text
+                ml={2}
+                textAlign={'center'}
+                fontWeight={'bold'}
+                fontSize={'lg'}
+                textTransform={'uppercase'}
+                cursor={'pointer'}
+              >
+                cryp wallet
+              </Text>
+            </Link>
+          </Flex>
+          <Box>
+            <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+          </Box>
         </Flex>
-        <Box>
-          <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-        </Box>
-      </Flex>
-      {filterItems.map((link) => (
-        <Box onClick={() => handleOnClose(link)} key={link.id}>
-          <NavItem
-            icon={link.id === 13 ? selectedIcon! : link.icon}
-            route={link.route}
-            showDivider={link.showDivider}
-          >
-            <Box flex={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-              <Text textTransform={'capitalize'}>{t(`menu.${link.traslateName}`)}</Text>
-              {link.id === 3 && (
-                <Box>
-                  <Switch
-                    sx={{
-                      '.chakra-switch__track': {
-                        backgroundColor: isChecked ? 'green' : '#A0AEC0',
-                      },
-                      '.chakra-switch__thumb': {
-                        backgroundColor: '#FFF',
-                      },
-                    }}
-                    isChecked={isChecked}
-                    size="lg"
-                    onChange={handleToggleColorMode}
-                  />
-                </Box>
-              )}
-            </Box>
-          </NavItem>
-        </Box>
-      ))}
-      <FooterSection />
-    </Box>
+        {filterItems.map((link) => (
+          <Box onClick={() => handleOnClose(link)} key={link.id}>
+            <NavItem
+              icon={link.id === 13 ? selectedIcon! : link.icon}
+              route={link.route}
+              showDivider={link.showDivider}
+            >
+              <Box flex={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                <Text textTransform={'capitalize'}>{t(`menu.${link.traslateName}`)}</Text>
+                {link.id === 3 && (
+                  <Box>
+                    <Switch
+                      sx={{
+                        '.chakra-switch__track': {
+                          backgroundColor: isChecked ? 'green' : '#A0AEC0',
+                        },
+                        '.chakra-switch__thumb': {
+                          backgroundColor: '#FFF',
+                        },
+                      }}
+                      isChecked={isChecked}
+                      size="lg"
+                      onChange={handleToggleColorMode}
+                    />
+                  </Box>
+                )}
+              </Box>
+            </NavItem>
+          </Box>
+        ))}
+        <FooterSection />
+      </Box>
+    </MotionFlex>
   );
 };
