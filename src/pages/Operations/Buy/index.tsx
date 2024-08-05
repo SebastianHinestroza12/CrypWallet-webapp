@@ -10,6 +10,7 @@ import { useMemo } from 'react';
 import { CryptoCompareData, WalletsIProps } from '../../../interfaces';
 import { formatChange, formatCurrency } from '../../../utils';
 import { useTranslation } from 'react-i18next';
+import { EmptySearch } from '../../../components/EmptySearch';
 
 export const BuyList = () => {
   const navigate = useNavigate();
@@ -100,54 +101,60 @@ export const BuyList = () => {
             <Box mb={3}>
               <Text textTransform={'capitalize'}>{t('search.all_crypto')}</Text>
             </Box>
-            {crypto.map((data) => (
-              <Flex
-                key={data.CoinInfo.Id}
-                alignItems="center"
-                justifyContent="space-between"
-                mb={2}
-                py={1}
-                onClick={() => {
-                  navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
-                    state: {
-                      crypto: data,
-                      symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
-                    },
-                  });
-                }}
-                _hover={{ cursor: 'pointer', bg: BG_COLOR }}
-              >
-                <Flex alignItems="center">
-                  <Image
-                    src={`https://www.cryptocompare.com${data.CoinInfo.ImageUrl}`}
-                    alt={data.CoinInfo.Name}
-                    boxSize={{ base: '42px', md: '50px' }}
-                    borderRadius="full"
-                    mr={3}
-                  />
-                  <Box>
-                    <Text fontSize="md" fontWeight="bold" textTransform={'uppercase'}>
-                      {data.CoinInfo.Name}
-                    </Text>
-                    <Flex flexWrap={'wrap'}>
-                      <Text fontSize={'sm'} color={textColor}>
-                        {data?.DISPLAY?.[currency]?.PRICE || 'N/A'}
+            {crypto.length > 0 ? (
+              crypto.map((data) => (
+                <Flex
+                  key={data.CoinInfo.Id}
+                  alignItems="center"
+                  justifyContent="space-between"
+                  mb={2}
+                  py={1}
+                  onClick={() => {
+                    navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
+                      state: {
+                        crypto: data,
+                        symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
+                      },
+                    });
+                  }}
+                  _hover={{ cursor: 'pointer', bg: BG_COLOR }}
+                >
+                  <Flex alignItems="center">
+                    <Image
+                      src={`https://www.cryptocompare.com${data.CoinInfo.ImageUrl}`}
+                      alt={data.CoinInfo.Name}
+                      boxSize={{ base: '42px', md: '50px' }}
+                      borderRadius="full"
+                      mr={3}
+                    />
+                    <Box>
+                      <Text fontSize="md" fontWeight="bold" textTransform={'uppercase'}>
+                        {data.CoinInfo.Name}
                       </Text>
-                      <Text
-                        fontSize={'sm'}
-                        color={data?.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? '#17ca56' : '#cf0c07'}
-                        ml={1}
-                      >
-                        {data?.RAW?.[currency]?.CHANGEPCT24HOUR
-                          ? formatChange(data?.RAW?.[currency]?.CHANGEPCT24HOUR)
-                          : ''}
-                      </Text>
-                    </Flex>
-                  </Box>
+                      <Flex flexWrap={'wrap'}>
+                        <Text fontSize={'sm'} color={textColor}>
+                          {data?.DISPLAY?.[currency]?.PRICE || 'N/A'}
+                        </Text>
+                        <Text
+                          fontSize={'sm'}
+                          color={
+                            data?.RAW?.[currency]?.CHANGEPCT24HOUR >= 0 ? '#17ca56' : '#cf0c07'
+                          }
+                          ml={1}
+                        >
+                          {data?.RAW?.[currency]?.CHANGEPCT24HOUR
+                            ? formatChange(data?.RAW?.[currency]?.CHANGEPCT24HOUR)
+                            : ''}
+                        </Text>
+                      </Flex>
+                    </Box>
+                  </Flex>
+                  {renderCryptoAmountAndValue(data, currentWallet!, currency)}
                 </Flex>
-                {renderCryptoAmountAndValue(data, currentWallet!, currency)}
-              </Flex>
-            ))}
+              ))
+            ) : (
+              <EmptySearch />
+            )}
           </Box>
         </Stack>
       ) : (

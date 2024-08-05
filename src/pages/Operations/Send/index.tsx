@@ -11,6 +11,7 @@ import { InviteToLogin } from '../../../components/InviteToLogin';
 import { CryptoCompareData } from '../../../interfaces';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { useTranslation } from 'react-i18next';
+import { EmptySearch } from '../../../components/EmptySearch';
 
 export const SendList = () => {
   const { currency, currentCrypto } = useStoreCrypto();
@@ -44,27 +45,31 @@ export const SendList = () => {
         <Stack spacing={8}>
           <SearchBar handleChange={handleChange} title={t('search.title_send')} />
           <Box>
-            {crypto.map((data) => (
-              <ListCrypto
-                showSwitches={false}
-                key={data.CoinInfo.Id}
-                cryptocurrency={data}
-                showPriceCoins
-                symbol={data.DISPLAY?.[currency]?.TOSYMBOL}
-                coin={currentWallet?.cryptoCurrency[data.CoinInfo.Name]}
-                priceCoin={calculateMounters(data)}
-                isCursorPointer
-                onClick={() =>
-                  navigate(`${ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO}`, {
-                    state: {
-                      crypto: data,
-                      maxAmount: calculateMounters(data),
-                      symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
-                    },
-                  })
-                }
-              />
-            ))}
+            {crypto.length > 0 ? (
+              crypto.map((data) => (
+                <ListCrypto
+                  showSwitches={false}
+                  key={data.CoinInfo.Id}
+                  cryptocurrency={data}
+                  showPriceCoins
+                  symbol={data.DISPLAY?.[currency]?.TOSYMBOL}
+                  coin={currentWallet?.cryptoCurrency[data.CoinInfo.Name]}
+                  priceCoin={calculateMounters(data)}
+                  isCursorPointer
+                  onClick={() =>
+                    navigate(`${ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO}`, {
+                      state: {
+                        crypto: data,
+                        maxAmount: calculateMounters(data),
+                        symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
+                      },
+                    })
+                  }
+                />
+              ))
+            ) : (
+              <EmptySearch />
+            )}
           </Box>
         </Stack>
       ) : (

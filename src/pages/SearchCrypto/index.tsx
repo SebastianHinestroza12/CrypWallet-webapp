@@ -7,6 +7,7 @@ import { useSearchCrypto } from '../../hooks/useSearchCrypto';
 import { useStoreCrypto } from '../../stores/cryptocurrencies';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { EmptySearch } from '../../components/EmptySearch';
 
 const MotionBox = motion(Box);
 
@@ -25,25 +26,29 @@ export const SearchCrypto = () => {
         <SearchBar handleChange={handleChange} title={t('search.title_search')} />
       </Box>
       <Box>
-        {crypto.map((data, index) => (
-          <MotionBox
-            key={data.CoinInfo.Id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.1 }}
-          >
-            <ListCrypto
-              showSwitches={false}
-              cryptocurrency={data}
-              isCursorPointer
-              onClick={() =>
-                navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${data.CoinInfo.FullName.toLowerCase()}`, {
-                  state: { infoCrypto: data },
-                })
-              }
-            />
-          </MotionBox>
-        ))}
+        {crypto.length === 0 ? (
+          <EmptySearch />
+        ) : (
+          crypto.map((data, index) => (
+            <MotionBox
+              key={data.CoinInfo.Id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.1 }}
+            >
+              <ListCrypto
+                showSwitches={false}
+                cryptocurrency={data}
+                isCursorPointer
+                onClick={() =>
+                  navigate(`${ROUTES.CRYPTO_DETAIL_MAIN}/${data.CoinInfo.FullName.toLowerCase()}`, {
+                    state: { infoCrypto: data },
+                  })
+                }
+              />
+            </MotionBox>
+          ))
+        )}
       </Box>
     </Stack>
   );

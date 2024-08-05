@@ -9,15 +9,10 @@ export type WalletCardType = {
 };
 
 export type ExchangeDataIProps = {
-  walletId: string;
-  data: CryptoExchange[];
-};
-
-export type CryptoExchange = {
   id: string;
-  currentAmountCrypto?: number;
   amount: number;
   type: 'increment' | 'decrement';
+  walletId: string;
 };
 
 export type SendTransactionIProps = {

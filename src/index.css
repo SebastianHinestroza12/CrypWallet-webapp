@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Roboto';
+  src: url('/font/Roboto-Light.ttf') format('truetype');
+}
+
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   /* Colores Principales */
   --color-primary-dark: #1e59ea;
   --color-primary-medium: #007bff;

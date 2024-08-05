@@ -12,7 +12,7 @@ export class TransactionService {
     }
   }
 
-  static async swapCrypto(data: ExchangeDataIProps) {
+  static async swapCrypto(data: ExchangeDataIProps[]) {
     try {
       return await instanceAxios.post('/transaction/swap-crypto', data);
     } catch (error) {

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import {
   Box,
   Heading,
@@ -11,6 +10,7 @@ import {
   List,
   ListItem,
   ListIcon,
+  Flex,
 } from '@chakra-ui/react';
 import { Tags } from '../../components/Tags';
 import { MdCheckCircle } from 'react-icons/md';
@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 export const AboutUs = () => {
   const { t } = useTranslation();
   return (
-    <Box>
+    <Box mb={3}>
       <Heading as="h1" mb={6}>
         {t('about.title')}
       </Heading>
@@ -30,34 +30,6 @@ export const AboutUs = () => {
         flexDirection={{ base: 'column', sm: 'row' }}
         justifyContent="space-between"
       >
-        <Box display="flex" flex="1" marginRight="3" position="relative" alignItems="center">
-          <Box
-            width={{ base: '100%', sm: '85%' }}
-            zIndex="2"
-            marginLeft={{ base: '0', sm: '5%' }}
-            marginTop="5%"
-          >
-            <Box textDecoration="none" _hover={{ textDecoration: 'none' }}>
-              <Image
-                borderRadius="lg"
-                src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
-                alt="CrypWallet Security"
-                objectFit="contain"
-              />
-            </Box>
-          </Box>
-          <Box zIndex="1" width="100%" position="absolute" height="100%">
-            <Box
-              bgGradient={useColorModeValue(
-                'radial(orange.600 1px, transparent 1px)',
-                'radial(orange.300 1px, transparent 1px)',
-              )}
-              backgroundSize="20px 20px"
-              opacity="0.4"
-              height="100%"
-            />
-          </Box>
-        </Box>
         <Box
           display="flex"
           flex="1"
@@ -87,14 +59,18 @@ export const AboutUs = () => {
           </Text>
         </Box>
       </Box>
-      <Box marginTop="5">
+      <Flex my={10} justifyContent={'center'} alignItems={'center'}>
         <Image
           borderRadius="lg"
-          src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
-          alt="CrypWallet Features"
+          src="https://res.cloudinary.com/dafsjo7al/image/upload/v1722709107/iPhone-12-PRO-MAX-localhost_xvijuz.png"
+          alt="CrypWallet Security"
           objectFit="contain"
+          transition="0.3s ease-in-out"
+          _hover={{
+            transform: 'scale(1.05)',
+          }}
         />
-      </Box>
+      </Flex>
       <Heading as="h2" marginTop="5">
         {t('about.section_two.title')}
       </Heading>
@@ -110,14 +86,14 @@ export const AboutUs = () => {
         ))}
       </List>
       <Divider marginTop="5" />
-      <Wrap spacing="30px" marginTop="5">
+      <Wrap spacing="30px" marginTop={6}>
         <WrapItem width={{ base: '100%', sm: '45%', md: '45%', lg: '30%' }}>
           <Box w="100%">
             <Box borderRadius="lg" overflow="hidden">
               <Box textDecoration="none" _hover={{ textDecoration: 'none' }}>
                 <Image
                   transform="scale(1.0)"
-                  src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+                  src="https://res.cloudinary.com/dafsjo7al/image/upload/v1722709317/iPhone-12-PRO-MAX-localhost_1_uwcdq0.png"
                   alt="Crypto Management"
                   objectFit="contain"
                   width="100%"
@@ -148,7 +124,7 @@ export const AboutUs = () => {
               <Box textDecoration="none" _hover={{ textDecoration: 'none' }}>
                 <Image
                   transform="scale(1.0)"
-                  src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80"
+                  src="https://res.cloudinary.com/dafsjo7al/image/upload/v1722709857/iPhone-12-PRO-MAX-localhost_3_fc9ip2.png"
                   alt="Secure Transactions"
                   objectFit="contain"
                   width="100%"

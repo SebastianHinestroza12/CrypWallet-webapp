@@ -70,6 +70,8 @@ export const TransactionHistory = ({ transactions, showRemoveButton }: Transacti
           transaction.destination === currentWallet?.address
             ? 'receive'
             : transaction.type_transaction.toLowerCase();
+        const amountTransactions =
+          transaction.type_transaction === 'Swap' ? transaction.amountFrom : transaction.amount;
 
         return (
           <Flex key={transaction.id} justifyContent={'space-between'} alignItems={'center'}>
@@ -94,7 +96,7 @@ export const TransactionHistory = ({ transactions, showRemoveButton }: Transacti
               </Flex>
               <Flex direction="column" align="flex-end">
                 <Text fontWeight="bold">
-                  {transaction.amount} {transaction.symbol}
+                  {amountTransactions} {transaction.symbol}
                 </Text>
                 <Text fontSize="sm" color={TEXT_COLOR} textTransform={'uppercase'}>
                   {t(`home.operations.${renderIcony}`)}
