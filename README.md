@@ -29,6 +29,7 @@ git clone https://github.com/SebastianHinestroza12/CrypWallet-webapp.git
 cd CrypWallet-webapp
 
 ```
+
 ### 2. Configure Environment Variables
 
 Create a `.env` file in the root of the project and configure the following environment variables:
@@ -38,7 +39,6 @@ Create a `.env` file in the root of the project and configure the following envi
   "VITE_API_BASE_URL": "YOUR_API_BASE_URL",
   "VITE_KEY_UPLOAD_PRESET": "YOUR_KEY_UPLOAD_PRESET"
 }
-
 ```
 
 `Note: If you wish to connect with the server, these environment variables are mandatory. If you do not need to connect with the server, configuring these variables is optional.`
@@ -128,14 +128,14 @@ To buy cryptocurrencies, follow these steps:
 
 3. **Test Credit Card Information:** For testing purposes, you can use the following test credit card information in Stripe:
 
-   | Card Type        | Card Number          | CVV         | Expiry Date     |
-   |------------------|-----------------------|-------------|-----------------|
-   | Visa             | 4242424242424242      | Any 3 digits | Any future date |
-   | Visa (debit)     | 4000056655665556      | Any 3 digits | Any future date |
-   | Mastercard       | 5555555555554444      | Any 3 digits | Any future date |
-   | Mastercard (2-series) | 2223003122003222  | Any 3 digits | Any future date |
-   | Mastercard (debit) | 5200828282828210    | Any 3 digits | Any future date |
-   | Mastercard (prepaid) | 5105105105105100   | Any 3 digits | Any future date |
+   | Card Type             | Card Number      | CVV          | Expiry Date     |
+   | --------------------- | ---------------- | ------------ | --------------- |
+   | Visa                  | 4242424242424242 | Any 3 digits | Any future date |
+   | Visa (debit)          | 4000056655665556 | Any 3 digits | Any future date |
+   | Mastercard            | 5555555555554444 | Any 3 digits | Any future date |
+   | Mastercard (2-series) | 2223003122003222 | Any 3 digits | Any future date |
+   | Mastercard (debit)    | 5200828282828210 | Any 3 digits | Any future date |
+   | Mastercard (prepaid)  | 5105105105105100 | Any 3 digits | Any future date |
 
 ### Exchanging Cryptocurrencies
 
