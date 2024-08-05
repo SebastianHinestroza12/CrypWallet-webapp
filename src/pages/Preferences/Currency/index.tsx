@@ -8,6 +8,7 @@ import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { EmptySearch } from '../../../components/EmptySearch';
 
 const MotionFlex = motion(Flex);
 
@@ -55,36 +56,40 @@ export const Currency = () => {
           />
         </Flex>
 
-        {currencies.map((currencie, index) => (
-          <MotionFlex
-            bg={BG}
-            key={currencie.code}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            _hover={{ bg: BG_COLOR_HOVER, cursor: 'pointer' }}
-            px={2}
-            py={3}
-            onClick={() => setCurrency(currencie.code)}
-            borderRadius="lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
-          >
-            <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-              <Box mr={2}>
-                <Icon icon={currencie.icon} width={30} />
+        {currencies.length > 0 ? (
+          currencies.map((currencie, index) => (
+            <MotionFlex
+              bg={BG}
+              key={currencie.code}
+              justifyContent={'space-between'}
+              alignItems={'center'}
+              _hover={{ bg: BG_COLOR_HOVER, cursor: 'pointer' }}
+              px={2}
+              py={3}
+              onClick={() => setCurrency(currencie.code)}
+              borderRadius="lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
+            >
+              <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                <Box mr={2}>
+                  <Icon icon={currencie.icon} width={30} />
+                </Box>
+                <Text>
+                  {currencie.code} - {t(`preferences.currency_list.${currencie.code}`)}
+                </Text>
               </Box>
-              <Text>
-                {currencie.code} - {t(`preferences.currency_list.${currencie.code}`)}
-              </Text>
-            </Box>
-            <Box>
-              {currencie.code === currency && (
-                <Icon icon="weui:done-filled" width={30} color="green" />
-              )}
-            </Box>
-          </MotionFlex>
-        ))}
+              <Box>
+                {currencie.code === currency && (
+                  <Icon icon="weui:done-filled" width={30} color="green" />
+                )}
+              </Box>
+            </MotionFlex>
+          ))
+        ) : (
+          <EmptySearch />
+        )}
       </Stack>
     </Box>
   );

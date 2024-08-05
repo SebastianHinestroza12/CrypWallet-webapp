@@ -671,5 +671,9 @@
     "title": "Pagina non trovata",
     "description": "La pagina che stai cercando sembra non esistere",
     "button": "Torna alla Homepage"
+  },
+  "empty_search": {
+    "title": "Nessuna corrispondenza trovata",
+    "description": "Prova a modificare i termini di ricerca o a controllare i tuoi filtri."
   }
 }

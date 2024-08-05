@@ -8,6 +8,7 @@ import { ROUTES } from '../../../constants';
 import { InviteToLogin } from '../../../components/InviteToLogin';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { useTranslation } from 'react-i18next';
+import { EmptySearch } from '../../../components/EmptySearch';
 
 export const ReceiveList = () => {
   const { currency, currentCrypto } = useStoreCrypto();
@@ -28,23 +29,27 @@ export const ReceiveList = () => {
             <Box mb={3}>
               <Text textTransform={'capitalize'}>{t('search.all_crypto')}</Text>
             </Box>
-            {crypto.map((data) => (
-              <ListCrypto
-                showSwitches={false}
-                key={data.CoinInfo.Id}
-                cryptocurrency={data}
-                showPriceCoins={false}
-                isCursorPointer
-                onClick={() =>
-                  navigate(`${ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO}`, {
-                    state: {
-                      crypto: data,
-                      symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
-                    },
-                  })
-                }
-              />
-            ))}
+            {crypto.length > 0 ? (
+              crypto.map((data) => (
+                <ListCrypto
+                  showSwitches={false}
+                  key={data.CoinInfo.Id}
+                  cryptocurrency={data}
+                  showPriceCoins={false}
+                  isCursorPointer
+                  onClick={() =>
+                    navigate(`${ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO}`, {
+                      state: {
+                        crypto: data,
+                        symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
+                      },
+                    })
+                  }
+                />
+              ))
+            ) : (
+              <EmptySearch />
+            )}
           </Box>
         </Stack>
       ) : (

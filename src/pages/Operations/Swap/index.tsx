@@ -8,6 +8,7 @@ import { ROUTES } from '../../../constants';
 import { InviteToLogin } from '../../../components/InviteToLogin';
 import { useStoreCrypto } from '../../../stores/cryptocurrencies';
 import { useTranslation } from 'react-i18next';
+import { EmptySearch } from '../../../components/EmptySearch';
 
 export const SwapList = () => {
   const { currency, currentCrypto } = useStoreCrypto();
@@ -29,23 +30,27 @@ export const SwapList = () => {
         <Stack spacing={8}>
           <SearchBar handleChange={handleChange} title={t('search.title_swap')} />
           <Box>
-            {crypto.map((data) => (
-              <ListCrypto
-                showSwitches={false}
-                key={data.CoinInfo.Id}
-                cryptocurrency={data}
-                showPriceCoins={false}
-                isCursorPointer
-                onClick={() =>
-                  navigate(`${ROUTES.TRANSACTION_SWAP}?origin=${sendParam}`, {
-                    state: {
-                      crypto: data,
-                      symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
-                    },
-                  })
-                }
-              />
-            ))}
+            {crypto.length > 0 ? (
+              crypto.map((data) => (
+                <ListCrypto
+                  showSwitches={false}
+                  key={data.CoinInfo.Id}
+                  cryptocurrency={data}
+                  showPriceCoins={false}
+                  isCursorPointer
+                  onClick={() =>
+                    navigate(`${ROUTES.TRANSACTION_SWAP}?origin=${sendParam}`, {
+                      state: {
+                        crypto: data,
+                        symbol: data.DISPLAY?.[currency]?.TOSYMBOL,
+                      },
+                    })
+                  }
+                />
+              ))
+            ) : (
+              <EmptySearch />
+            )}
           </Box>
         </Stack>
       ) : (

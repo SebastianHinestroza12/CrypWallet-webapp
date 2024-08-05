@@ -671,5 +671,9 @@
     "title": "页面未找到",
     "description": "你正在寻找的页面似乎不存在",
     "button": "返回主页"
+  },
+  "empty_search": {
+    "title": "未找到匹配项",
+    "description": "尝试调整您的搜索条件或检查您的筛选器。"
   }
 }

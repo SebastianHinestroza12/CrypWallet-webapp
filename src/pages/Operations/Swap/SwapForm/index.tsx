@@ -153,7 +153,6 @@ export const SwapForm = () => {
         setEqualAmount('0');
         setEqualAmountSwap('0');
         setAmountSwap('0');
-        // setAmount('0');
         setError(null);
         return;
       }
@@ -206,22 +205,20 @@ export const SwapForm = () => {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
     try {
-      const dataSwap: ExchangeDataIProps = {
-        walletId: currentWallet?.id as string,
-        data: [
-          {
-            id: nameSymbolFrom ?? '',
-            type: 'decrement',
-            currentAmountCrypto: currentWallet?.cryptoCurrency[nameSymbolFrom ?? ''] ?? 0,
-            amount: parseFloat(amount),
-          },
-          {
-            id: nameSymbolTo ?? '',
-            type: 'increment',
-            amount: parseFloat(amountSwap),
-          },
-        ],
-      };
+      const dataSwap: ExchangeDataIProps[] = [
+        {
+          id: nameSymbolFrom ?? '',
+          type: 'decrement',
+          amount: parseFloat(amount),
+          walletId: currentWallet?.id as string,
+        },
+        {
+          id: nameSymbolTo ?? '',
+          type: 'increment',
+          amount: parseFloat(amountSwap),
+          walletId: currentWallet?.id as string,
+        },
+      ];
 
       const { status } = await TransactionService.swapCrypto(dataSwap);
 
