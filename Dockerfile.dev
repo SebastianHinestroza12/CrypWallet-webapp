@@ -16,13 +16,13 @@ WORKDIR /app
 
 COPY --from=BUILD_IMAGE /app/dist/ /app/dist/
 
-EXPOSE 3002
+EXPOSE 3000
 
 COPY package.json ./
 COPY vite.config.ts ./
 
 RUN npm install typescript
 
-EXPOSE 3002
+EXPOSE 3000
 
-CMD ["npm", "run", "preview"]
+CMD ["npm", "run", "dev"]
