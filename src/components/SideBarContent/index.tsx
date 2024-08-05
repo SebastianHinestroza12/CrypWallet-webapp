@@ -12,12 +12,13 @@ import {
 import { NavItem } from '../NavItem';
 import { SidebarProps, LinkItemProps } from '../../interfaces';
 import { MdOutlineInstallMobile, MdOutlineInstallDesktop } from 'react-icons/md';
-import { LINK_ITEMS } from '../../constants';
+import { LINK_ITEMS, ROUTES } from '../../constants';
 import { Icon } from '@iconify/react';
 import { useStoreAutheticated } from '../../stores/authentication';
 import { useToastNotification } from '../../hooks/useToastNotification';
 import { FooterSection } from '../FooterSection';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import './scrollbar.css';
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -113,15 +114,18 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       <Flex h="20" alignItems="center" mx="6" mt="2" justifyContent="space-between">
         <Flex justifyContent={'center'} alignItems={'center'}>
           <Icon icon={'mingcute:safe-shield-2-fill'} width={37} color="#1e59ea" />
-          <Text
-            ml={2}
-            textAlign={'center'}
-            fontWeight={'bold'}
-            fontSize={'lg'}
-            textTransform={'uppercase'}
-          >
-            cryp wallet
-          </Text>
+          <Link to={ROUTES.HOME}>
+            <Text
+              ml={2}
+              textAlign={'center'}
+              fontWeight={'bold'}
+              fontSize={'lg'}
+              textTransform={'uppercase'}
+              cursor={'pointer'}
+            >
+              cryp wallet
+            </Text>
+          </Link>
         </Flex>
         <Box>
           <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
