@@ -16,7 +16,7 @@ export const Home: FC = () => {
       <TotalCash />
       <OperationButton />
       <ListCryptocurrencies />
-      <Box mb={1} py={2} _hover={{ bg: BG_COLOR }}>
+      <Box mb={2} py={2} _hover={{ bg: BG_COLOR }}>
         <Link to={ROUTES.CRYPTO_MANAGE}>
           <Text
             _hover={{ cursor: 'pointer' }}

@@ -8,9 +8,9 @@ export default defineConfig({
     VitePWA({
       manifest: {
         name: 'CrypWallet',
-        short_name: 'CW',
+        short_name: 'Cryp Wallet',
         description: 'Billetera de criptomonedas',
-        theme_color: '#006400',
+        theme_color: '#1e59ea',
         background_color: '#000000',
         display: 'standalone',
         display_override: ['window-controls-overlay'],

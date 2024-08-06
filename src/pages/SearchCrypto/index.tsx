@@ -25,7 +25,7 @@ export const SearchCrypto = () => {
       <Box>
         <SearchBar handleChange={handleChange} title={t('search.title_search')} />
       </Box>
-      <Box>
+      <Box mb={2}>
         {crypto.length === 0 ? (
           <EmptySearch />
         ) : (

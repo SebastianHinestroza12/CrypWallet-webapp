@@ -17,7 +17,7 @@ export const ManageCryptocurrencies = () => {
   return (
     <Stack spacing={8}>
       <SearchBar handleChange={handleChange} title={t('search.title_manage_crypto')} />
-      <Box>
+      <Box mb={2}>
         {crypto.length > 0 ? (
           crypto.map((cryptocurrency) => (
             <ListCrypto
