@@ -6,8 +6,19 @@ const { VITE_API_BASE_URL } = import.meta.env;
 
 export const instanceAxios = axios.create({
   baseURL: VITE_API_BASE_URL,
-  withCredentials: true,
 });
+
+instanceAxios.interceptors.request.use(
+  (config) => {
+    const token = useStoreAutheticated.getState().token;
+
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 instanceAxios.interceptors.response.use(
   (response) => {

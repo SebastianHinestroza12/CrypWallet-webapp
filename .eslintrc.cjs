@@ -15,7 +15,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'no-unused-vars': 'warn',
-    'no-undef': 'off',
+    'no-undef': 'error',
     'no-extra-semi': 'error',
     'max-len': [
       'error',
