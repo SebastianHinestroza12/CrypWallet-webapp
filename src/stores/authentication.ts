@@ -29,6 +29,7 @@ export const useStoreAutheticated = create(
       userIdRecoveryAccount: null,
       sendNotifications: [],
       avatarUrl: '',
+      token: '',
 
       authenticateUser: (user: UserProps) =>
         set({ isAuthenticated: true, authenticatedUser: user }),
@@ -50,6 +51,7 @@ export const useStoreAutheticated = create(
           recoveryStep: 1,
           userIdRecoveryAccount: null,
           avatarUrl: '',
+          token: '',
         });
 
         window.location.reload();
@@ -143,6 +145,8 @@ export const useStoreAutheticated = create(
           ),
         }));
       },
+
+      setToken: (token: string) => set({ token }),
     }),
     {
       name: 'auth-storage',

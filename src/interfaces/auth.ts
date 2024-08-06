@@ -42,6 +42,7 @@ export interface StoreStateAuthentication {
   avatarUrl: string;
   transactions: TransactionUserIProps[];
   sendNotifications: TransactionUserIProps[] | [];
+  token: string;
   setUserIdRecoveryAccount: (userId: string) => void;
   setRecoveryStep(step: number): void;
   setRecoreyProgress(progress: number): void;
@@ -57,6 +58,7 @@ export interface StoreStateAuthentication {
   setTransactions: (transactions: TransactionUserIProps[] | TransactionUserIProps) => void;
   setSendNotification: (notification: TransactionUserIProps) => void;
   removeNotifications: (id: number) => void;
+  setToken: (token: string) => void;
 }
 
 export interface TransactionUserIProps {

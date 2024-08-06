@@ -36,6 +36,7 @@ export const UserLogIn: React.FC = () => {
     addSafeWords,
     setAvatarUrl,
     setTransactions,
+    setToken,
   } = useStoreAutheticated();
   const {
     register,
@@ -61,7 +62,7 @@ export const UserLogIn: React.FC = () => {
       try {
         const {
           status,
-          data: { user, wallets, safeWords, transactions },
+          data: { user, wallets, safeWords, transactions, token },
         } = await AuthService.loginUser({ email, password: pin });
 
         if (status === 200) {
@@ -74,6 +75,8 @@ export const UserLogIn: React.FC = () => {
             lastName: user.lastName,
             email: user.email,
           });
+
+          setToken(token);
 
           // Almacenar las wallet
           addWallet(wallets, true);
