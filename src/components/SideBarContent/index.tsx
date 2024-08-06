@@ -25,7 +25,6 @@ import './scrollbar.css';
 const MotionFlex = motion(Flex);
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-  const [isReadyForInstall, setIsReadyForInstall] = useState(false);
   const { isAuthenticated, logoutUser } = useStoreAutheticated();
   const { toggleColorMode, colorMode } = useColorMode();
   const [isChecked, setIsChecked] = useState(colorMode === 'dark');
@@ -37,7 +36,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     base: false,
     md: true,
   });
-  console.log(isReadyForInstall);
+
   const { t } = useTranslation();
   const { displayToast } = useToastNotification();
 
@@ -45,11 +44,8 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     window.addEventListener('beforeinstallprompt', (event) => {
       // Prevent the mini-infobar from appearing on mobile.
       event.preventDefault();
-      console.log('👍', 'beforeinstallprompt', event);
       // Stash the event so it can be triggered later.
       window.deferredPrompt = event;
-      // Set state
-      setIsReadyForInstall(true);
     });
   }, []);
 
