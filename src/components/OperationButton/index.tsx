@@ -48,60 +48,60 @@ export const OperationButton = ({ crypto }: OperationIProps) => {
 
     if (crypto && pathLocation) {
       switch (text) {
-      case 'send': {
-        const coinCrypto = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
+        case 'send': {
+          const coinCrypto = currentWallet?.cryptoCurrency[crypto.CoinInfo.Name];
 
-        if (coinCrypto && coinCrypto > 0) {
-          navigate(ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO, {
+          if (coinCrypto && coinCrypto > 0) {
+            navigate(ROUTES.OPERATIONS_SEND_TRANSFER_CRYPTO, {
+              state: {
+                crypto,
+                maxAmount: calculateMounters(crypto),
+                symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
+              },
+            });
+          } else {
+            displayToast(
+              t('home.operations.alert_operations.alert_one.title'),
+              t('home.operations.alert_operations.alert_one.description'),
+              'warning',
+              2000,
+            );
+          }
+          return;
+        }
+
+        case 'receive': {
+          navigate(ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO, {
             state: {
               crypto,
-              maxAmount: calculateMounters(crypto),
               symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
             },
           });
-        } else {
-          displayToast(
-            t('home.operations.alert_operations.alert_one.title'),
-            t('home.operations.alert_operations.alert_one.description'),
-            'warning',
-            2000,
-          );
+          return;
         }
-        return;
-      }
 
-      case 'receive': {
-        navigate(ROUTES.OPERATIONS_RECEIVE_TRANSFER_CRYPTO, {
-          state: {
-            crypto,
-            symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
-          },
-        });
-        return;
-      }
+        case 'buy': {
+          setPaymentMethods('stripe');
+          navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
+            state: {
+              crypto,
+              symbol: crypto.DISPLAY?.[currency]?.TOSYMBOL,
+            },
+          });
+          return;
+        }
+        case 'swap': {
+          navigate(`${ROUTES.TRANSACTION_SWAP}?origin=from`, {
+            state: {
+              crypto,
+              symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
+            },
+          });
+          return;
+        }
 
-      case 'buy': {
-        setPaymentMethods('stripe');
-        navigate(`${ROUTES.OPERATIONS_BUY_CRYPTO_WITH_GATEWAY}`, {
-          state: {
-            crypto,
-            symbol: crypto.DISPLAY?.[currency]?.TOSYMBOL,
-          },
-        });
-        return;
-      }
-      case 'swap': {
-        navigate(`${ROUTES.TRANSACTION_SWAP}?origin=from`, {
-          state: {
-            crypto,
-            symbol: crypto?.DISPLAY?.[currency]?.TOSYMBOL,
-          },
-        });
-        return;
-      }
-
-      default:
-        break;
+        default:
+          break;
       }
     }
 
