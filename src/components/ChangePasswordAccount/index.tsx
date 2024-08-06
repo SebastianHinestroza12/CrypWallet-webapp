@@ -69,7 +69,6 @@ export const ChangePasswordAccount = () => {
                 value={pin}
                 onChange={setPin}
                 colorScheme="blue"
-                onComplete={() => console.log('PIN completo')}
               >
                 {Array.from({ length: 6 }).map((_, index) => (
                   <PinInputField
