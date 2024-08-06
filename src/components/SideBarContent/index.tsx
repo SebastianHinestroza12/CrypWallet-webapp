@@ -102,7 +102,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       transition={{ duration: 0.5, ease: 'easeInOut' }}
     >
       <Box
-        transition="5s ease"
+        transition="2s ease"
         bg={useColorModeValue('white', '#101010')}
         borderRight="1px"
         borderRightColor={useColorModeValue('gray.300', '#171717')}
