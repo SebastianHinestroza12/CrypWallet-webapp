@@ -23,6 +23,7 @@ export const ListCryptocurrencies = () => {
   const { currency, currentCrypto } = useStoreCrypto();
   const navigate = useNavigate();
   const bgColor = useColorModeValue('gray.700', 'gray.500');
+  const bg = useColorModeValue('gray.100', '#171717');
   const { currentWallet, isAuthenticated } = useStoreAutheticated();
 
   useLayoutEffect(() => {
@@ -116,9 +117,21 @@ export const ListCryptocurrencies = () => {
               mr={4}
             />
             <Box>
-              <Text fontSize="md" fontWeight="bold" textTransform={'uppercase'}>
-                {crypto.CoinInfo.Name}
-              </Text>
+              <Flex justifyContent={'flex-start'} alignItems={'center'}>
+                <Text fontSize="md" fontWeight="bold" textTransform={'uppercase'}>
+                  {crypto.CoinInfo.Name}
+                </Text>
+                <Text
+                  ml={2}
+                  bg={bg}
+                  borderRadius={'full'}
+                  px={2}
+                  fontSize={{ base: '2xs', md: 'xs' }}
+                  height={'max-content'}
+                >
+                  {crypto.CoinInfo.FullName}
+                </Text>
+              </Flex>
               <Flex flexWrap={'wrap'}>
                 <Text color={bgColor}>{crypto?.DISPLAY?.[currency]?.PRICE || 'N/A'}</Text>
                 <Text
