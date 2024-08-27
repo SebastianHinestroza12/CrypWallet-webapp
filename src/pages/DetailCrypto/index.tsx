@@ -117,7 +117,7 @@ export const DetailCrypto = () => {
                 <PiApproximateEquals color={'gray'} />
               </Box>
             )}
-            <Text color={'gray.500'}>{`${coinSymbol}${amount}`}</Text>
+            <Text color={'gray.500'}>{`${coinSymbol ?? ''}${amount}`}</Text>
           </Flex>
         </Flex>
         <Flex flexDirection={'column'}>

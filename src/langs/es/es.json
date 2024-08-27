@@ -397,7 +397,7 @@
       "label_password": "Contraseña",
       "button_sign_up": "Registrar",
       "is_existing": "¿Ya eres usuario?",
-      "sign_in": "Iniciar Sesión",
+      "sing_in": "Iniciar Sesión",
       "validate_input": {
         "name_last_name": {
           "required": "Es obligatorio",
